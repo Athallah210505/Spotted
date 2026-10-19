@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import styles from "@/components/layout/browse.module.css";
 
 export function PreviewDialog({
@@ -15,17 +15,18 @@ export function PreviewDialog({
   onClose: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const attachDialog = useCallback((element: HTMLDialogElement | null) => {
+    dialog.current = element;
+    if (element && !element.open) {
+      element.showModal();
+      element.querySelector<HTMLButtonElement>("button")?.focus();
+    }
+  }, []);
   return (
     <dialog
       className={styles.dialog}
       aria-labelledby="preview-dialog-title"
-      ref={(element) => {
-        dialog.current = element;
-        if (element && !element.open) {
-          element.showModal();
-          element.querySelector<HTMLButtonElement>("button")?.focus();
-        }
-      }}
+      ref={attachDialog}
       onClose={() => {
         onClose();
         trigger.current?.focus({ preventScroll: true });

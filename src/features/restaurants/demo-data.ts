@@ -23,12 +23,18 @@ export type DemoRestaurant = {
   distanceLabel: string;
   image: string;
   imageAlt: string;
+  priceLevel?: 1 | 2 | 3;
+  openNow?: boolean;
+  halalVerified?: boolean;
 };
 
 // shortcut: Figma fixtures only; replace with attributed Places DTOs when discovery is connected.
 export const demoRestaurants: DemoRestaurant[] = [
   {
     id: "kedai-ramen-sore",
+    priceLevel: 2,
+    openNow: true,
+    halalVerified: false,
     name: "Kedai Ramen Sore",
     category: "Japanese",
     city: "jakarta",
@@ -42,6 +48,7 @@ export const demoRestaurants: DemoRestaurant[] = [
   },
   {
     id: "kopi-halaman",
+    priceLevel: 2,
     name: "Kopi Halaman",
     category: "Coffee",
     city: "jakarta",
@@ -55,6 +62,7 @@ export const demoRestaurants: DemoRestaurant[] = [
   },
   {
     id: "ruang-matcha",
+    priceLevel: 2,
     name: "Ruang Matcha",
     category: "Matcha",
     city: "tangsel",

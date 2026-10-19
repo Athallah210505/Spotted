@@ -14,7 +14,9 @@ export default async function WishlistPage({
       wishlist
       mapView={options.map}
       filters={parseExploreFilters(params)}
-      radius={options.radius}
+      radius={params.radius === undefined ? undefined : options.radius}
+      usePreferredCity={params.city === undefined}
+      selectedId={typeof params.place === "string" ? params.place : undefined}
     />
   );
 }

@@ -134,16 +134,16 @@ test("location, restaurant preview, map and profile controls have working outcom
     page.getByRole("region", { name: "Illustrative restaurant map" }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Explore", exact: true }).click();
-  await page.getByRole("button", { name: "Profile", exact: true }).click();
+  await page.getByRole("link", { name: "Profile", exact: true }).click();
   await expect(
-    dialog.getByRole("heading", { name: "Browsing the preview" }),
+    page.getByRole("heading", { name: "A little about you." }),
   ).toBeVisible();
-  await dialog.getByRole("button", { name: "Change your area" }).click();
+  await page.getByRole("button", { name: "Edit preferred city" }).click();
   await expect(
-    dialog.getByRole("heading", { name: "Where are you craving?" }),
+    dialog.getByRole("heading", { name: "Preferred city", exact: true }),
   ).toBeVisible();
   await page.keyboard.press("Escape");
-  await page.getByRole("button", { name: "Explore", exact: true }).click();
+  await page.getByRole("link", { name: "Explore", exact: true }).click();
   await expect(page).toHaveURL(/\/explore$/);
 });
 
@@ -304,7 +304,9 @@ test("larger text keeps the page inside the viewport and dialog focus contained"
       () => document.documentElement.scrollWidth <= window.innerWidth,
     ),
   ).toBe(true);
-  await page.getByRole("button", { name: "Profile", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Choose location", exact: true })
+    .click();
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
   for (let i = 0; i < 8; i++) {
@@ -317,6 +319,6 @@ test("larger text keeps the page inside the viewport and dialog focus contained"
   }
   await page.keyboard.press("Escape");
   await expect(
-    page.getByRole("button", { name: "Profile", exact: true }),
+    page.getByRole("button", { name: "Choose location", exact: true }),
   ).toBeFocused();
 });

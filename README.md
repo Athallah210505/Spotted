@@ -10,6 +10,8 @@ Detail restoran tersedia di `/restaurant/kedai-ramen-sore`, dengan galeri, Menu,
 
 `/map`, `/wishlist`, dan `/wishlist?view=map` menyediakan schematic map, radius nearby, shared Save/Remove, serta navigasi detail yang kembali ke halaman asal. Lihat [implementasi Map/Wishlist dan QA](docs/11-map-wishlist-implementation.md). Peta dan jarak masih memakai fixture ilustratif.
 
+`/profile` menyediakan preferensi sementara, `/filters` menyaring fixtures, dan klik pin Map/Wishlist membuka preview sebelum detail. Lihat [Profile, selected-place previews, Filters dan QA](docs/12-profile-previews-filters.md).
+
 Yang disiapkan:
 
 - Tailwind CSS dan token warna dari catatan design handoff; font final mengikuti screen canonical nanti.

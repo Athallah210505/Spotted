@@ -21,14 +21,26 @@ export default async function RestaurantPage({
   if (!place) notFound();
   const tab =
     query.tab === "reviews" || query.tab === "tiktok" ? query.tab : "menu";
-  const filters = exploreSearch(parseExploreFilters(query));
+  const filters = exploreSearch(
+    parseExploreFilters(query),
+    query.city === "jakarta",
+  );
   const returnPage =
     query.from === "map" || query.from === "wishlist" ? query.from : "explore";
   const returnParams = new URLSearchParams(filters);
   const options = parseMapOptions(query);
-  if (returnPage !== "explore" && options.radius !== 5)
+  if (
+    returnPage !== "explore" &&
+    (options.radius !== 5 || query.radius === "5")
+  )
     returnParams.set("radius", String(options.radius));
   if (returnPage === "wishlist" && options.map) returnParams.set("view", "map");
+  if (
+    returnPage !== "explore" &&
+    typeof query.place === "string" &&
+    findDemoRestaurant(query.place)
+  )
+    returnParams.set("place", query.place);
   const backHref = `/${returnPage}${returnParams.size ? `?${returnParams}` : ""}`;
   const sectionParams = new URLSearchParams(returnParams);
   if (returnPage !== "explore") sectionParams.set("from", returnPage);

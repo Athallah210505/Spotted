@@ -6,12 +6,10 @@ export function BrowseNavigation({
   active,
   search = "",
   onExplore,
-  onProfile,
 }: {
-  active: "Explore" | "Map" | "Wishlist";
+  active: "Explore" | "Map" | "Wishlist" | "Profile";
   search?: string;
   onExplore?: () => void;
-  onProfile: (button: HTMLButtonElement) => void;
 }) {
   return (
     <footer className={styles.dock}>
@@ -22,6 +20,7 @@ export function BrowseNavigation({
             ["Explore", "compass", "/explore"],
             ["Map", "map", "/map"],
             ["Wishlist", "bookmark", "/wishlist"],
+            ["Profile", "user", "/profile"],
           ] as const
         ).map(([label, icon, path]) => {
           const content = (
@@ -50,14 +49,6 @@ export function BrowseNavigation({
             </Link>
           );
         })}
-        <button
-          className={styles.navItem}
-          onClick={(event) => onProfile(event.currentTarget)}
-          aria-haspopup="dialog"
-        >
-          <BrowseIcon name="user" />
-          <span>Profile</span>
-        </button>
       </nav>
     </footer>
   );

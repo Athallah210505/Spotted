@@ -1,0 +1,133 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 4px 20px 40px;
+}
+.content > * {
+  flex-shrink: 0;
+  min-width: 0;
+}
+.content h1,
+.content h2,
+.content p {
+  margin: 0;
+}
+.content h1 {
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+}
+.identity {
+  position: relative;
+  padding-left: 80px;
+  min-height: 48px;
+}
+.identity > div:last-child {
+  flex: 1;
+  min-width: 0;
+}
+.avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 64px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: var(--brand-petal);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.identity h2 {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.identity .caption {
+  margin-top: 4px;
+}
+.caption {
+  color: #61615c;
+  font-size: 12px;
+  line-height: 16px;
+}
+.label {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 999px;
+  background: white;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.action span {
+  min-width: 0;
+}
+.action img {
+  flex-shrink: 0;
+}
+.radius {
+  display: flex;
+  gap: 6px;
+}
+.radius button {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  padding: 8px;
+  border-radius: 999px;
+  background: white;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.radius button[aria-pressed="true"] {
+  background: var(--brand-blue);
+  color: white;
+}
+.content .sectionHeading {
+  min-height: 48px;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 600;
+}
+.supporting {
+  color: #61615c;
+  font-size: 14px;
+  line-height: 20px;
+}
+.input {
+  width: 100%;
+  min-height: 48px;
+  margin-block: 8px;
+  padding: 12px;
+  border: 1px solid #61615c;
+  border-radius: 16px;
+  background: white;
+  font-size: 16px;
+}
+.yellow {
+  background: var(--brand-yellow);
+}
+.pink {
+  background: var(--brand-petal);
+}

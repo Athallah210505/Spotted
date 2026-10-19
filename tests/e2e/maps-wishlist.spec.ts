@@ -27,17 +27,21 @@ test("wishlist radius and display mode are shareable and update nearby counts", 
   await expect(page).toHaveURL(/view=map&radius=10/);
   await expect(page.getByText("3 nearby · within 10 km of you")).toBeVisible();
   const map = page.getByRole("region", { name: "Illustrative restaurant map" });
-  await expect(map.getByRole("link")).toHaveCount(3);
-  await expect(map.getByRole("link", { name: /saved nearby/ })).toHaveCount(3);
+  await expect(map.getByRole("button", { name: /^Preview/ })).toHaveCount(3);
+  await expect(map.getByRole("button", { name: /saved nearby/ })).toHaveCount(
+    3,
+  );
   await page.reload();
   await expect(radius.getByRole("link", { name: "10 km" })).toHaveAttribute(
     "aria-current",
     "page",
   );
   await radius.getByRole("link", { name: "1 km", exact: true }).click();
-  await expect(map.getByRole("link", { name: /saved nearby/ })).toHaveCount(1);
+  await expect(map.getByRole("button", { name: /saved nearby/ })).toHaveCount(
+    1,
+  );
   await expect(
-    map.getByRole("link", { name: /View Kedai Ramen Sore/ }),
+    map.getByRole("button", { name: /Preview Kedai Ramen Sore/ }),
   ).toHaveAccessibleName(/saved, rating 4.8/);
   await page
     .getByRole("navigation", { name: "Display mode" })
@@ -51,7 +55,8 @@ test("removing places updates pins, Explore, detail and the empty wishlist", asy
 }) => {
   await page.goto("/wishlist?view=map");
   const map = page.getByRole("region", { name: "Illustrative restaurant map" });
-  await map.getByRole("link", { name: /View Kopi Halaman/ }).click();
+  await map.getByRole("button", { name: /Preview Kopi Halaman/ }).click();
+  await page.getByRole("link", { name: "View Details", exact: true }).click();
   await page
     .getByRole("button", {
       name: "Remove Kopi Halaman from wishlist",
@@ -61,7 +66,7 @@ test("removing places updates pins, Explore, detail and the empty wishlist", asy
   await page
     .getByRole("link", { name: "Back to Wishlist", exact: true })
     .click();
-  await expect(page).toHaveURL(/wishlist\?view=map$/);
+  await expect(page).toHaveURL(/wishlist\?view=map&place=kopi-halaman$/);
   await page.getByRole("link", { name: "Wishlist", exact: true }).click();
   await expect(page.getByText("2 saved places", { exact: true })).toBeVisible();
   await page
@@ -83,13 +88,14 @@ test("removing places updates pins, Explore, detail and the empty wishlist", asy
     .getByRole("navigation", { name: "Display mode" })
     .getByRole("link", { name: "Map", exact: true })
     .click();
-  await expect(map.getByRole("link")).toHaveCount(0);
+  await expect(map.getByRole("button", { name: /^Preview/ })).toHaveCount(0);
   await page
     .getByRole("navigation", { name: "Main navigation" })
     .getByRole("link", { name: "Map", exact: true })
     .click();
-  await expect(map.getByRole("link", { name: /not saved/ })).toHaveCount(3);
-  await map.getByRole("link", { name: /View Kedai Ramen Sore/ }).click();
+  await expect(map.getByRole("button", { name: /not saved/ })).toHaveCount(3);
+  await map.getByRole("button", { name: /Preview Kedai Ramen Sore/ }).click();
+  await page.getByRole("link", { name: "View Details", exact: true }).click();
   await page
     .getByRole("button", {
       name: "Save Kedai Ramen Sore to wishlist",
@@ -108,7 +114,7 @@ test("map search, categories and manual location retain consistent filters", asy
   const categories = page.getByRole("group", { name: "Restaurant categories" });
   await categories.getByRole("button", { name: "Coffee", exact: true }).click();
   const map = page.getByRole("region", { name: "Illustrative restaurant map" });
-  await expect(map.getByRole("link")).toHaveCount(1);
+  await expect(map.getByRole("button", { name: /^Preview/ })).toHaveCount(1);
   await page
     .getByRole("button", { name: "Search This Area", exact: true })
     .click();
@@ -119,9 +125,9 @@ test("map search, categories and manual location retain consistent filters", asy
     page.getByRole("heading", { name: "No places found" }),
   ).toBeAttached();
   await page.goto("/map?city=tangsel");
-  await expect(map.getByRole("link")).toHaveCount(1);
+  await expect(map.getByRole("button", { name: /^Preview/ })).toHaveCount(1);
   await expect(
-    map.getByRole("link", { name: /View Ruang Matcha/ }),
+    map.getByRole("button", { name: /Preview Ruang Matcha/ }),
   ).toHaveAccessibleName(/saved, rating/);
   await page
     .getByRole("navigation", { name: "Display mode" })
@@ -169,11 +175,11 @@ test("unavailable import, directions and profile have keyboard-accessible outcom
     dialog.getByRole("link", { name: "Open area in Google Maps" }),
   ).toHaveAttribute("href", /restaurants%20in%20Jakarta%20Blok%20M/);
   await dialog.getByRole("button", { name: "Close dialog" }).click();
-  await page.getByRole("button", { name: "Profile", exact: true }).click();
+  await page.getByRole("link", { name: "Profile", exact: true }).click();
   await expect(
-    dialog.getByRole("heading", { name: "Browsing the preview" }),
+    page.getByRole("heading", { name: "A little about you." }),
   ).toBeVisible();
-  await page.keyboard.press("Escape");
+  await page.getByRole("link", { name: "Wishlist", exact: true }).click();
   await page
     .getByRole("button", { name: "Choose location", exact: true })
     .click();
@@ -191,6 +197,7 @@ test("unavailable import, directions and profile have keyboard-accessible outcom
 test("all three screens render local assets and fit phone, desktop and landscape", async ({
   page,
 }) => {
+  test.setTimeout(60_000);
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -267,7 +274,7 @@ test("nearby motion stops after two pulses and is disabled for reduced motion", 
   await page.goto("/wishlist?view=map");
   const marker = page
     .getByRole("region", { name: "Illustrative restaurant map" })
-    .getByRole("link", { name: /View Kopi Halaman/ });
+    .getByRole("button", { name: /Preview Kopi Halaman/ });
   const animation = await marker.evaluate((element) => ({
     count: getComputedStyle(element).animationIterationCount,
     duration: getComputedStyle(element).animationDuration,

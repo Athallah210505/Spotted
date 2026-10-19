@@ -7,6 +7,7 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { usePreviewWishlist } from "@/features/wishlist/preview-wishlist";
 import { RestaurantPhoto } from "@/features/restaurants/restaurant-photo";
 import { BrowseNavigation } from "@/components/layout/browse-navigation";
+import { usePreviewProfile } from "@/features/profile/preview-profile";
 
 import {
   categories,
@@ -18,7 +19,7 @@ import {
 } from "./demo-data";
 import styles from "@/components/layout/browse.module.css";
 
-type Panel = "location" | "map" | "profile" | null;
+type Panel = "location" | "map" | null;
 
 function Icon({ name, size = 24 }: { name: string; size?: number }) {
   return (
@@ -52,11 +53,22 @@ function PlacePhoto({
   );
 }
 
-export function ExploreFeed({ filters }: { filters: ExploreFilters }) {
+export function ExploreFeed({
+  filters: initialFilters,
+  usePreferredCity = false,
+}: {
+  filters: ExploreFilters;
+  usePreferredCity?: boolean;
+}) {
+  const { profile } = usePreviewProfile();
+  const filters = {
+    ...initialFilters,
+    city: usePreferredCity ? profile.city : initialFilters.city,
+  };
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const { savedIds, toggle } = usePreviewWishlist();
-  const search = exploreSearch(filters);
+  const search = exploreSearch(filters, profile.city !== "jakarta");
   const detailHref = (id: string) =>
     `/restaurant/${id}${search ? `?${search}` : ""}`;
   const [panel, setPanel] = useState<Panel>(null);
@@ -64,10 +76,8 @@ export function ExploreFeed({ filters }: { filters: ExploreFilters }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const dialogTrigger = useRef<HTMLElement | null>(null);
   const scrollArea = useRef<HTMLElement>(null);
-  const places = filterDemoRestaurants(filters);
-  const isFiltered = Boolean(
-    filters.query || filters.category !== "All" || filters.city !== "jakarta",
-  );
+  const places = filterDemoRestaurants(filters, savedIds);
+  const isFiltered = Boolean(search);
   const locationLabel =
     filters.city === "jakarta"
       ? "Jakarta · Blok M"
@@ -77,7 +87,7 @@ export function ExploreFeed({ filters }: { filters: ExploreFilters }) {
   );
   const nearbyPlaces =
     filters.city === "jakarta"
-      ? savedPlaces.filter((place) => place.distanceM <= 5000)
+      ? savedPlaces.filter((place) => place.distanceM <= profile.radius * 1000)
       : [];
   const cafe =
     nearbyPlaces.find((place) => place.id === "kopi-halaman") ??
@@ -100,15 +110,19 @@ export function ExploreFeed({ filters }: { filters: ExploreFilters }) {
 
   function updateFilters(values: Partial<ExploreFilters>) {
     const next = { ...filters, ...values };
-    const params = new URLSearchParams();
-    if (next.query) params.set("q", next.query);
-    if (next.category !== "All") params.set("category", next.category);
-    if (next.city !== "jakarta") params.set("city", next.city);
+    const params = new URLSearchParams(
+      exploreSearch(next, profile.city !== "jakarta"),
+    );
     startTransition(() =>
       router.replace(`/explore${params.size ? `?${params}` : ""}`, {
         scroll: false,
       }),
     );
+    scrollArea.current?.scrollTo({ top: 0 });
+  }
+
+  function resetFilters() {
+    startTransition(() => router.replace("/explore", { scroll: false }));
     scrollArea.current?.scrollTo({ top: 0 });
   }
 
@@ -259,6 +273,12 @@ export function ExploreFeed({ filters }: { filters: ExploreFilters }) {
             ))}
           </div>
 
+          <Link
+            className={styles.textAction}
+            href={`/filters${search ? `?${search}` : ""}`}
+          >
+            Filters
+          </Link>
           {isPending ? (
             <p role="status" className={styles.loading}>
               Updating your places…
@@ -282,12 +302,7 @@ export function ExploreFeed({ filters }: { filters: ExploreFilters }) {
                   <p>Try another craving or reset your filters.</p>
                 </div>
               )}
-              <button
-                className={styles.textAction}
-                onClick={() =>
-                  updateFilters({ query: "", category: "All", city: "jakarta" })
-                }
-              >
+              <button className={styles.textAction} onClick={resetFilters}>
                 Reset filters
               </button>
             </>
@@ -315,7 +330,7 @@ export function ExploreFeed({ filters }: { filters: ExploreFilters }) {
               <div className={styles.nearbyCallout}>
                 <h3>
                   {nearbyPlaces.length
-                    ? `${nearbyPlaces.length} saved ${nearbyPlaces.length === 1 ? "place" : "places"} within 5 km`
+                    ? `${nearbyPlaces.length} saved ${nearbyPlaces.length === 1 ? "place" : "places"} within ${profile.radius} km`
                     : "No saved places nearby"}
                 </h3>
                 <p>
@@ -403,11 +418,7 @@ export function ExploreFeed({ filters }: { filters: ExploreFilters }) {
         search={search}
         onExplore={() => {
           setPanel(null);
-          updateFilters({ query: "", category: "All", city: "jakarta" });
-        }}
-        onProfile={(button) => {
-          dialogTrigger.current = button;
-          setPanel("profile");
+          resetFilters();
         }}
       />
 
@@ -500,20 +511,6 @@ export function ExploreFeed({ filters }: { filters: ExploreFilters }) {
             >
               Open area in Google Maps
             </a>
-          </>
-        ) : panel === "profile" ? (
-          <>
-            <h2 id="explore-dialog-title">Browsing the preview</h2>
-            <p>
-              Account sign-in is not connected yet. Your sample wishlist stays
-              during this visit until you reload.
-            </p>
-            <button
-              className={styles.primaryButton}
-              onClick={() => setPanel("location")}
-            >
-              Change your area
-            </button>
           </>
         ) : null}
       </dialog>

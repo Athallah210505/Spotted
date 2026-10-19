@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { AccountIcon } from "@/features/profile/account-icon";
 import { BrowseIcon } from "@/components/layout/browse-icon";
 import type { DemoRestaurant } from "@/features/restaurants/demo-data";
 import styles from "./discovery.module.css";
@@ -19,7 +19,8 @@ export function SchematicMap({
   wishlist,
   city,
   onLocate,
-  detailHref,
+  selectedId,
+  onSelect,
 }: {
   places: DemoRestaurant[];
   savedIds: string[];
@@ -27,7 +28,8 @@ export function SchematicMap({
   wishlist: boolean;
   city: "jakarta" | "tangsel";
   onLocate: () => void;
-  detailHref: (id: string) => string;
+  selectedId?: string;
+  onSelect: (id: string, button: HTMLButtonElement) => void;
 }) {
   return (
     <div
@@ -69,18 +71,28 @@ export function SchematicMap({
         const saved = savedIds.includes(place.id);
         const nearby = city === "jakarta" && place.distanceM <= radius * 1000;
         return (
-          <Link
+          <button
             key={place.id}
-            href={detailHref(place.id)}
-            className={`${styles.marker} ${positions[place.id]} ${saved ? (nearby ? styles.nearbyMarker : styles.savedMarker) : styles.regularMarker}`}
-            aria-label={`View ${place.name}, ${saved ? (nearby ? "saved nearby" : "saved") : "not saved"}, rating ${place.rating}`}
+            onClick={(event) => onSelect(place.id, event.currentTarget)}
+            data-place-id={place.id}
+            aria-pressed={selectedId === place.id}
+            className={`${styles.marker} ${positions[place.id]} ${selectedId === place.id ? styles.selectedMarker : saved ? (nearby ? styles.nearbyMarker : styles.savedMarker) : styles.regularMarker}`}
+            aria-label={`Preview ${place.name}, ${saved ? (nearby ? "saved nearby" : "saved") : "not saved"}, rating ${place.rating}`}
           >
-            <BrowseIcon name={saved ? "bookmark" : "pin"} source="maps" />
+            {selectedId === place.id ? (
+              <AccountIcon name="bookmark-white" />
+            ) : (
+              <BrowseIcon name={saved ? "bookmark" : "pin"} source="maps" />
+            )}
             <span>
-              {saved ? (nearby ? "Nearby · " : "Saved · ") : ""}
+              {selectedId !== place.id && saved
+                ? nearby
+                  ? "Nearby · "
+                  : "Saved · "
+                : ""}
               {place.rating}
             </span>
-          </Link>
+          </button>
         );
       })}
       <button

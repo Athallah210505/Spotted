@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
+import { AccountIcon } from "@/features/profile/account-icon";
+import { usePreviewProfile } from "@/features/profile/preview-profile";
 import { BrowseIcon } from "@/components/layout/browse-icon";
 import { BrowseNavigation } from "@/components/layout/browse-navigation";
 import { PreviewDialog } from "@/components/ui/preview-dialog";
@@ -20,19 +22,29 @@ import { radii, type Radius } from "./map-options";
 import { SchematicMap } from "./schematic-map";
 import styles from "./discovery.module.css";
 
-type Panel = "location" | "profile" | "directions" | "import" | null;
+type Panel = "location" | "directions" | "import" | null;
 
 export function DiscoveryPage({
   wishlist,
-  filters,
-  radius,
+  filters: initialFilters,
+  radius: explicitRadius,
   mapView,
+  selectedId,
+  usePreferredCity = false,
 }: {
   wishlist: boolean;
   filters: ExploreFilters;
-  radius: Radius;
+  radius?: Radius;
   mapView: boolean;
+  selectedId?: string;
+  usePreferredCity?: boolean;
 }) {
+  const { profile } = usePreviewProfile();
+  const filters = {
+    ...initialFilters,
+    city: usePreferredCity ? profile.city : initialFilters.city,
+  };
+  const radius = explicitRadius ?? profile.radius;
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const { savedIds, toggle } = usePreviewWishlist();
@@ -40,14 +52,32 @@ export function DiscoveryPage({
   const [notice, setNotice] = useState("");
   const trigger = useRef<HTMLElement | null>(null);
   const scrollArea = useRef<HTMLElement>(null);
-  const search = exploreSearch(filters);
+  const search = exploreSearch(filters, profile.city !== "jakarta");
   const saved = demoRestaurants.filter((place) => savedIds.includes(place.id));
   const nearby = saved.filter(
     (place) => filters.city === "jakarta" && place.distanceM <= radius * 1000,
   );
   const places = wishlist
     ? [...saved].sort((a, b) => a.distanceM - b.distanceM)
-    : filterDemoRestaurants(filters);
+    : filterDemoRestaurants(filters, savedIds);
+  const selected = mapView
+    ? places.find((place) => place.id === selectedId)
+    : undefined;
+  const sheetHeading = useRef<HTMLHeadingElement>(null);
+  const selectedTrigger = useRef<string | null>(null);
+  useEffect(() => {
+    if (selected) {
+      selectedTrigger.current = selected.id;
+      sheetHeading.current?.focus({ preventScroll: window.innerHeight >= 700 });
+    } else if (selectedTrigger.current) {
+      scrollArea.current
+        ?.querySelector<HTMLButtonElement>(
+          `button[data-place-id="${selectedTrigger.current}"]`,
+        )
+        ?.focus({ preventScroll: true });
+      selectedTrigger.current = null;
+    }
+  }, [selected]);
   const area =
     filters.city === "jakarta"
       ? "Jakarta · Blok M"
@@ -57,19 +87,23 @@ export function DiscoveryPage({
     const params = new URLSearchParams(search);
     params.set("from", wishlist ? "wishlist" : "map");
     if (wishlist && mapView) params.set("view", "map");
-    if (radius !== 5) params.set("radius", String(radius));
+    if (radius !== 5 || profile.radius !== 5)
+      params.set("radius", String(radius));
+    if (selected) params.set("place", selected.id);
     return `/restaurant/${id}?${params}`;
   };
 
-  function href(map: boolean, nextRadius = radius) {
+  function href(map: boolean, nextRadius = radius, placeId?: string) {
     const params = new URLSearchParams(search);
     if (wishlist && map) params.set("view", "map");
-    if (nextRadius !== 5) params.set("radius", String(nextRadius));
+    if (nextRadius !== 5 || profile.radius !== 5)
+      params.set("radius", String(nextRadius));
+    if (placeId) params.set("place", placeId);
     return `${wishlist ? "/wishlist" : map ? "/map" : "/explore"}${params.size ? `?${params}` : ""}`;
   }
   function update(values: Partial<ExploreFilters>) {
     const params = new URLSearchParams(
-      exploreSearch({ ...filters, ...values }),
+      exploreSearch({ ...filters, ...values }, profile.city !== "jakarta"),
     );
     startTransition(() =>
       router.replace(`/map${params.size ? `?${params}` : ""}`, {
@@ -104,7 +138,7 @@ export function DiscoveryPage({
         {radii.map((value) => (
           <Link
             key={value}
-            href={href(mapView, value)}
+            href={href(mapView, value, selected?.id)}
             aria-current={radius === value ? "page" : undefined}
           >
             {value} km
@@ -142,7 +176,9 @@ export function DiscoveryPage({
                 <p className={styles.eyebrow}>YOUR WISHLIST</p>
               ) : null}
               <h1>
-                {mapView ? (
+                {selected ? (
+                  "A saved spot, nearby."
+                ) : mapView ? (
                   <>
                     Cravings,
                     <br />
@@ -156,12 +192,15 @@ export function DiscoveryPage({
                   </>
                 )}
               </h1>
-              <div className={styles.savedView}>
-                <p>
-                  {saved.length} saved {saved.length === 1 ? "place" : "places"}
-                </p>
-                {viewSwitch()}
-              </div>
+              {!selected ? (
+                <div className={styles.savedView}>
+                  <p>
+                    {saved.length} saved{" "}
+                    {saved.length === 1 ? "place" : "places"}
+                  </p>
+                  {viewSwitch()}
+                </div>
+              ) : null}
               {!mapView ? (
                 <>
                   <button
@@ -177,24 +216,26 @@ export function DiscoveryPage({
                 </>
               ) : null}
               {radiusSelector()}
-              {mapView ? (
-                <p className={styles.nearbyCount}>
-                  {nearby.length} nearby · within {radius} km of you
-                </p>
-              ) : (
-                <div className={styles.summary}>
-                  <h2>
-                    {nearby.length} {nearby.length === 1 ? "place" : "places"}{" "}
-                    within {radius} km
-                  </h2>
-                  <p>
-                    Based on the sample Blok M location
-                    {filters.city === "tangsel"
-                      ? " · distance unavailable in Bintaro"
-                      : ""}
+              {!selected ? (
+                mapView ? (
+                  <p className={styles.nearbyCount}>
+                    {nearby.length} nearby · within {radius} km of you
                   </p>
-                </div>
-              )}
+                ) : (
+                  <div className={styles.summary}>
+                    <h2>
+                      {nearby.length} {nearby.length === 1 ? "place" : "places"}{" "}
+                      within {radius} km
+                    </h2>
+                    <p>
+                      Based on the sample Blok M location
+                      {filters.city === "tangsel"
+                        ? " · distance unavailable in Bintaro"
+                        : ""}
+                    </p>
+                  </div>
+                )
+              ) : null}
             </>
           ) : (
             <>
@@ -238,53 +279,63 @@ export function DiscoveryPage({
                 <span>{area}</span>
                 <BrowseIcon name="chevron" size={16} />
               </button>
-              <div
-                className={shared.categoryRail}
-                role="group"
-                aria-label="Restaurant categories"
-              >
-                {(
-                  [
-                    "All",
-                    "Coffee",
-                    "Japanese",
-                    "Matcha",
-                    ...categories.filter(
-                      (category) =>
-                        !["All", "Coffee", "Japanese", "Matcha"].includes(
-                          category,
-                        ),
-                    ),
-                  ] as const
-                ).map((category) => (
-                  <button
-                    className={shared.category}
-                    key={category}
-                    aria-pressed={filters.category === category}
-                    onClick={() => update({ category })}
+              {!selected ? (
+                <>
+                  <Link
+                    className={shared.textAction}
+                    href={`/filters?${search ? `${search}&` : ""}from=map`}
                   >
-                    {category}
-                  </button>
-                ))}
-              </div>
-              <div className={styles.mapTools}>
-                <button
-                  className={`${styles.action} ${styles.yellow}`}
-                  onClick={() => {
-                    setNotice(
-                      `${places.length} sample ${places.length === 1 ? "place" : "places"} in ${area}. Live area search is not connected.`,
-                    );
-                    scrollArea.current
-                      ?.querySelector(
-                        '[aria-label="Illustrative restaurant map"]',
-                      )
-                      ?.scrollIntoView({ block: "nearest" });
-                  }}
-                >
-                  Search This Area
-                </button>
-                {viewSwitch()}
-              </div>
+                    Filters
+                  </Link>
+                  <div
+                    className={shared.categoryRail}
+                    role="group"
+                    aria-label="Restaurant categories"
+                  >
+                    {(
+                      [
+                        "All",
+                        "Coffee",
+                        "Japanese",
+                        "Matcha",
+                        ...categories.filter(
+                          (category) =>
+                            !["All", "Coffee", "Japanese", "Matcha"].includes(
+                              category,
+                            ),
+                        ),
+                      ] as const
+                    ).map((category) => (
+                      <button
+                        className={shared.category}
+                        key={category}
+                        aria-pressed={filters.category === category}
+                        onClick={() => update({ category })}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
+                  <div className={styles.mapTools}>
+                    <button
+                      className={`${styles.action} ${styles.yellow}`}
+                      onClick={() => {
+                        setNotice(
+                          `${places.length} sample ${places.length === 1 ? "place" : "places"} in ${area}. Live area search is not connected.`,
+                        );
+                        scrollArea.current
+                          ?.querySelector(
+                            '[aria-label="Illustrative restaurant map"]',
+                          )
+                          ?.scrollIntoView({ block: "nearest" });
+                      }}
+                    >
+                      Search This Area
+                    </button>
+                    {viewSwitch()}
+                  </div>
+                </>
+              ) : null}
             </>
           )}
 
@@ -301,7 +352,14 @@ export function DiscoveryPage({
                 radius={radius}
                 wishlist={wishlist}
                 city={filters.city}
-                detailHref={detailHref}
+                selectedId={selected?.id}
+                onSelect={(id) => {
+                  selectedTrigger.current = id;
+                  startTransition(() =>
+                    router.push(href(true, radius, id), { scroll: false }),
+                  );
+                  scrollArea.current?.scrollTo({ top: 0 });
+                }}
                 onLocate={() => {
                   setNotice(
                     "This schematic uses the sample Blok M area. Choose an area to browse; live location is not connected.",
@@ -309,6 +367,50 @@ export function DiscoveryPage({
                   scrollArea.current?.scrollTo({ top: 0 });
                 }}
               />
+              {selected ? (
+                <section
+                  className={`${styles.previewSheet} ${wishlist ? styles.nearbySheet : ""}`}
+                  aria-label="Selected restaurant preview"
+                  onKeyDown={(event) => {
+                    if (event.key === "Escape")
+                      startTransition(() =>
+                        router.push(href(true), { scroll: false }),
+                      );
+                  }}
+                >
+                  <div className={styles.handle} aria-hidden="true" />
+                  <button
+                    className={styles.closePreview}
+                    aria-label="Close restaurant preview"
+                    onClick={() =>
+                      startTransition(() =>
+                        router.push(href(true), { scroll: false }),
+                      )
+                    }
+                  >
+                    ×
+                  </button>
+                  <h2 ref={sheetHeading} tabIndex={-1}>
+                    {selected.name}
+                  </h2>
+                  <p>
+                    {selected.rating} · Google ({selected.ratingCount}) ·{" "}
+                    {filters.city === "jakarta"
+                      ? selected.distanceLabel
+                      : "Distance unavailable"}
+                  </p>
+                  <p className={styles.supporting}>
+                    {selected.category} · {selected.area} · RpRp
+                  </p>
+                  <Link
+                    className={`${styles.action} ${styles.yellow}`}
+                    href={detailHref(selected.id)}
+                  >
+                    <AccountIcon name="preview-arrow" />
+                    <span>View Details</span>
+                  </Link>
+                </section>
+              ) : null}
               {places.length === 0 ? (
                 <div className={shared.emptyState}>
                   <h2>
@@ -424,10 +526,6 @@ export function DiscoveryPage({
       <BrowseNavigation
         active={wishlist ? "Wishlist" : "Map"}
         search={search}
-        onProfile={(button) => {
-          trigger.current = button;
-          setPanel("profile");
-        }}
       />
       {panel ? (
         <PreviewDialog
@@ -436,11 +534,9 @@ export function DiscoveryPage({
           title={
             panel === "location"
               ? "Where are you craving?"
-              : panel === "profile"
-                ? "Browsing the preview"
-                : panel === "import"
-                  ? "TikTok import is not connected"
-                  : "Directions unavailable"
+              : panel === "import"
+                ? "TikTok import is not connected"
+                : "Directions unavailable"
           }
         >
           {panel === "location" ? (
@@ -453,10 +549,12 @@ export function DiscoveryPage({
                   aria-pressed={filters.city === city}
                   onClick={() => {
                     const params = new URLSearchParams(search);
-                    if (city === "tangsel") params.set("city", city);
+                    if (city === "tangsel" || profile.city !== "jakarta")
+                      params.set("city", city);
                     else params.delete("city");
                     if (wishlist && mapView) params.set("view", "map");
-                    if (radius !== 5) params.set("radius", String(radius));
+                    if (radius !== 5 || profile.radius !== 5)
+                      params.set("radius", String(radius));
                     startTransition(() =>
                       router.replace(
                         `${wishlist ? "/wishlist" : "/map"}${params.size ? `?${params}` : ""}`,
@@ -476,16 +574,6 @@ export function DiscoveryPage({
               This preview has no TikTok import service. You can save sample
               restaurants from Explore.
             </p>
-          ) : panel === "profile" ? (
-            <>
-              <p>
-                Account sign-in is not connected. Sample saves last for this
-                visit until you reload.
-              </p>
-              <Link className={styles.action} href="/explore">
-                Browse restaurants
-              </Link>
-            </>
           ) : (
             <>
               <p>

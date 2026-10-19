@@ -1,0 +1,113 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 4px 20px 40px;
+}
+.content > * {
+  flex-shrink: 0;
+  min-width: 0;
+}
+.content p,
+.content h1 {
+  margin: 0;
+}
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 48px;
+}
+.header h1 {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+.back {
+  display: grid;
+  flex: 0 0 48px;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: white;
+}
+.supporting {
+  font-size: 14px;
+  line-height: 20px;
+  color: #61615c;
+}
+.caption {
+  font-size: 12px;
+  line-height: 16px;
+  color: #61615c;
+}
+.content fieldset {
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.content legend {
+  min-height: 68px;
+  padding: 0;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 600;
+}
+.distance {
+  display: flex;
+  gap: 6px;
+}
+.distance button {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  padding: 8px;
+  border-radius: 999px;
+  background: white;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.distance button[aria-pressed="true"] {
+  color: white;
+  background: var(--brand-blue);
+}
+.check {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  font-size: 16px;
+  line-height: 24px;
+}
+.check input {
+  appearance: auto;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  margin-right: 32px;
+  accent-color: var(--brand-blue);
+}
+.action {
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  padding: 12px;
+  border-radius: 999px;
+  background: white;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+.yellow {
+  background: var(--brand-yellow);
+}
+.footer {
+  flex-shrink: 0;
+  padding: 66px 20px max(4px, env(safe-area-inset-bottom));
+}

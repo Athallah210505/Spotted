@@ -5,12 +5,15 @@ import { useState } from "react";
 
 import { createQueryClient } from "@/lib/query/client";
 import { PreviewWishlistProvider } from "@/features/wishlist/preview-wishlist";
+import { PreviewProfileProvider } from "@/features/profile/preview-profile";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(createQueryClient);
   return (
     <QueryClientProvider client={queryClient}>
-      <PreviewWishlistProvider>{children}</PreviewWishlistProvider>
+      <PreviewProfileProvider>
+        <PreviewWishlistProvider>{children}</PreviewWishlistProvider>
+      </PreviewProfileProvider>
     </QueryClientProvider>
   );
 }

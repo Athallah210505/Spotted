@@ -13,7 +13,11 @@ export default async function MapPage({
       wishlist={false}
       mapView
       filters={parseExploreFilters(params)}
-      radius={parseMapOptions(params).radius}
+      radius={
+        params.radius === undefined ? undefined : parseMapOptions(params).radius
+      }
+      usePreferredCity={params.city === undefined}
+      selectedId={typeof params.place === "string" ? params.place : undefined}
     />
   );
 }

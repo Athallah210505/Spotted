@@ -6,5 +6,11 @@ export default async function ExplorePage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  return <ExploreFeed filters={parseExploreFilters(await searchParams)} />;
+  const params = await searchParams;
+  return (
+    <ExploreFeed
+      filters={parseExploreFilters(params)}
+      usePreferredCity={params.city === undefined}
+    />
+  );
 }
