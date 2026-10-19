@@ -1,0 +1,348 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 4px 20px 40px;
+}
+.content > * {
+  flex-shrink: 0;
+  min-width: 0;
+}
+.content p,
+.content h1,
+.content h2 {
+  margin: 0;
+}
+.content h1 {
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+}
+.eyebrow,
+.nearbyCount {
+  color: var(--brand-blue);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.supporting {
+  color: #61615c;
+  font-size: 14px;
+  line-height: 20px;
+}
+.caption {
+  color: #61615c;
+  font-size: 12px;
+  line-height: 16px;
+}
+.savedView {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  min-height: 48px;
+}
+.savedView > p {
+  flex: 1;
+  color: #61615c;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.viewSwitch {
+  display: flex;
+  gap: 4px;
+  width: 220px;
+  max-width: 65%;
+  border-radius: 999px;
+  background: #eef1f8;
+}
+.viewSwitch a {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 48px;
+  padding: 8px;
+  border-radius: 999px;
+  color: var(--brand-blue);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.viewSwitch a[aria-current="page"] {
+  background: var(--brand-blue);
+  color: white;
+}
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px;
+  border-radius: 999px;
+  background: white;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+.action img,
+.viewSwitch img,
+.marker img {
+  flex-shrink: 0;
+}
+.yellow {
+  background: var(--brand-yellow);
+}
+.primary {
+  background: var(--brand-blue);
+  color: white;
+}
+.radiusSelector {
+  display: flex;
+  gap: 6px;
+}
+.radiusSelector a {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  place-items: center;
+  min-height: 48px;
+  padding: 8px;
+  border-radius: 999px;
+  background: white;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+.radiusSelector a[aria-current="page"] {
+  background: var(--brand-blue);
+  color: white;
+}
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  border-radius: 24px;
+  background: var(--brand-green);
+}
+.summary h2 {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+}
+.summary p {
+  font-size: 14px;
+  line-height: 20px;
+}
+.savedCard {
+  display: flex;
+  gap: 12px;
+  min-height: 168px;
+  padding: 12px;
+  border-radius: 16px;
+  background: white;
+}
+.nearbyCard {
+  background: var(--brand-green);
+}
+.photo {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #eaeae8;
+}
+.cardDetails {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+.placeName {
+  overflow-wrap: anywhere;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+}
+.cardDetails p {
+  font-size: 14px;
+  line-height: 20px;
+}
+.cardMeta {
+  color: #61615c;
+}
+.nearbyCard .cardMeta {
+  color: #57574f;
+}
+.cardActions {
+  display: flex;
+  gap: 8px;
+}
+.cardActions button {
+  overflow-wrap: anywhere;
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  border-radius: 999px;
+  padding: 8px;
+  background: white;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.location {
+  flex-basis: auto;
+  flex-shrink: 0;
+  width: 100%;
+}
+.mapTools {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.mapTools > .action {
+  flex: 196;
+  min-width: 0;
+}
+.mapTools .viewSwitch {
+  flex: 146;
+  min-width: 0;
+}
+.mapTools .viewSwitch a {
+  min-width: 0;
+  gap: 4px;
+}
+.map {
+  position: relative;
+  height: 390px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #eef1f8;
+}
+.streets {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.street {
+  position: absolute;
+  left: -70px;
+  width: 480px;
+  background: white;
+}
+.streetDown {
+  height: 20px;
+  transform: rotate(14deg);
+}
+.streetUp {
+  height: 12px;
+  transform: rotate(-22deg);
+}
+.map > p {
+  position: absolute;
+  color: #61615c;
+  font-size: 12px;
+  line-height: 16px;
+}
+.areaTop {
+  left: 20px;
+  top: 26px;
+}
+.areaMiddle {
+  left: 52%;
+  top: 230px;
+}
+.areaBottom {
+  left: 20%;
+  top: 330px;
+}
+.radiusOverlay {
+  /* The exported Figma PNG already includes the 24% opacity. */
+  position: absolute;
+  left: calc(50% - 140px);
+  top: 64px;
+  pointer-events: none;
+}
+.marker {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: min(156px, 46%);
+  min-height: 48px;
+  padding: 10px 8px;
+  border-radius: 999px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+.pinTop {
+  right: 24px;
+  top: 30px;
+}
+.pinLeft {
+  left: 16px;
+  top: 110px;
+}
+.pinBottom {
+  right: 44px;
+  top: 230px;
+}
+.regularMarker {
+  background: white;
+}
+.savedMarker {
+  background: var(--brand-petal);
+}
+.nearbyMarker {
+  border: 2px solid #171717;
+  background: var(--brand-green);
+  animation: nearbyEntry 600ms ease-out 2;
+}
+.recenter {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: white;
+}
+.feedback {
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: white;
+  color: #61615c;
+  font-size: 14px;
+  line-height: 20px;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@keyframes nearbyEntry {
+  50% {
+    transform: scale(1.025);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nearbyMarker {
+    animation: none;
+  }
+}

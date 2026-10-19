@@ -1,0 +1,12 @@
+.image {
+  object-fit: cover;
+}
+.fallback {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 8px;
+  color: #61615c;
+  font-size: 14px;
+  line-height: 20px;
+}

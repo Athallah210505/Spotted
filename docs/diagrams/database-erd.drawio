@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" version="24.7.17">
+  <diagram id="SPOTTED Database ERD" name="SPOTTED Database ERD">
+    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" page="1" pageWidth="1800" pageHeight="1500">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="auth.users" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="600" y="60" width="330" height="80" />
+        </mxCell>
+        <mxCell id="2r0" value="PK id UUID" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="2">
+          <mxGeometry as="geometry" x="0" y="40" width="330" height="40" />
+        </mxCell>
+        <mxCell id="3" value="profiles" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="80" y="340" width="330" height="200" />
+        </mxCell>
+        <mxCell id="3r0" value="PK / FK id → auth.users" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="3">
+          <mxGeometry as="geometry" x="0" y="40" width="330" height="40" />
+        </mxCell>
+        <mxCell id="3r1" value="display_name, avatar_url (nullable)" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="3">
+          <mxGeometry as="geometry" x="0" y="80" width="330" height="40" />
+        </mxCell>
+        <mxCell id="3r2" value="preferred_city, radius ∈ {1,3,5,10}" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="3">
+          <mxGeometry as="geometry" x="0" y="120" width="330" height="40" />
+        </mxCell>
+        <mxCell id="3r3" value="created_at, updated_at" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="3">
+          <mxGeometry as="geometry" x="0" y="160" width="330" height="40" />
+        </mxCell>
+        <mxCell id="4" value="saved_places" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="600" y="340" width="330" height="200" />
+        </mxCell>
+        <mxCell id="4r0" value="PK id; FK user_id → auth.users" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="4">
+          <mxGeometry as="geometry" x="0" y="40" width="330" height="40" />
+        </mxCell>
+        <mxCell id="4r1" value="google_place_id" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="4">
+          <mxGeometry as="geometry" x="0" y="80" width="330" height="40" />
+        </mxCell>
+        <mxCell id="4r2" value="UNIQUE(user_id, google_place_id)" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="4">
+          <mxGeometry as="geometry" x="0" y="120" width="330" height="40" />
+        </mxCell>
+        <mxCell id="4r3" value="created_at, updated_at" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="4">
+          <mxGeometry as="geometry" x="0" y="160" width="330" height="40" />
+        </mxCell>
+        <mxCell id="5" value="saved_tiktok_links" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="600" y="750" width="330" height="200" />
+        </mxCell>
+        <mxCell id="5r0" value="PK id; user_id, google_place_id" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="5">
+          <mxGeometry as="geometry" x="0" y="40" width="330" height="40" />
+        </mxCell>
+        <mxCell id="5r1" value="Composite FK → saved_places" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="5">
+          <mxGeometry as="geometry" x="0" y="80" width="330" height="40" />
+        </mxCell>
+        <mxCell id="5r2" value="canonical tiktok_url; created_at" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="5">
+          <mxGeometry as="geometry" x="0" y="120" width="330" height="40" />
+        </mxCell>
+        <mxCell id="5r3" value="UNIQUE(user, place, URL)" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="5">
+          <mxGeometry as="geometry" x="0" y="160" width="330" height="40" />
+        </mxCell>
+        <mxCell id="6" value="curated_restaurant_metadata" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1120" y="340" width="330" height="200" />
+        </mxCell>
+        <mxCell id="6r0" value="PK id; UNIQUE google_place_id" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="6">
+          <mxGeometry as="geometry" x="0" y="40" width="330" height="40" />
+        </mxCell>
+        <mxCell id="6r1" value="speciality / menu source evidence" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="6">
+          <mxGeometry as="geometry" x="0" y="80" width="330" height="40" />
+        </mxCell>
+        <mxCell id="6r2" value="halal status, source, verification" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="6">
+          <mxGeometry as="geometry" x="0" y="120" width="330" height="40" />
+        </mxCell>
+        <mxCell id="6r3" value="FK verified_by → auth.users" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="6">
+          <mxGeometry as="geometry" x="0" y="160" width="330" height="40" />
+        </mxCell>
+        <mxCell id="7" value="restaurant_video_submissions" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1120" y="750" width="330" height="200" />
+        </mxCell>
+        <mxCell id="7r0" value="PK id; google_place_id, tiktok_url" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="7">
+          <mxGeometry as="geometry" x="0" y="40" width="330" height="40" />
+        </mxCell>
+        <mxCell id="7r1" value="FK submitted_by / moderated_by" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="7">
+          <mxGeometry as="geometry" x="0" y="80" width="330" height="40" />
+        </mxCell>
+        <mxCell id="7r2" value="pending | approved | rejected" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="7">
+          <mxGeometry as="geometry" x="0" y="120" width="330" height="40" />
+        </mxCell>
+        <mxCell id="7r3" value="UNIQUE(place, URL)" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="7">
+          <mxGeometry as="geometry" x="0" y="160" width="330" height="40" />
+        </mxCell>
+        <mxCell id="8" value="private.place_coordinate_cache" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="80" y="750" width="330" height="200" />
+        </mxCell>
+        <mxCell id="8r0" value="PK google_place_id (logical link)" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="8">
+          <mxGeometry as="geometry" x="0" y="40" width="330" height="40" />
+        </mxCell>
+        <mxCell id="8r1" value="latitude, longitude, fetched_at" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="8">
+          <mxGeometry as="geometry" x="0" y="80" width="330" height="40" />
+        </mxCell>
+        <mxCell id="8r2" value="expires_at; conditional policy" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="8">
+          <mxGeometry as="geometry" x="0" y="120" width="330" height="40" />
+        </mxCell>
+        <mxCell id="8r3" value="No user GPS / no catalog content" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="8">
+          <mxGeometry as="geometry" x="0" y="160" width="330" height="40" />
+        </mxCell>
+        <mxCell id="9" value="private.request_budget_counters" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="80" y="1120" width="330" height="160" />
+        </mxCell>
+        <mxCell id="9r0" value="PK bucket_key + window_start" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="9">
+          <mxGeometry as="geometry" x="0" y="40" width="330" height="40" />
+        </mxCell>
+        <mxCell id="9r1" value="used_count, expires_at" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="9">
+          <mxGeometry as="geometry" x="0" y="80" width="330" height="40" />
+        </mxCell>
+        <mxCell id="9r2" value="Server-only atomic limit checks" style="shape=tableRow;horizontal=0;startSize=0;align=left;spacingLeft=10;fontSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#64748b;fontColor=#17202a;fontSize=15;" vertex="1" parent="9">
+          <mxGeometry as="geometry" x="0" y="120" width="330" height="40" />
+        </mxCell>
+        <mxCell id="20" value="1 : 0..1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=12;labelBackgroundColor=#ffffff;strokeColor=#64748b;startArrow=ERmandOne;endArrow=ERzeroToOne;dashed=1;" edge="1" parent="1" source="2" target="3">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="21" value="1 : many" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=12;labelBackgroundColor=#ffffff;strokeColor=#64748b;startArrow=ERmandOne;endArrow=ERzeroToMany;dashed=1;" edge="1" parent="1" source="2" target="4">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="22" value="Composite owner + place / cascade" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=12;labelBackgroundColor=#ffffff;strokeColor=#64748b;startArrow=ERmandOne;endArrow=ERzeroToMany;dashed=1;" edge="1" parent="1" source="4" target="5">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="23" value="Verifier (optional)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=12;labelBackgroundColor=#ffffff;strokeColor=#64748b;startArrow=ERzeroToOne;endArrow=ERzeroToMany;dashed=1;exitX=1;exitY=0.5;entryX=0.5;entryY=0;" edge="1" parent="1" source="2" target="6">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="24" value="Submitter / moderator (optional)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=12;labelBackgroundColor=#ffffff;strokeColor=#64748b;startArrow=ERzeroToOne;endArrow=ERzeroToMany;dashed=1;exitX=1;exitY=0.5;entryX=1;entryY=0;" edge="1" parent="1" source="2" target="7">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
