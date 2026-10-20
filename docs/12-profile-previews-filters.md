@@ -37,7 +37,7 @@ Enam SVG asli20×20 disimpan di `public/figma/account`: profile chevron/pin/shie
 - Coverage: name validation/focus, session preferences/reload, explicit URL overrides, privacy/account availability, selected pin/Escape/close/reload, return navigation, invalid/deleted selection, AND filters/missing metadata, Apply/Reset, shared Save/Remove, dan existing Explore/detail/health/404.
 - Screenshot empat states dibandingkan dengan Figma. Viewport375/390/430/1280 dan landscape844×390, teks2×, keyboard, original icon geometry, serta no client exception diperiksa. Multi-page asset/viewport cases memiliki budget60s; assertion tetap sama, global timeout tidak diubah.
 - Kontras baru ink/pink13.04:1; existing white/blue5.30:1 dan muted/canvas5.86:1 memenuhi AA.
-- CI sebelumnya mengungkap overflow detail pada font Linux ketika teks2×. Gallery flex items dan menu grid kini dapat menyusut; kata pada tombol/section dapat wrap. Perubahan hanya resilience teks besar, tidak mengubah tampilan normal. CI Linux diperiksa kembali setelah push.
+- CI sebelumnya mengungkap overflow detail pada font Linux ketika teks2×. Gallery flex items dan menu grid kini dapat menyusut; kata pada tombol/section serta judul video yang panjang dapat wrap. Perubahan hanya resilience teks besar, tidak mengubah tampilan normal. Assertion warna pin menunggu CSS transition selesai dengan Playwright `toHaveCSS`, sehingga tidak membaca warna perantara. CI Linux diperiksa kembali setelah push.
 
 Screenshot otomatis `test-results/phase3-0-*` sampai `phase3-3-*` mewakili Profile, MapPreview, NearbyPreview, dan Filters; folder ini dibuat ulang saat E2E.
 

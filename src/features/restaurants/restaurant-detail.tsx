@@ -9,15 +9,11 @@ import { RestaurantPhoto } from "./restaurant-photo";
 import styles from "./restaurant-detail.module.css";
 
 type Section = "menu" | "reviews" | "tiktok";
-type Notice = "menu" | "video" | "directions" | "reviews";
+type Notice = "menu" | "directions" | "reviews";
 const messages = {
   menu: [
     "Official menu unavailable",
     "This preview has no verified menu URL. The sample prices are illustrative.",
-  ],
-  video: [
-    "Video link unavailable",
-    "This card is an illustrative saved link. No TikTok video is connected to this preview.",
   ],
   directions: [
     "Directions unavailable",
@@ -36,6 +32,7 @@ export function RestaurantDetail({
   backLabel,
   sectionHrefs,
   saveAction,
+  personalVideo,
 }: {
   place: DemoRestaurant;
   tab: Section;
@@ -43,6 +40,7 @@ export function RestaurantDetail({
   backLabel: string;
   sectionHrefs: Record<Section, string>;
   saveAction: React.ReactNode;
+  personalVideo: React.ReactNode;
 }) {
   const isRamen = place.id === "kedai-ramen-sore";
   const photos = isRamen
@@ -284,26 +282,7 @@ export function RestaurantDetail({
             <>
               {sections()}
               <h2>From your saved links</h2>
-              {isRamen ? (
-                <article className={styles.video}>
-                  <DetailIcon name="video" />
-                  <h3>Saved food recommendation</h3>
-                  <p className={styles.supporting}>
-                    Only you can see this linked video.
-                  </p>
-                  <button
-                    className={styles.action}
-                    onClick={(event) => explain("video", event.currentTarget)}
-                  >
-                    <DetailIcon name="external" />
-                    <span>Watch on TikTok</span>
-                  </button>
-                </article>
-              ) : (
-                <p className={styles.supporting}>
-                  No saved video links in this preview.
-                </p>
-              )}
+              {personalVideo}
               <h2>Public restaurant videos</h2>
               <div className={styles.empty}>
                 <DetailIcon name="search" />

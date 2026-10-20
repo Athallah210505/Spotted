@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { BrowseIcon } from "@/components/layout/browse-icon";
 import { BrowseNavigation } from "@/components/layout/browse-navigation";
 import { PreviewDialog } from "@/components/ui/preview-dialog";
@@ -127,6 +128,9 @@ export function ProfilePage() {
             <AccountIcon name="profile-user" />
             <span>Account settings</span>
           </button>
+          <Link href="/login" className={styles.action}>
+            Try preview sign-in
+          </Link>
           <button
             className={styles.action}
             onClick={(event) => open("signout", event.currentTarget)}

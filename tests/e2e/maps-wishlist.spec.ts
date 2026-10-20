@@ -143,30 +143,22 @@ test("map search, categories and manual location retain consistent filters", asy
   await expect(page).toHaveURL(/\/map$/);
 });
 
-test("unavailable import, directions and profile have keyboard-accessible outcomes", async ({
+test("import entry, directions and profile have keyboard-accessible outcomes", async ({
   page,
 }) => {
   await page.goto("/wishlist");
-  const add = page.getByRole("button", {
+  const add = page.getByRole("link", {
     name: "Add from TikTok",
     exact: true,
   });
   await add.focus();
   await page.keyboard.press("Enter");
-  const dialog = page.getByRole("dialog");
+  await expect(page).toHaveURL(/\/import$/);
   await expect(
-    dialog.getByRole("heading", { name: "TikTok import is not connected" }),
+    page.getByRole("textbox", { name: "TikTok video link" }),
   ).toBeVisible();
-  for (let index = 0; index < 5; index++) {
-    await page.keyboard.press(index % 2 ? "Shift+Tab" : "Tab");
-    expect(
-      await dialog.evaluate((element) =>
-        element.contains(document.activeElement),
-      ),
-    ).toBe(true);
-  }
-  await page.keyboard.press("Escape");
-  await expect(add).toBeFocused();
+  await page.getByRole("link", { name: "Back", exact: true }).click();
+  const dialog = page.getByRole("dialog");
   await page
     .getByRole("article", { name: "Kopi Halaman", exact: true })
     .getByRole("button", { name: "Directions", exact: true })

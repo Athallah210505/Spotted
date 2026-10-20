@@ -8,6 +8,7 @@ import { findDemoRestaurant } from "@/features/restaurants/demo-data";
 import { parseMapOptions } from "@/features/maps/map-options";
 import { RestaurantDetail } from "@/features/restaurants/restaurant-detail";
 import { DetailSaveButton } from "@/features/wishlist/detail-save-button";
+import { SavedRecommendation } from "@/features/tiktok/saved-recommendation";
 
 export default async function RestaurantPage({
   params,
@@ -60,6 +61,7 @@ export default async function RestaurantPage({
         tiktok: `${base}?${search ? `${search}&` : ""}tab=tiktok`,
       }}
       saveAction={<DetailSaveButton id={place.id} name={place.name} />}
+      personalVideo={<SavedRecommendation placeId={place.id} />}
     />
   );
 }

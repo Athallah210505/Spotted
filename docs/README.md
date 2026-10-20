@@ -12,6 +12,8 @@ Tahap selanjutnya mencakup [Map, Wishlist List/Map dan QA](11-map-wishlist-imple
 
 Tahap berikutnya mencakup [Profile, selected-place previews, Filters dan QA](12-profile-previews-filters.md), dengan session preferences dan filter URL yang berlaku pada Explore/Map.
 
+[Import TikTok, sign-in preview dan QA](13-import-login-preview.md) melanjutkan journey dengan konfirmasi restoran, save link per sesi, success screen, dan Reviews existing.
+
 Blueprint ini menerjemahkan PRD MVP v1.0 dan Figma v2 menjadi keputusan engineering. Dokumen belum merupakan persetujuan implementasi. Tidak ada aplikasi, migration, dependency, service, atau deployment yang dibuat.
 
 ## Urutan baca

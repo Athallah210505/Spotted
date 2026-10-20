@@ -103,9 +103,7 @@ test("selecting a map pin opens an accessible preview before detail and preserve
     sheet.getByRole("heading", { name: "Kedai Ramen Sore", exact: true }),
   ).toBeFocused();
   await expect(pin).toHaveAttribute("aria-pressed", "true");
-  expect(
-    await pin.evaluate((element) => getComputedStyle(element).backgroundColor),
-  ).toBe("rgb(74, 105, 179)");
+  await expect(pin).toHaveCSS("background-color", "rgb(74, 105, 179)");
   await sheet.getByRole("link", { name: "View Details", exact: true }).click();
   await page.getByRole("link", { name: "Back to Map", exact: true }).click();
   await expect(sheet).toBeVisible();

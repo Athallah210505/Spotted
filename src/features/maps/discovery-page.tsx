@@ -22,7 +22,7 @@ import { radii, type Radius } from "./map-options";
 import { SchematicMap } from "./schematic-map";
 import styles from "./discovery.module.css";
 
-type Panel = "location" | "directions" | "import" | null;
+type Panel = "location" | "directions" | null;
 
 export function DiscoveryPage({
   wishlist,
@@ -203,13 +203,13 @@ export function DiscoveryPage({
               ) : null}
               {!mapView ? (
                 <>
-                  <button
+                  <Link
                     className={`${styles.action} ${styles.yellow}`}
-                    onClick={(event) => open("import", event.currentTarget)}
+                    href="/import"
                   >
                     <BrowseIcon source="maps" name="plus" />
                     <span>Add from TikTok</span>
-                  </button>
+                  </Link>
                   <p className={styles.supporting}>
                     Nearby radius · straight-line distance
                   </p>
@@ -534,9 +534,7 @@ export function DiscoveryPage({
           title={
             panel === "location"
               ? "Where are you craving?"
-              : panel === "import"
-                ? "TikTok import is not connected"
-                : "Directions unavailable"
+              : "Directions unavailable"
           }
         >
           {panel === "location" ? (
@@ -569,11 +567,6 @@ export function DiscoveryPage({
                 </button>
               ))}
             </>
-          ) : panel === "import" ? (
-            <p>
-              This preview has no TikTok import service. You can save sample
-              restaurants from Explore.
-            </p>
           ) : (
             <>
               <p>

@@ -12,6 +12,8 @@ Detail restoran tersedia di `/restaurant/kedai-ramen-sore`, dengan galeri, Menu,
 
 `/profile` menyediakan preferensi sementara, `/filters` menyaring fixtures, dan klik pin Map/Wishlist membuka preview sebelum detail. Lihat [Profile, selected-place previews, Filters dan QA](docs/12-profile-previews-filters.md).
 
+`/import` menghubungkan link TikTok ke restoran contoh, `/login` menyediakan sign-in simulasi, dan `/import/success` menampilkan hasil save selama sesi. Lihat [Import, sign-in preview dan QA](docs/13-import-login-preview.md).
+
 Yang disiapkan:
 
 - Tailwind CSS dan token warna dari catatan design handoff; font final mengikuti screen canonical nanti.
