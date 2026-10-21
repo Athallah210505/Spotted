@@ -2,6 +2,7 @@ import {
   categories,
   demoRestaurants,
   type Category,
+  type DemoRestaurant,
 } from "@/features/restaurants/demo-data";
 export {
   categories,
@@ -19,7 +20,16 @@ export type ExploreFilters = {
   openNow?: true;
   halalOnly?: true;
   savedOnly?: true;
+  sort?: Sort;
 };
+
+export const sortOptions = {
+  recommended: "Recommended",
+  highest_rated: "Highest Rated",
+  most_reviewed: "Most Reviewed",
+  nearest: "Nearest",
+} as const;
+export type Sort = keyof typeof sortOptions;
 
 export function parseExploreFilters(
   params: Record<string, string | string[] | undefined>,
@@ -47,6 +57,10 @@ export function parseExploreFilters(
     ...(params.open === "1" ? { openNow: true as const } : {}),
     ...(params.halal === "1" ? { halalOnly: true as const } : {}),
     ...(params.saved === "1" ? { savedOnly: true as const } : {}),
+    ...(typeof params.sort === "string" &&
+    Object.hasOwn(sortOptions, params.sort)
+      ? { sort: params.sort as Sort }
+      : {}),
   };
 }
 
@@ -65,6 +79,7 @@ export function exploreSearch(
   if (filters.openNow) params.set("open", "1");
   if (filters.halalOnly) params.set("halal", "1");
   if (filters.savedOnly) params.set("saved", "1");
+  if (filters.sort) params.set("sort", filters.sort);
   return params.toString();
 }
 
@@ -73,7 +88,7 @@ export function filterDemoRestaurants(
   savedIds: string[] = [],
 ) {
   const query = filters.query.toLocaleLowerCase("en");
-  return demoRestaurants.filter(
+  const places = demoRestaurants.filter(
     (place) =>
       (filters.category === "All" || place.category === filters.category) &&
       (filters.city !== "tangsel" || place.city === "tangsel") &&
@@ -89,4 +104,33 @@ export function filterDemoRestaurants(
         .toLocaleLowerCase("en")
         .includes(query),
   );
+  return sortDemoRestaurants(places, filters.sort, filters.city === "jakarta");
+}
+
+export function sortDemoRestaurants(
+  places: DemoRestaurant[],
+  sort: Sort = "highest_rated",
+  originKnown = true,
+) {
+  const mean =
+    demoRestaurants.reduce((sum, place) => sum + Number(place.rating), 0) /
+    demoRestaurants.length;
+  const weighted = (place: DemoRestaurant) =>
+    (place.ratingCount * Number(place.rating) + 100 * mean) /
+    (place.ratingCount + 100);
+  return [...places].sort((a, b) => {
+    const rating = Number(b.rating) - Number(a.rating);
+    const count = b.ratingCount - a.ratingCount;
+    if (sort === "recommended")
+      return (
+        weighted(b) - weighted(a) || count || a.id.localeCompare(b.id, "en")
+      );
+    if (sort === "most_reviewed")
+      return count || rating || a.id.localeCompare(b.id, "en");
+    if (sort === "nearest" && originKnown)
+      return (
+        a.distanceM - b.distanceM || rating || a.id.localeCompare(b.id, "en")
+      );
+    return rating || count || a.id.localeCompare(b.id, "en");
+  });
 }

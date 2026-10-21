@@ -102,6 +102,9 @@ test("removing places updates pins, Explore, detail and the empty wishlist", asy
       exact: true,
     })
     .click();
+  await page
+    .getByRole("link", { name: "Back to restaurant", exact: true })
+    .click();
   await expect(
     page.getByRole("button", { name: "Remove Kedai Ramen Sore from wishlist" }),
   ).toHaveAttribute("aria-pressed", "true");

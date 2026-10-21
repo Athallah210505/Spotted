@@ -23,7 +23,7 @@ async function signIn(page: Page) {
   await expect(page.getByRole("status")).toHaveText(
     "Preview link ready. No email was sent.",
   );
-  await page.getByRole("button", { name: "Continue preview sign-in" }).click();
+  await page.getByRole("button", { name: "Simulate verified sign-in" }).click();
 }
 
 test("import validates links, preserves the selected restaurant and resumes after explicit simulated sign-in", async ({
@@ -157,7 +157,7 @@ test("login keeps browsing available and ignores untrusted return destinations",
     .getByLabel("Email address", { exact: true })
     .fill("preview@example.com");
   await page.getByRole("button", { name: "Email me a sign-in link" }).click();
-  await page.getByRole("button", { name: "Change email address" }).click();
+  await page.getByRole("link", { name: "Change email address" }).click();
   await expect(page.getByLabel("Email address", { exact: true })).toHaveValue(
     "",
   );

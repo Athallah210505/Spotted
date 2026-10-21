@@ -13,6 +13,8 @@ const PreviewWishlist = createContext<{
   lastImport: string | null;
   previewSignedIn: boolean;
   signInPreview: () => void;
+  emailLinkReady: boolean;
+  preparePreviewSignIn: () => void;
   saveRecommendation: () => void;
 } | null>(null);
 
@@ -34,6 +36,7 @@ export function PreviewWishlistProvider({
   const [savedVideos, setSavedVideos] = useState<Record<string, string>>({});
   const [lastImport, setLastImport] = useState<string | null>(null);
   const [previewSignedIn, setPreviewSignedIn] = useState(false);
+  const [emailLinkReady, setEmailLinkReady] = useState(false);
   function saveRecommendation() {
     const url = parseTikTokUrl(importDraft.url);
     if (!url || !findDemoRestaurant(importDraft.placeId)) return;
@@ -66,7 +69,12 @@ export function PreviewWishlistProvider({
         savedVideos,
         lastImport,
         previewSignedIn,
-        signInPreview: () => setPreviewSignedIn(true),
+        signInPreview: () => {
+          setPreviewSignedIn(true);
+          setEmailLinkReady(false);
+        },
+        emailLinkReady,
+        preparePreviewSignIn: () => setEmailLinkReady(true),
         saveRecommendation,
       }}
     >

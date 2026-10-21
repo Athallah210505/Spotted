@@ -14,6 +14,7 @@ import {
   demoRestaurants,
   filterDemoRestaurants,
   exploreSearch,
+  sortOptions,
   type DemoRestaurant,
   type ExploreFilters,
 } from "./demo-data";
@@ -273,12 +274,27 @@ export function ExploreFeed({
             ))}
           </div>
 
-          <Link
-            className={styles.textAction}
-            href={`/filters${search ? `?${search}` : ""}`}
-          >
-            Filters
-          </Link>
+          <div className={styles.searchTools}>
+            <Link
+              className={styles.textAction}
+              href={`/filters${search ? `?${search}` : ""}`}
+            >
+              Filters
+            </Link>
+            <Link
+              className={styles.textAction}
+              href={`/sort${search ? `?${search}` : ""}`}
+              aria-label={`Sort places: ${sortOptions[filters.sort ?? "highest_rated"]}`}
+            >
+              {sortOptions[filters.sort ?? "highest_rated"]}
+            </Link>
+          </div>
+          {filters.sort === "nearest" && filters.city !== "jakarta" ? (
+            <p role="status" className={styles.supporting}>
+              Nearest is unavailable for this city. Showing Highest Rated until
+              a sample origin is known.
+            </p>
+          ) : null}
           {isPending ? (
             <p role="status" className={styles.loading}>
               Updating your places…

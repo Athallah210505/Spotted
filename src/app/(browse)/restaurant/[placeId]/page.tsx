@@ -1,11 +1,7 @@
 import { notFound } from "next/navigation";
 
-import {
-  exploreSearch,
-  parseExploreFilters,
-} from "@/features/explore/demo-data";
+import { detailNavigation } from "@/features/explore/detail-navigation";
 import { findDemoRestaurant } from "@/features/restaurants/demo-data";
-import { parseMapOptions } from "@/features/maps/map-options";
 import { RestaurantDetail } from "@/features/restaurants/restaurant-detail";
 import { DetailSaveButton } from "@/features/wishlist/detail-save-button";
 import { SavedRecommendation } from "@/features/tiktok/saved-recommendation";
@@ -22,45 +18,22 @@ export default async function RestaurantPage({
   if (!place) notFound();
   const tab =
     query.tab === "reviews" || query.tab === "tiktok" ? query.tab : "menu";
-  const filters = exploreSearch(
-    parseExploreFilters(query),
-    query.city === "jakarta",
-  );
-  const returnPage =
-    query.from === "map" || query.from === "wishlist" ? query.from : "explore";
-  const returnParams = new URLSearchParams(filters);
-  const options = parseMapOptions(query);
-  if (
-    returnPage !== "explore" &&
-    (options.radius !== 5 || query.radius === "5")
-  )
-    returnParams.set("radius", String(options.radius));
-  if (returnPage === "wishlist" && options.map) returnParams.set("view", "map");
-  if (
-    returnPage !== "explore" &&
-    typeof query.place === "string" &&
-    findDemoRestaurant(query.place)
-  )
-    returnParams.set("place", query.place);
-  const backHref = `/${returnPage}${returnParams.size ? `?${returnParams}` : ""}`;
-  const sectionParams = new URLSearchParams(returnParams);
-  if (returnPage !== "explore") sectionParams.set("from", returnPage);
-  const search = sectionParams.toString();
-  const base = `/restaurant/${place.id}`;
-  const menuHref = `${base}${search ? `?${search}` : ""}`;
+  const navigation = detailNavigation(place.id, query);
   return (
     <RestaurantDetail
       key={`${place.id}:${tab}`}
       place={place}
       tab={tab}
-      backHref={backHref}
-      backLabel={`Back to ${returnPage === "map" ? "Map" : returnPage === "wishlist" ? "Wishlist" : "Explore"}`}
-      sectionHrefs={{
-        menu: menuHref,
-        reviews: `${base}?${search ? `${search}&` : ""}tab=reviews`,
-        tiktok: `${base}?${search ? `${search}&` : ""}tab=tiktok`,
-      }}
-      saveAction={<DetailSaveButton id={place.id} name={place.name} />}
+      backHref={navigation.backHref}
+      backLabel={navigation.backLabel}
+      sectionHrefs={navigation.sectionHrefs}
+      saveAction={
+        <DetailSaveButton
+          id={place.id}
+          name={place.name}
+          savedHref={navigation.savedHref}
+        />
+      }
       personalVideo={<SavedRecommendation placeId={place.id} />}
     />
   );

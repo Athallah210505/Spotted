@@ -14,6 +14,8 @@ Tahap berikutnya mencakup [Profile, selected-place previews, Filters dan QA](12-
 
 [Import TikTok, sign-in preview dan QA](13-import-login-preview.md) melanjutkan journey dengan konfirmasi restoran, save link per sesi, success screen, dan Reviews existing.
 
+[Email Sent, Saved, Sort dan QA](14-email-saved-sorting.md) menambahkan resend simulasi, hasil save detail, dan sorting yang mempertahankan filter/navigasi.
+
 Blueprint ini menerjemahkan PRD MVP v1.0 dan Figma v2 menjadi keputusan engineering. Dokumen belum merupakan persetujuan implementasi. Tidak ada aplikasi, migration, dependency, service, atau deployment yang dibuat.
 
 ## Urutan baca

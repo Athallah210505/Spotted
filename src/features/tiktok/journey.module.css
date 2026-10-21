@@ -119,7 +119,41 @@
 .action img {
   flex-shrink: 0;
 }
+.action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.sortNote {
+  font-size: 14px;
+  line-height: 20px;
+}
 .yellow {
+  background: var(--brand-yellow);
+}
+.savedNotice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 72px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--brand-green);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.savedNotice img {
+  flex-shrink: 0;
+}
+.savedMark {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
   background: var(--brand-yellow);
 }
 .card {

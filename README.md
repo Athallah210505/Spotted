@@ -14,6 +14,8 @@ Detail restoran tersedia di `/restaurant/kedai-ramen-sore`, dengan galeri, Menu,
 
 `/import` menghubungkan link TikTok ke restoran contoh, `/login` menyediakan sign-in simulasi, dan `/import/success` menampilkan hasil save selama sesi. Lihat [Import, sign-in preview dan QA](docs/13-import-login-preview.md).
 
+`/login/sent` menyediakan konfirmasi/resend simulasi, `/saved/[placeId]` menampilkan hasil save dari detail, dan `/sort` mengurutkan hasil pencarian. Lihat [Email Sent, Saved, Sort dan QA](docs/14-email-saved-sorting.md).
+
 Yang disiapkan:
 
 - Tailwind CSS dan token warna dari catatan design handoff; font final mengikuti screen canonical nanti.
