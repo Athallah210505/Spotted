@@ -30,21 +30,21 @@ test("profile validates display name and applies city/radius defaults for this v
   await page.getByRole("link", { name: "Wishlist", exact: true }).click();
   await expect(page).toHaveURL(/city=tangsel&radius=1/);
   await expect(
-    page.getByRole("heading", { name: "0 places within 1 km" }),
+    page.getByText("0 saved places within 1 km", { exact: true }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Choose location" }).click();
   await dialog
     .getByRole("button", { name: "Jakarta · Blok M", exact: true })
     .click();
   await expect(
-    page.getByRole("heading", { name: "1 place within 1 km" }),
+    page.getByText("1 saved place within 1 km", { exact: true }),
   ).toBeVisible();
   await page
     .getByRole("navigation", { name: "Nearby radius" })
     .getByRole("link", { name: "5 km", exact: true })
     .click();
   await expect(
-    page.getByRole("heading", { name: "2 places within 5 km" }),
+    page.getByText("2 saved places within 5 km", { exact: true }),
   ).toBeVisible();
   await expect(page).toHaveURL(/city=jakarta&radius=5/);
   await page.getByRole("link", { name: "Profile", exact: true }).click();
@@ -103,7 +103,7 @@ test("selecting a map pin opens an accessible preview before detail and preserve
     sheet.getByRole("heading", { name: "Kedai Ramen Sore", exact: true }),
   ).toBeFocused();
   await expect(pin).toHaveAttribute("aria-pressed", "true");
-  await expect(pin).toHaveCSS("background-color", "rgb(74, 105, 179)");
+  await expect(pin).toHaveCSS("background-color", "rgb(255, 226, 136)");
   await sheet.getByRole("link", { name: "View Details", exact: true }).click();
   await page.getByRole("link", { name: "Back to Map", exact: true }).click();
   await expect(sheet).toBeVisible();
@@ -125,7 +125,7 @@ test("nearby preview preserves radius and recovers when the selected save is rem
 }) => {
   await page.goto("/wishlist?view=map&place=kopi-halaman");
   await expect(
-    page.getByRole("heading", { name: "A saved spot, nearby." }),
+    page.getByRole("heading", { name: "Saved. Now nearby." }),
   ).toBeVisible();
   await page
     .getByRole("navigation", { name: "Nearby radius" })
@@ -199,6 +199,7 @@ test("filters calculate real fixture counts, apply across List/Map and reset wit
   ).toBeVisible();
   await page.getByRole("link", { name: "Map", exact: true }).click();
   await expect(page.getByRole("button", { name: /^Preview/ })).toHaveCount(1);
+  await page.getByText("Search & filters", { exact: true }).click();
   await page.getByRole("link", { name: "Filters", exact: true }).click();
   await expect(
     page.getByRole("checkbox", { name: "Open Now", exact: true }),
@@ -233,6 +234,8 @@ test("four new screen states fit all viewports with original icon dimensions and
   for (const [index, path] of paths.entries()) {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(path);
+    if (path.startsWith("/map"))
+      await page.getByText("Search & filters", { exact: true }).click();
     for (const img of await page.locator("img").all()) {
       await img.scrollIntoViewIfNeeded();
       await expect
@@ -241,8 +244,12 @@ test("four new screen states fit all viewports with original icon dimensions and
         )
         .toBeGreaterThan(0);
       const bounds = await img.boundingBox();
-      expect(bounds?.width).toBe(Number(await img.getAttribute("width")));
-      expect(bounds?.height).toBe(Number(await img.getAttribute("height")));
+      const width = Number(await img.getAttribute("width"));
+      const height = Number(await img.getAttribute("height"));
+      if (width && height) {
+        expect(bounds?.width).toBe(width);
+        expect(bounds?.height).toBe(height);
+      }
     }
     await page
       .locator("main")

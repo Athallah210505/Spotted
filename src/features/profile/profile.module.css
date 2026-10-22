@@ -1,8 +1,8 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 4px 20px 40px;
+  gap: 16px;
+  padding: 24px 24px 40px;
 }
 .content > * {
   flex-shrink: 0;
@@ -14,31 +14,33 @@
   margin: 0;
 }
 .content h1 {
-  font-size: 32px;
-  line-height: 36px;
-  font-weight: 600;
-  letter-spacing: -0.6px;
+  font-size: 34px;
+  line-height: 37px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
 }
 .identity {
   position: relative;
-  padding-left: 80px;
-  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  min-height: 88px;
+  border-radius: 24px;
+  background: white;
 }
 .identity > div:last-child {
   flex: 1;
   min-width: 0;
 }
 .avatar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 64px;
+  width: 56px;
   display: grid;
   place-items: center;
-  flex: 0 0 64px;
-  height: 64px;
+  flex: 0 0 56px;
+  height: 56px;
   border-radius: 999px;
-  background: var(--brand-petal);
+  background: var(--brand-blue);
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
@@ -87,12 +89,16 @@
 }
 .radius {
   display: flex;
-  gap: 6px;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: white;
+  box-shadow: 0 10px 28px #1f261f1f;
 }
 .radius button {
   flex: 1;
   min-width: 0;
-  min-height: 48px;
+  min-height: 44px;
   padding: 8px;
   border-radius: 999px;
   background: white;
@@ -101,8 +107,8 @@
   font-weight: 600;
 }
 .radius button[aria-pressed="true"] {
-  background: var(--brand-blue);
-  color: white;
+  background: var(--brand-yellow);
+  color: #171717;
 }
 .content .sectionHeading {
   min-height: 48px;
@@ -130,4 +136,26 @@
 }
 .pink {
   background: var(--brand-petal);
+}
+.masthead {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: -68px -24px 2px;
+  padding: 58px 24px 34px;
+  background: var(--brand-yellow);
+}
+.masthead .caption {
+  color: #171717;
+}
+.eyebrow {
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--brand-blue);
+}
+.extraSetting {
+  order: 1;
+}
+.extraSetting > .label {
+  margin-bottom: 8px;
 }

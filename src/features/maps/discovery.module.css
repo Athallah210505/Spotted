@@ -1,8 +1,8 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 4px 20px 40px;
+  gap: 16px;
+  padding: 14px 24px 24px;
 }
 .content > * {
   flex-shrink: 0;
@@ -14,10 +14,10 @@
   margin: 0;
 }
 .content h1 {
-  font-size: 32px;
-  line-height: 36px;
-  font-weight: 600;
-  letter-spacing: -0.6px;
+  font-size: 34px;
+  line-height: 37px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
 }
 .eyebrow,
 .nearbyCount {
@@ -39,7 +39,7 @@
 .savedView {
   display: flex;
   gap: 8px;
-  align-items: flex-start;
+  align-items: center;
   min-height: 48px;
 }
 .savedView > p {
@@ -52,10 +52,9 @@
 .viewSwitch {
   display: flex;
   gap: 4px;
-  width: 220px;
-  max-width: 65%;
+  flex: 1;
   border-radius: 999px;
-  background: #eef1f8;
+  background: transparent;
 }
 .viewSwitch a {
   display: flex;
@@ -66,7 +65,8 @@
   min-height: 48px;
   padding: 8px;
   border-radius: 999px;
-  color: var(--brand-blue);
+  color: #171717;
+  background: white;
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
@@ -103,14 +103,18 @@
 }
 .radiusSelector {
   display: flex;
-  gap: 6px;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: white;
+  box-shadow: 0 10px 28px #1f261f1f;
 }
 .radiusSelector a {
   display: grid;
   flex: 1;
   min-width: 0;
   place-items: center;
-  min-height: 48px;
+  min-height: 44px;
   padding: 8px;
   border-radius: 999px;
   background: white;
@@ -120,16 +124,20 @@
   text-align: center;
 }
 .radiusSelector a[aria-current="page"] {
-  background: var(--brand-blue);
-  color: white;
+  background: var(--brand-yellow);
+  color: #171717;
 }
 .summary {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 16px;
-  border-radius: 24px;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 10px;
+  border-radius: 999px;
   background: var(--brand-green);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
 }
 .summary h2 {
   font-size: 20px;
@@ -142,19 +150,19 @@
 }
 .savedCard {
   display: flex;
-  gap: 12px;
-  min-height: 168px;
-  padding: 12px;
-  border-radius: 16px;
+  gap: 14px;
+  min-height: 112px;
+  padding: 16px;
+  border-radius: 24px;
   background: white;
 }
 .nearbyCard {
-  background: var(--brand-green);
+  background: white;
 }
 .photo {
   position: relative;
-  width: 88px;
-  height: 88px;
+  width: 80px;
+  height: 80px;
   overflow: hidden;
   border-radius: 16px;
   background: #eaeae8;
@@ -164,23 +172,23 @@
   flex: 1;
   min-width: 0;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
 .placeName {
   overflow-wrap: anywhere;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 22px;
   font-weight: 600;
 }
 .cardDetails p {
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 12px;
+  line-height: 17px;
 }
 .cardMeta {
   color: #61615c;
 }
 .nearbyCard .cardMeta {
-  color: #57574f;
+  color: var(--brand-blue);
 }
 .cardActions {
   display: flex;
@@ -190,11 +198,11 @@
   overflow-wrap: anywhere;
   flex: 1;
   min-width: 0;
-  min-height: 48px;
+  min-height: 44px;
   border-radius: 999px;
   padding: 8px;
   background: white;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 20px;
   font-weight: 600;
 }
@@ -222,15 +230,17 @@
 }
 .map {
   position: relative;
-  height: 390px;
+  height: 518px;
   overflow: hidden;
-  border-radius: 24px;
-  background: #eef1f8;
+  background: #e7e9df;
+  margin-inline: -24px;
 }
 .streets {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .street {
   position: absolute;
@@ -253,16 +263,16 @@
   line-height: 16px;
 }
 .areaTop {
-  left: 20px;
-  top: 26px;
+  left: 28px;
+  top: 93px;
 }
 .areaMiddle {
   left: 52%;
-  top: 230px;
+  top: 243px;
 }
 .areaBottom {
   left: 20%;
-  top: 330px;
+  top: 156px;
 }
 .radiusOverlay {
   /* The exported Figma PNG already includes the 24% opacity. */
@@ -288,23 +298,23 @@
 }
 .pinTop {
   right: 24px;
-  top: 30px;
+  top: 172px;
 }
 .pinLeft {
   left: 16px;
-  top: 110px;
+  top: 130px;
 }
 .pinBottom {
-  right: 44px;
-  top: 230px;
+  left: 26px;
+  top: 222px;
 }
 .regularMarker {
   background: white;
 }
 .selectedMarker {
-  border: 2px solid #171717;
-  background: var(--brand-blue);
-  color: white;
+  box-shadow: 0 0 0 2px #171717;
+  background: var(--brand-yellow);
+  color: #171717;
 }
 .previewSheet {
   position: sticky;
@@ -313,15 +323,15 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-height: 220px;
-  margin-top: -106px;
+  min-height: 180px;
+  margin-top: -216px;
   padding: 16px;
-  border-radius: 32px;
+  border-radius: 24px;
   background: white;
   box-shadow: 0 6px 24px #00000014;
 }
 .nearbySheet {
-  margin-top: -86px;
+  margin-top: -216px;
 }
 .previewSheet h2 {
   margin: 0 30px 0 0;
@@ -355,17 +365,16 @@
   font-size: 24px;
 }
 .savedMarker {
-  background: var(--brand-petal);
+  background: var(--brand-yellow);
 }
 .nearbyMarker {
-  border: 2px solid #171717;
   background: var(--brand-green);
   animation: nearbyEntry 600ms ease-out 2;
 }
 .recenter {
   position: absolute;
   right: 16px;
-  bottom: 16px;
+  top: 264px;
   display: grid;
   place-items: center;
   width: 48px;
@@ -388,6 +397,137 @@
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+.masthead {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.masthead h1 {
+  padding-right: 64px;
+}
+.masthead .eyebrow {
+  font-size: 12px;
+  line-height: 17px;
+  font-weight: 500;
+}
+.masthead > .action {
+  margin-top: 8px;
+  font-size: 14px;
+  min-height: 40px;
+  padding: 10px;
+  justify-content: flex-start;
+}
+.pinkMasthead {
+  background: var(--brand-petal);
+  margin: -58px -24px -4px;
+  padding: 58px 24px 0;
+}
+.pinkMasthead .eyebrow {
+  color: #171717;
+}
+.pinkMasthead .savedView {
+  margin-top: 8px;
+}
+.savedView > .action {
+  flex: 1.5;
+  font-size: 14px;
+  padding: 10px;
+}
+.collectionCount {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: var(--brand-petal);
+  font-size: 30px;
+  line-height: 32px;
+  font-weight: 700;
+}
+.pinkMasthead .collectionCount {
+  top: 94px;
+  right: 24px;
+  background: var(--brand-yellow);
+}
+.mapCount {
+  background: var(--brand-blue);
+}
+.mapContent .masthead {
+  min-height: 105px;
+}
+.mapRadius {
+  z-index: 1;
+  height: 0;
+  position: relative;
+  top: 12px;
+  margin-bottom: -16px;
+}
+.mapFilters {
+  order: 2;
+  padding: 12px 0;
+}
+.mapFilters summary {
+  cursor: pointer;
+  min-height: 44px;
+  color: var(--brand-blue);
+  font-weight: 600;
+}
+.mapFilters[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.previewIdentity {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.previewIdentity > div:last-child {
+  flex: 1;
+  min-width: 0;
+}
+.previewPhoto {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex: 0 0 80px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.defaultPreview {
+  position: relative;
+  margin-top: -216px;
+  padding: 16px;
+  border-radius: 24px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 180px;
+  box-shadow: 0 10px 28px #1f261f1f;
+}
+.defaultPreview h2 {
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+.defaultPreview p {
+  font-size: 12px;
+  line-height: 17px;
+  color: #61615c;
+  margin-top: 4px;
+}
+.defaultPreview .cardMeta {
+  color: var(--brand-blue);
+}
+.listContent .cardActions {
+  margin-top: 4px;
 }
 @keyframes nearbyEntry {
   50% {

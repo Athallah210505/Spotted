@@ -32,6 +32,7 @@ export function RestaurantDetail({
   backLabel,
   sectionHrefs,
   saveAction,
+  heroSaveAction,
   personalVideo,
 }: {
   place: DemoRestaurant;
@@ -40,22 +41,23 @@ export function RestaurantDetail({
   backLabel: string;
   sectionHrefs: Record<Section, string>;
   saveAction: React.ReactNode;
+  heroSaveAction: React.ReactNode;
   personalVideo: React.ReactNode;
 }) {
   const isRamen = place.id === "kedai-ramen-sore";
   const photos = isRamen
     ? [
         {
-          src: "/figma/explore/photo-ramen.jpg",
+          src: "/figma/editorial/ramen.png",
           alt: "Illustrative ramen bowl with egg and vegetables",
         },
         {
-          src: "/figma/explore/photo-cafe.jpg",
-          alt: "Illustrative café interior from the Figma gallery",
+          src: "/figma/editorial/sushi.png",
+          alt: "Illustrative sushi platter from the Figma gallery",
         },
         {
-          src: "/figma/detail/photo-3.jpg",
-          alt: "Illustrative sushi platter from the Figma gallery",
+          src: "/figma/editorial/dessert.png",
+          alt: "Illustrative dessert from the Figma gallery",
         },
       ]
     : [{ src: `/figma/explore/${place.image}`, alt: place.imageAlt }];
@@ -83,11 +85,14 @@ export function RestaurantDetail({
         className={styles.rating}
         aria-label={`${place.rating} Google rating from ${place.ratingCount} illustrative ratings`}
       >
-        <DetailIcon name="star" />
         <strong>{place.rating}</strong>
         <div>
-          <b>Google</b>
-          <p>{place.ratingCount} ratings</p>
+          <b>{place.ratingCount} Google ratings</b>
+          <p className={styles.open}>
+            {isRamen
+              ? `Open until 22:00 · ${place.distanceLabel}`
+              : `Hours unavailable · ${place.distanceLabel}`}
+          </p>
         </div>
       </div>
     );
@@ -106,9 +111,10 @@ export function RestaurantDetail({
           <Link
             key={value}
             href={sectionHrefs[value]}
+            aria-label={label}
             aria-current={tab === value ? "page" : undefined}
           >
-            {label}
+            {value === "reviews" ? "Reviews" : label}
           </Link>
         ))}
       </nav>
@@ -116,7 +122,9 @@ export function RestaurantDetail({
   }
 
   return (
-    <div className={styles.shell}>
+    <div
+      className={`${styles.shell} ${tab === "menu" ? styles.menuShell : ""}`}
+    >
       <a className={styles.skipLink} href="#restaurant-content">
         Skip to restaurant details
       </a>
@@ -131,112 +139,145 @@ export function RestaurantDetail({
       </div>
       <main className={styles.scrollArea} id="restaurant-content" tabIndex={-1}>
         <div className={styles.content}>
-          <header className={styles.header}>
-            <Link
-              className={styles.back}
-              href={tab === "menu" ? backHref : sectionHrefs.menu}
-              aria-label={tab === "menu" ? backLabel : "Back to restaurant"}
-            >
-              <DetailIcon name="back" />
-            </Link>
-            {tab === "menu" ? <p>The good stuff</p> : <h1>{place.name}</h1>}
-          </header>
+          {tab !== "menu" ? (
+            <header className={styles.header}>
+              <Link
+                className={styles.back}
+                href={sectionHrefs.menu}
+                aria-label="Back to restaurant"
+              >
+                <DetailIcon name="back" />
+              </Link>
+              <h1>{place.name}</h1>
+            </header>
+          ) : null}
           {tab === "menu" ? (
             <>
-              <RestaurantPhoto
-                key={photo.src}
-                src={photo.src}
-                alt={photo.alt}
-                className={styles.hero}
-                sizes="(max-width: 430px) calc(100vw - 40px), 390px"
-                preload
-              />
-              <div
-                className={styles.gallery}
-                aria-label="Restaurant photo gallery"
-              >
-                <button
-                  onClick={() =>
-                    setPhotoIndex(
-                      (index) => (index - 1 + photos.length) % photos.length,
-                    )
-                  }
-                  disabled={photos.length === 1}
+              <div className={styles.heroWrap}>
+                <RestaurantPhoto
+                  key={photo.src}
+                  src={photo.src}
+                  alt={photo.alt}
+                  className={styles.hero}
+                  sizes="(max-width: 430px) 100vw, 430px"
+                  preload
+                />
+                <Link
+                  className={`${styles.back} ${styles.heroBack}`}
+                  href={backHref}
+                  aria-label={backLabel}
                 >
-                  <DetailIcon name="previous" />
-                  <span>Previous</span>
-                </button>
-                <p role="status" aria-live="polite">
-                  {photoIndex + 1} / {photos.length}
-                </p>
-                <button
-                  onClick={() =>
-                    setPhotoIndex((index) => (index + 1) % photos.length)
-                  }
-                  disabled={photos.length === 1}
+                  <DetailIcon name="back" />
+                </Link>
+                {heroSaveAction}
+                <div
+                  className={styles.gallery}
+                  aria-label="Restaurant photo gallery"
                 >
-                  <DetailIcon name="arrow" />
-                  <span>Next photo</span>
-                </button>
-              </div>
-              <h1 className={styles.name}>{place.name}</h1>
-              {rating()}
-              <p className={styles.supporting}>
-                {place.category} · RpRp · {place.area}
-              </p>
-              <p className={styles.open}>
-                {isRamen
-                  ? `Open until 22:00 · ${place.distanceLabel} away`
-                  : "Opening hours unavailable"}
-              </p>
-              <p>
-                {isRamen
-                  ? "Jl. Contoh No. 12, Jakarta Selatan"
-                  : `Address unavailable · ${area}`}
-              </p>
-              <div className={styles.halal}>
-                <DetailIcon name="shield" />
-                <b>Not Verified</b>
-              </div>
-              <p className={styles.caption}>
-                Halal status has not been verified.
-              </p>
-              {sections()}
-              <h2 className={styles.menuHeading}>Menu</h2>
-              <p className={styles.supporting}>
-                {isRamen
-                  ? "A small taste of what’s here."
-                  : "No verified menu is available for this preview."}
-              </p>
-              {isRamen ? (
-                <div className={styles.menuCard}>
-                  <dl>
-                    <div>
-                      <dt>Shoyu ramen</dt>
-                      <dd>Rp58.000</dd>
-                    </div>
-                    <div>
-                      <dt>Vegetable gyoza</dt>
-                      <dd>Rp32.000</dd>
-                    </div>
-                  </dl>
-                  <p className={styles.caption}>
-                    Illustrative menu · not an official price list
+                  <button
+                    onClick={() =>
+                      setPhotoIndex(
+                        (index) => (index - 1 + photos.length) % photos.length,
+                      )
+                    }
+                    disabled={photos.length === 1}
+                  >
+                    <DetailIcon name="previous" />
+                    <span>Previous</span>
+                  </button>
+                  <p role="status" aria-live="polite">
+                    {photoIndex + 1} / {photos.length}
                   </p>
+                  <button
+                    onClick={() =>
+                      setPhotoIndex((index) => (index + 1) % photos.length)
+                    }
+                    disabled={photos.length === 1}
+                  >
+                    <DetailIcon name="arrow" />
+                    <span>Next photo</span>
+                  </button>
                 </div>
-              ) : null}
-              <button
-                className={styles.action}
-                onClick={(event) => explain("menu", event.currentTarget)}
+              </div>
+              <section
+                className={styles.editorialPanel}
+                aria-label="Restaurant information"
               >
-                <DetailIcon name="external" />
-                <span>Open official menu</span>
-              </button>
-              <p className={styles.caption}>
-                Speciality unavailable: no verified source.
-                <br />
-                Photos shown are illustrative Unsplash photography.
-              </p>
+                <p className={styles.eyebrow}>
+                  {place.category.toUpperCase()} / {place.area.toUpperCase()}
+                </p>
+                <h1 className={styles.name}>
+                  {isRamen ? (
+                    <>
+                      Kedai Ramen
+                      <br />
+                      Sore
+                    </>
+                  ) : (
+                    place.name
+                  )}
+                </h1>
+                {rating()}
+                <p className={styles.address}>
+                  {isRamen
+                    ? "Jl. Contoh No. 12, Jakarta Selatan"
+                    : `Address unavailable · ${area}`}
+                </p>
+                {sections()}
+                <h2>
+                  {isRamen ? "A taste of what’s here." : "Illustrative photos."}
+                </h2>
+                {isRamen ? (
+                  <div className={styles.photoRail}>
+                    {photos.slice(1).map((item) => (
+                      <RestaurantPhoto
+                        key={item.src}
+                        src={item.src}
+                        alt={item.alt}
+                        className={styles.menuPhoto}
+                        sizes="(max-width: 430px) 43vw, 185px"
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <p className={styles.supporting}>
+                    No verified menu is available for this preview.
+                  </p>
+                )}
+                <p className={styles.caption}>
+                  Photos and restaurant information are illustrative. Halal
+                  status has not been verified.
+                </p>
+                {isRamen ? (
+                  <div className={styles.menuCard}>
+                    <dl>
+                      <div>
+                        <dt>Shoyu ramen</dt>
+                        <dd>Rp58.000</dd>
+                      </div>
+                      <div>
+                        <dt>Vegetable gyoza</dt>
+                        <dd>Rp32.000</dd>
+                      </div>
+                    </dl>
+                    <p className={styles.caption}>
+                      Illustrative menu · not an official price list
+                    </p>
+                  </div>
+                ) : null}
+                <button
+                  className={styles.action}
+                  onClick={(event) => explain("menu", event.currentTarget)}
+                >
+                  <DetailIcon name="external" />
+                  <span>Open official menu</span>
+                </button>
+                <p className={styles.caption}>
+                  Speciality unavailable: no verified source.
+                  <br />
+                  Photos shown are illustrative Unsplash photography.
+                </p>
+              </section>
             </>
           ) : tab === "reviews" ? (
             <>

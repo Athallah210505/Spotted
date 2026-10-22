@@ -43,7 +43,7 @@ export const demoRestaurants: DemoRestaurant[] = [
     ratingCount: 328,
     distanceM: 1200,
     distanceLabel: "1.2 km",
-    image: "photo-ramen.jpg",
+    image: "../editorial/ramen.png",
     imageAlt: "Illustrative ramen bowl with egg and vegetables",
   },
   {
@@ -57,8 +57,8 @@ export const demoRestaurants: DemoRestaurant[] = [
     ratingCount: 214,
     distanceM: 850,
     distanceLabel: "850 m",
-    image: "photo-cafe.jpg",
-    imageAlt: "Illustrative café interior",
+    image: "../editorial/coffee.png",
+    imageAlt: "Illustrative coffee cups",
   },
   {
     id: "ruang-matcha",
@@ -71,7 +71,7 @@ export const demoRestaurants: DemoRestaurant[] = [
     ratingCount: 180,
     distanceM: 7400,
     distanceLabel: "7.4 km",
-    image: "photo-ramen1.jpg",
+    image: "../editorial/cafe.png",
     imageAlt: "Illustrative café interior from the Figma design",
   },
 ];

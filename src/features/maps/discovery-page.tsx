@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { AccountIcon } from "@/features/profile/account-icon";
@@ -119,14 +120,9 @@ export function DiscoveryPage({
     return (
       <nav className={styles.viewSwitch} aria-label="Display mode">
         <Link href={href(false)} aria-current={!mapView ? "page" : undefined}>
-          <BrowseIcon
-            source="maps"
-            name={!mapView ? "list-white" : "list-blue"}
-          />
           <span>List</span>
         </Link>
         <Link href={href(true)} aria-current={mapView ? "page" : undefined}>
-          <BrowseIcon source="maps" name={mapView ? "map-white" : "map-blue"} />
           <span>Map</span>
         </Link>
       </nav>
@@ -149,7 +145,9 @@ export function DiscoveryPage({
   }
 
   return (
-    <div className={shared.shell}>
+    <div
+      className={`${shared.shell} ${wishlist && !mapView ? shared.pinkSafe : ""}`}
+    >
       <a className={shared.skipLink} href="#discovery-content">
         Skip to {wishlist ? "wishlist" : "map"}
       </a>
@@ -169,173 +167,183 @@ export function DiscoveryPage({
         tabIndex={-1}
         aria-busy={pending}
       >
-        <div className={styles.content}>
+        <div
+          className={`${styles.content} ${mapView ? styles.mapContent : styles.listContent}`}
+        >
           {wishlist ? (
             <>
-              {!mapView ? (
-                <p className={styles.eyebrow}>YOUR WISHLIST</p>
-              ) : null}
-              <h1>
-                {selected ? (
-                  "A saved spot, nearby."
-                ) : mapView ? (
-                  <>
-                    Cravings,
-                    <br />
-                    closer than you think.
-                  </>
-                ) : (
-                  <>
-                    Saved for
-                    <br />
-                    your next craving.
-                  </>
-                )}
-              </h1>
-              {!selected ? (
-                <div className={styles.savedView}>
-                  <p>
-                    {saved.length} saved{" "}
-                    {saved.length === 1 ? "place" : "places"}
-                  </p>
-                  {viewSwitch()}
-                </div>
-              ) : null}
-              {!mapView ? (
-                <>
-                  <Link
-                    className={`${styles.action} ${styles.yellow}`}
-                    href="/import"
-                  >
-                    <BrowseIcon source="maps" name="plus" />
-                    <span>Add from TikTok</span>
-                  </Link>
-                  <p className={styles.supporting}>
-                    Nearby radius · straight-line distance
-                  </p>
-                </>
-              ) : null}
-              {radiusSelector()}
-              {!selected ? (
-                mapView ? (
-                  <p className={styles.nearbyCount}>
-                    {nearby.length} nearby · within {radius} km of you
-                  </p>
-                ) : (
-                  <div className={styles.summary}>
-                    <h2>
-                      {nearby.length} {nearby.length === 1 ? "place" : "places"}{" "}
-                      within {radius} km
-                    </h2>
-                    <p>
-                      Based on the sample Blok M location
-                      {filters.city === "tangsel"
-                        ? " · distance unavailable in Bintaro"
-                        : ""}
-                    </p>
+              <header
+                className={`${styles.masthead} ${!mapView ? styles.pinkMasthead : ""}`}
+              >
+                <p className={styles.eyebrow}>YOUR COLLECTION</p>
+                <h1>
+                  {mapView ? (
+                    <>
+                      Saved.
+                      <br />
+                      Now nearby.
+                    </>
+                  ) : (
+                    <>
+                      My next
+                      <br />
+                      food stops.
+                    </>
+                  )}
+                </h1>
+                <span
+                  className={styles.collectionCount}
+                  aria-label={`${saved.length} saved places`}
+                >
+                  {String(saved.length).padStart(2, "0")}
+                </span>
+                {!mapView ? (
+                  <div className={styles.savedView}>
+                    <Link
+                      className={`${styles.action} ${styles.yellow}`}
+                      href="/import"
+                    >
+                      <BrowseIcon source="maps" name="plus" />
+                      <span>Add from TikTok</span>
+                    </Link>
+                    {viewSwitch()}
                   </div>
-                )
-              ) : null}
+                ) : null}
+              </header>
+              {mapView ? null : radiusSelector()}
+              <p className={styles.summary}>
+                <BrowseIcon name="pin" size={20} />
+                {nearby.length} saved {nearby.length === 1 ? "place" : "places"}{" "}
+                within {radius} km
+              </p>
             </>
           ) : (
             <>
-              <h1 className={styles.srOnly}>Explore the map</h1>
-              <form
-                className={shared.searchField}
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  update({
-                    query: String(
-                      new FormData(event.currentTarget).get("q") ?? "",
-                    )
-                      .trim()
-                      .slice(0, 120),
-                  });
-                }}
-              >
-                <button
-                  type="submit"
-                  className={shared.searchSubmit}
-                  aria-label="Search restaurants"
+              <header className={styles.masthead}>
+                <p className={styles.eyebrow}>EXPLORE THE AREA</p>
+                <h1>
+                  Good food,
+                  <br />
+                  closer to you.
+                </h1>
+                <span
+                  className={`${styles.collectionCount} ${styles.mapCount}`}
                 >
-                  <BrowseIcon name="search" />
+                  <Image
+                    src="/figma/editorial/map-white.svg"
+                    width={22}
+                    height={22}
+                    alt=""
+                  />
+                </span>
+                <button
+                  className={`${styles.action} ${styles.yellow}`}
+                  aria-label="Change map area"
+                  onClick={(event) => open("location", event.currentTarget)}
+                >
+                  <BrowseIcon name="pin" size={20} />
+                  <span>Places around {area}</span>
                 </button>
-                <input
-                  name="q"
-                  type="search"
-                  maxLength={120}
-                  defaultValue={filters.query}
-                  key={filters.query}
-                  aria-label="Find food, places or areas"
-                  placeholder="Find food, places or areas"
-                />
-              </form>
-              <button
-                className={`${shared.locationSelector} ${styles.location}`}
-                onClick={(event) => open("location", event.currentTarget)}
-                aria-label="Change map area"
-              >
-                <BrowseIcon name="pin" />
-                <span>{area}</span>
-                <BrowseIcon name="chevron" size={16} />
-              </button>
-              {!selected ? (
-                <>
-                  <Link
-                    className={shared.textAction}
-                    href={`/filters?${search ? `${search}&` : ""}from=map`}
+              </header>
+              <details className={styles.mapFilters}>
+                <summary>Search & filters</summary>
+                <form
+                  className={shared.searchField}
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    update({
+                      query: String(
+                        new FormData(event.currentTarget).get("q") ?? "",
+                      )
+                        .trim()
+                        .slice(0, 120),
+                    });
+                  }}
+                >
+                  <button
+                    type="submit"
+                    className={shared.searchSubmit}
+                    aria-label="Search restaurants"
                   >
-                    Filters
-                  </Link>
-                  <div
-                    className={shared.categoryRail}
-                    role="group"
-                    aria-label="Restaurant categories"
-                  >
-                    {(
-                      [
-                        "All",
-                        "Coffee",
-                        "Japanese",
-                        "Matcha",
-                        ...categories.filter(
-                          (category) =>
-                            !["All", "Coffee", "Japanese", "Matcha"].includes(
-                              category,
-                            ),
-                        ),
-                      ] as const
-                    ).map((category) => (
-                      <button
-                        className={shared.category}
-                        key={category}
-                        aria-pressed={filters.category === category}
-                        onClick={() => update({ category })}
-                      >
-                        {category}
-                      </button>
-                    ))}
-                  </div>
-                  <div className={styles.mapTools}>
-                    <button
-                      className={`${styles.action} ${styles.yellow}`}
-                      onClick={() => {
-                        setNotice(
-                          `${places.length} sample ${places.length === 1 ? "place" : "places"} in ${area}. Live area search is not connected.`,
-                        );
-                        scrollArea.current
-                          ?.querySelector(
-                            '[aria-label="Illustrative restaurant map"]',
-                          )
-                          ?.scrollIntoView({ block: "nearest" });
-                      }}
+                    <BrowseIcon name="search" />
+                  </button>
+                  <input
+                    name="q"
+                    type="search"
+                    maxLength={120}
+                    defaultValue={filters.query}
+                    key={filters.query}
+                    aria-label="Find food, places or areas"
+                    placeholder="Find food, places or areas"
+                  />
+                </form>
+                <button
+                  className={`${shared.locationSelector} ${styles.location}`}
+                  onClick={(event) => open("location", event.currentTarget)}
+                  aria-label="Choose another map area"
+                >
+                  <BrowseIcon name="pin" />
+                  <span>{area}</span>
+                  <BrowseIcon name="chevron" size={16} />
+                </button>
+                {!selected ? (
+                  <>
+                    <Link
+                      className={shared.textAction}
+                      href={`/filters?${search ? `${search}&` : ""}from=map`}
                     >
-                      Search This Area
-                    </button>
-                    {viewSwitch()}
-                  </div>
-                </>
-              ) : null}
+                      Filters
+                    </Link>
+                    <div
+                      className={shared.categoryRail}
+                      role="group"
+                      aria-label="Restaurant categories"
+                    >
+                      {(
+                        [
+                          "All",
+                          "Coffee",
+                          "Japanese",
+                          "Matcha",
+                          ...categories.filter(
+                            (category) =>
+                              !["All", "Coffee", "Japanese", "Matcha"].includes(
+                                category,
+                              ),
+                          ),
+                        ] as const
+                      ).map((category) => (
+                        <button
+                          className={shared.category}
+                          key={category}
+                          aria-pressed={filters.category === category}
+                          onClick={() => update({ category })}
+                        >
+                          {category}
+                        </button>
+                      ))}
+                    </div>
+                    <div className={styles.mapTools}>
+                      <button
+                        className={`${styles.action} ${styles.yellow}`}
+                        onClick={() => {
+                          setNotice(
+                            `${places.length} sample ${places.length === 1 ? "place" : "places"} in ${area}. Live area search is not connected.`,
+                          );
+                          scrollArea.current
+                            ?.querySelector(
+                              '[aria-label="Illustrative restaurant map"]',
+                            )
+                            ?.scrollIntoView({ block: "nearest" });
+                        }}
+                      >
+                        Search This Area
+                      </button>
+                      {viewSwitch()}
+                    </div>
+                  </>
+                ) : null}
+              </details>
             </>
           )}
 
@@ -346,6 +354,7 @@ export function DiscoveryPage({
           ) : null}
           {mapView ? (
             <>
+              <div className={styles.mapRadius}>{radiusSelector()}</div>
               <SchematicMap
                 places={places}
                 savedIds={savedIds}
@@ -390,24 +399,72 @@ export function DiscoveryPage({
                   >
                     ×
                   </button>
-                  <h2 ref={sheetHeading} tabIndex={-1}>
-                    {selected.name}
-                  </h2>
-                  <p>
-                    {selected.rating} · Google ({selected.ratingCount}) ·{" "}
-                    {filters.city === "jakarta"
-                      ? selected.distanceLabel
-                      : "Distance unavailable"}
-                  </p>
-                  <p className={styles.supporting}>
-                    {selected.category} · {selected.area} · RpRp
-                  </p>
+                  <div className={styles.previewIdentity}>
+                    <RestaurantPhoto
+                      src={`/figma/explore/${selected.image}`}
+                      alt={selected.imageAlt}
+                      className={styles.previewPhoto}
+                      sizes="80px"
+                    />
+                    <div>
+                      <h2 ref={sheetHeading} tabIndex={-1}>
+                        {selected.name}
+                      </h2>
+                      <p>
+                        {selected.rating} · Google ({selected.ratingCount}) ·{" "}
+                        {filters.city === "jakarta"
+                          ? selected.distanceLabel
+                          : "Distance unavailable"}
+                      </p>
+                      <p className={styles.supporting}>
+                        {selected.category} · {selected.area} · RpRp
+                      </p>
+                    </div>
+                  </div>
                   <Link
                     className={`${styles.action} ${styles.yellow}`}
                     href={detailHref(selected.id)}
                   >
                     <AccountIcon name="preview-arrow" />
                     <span>View Details</span>
+                  </Link>
+                </section>
+              ) : places[0] ? (
+                <section
+                  className={styles.defaultPreview}
+                  aria-label="Nearby restaurant preview"
+                >
+                  <div className={styles.previewIdentity}>
+                    <RestaurantPhoto
+                      src={`/figma/explore/${places[0].image}`}
+                      alt={places[0].imageAlt}
+                      className={styles.previewPhoto}
+                      sizes="80px"
+                    />
+                    <div>
+                      <h2>{places[0].name}</h2>
+                      <p>
+                        {places[0].rating} · Google ({places[0].ratingCount})
+                      </p>
+                      <p className={styles.cardMeta}>
+                        {filters.city === "jakarta"
+                          ? places[0].distanceLabel
+                          : "Distance unavailable"}{" "}
+                        · {places[0].category}
+                      </p>
+                    </div>
+                  </div>
+                  <Link
+                    className={`${styles.action} ${styles.yellow}`}
+                    href={detailHref(places[0].id)}
+                  >
+                    <Image
+                      src="/figma/editorial/arrow.svg"
+                      width={20}
+                      height={20}
+                      alt=""
+                    />
+                    <span>View this {wishlist ? "saved " : ""}spot</span>
                   </Link>
                 </section>
               ) : null}
@@ -430,6 +487,17 @@ export function DiscoveryPage({
                 Schematic map · not navigation data. Google Maps attribution
                 will appear with the live map.
               </p>
+              {wishlist ? (
+                <div className={styles.savedView}>
+                  <Link
+                    className={`${styles.action} ${styles.yellow}`}
+                    href="/import"
+                  >
+                    Add from TikTok
+                  </Link>
+                  {viewSwitch()}
+                </div>
+              ) : null}
             </>
           ) : (
             <>

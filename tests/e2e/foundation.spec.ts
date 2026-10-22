@@ -13,7 +13,7 @@ test("the root opens Explore without provider requests", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveURL(/\/explore$/);
   await expect(
-    page.getByRole("heading", { name: "Your next great craving." }),
+    page.getByRole("heading", { name: "Follow your cravings." }),
   ).toBeVisible();
   await expect(
     page.getByText("Illustrative data", { exact: true }),

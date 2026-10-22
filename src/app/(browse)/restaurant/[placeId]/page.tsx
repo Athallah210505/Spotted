@@ -34,6 +34,14 @@ export default async function RestaurantPage({
           savedHref={navigation.savedHref}
         />
       }
+      heroSaveAction={
+        <DetailSaveButton
+          id={place.id}
+          name={place.name}
+          savedHref={navigation.savedHref}
+          compact
+        />
+      }
       personalVideo={<SavedRecommendation placeId={place.id} />}
     />
   );

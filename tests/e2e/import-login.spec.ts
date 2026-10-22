@@ -11,9 +11,15 @@ async function prepare(
   await page
     .getByRole("textbox", { name: "TikTok video link" })
     .fill(`${video}?tracking=private`);
-  await page.getByLabel("Restaurant", { exact: true }).selectOption(restaurant);
-  await page.getByRole("button", { name: "Confirm recommendation" }).click();
+  await page.getByRole("button", { name: "Find the restaurant" }).click();
   await expect(page).toHaveURL(/step=confirm/);
+  await page
+    .getByRole("button", {
+      name: new RegExp(
+        restaurant === "kopi-halaman" ? "Kopi Halaman" : "Kedai Ramen Sore",
+      ),
+    })
+    .click();
 }
 async function signIn(page: Page) {
   await page
@@ -36,34 +42,32 @@ test("import validates links, preserves the selected restaurant and resumes afte
   });
   await page.goto("/wishlist");
   await page.getByRole("link", { name: "Add from TikTok" }).click();
-  await page.getByRole("button", { name: "Confirm recommendation" }).click();
-  await expect(page.getByRole("main").getByRole("alert")).toContainText(
-    "Enter an HTTPS TikTok",
-  );
+  await expect(
+    page.getByRole("button", { name: "Find the restaurant" }),
+  ).toBeDisabled();
   await page
     .getByRole("textbox", { name: "TikTok video link" })
     .fill("https://tiktok.com.evil.com/@food/video/123");
-  await page.getByRole("button", { name: "Confirm recommendation" }).click();
+  await page.getByRole("button", { name: "Find the restaurant" }).click();
   await expect(page.getByRole("main").getByRole("alert")).toBeVisible();
   await page.getByRole("textbox", { name: "TikTok video link" }).fill(video);
-  await page.getByRole("button", { name: "Confirm recommendation" }).click();
+  await page.getByRole("button", { name: "Find the restaurant" }).click();
+  await expect(
+    page.getByRole("button", { name: "Select a restaurant to continue" }),
+  ).toBeDisabled();
   await page
-    .getByRole("button", { name: "Change restaurant", exact: true })
-    .click();
-  const dialog = page.getByRole("dialog");
-  await page.keyboard.press("Tab");
-  expect(
-    await dialog.evaluate((element) =>
-      element.contains(document.activeElement),
-    ),
-  ).toBe(true);
-  await dialog.getByRole("button", { name: "Kopi Halaman · Blok M" }).click();
+    .getByRole("searchbox", { name: "Search restaurant or area" })
+    .fill("missing place");
   await expect(
-    page.getByRole("button", { name: "Change restaurant", exact: true }),
-  ).toBeFocused();
-  await expect(
-    page.getByText("Restaurant selected: Kopi Halaman"),
+    page.getByText("No places found. Try another restaurant or area."),
   ).toBeVisible();
+  await page
+    .getByRole("searchbox", { name: "Search restaurant or area" })
+    .fill("");
+  await page.getByRole("button", { name: /Kopi Halaman/ }).click();
+  await expect(
+    page.getByRole("button", { name: /Kopi Halaman/ }),
+  ).toHaveAttribute("aria-pressed", "true");
   const watch = page.getByRole("link", { name: "Watch on TikTok" });
   await expect(watch).toHaveAttribute("href", video);
   await expect(watch).toHaveAttribute("rel", "noopener noreferrer");
@@ -179,7 +183,7 @@ test("reference screens keep assets, keyboard access and large text within their
   await capture("login");
   await prepare(page);
   await expect(
-    page.getByRole("heading", { name: "Right place. Saved inspiration." }),
+    page.getByRole("heading", { name: "Make it your next stop." }),
   ).toBeVisible();
   await capture("confirm");
   await page

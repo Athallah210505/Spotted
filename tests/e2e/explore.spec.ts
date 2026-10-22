@@ -58,7 +58,7 @@ test("saving and removing synchronize the card, nearby count and preview wishlis
   ).toHaveAttribute("aria-pressed", "false");
   await page.getByRole("link", { name: "Wishlist", exact: true }).click();
   await expect(
-    page.getByRole("heading", { name: "Saved for your next craving." }),
+    page.getByRole("heading", { name: "My next food stops." }),
   ).toBeVisible();
   await expect(
     page.getByRole("link", { name: "Kedai Ramen Sore", exact: true }),
@@ -136,7 +136,7 @@ test("location, restaurant preview, map and profile controls have working outcom
   await page.getByRole("link", { name: "Explore", exact: true }).click();
   await page.getByRole("link", { name: "Profile", exact: true }).click();
   await expect(
-    page.getByRole("heading", { name: "A little about you." }),
+    page.getByRole("heading", { name: "Your taste. Your rules." }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Edit preferred city" }).click();
   await expect(
@@ -158,8 +158,8 @@ test("original assets render in their Figma slots and layout fits phone and desk
   });
   await expect(photo).toBeVisible();
   const bounds = await photo.boundingBox();
-  expect(bounds?.width).toBe(350);
-  expect(bounds?.height).toBe(176);
+  expect(bounds?.width).toBe(342);
+  expect(bounds?.height).toBe(280);
   await expect(
     page.getByRole("navigation", { name: "Main navigation" }),
   ).toBeVisible();

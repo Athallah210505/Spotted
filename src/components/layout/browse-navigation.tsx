@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BrowseIcon } from "./browse-icon";
+import Image from "next/image";
 import styles from "./browse.module.css";
 
 export function BrowseNavigation({
@@ -25,7 +25,12 @@ export function BrowseNavigation({
         ).map(([label, icon, path]) => {
           const content = (
             <>
-              <BrowseIcon name={icon} />
+              <Image
+                src={`/figma/editorial/${icon}${active === label ? "" : "-white"}.svg`}
+                width={22}
+                height={22}
+                alt=""
+              />
               <span>{label}</span>
             </>
           );

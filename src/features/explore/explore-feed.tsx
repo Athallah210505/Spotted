@@ -23,11 +23,17 @@ import styles from "@/components/layout/browse.module.css";
 type Panel = "location" | "map" | null;
 
 function Icon({ name, size = 24 }: { name: string; size?: number }) {
+  const dimension =
+    name === "bookmark" ? 22 : ["search", "pin"].includes(name) ? 20 : size;
   return (
     <Image
-      src={`/figma/explore/icon-${name}.svg`}
-      width={size}
-      height={size}
+      src={
+        ["search", "bookmark", "pin"].includes(name)
+          ? `/figma/editorial/${name}.svg`
+          : `/figma/explore/icon-${name}.svg`
+      }
+      width={dimension}
+      height={dimension}
       alt=""
       aria-hidden="true"
     />
@@ -47,7 +53,7 @@ function PlacePhoto({
     <RestaurantPhoto
       src={`/figma/explore/${place.image}`}
       alt={place.imageAlt}
-      sizes={compact ? "88px" : "(max-width: 430px) calc(100vw - 40px), 390px"}
+      sizes={compact ? "88px" : "(max-width: 430px) calc(100vw - 48px), 382px"}
       preload={preload}
       className={compact ? styles.compactPhoto : styles.photo}
     />
@@ -145,18 +151,28 @@ export function ExploreFeed({
           aria-label={`View ${place.name}`}
         >
           <PlacePhoto place={place} preload={preload} />
+          {preload && !isFiltered ? (
+            <span className={styles.editorialBadge}>THE LOCAL EDIT</span>
+          ) : null}
           <div className={styles.cardContent}>
-            <h3 className={styles.restaurantName}>{place.name}</h3>
-            <p className={styles.rating}>
-              {place.rating} · Google ({place.ratingCount}){" "}
-              <span className={styles.ratingDivider}>/</span> {place.category}
-            </p>
-            <p className={styles.supporting}>
-              {place.area} ·{" "}
-              {filters.city === "jakarta"
-                ? place.distanceLabel
-                : "Distance unavailable"}{" "}
-              · RpRp
+            <div className={styles.cardIdentity}>
+              <h3 className={styles.restaurantName}>{place.name}</h3>
+              <p className={styles.supporting}>
+                {place.category} · {place.area}
+              </p>
+              <p className={styles.supporting}>
+                RpRp ·{" "}
+                {filters.city === "jakarta"
+                  ? place.distanceLabel
+                  : "Distance unavailable"}{" "}
+              </p>
+            </div>
+            <p
+              className={styles.rating}
+              aria-label={`${place.rating} · Google (${place.ratingCount})`}
+            >
+              <strong>{place.rating}</strong>
+              <span>Google</span>
             </p>
           </div>
         </Link>
@@ -177,7 +193,7 @@ export function ExploreFeed({
 
   return (
     <div
-      className={styles.shell}
+      className={`${styles.shell} ${!isFiltered ? styles.exploreShell : ""}`}
       onClickCapture={(event) => {
         if (!dialog.current?.open && event.target instanceof Element) {
           const trigger = event.target.closest<HTMLElement>("button, a");
@@ -206,75 +222,124 @@ export function ExploreFeed({
         aria-busy={isPending}
       >
         <div className={styles.content}>
-          <form
-            className={styles.searchField}
-            role="search"
-            onSubmit={(event) => {
-              event.preventDefault();
-              const form = new FormData(event.currentTarget);
-              updateFilters({
-                query: String(form.get("q") ?? "")
-                  .trim()
-                  .slice(0, 120),
-              });
-            }}
+          <header
+            className={isFiltered ? styles.searchMasthead : styles.masthead}
           >
-            <button
-              className={styles.searchSubmit}
-              type="submit"
-              aria-label="Search restaurants"
+            {isFiltered ? (
+              <div className={styles.searchHeader}>
+                <button onClick={resetFilters} aria-label="Back to Explore">
+                  <Image
+                    src="/figma/editorial/back.svg"
+                    width={22}
+                    height={22}
+                    alt=""
+                  />
+                </button>
+                <h1 className={styles.searchTitle}>Find a good spot.</h1>
+              </div>
+            ) : (
+              <>
+                <div className={styles.brandRow}>
+                  <span className={styles.wordmark}>spotted.</span>
+                  <button
+                    className={styles.locationSelector}
+                    onClick={() => setPanel("location")}
+                    aria-haspopup="dialog"
+                    aria-label="Choose location"
+                  >
+                    <Icon name="pin" size={20} />
+                    <span>
+                      {filters.city === "jakarta" ? "Blok M" : "Bintaro"}
+                    </span>
+                  </button>
+                </div>
+                <div className={styles.headlineRow}>
+                  <h1 className={styles.headline}>
+                    Follow your
+                    <br />
+                    cravings.
+                  </h1>
+                  <Image
+                    src="/figma/editorial/pin-motif.svg"
+                    width={48}
+                    height={48}
+                    alt=""
+                  />
+                </div>
+              </>
+            )}
+            <form
+              className={styles.searchField}
+              role="search"
+              onSubmit={(event) => {
+                event.preventDefault();
+                const form = new FormData(event.currentTarget);
+                updateFilters({
+                  query: String(form.get("q") ?? "")
+                    .trim()
+                    .slice(0, 120),
+                });
+              }}
             >
-              <Icon name="search" />
-            </button>
-            <input
-              key={filters.query}
-              name="q"
-              defaultValue={filters.query}
-              maxLength={120}
-              aria-label="Find food, places or areas"
-              placeholder="Find food, places or areas"
-              type="search"
-              autoComplete="off"
-            />
-          </form>
+              <button
+                className={styles.searchSubmit}
+                type="submit"
+                aria-label="Search restaurants"
+              >
+                <Icon name="search" size={20} />
+              </button>
+              <input
+                key={filters.query}
+                name="q"
+                defaultValue={filters.query}
+                maxLength={120}
+                aria-label="Find food, places or areas"
+                placeholder="Find your next good spot"
+                type="search"
+                autoComplete="off"
+              />
+            </form>
 
-          <div className={styles.brandRow}>
-            <button
-              className={styles.locationSelector}
-              onClick={() => setPanel("location")}
-              aria-haspopup="dialog"
+            <div
+              className={styles.categoryRail}
+              role="group"
+              aria-label="Restaurant categories"
             >
-              <Icon name="pin" />
-              <span>{locationLabel}</span>
-              <Icon name="chevron" size={16} />
-            </button>
-            <span className={styles.wordmark}>spotted.</span>
-          </div>
-
-          <h1 className={styles.headline}>
-            Your next
-            <br />
-            great craving.
-          </h1>
+              {[
+                "All",
+                "Coffee",
+                "Japanese",
+                ...categories.filter(
+                  (category) =>
+                    !["All", "Coffee", "Japanese"].includes(category),
+                ),
+              ].map((category) => (
+                <button
+                  key={category}
+                  className={styles.category}
+                  aria-pressed={filters.category === category}
+                  onClick={() =>
+                    updateFilters({
+                      category: category as ExploreFilters["category"],
+                    })
+                  }
+                >
+                  {category === "All" ? (
+                    <>
+                      <span aria-hidden="true">For you</span>
+                      <span className={styles.srOnly}>All</span>
+                    </>
+                  ) : (
+                    category
+                  )}
+                </button>
+              ))}
+            </div>
+          </header>
 
           <div
-            className={styles.categoryRail}
-            role="group"
-            aria-label="Restaurant categories"
+            className={`${styles.searchTools} ${!isFiltered ? styles.homeTools : ""}`}
           >
-            {categories.map((category) => (
-              <button
-                key={category}
-                className={styles.category}
-                aria-pressed={filters.category === category}
-                onClick={() => updateFilters({ category })}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
-          <div className={styles.searchTools}>
             <Link
               className={styles.textAction}
               href={`/filters${search ? `?${search}` : ""}`}
@@ -324,14 +389,14 @@ export function ExploreFeed({
             </>
           ) : (
             <>
-              <div className={styles.sectionHeader}>
+              <div className={styles.srOnly}>
                 <h2>Top Rated in Your City</h2>
               </div>
               {demoRestaurants[0]
                 ? restaurantCard(demoRestaurants[0], true)
                 : null}
               <p className={styles.rankingNote}>
-                Ranked by Spotted from local candidates
+                Sample venue · Google rating fixture · Unsplash photo
               </p>
 
               <div className={styles.sectionHeader}>

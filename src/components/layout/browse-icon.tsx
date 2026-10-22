@@ -22,13 +22,19 @@ export function BrowseIcon({
   size?: number;
 }) {
   const dimension =
-    source === "maps" ? extras[name as keyof typeof extras] : size;
+    name === "pin" || name === "search"
+      ? 20
+      : source === "maps"
+        ? extras[name as keyof typeof extras]
+        : size;
   return (
     <Image
       src={
-        source === "maps"
-          ? `/figma/maps/${name}.svg`
-          : `/figma/explore/icon-${name}.svg`
+        ["pin", "search"].includes(name)
+          ? `/figma/editorial/${name}.svg`
+          : source === "maps"
+            ? `/figma/maps/${name}.svg`
+            : `/figma/explore/icon-${name}.svg`
       }
       alt=""
       aria-hidden="true"

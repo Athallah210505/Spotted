@@ -4,7 +4,9 @@ test("wishlist radius and display mode are shareable and update nearby counts", 
   page,
 }) => {
   await page.goto("/wishlist");
-  await expect(page.getByText("3 saved places", { exact: true })).toBeVisible();
+  await expect(
+    page.getByLabel("3 saved places", { exact: true }),
+  ).toBeVisible();
   const radius = page.getByRole("navigation", { name: "Nearby radius" });
   for (const [km, count] of [
     [1, 1],
@@ -14,10 +16,12 @@ test("wishlist radius and display mode are shareable and update nearby counts", 
   ]) {
     await radius.getByRole("link", { name: `${km} km`, exact: true }).click();
     await expect(
-      page.getByRole("heading", {
-        name: `${count} ${count === 1 ? "place" : "places"} within ${km} km`,
-        exact: true,
-      }),
+      page.getByText(
+        `${count} saved ${count === 1 ? "place" : "places"} within ${km} km`,
+        {
+          exact: true,
+        },
+      ),
     ).toBeVisible();
   }
   await page
@@ -25,7 +29,7 @@ test("wishlist radius and display mode are shareable and update nearby counts", 
     .getByRole("link", { name: "Map", exact: true })
     .click();
   await expect(page).toHaveURL(/view=map&radius=10/);
-  await expect(page.getByText("3 nearby · within 10 km of you")).toBeVisible();
+  await expect(page.getByText("3 saved places within 10 km")).toBeVisible();
   const map = page.getByRole("region", { name: "Illustrative restaurant map" });
   await expect(map.getByRole("button", { name: /^Preview/ })).toHaveCount(3);
   await expect(map.getByRole("button", { name: /saved nearby/ })).toHaveCount(
@@ -68,7 +72,9 @@ test("removing places updates pins, Explore, detail and the empty wishlist", asy
     .click();
   await expect(page).toHaveURL(/wishlist\?view=map&place=kopi-halaman$/);
   await page.getByRole("link", { name: "Wishlist", exact: true }).click();
-  await expect(page.getByText("2 saved places", { exact: true })).toBeVisible();
+  await expect(
+    page.getByLabel("2 saved places", { exact: true }),
+  ).toBeVisible();
   await page
     .getByRole("button", {
       name: "Remove Kedai Ramen Sore from wishlist",
@@ -114,6 +120,7 @@ test("map search, categories and manual location retain consistent filters", asy
   page,
 }) => {
   await page.goto("/map");
+  await page.getByText("Search & filters", { exact: true }).click();
   const categories = page.getByRole("group", { name: "Restaurant categories" });
   await categories.getByRole("button", { name: "Coffee", exact: true }).click();
   const map = page.getByRole("region", { name: "Illustrative restaurant map" });
@@ -128,6 +135,7 @@ test("map search, categories and manual location retain consistent filters", asy
     page.getByRole("heading", { name: "No places found" }),
   ).toBeAttached();
   await page.goto("/map?city=tangsel");
+  await page.getByText("Search & filters", { exact: true }).click();
   await expect(map.getByRole("button", { name: /^Preview/ })).toHaveCount(1);
   await expect(
     map.getByRole("button", { name: /Preview Ruang Matcha/ }),
@@ -172,7 +180,7 @@ test("import entry, directions and profile have keyboard-accessible outcomes", a
   await dialog.getByRole("button", { name: "Close dialog" }).click();
   await page.getByRole("link", { name: "Profile", exact: true }).click();
   await expect(
-    page.getByRole("heading", { name: "A little about you." }),
+    page.getByRole("heading", { name: "Your taste. Your rules." }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Wishlist", exact: true }).click();
   await page
@@ -199,6 +207,8 @@ test("all three screens render local assets and fit phone, desktop and landscape
   for (const path of ["/map", "/wishlist", "/wishlist?view=map"]) {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(path);
+    if (path === "/map")
+      await page.getByText("Search & filters", { exact: true }).click();
     for (const img of await page.locator("img").all()) {
       await img.scrollIntoViewIfNeeded();
       await expect

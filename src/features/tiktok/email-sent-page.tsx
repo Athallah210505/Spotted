@@ -7,6 +7,7 @@ import { useState } from "react";
 import { usePreviewWishlist } from "@/features/wishlist/preview-wishlist";
 import { JourneyLayout } from "./journey-layout";
 import { parseTikTokUrl } from "./tiktok-url";
+import { findDemoRestaurant } from "@/features/restaurants/demo-data";
 import styles from "./journey.module.css";
 
 export function EmailSentPage({ fromImport }: { fromImport: boolean }) {
@@ -45,10 +46,15 @@ export function EmailSentPage({ fromImport }: { fromImport: boolean }) {
         className={`${styles.action} ${styles.yellow}`}
         onClick={() => {
           signInPreview();
-          if (fromImport && parseTikTokUrl(importDraft.url)) {
+          if (
+            fromImport &&
+            parseTikTokUrl(importDraft.url) &&
+            findDemoRestaurant(importDraft.placeId)
+          ) {
             saveRecommendation();
             router.replace("/import/success");
-          } else router.replace(fromImport ? "/import" : "/profile");
+          } else
+            router.replace(fromImport ? "/import?step=confirm" : "/profile");
         }}
       >
         Simulate verified sign-in

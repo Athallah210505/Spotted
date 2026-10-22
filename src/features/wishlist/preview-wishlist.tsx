@@ -29,7 +29,7 @@ export function PreviewWishlistProvider({
     "ruang-matcha",
   ]);
   const [importDraft, setImportDraft] = useState({
-    placeId: "kedai-ramen-sore",
+    placeId: "",
     url: "",
   });
   // shortcut: one link per restaurant per visit; use persisted collections when imports go live.

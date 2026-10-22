@@ -1,5 +1,5 @@
 .shell {
-  --explore-canvas: #f8f8f6;
+  --explore-canvas: var(--background);
   --explore-ink: #171717;
   --explore-muted: #61615c;
   --explore-muted-on-green: #57574f;
@@ -11,7 +11,7 @@
   margin-inline: auto;
   color: var(--explore-ink);
   background: var(--explore-canvas);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -43,7 +43,7 @@
   top: 8px;
 }
 .safeArea {
-  flex: 0 0 48px;
+  flex: 0 0 44px;
   position: relative;
   padding-top: env(safe-area-inset-top);
 }
@@ -73,16 +73,19 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 4px 20px 40px;
+  padding: 24px 24px 40px;
 }
 .searchField {
   display: flex;
   align-items: center;
   gap: 0;
   flex: 0 0 56px;
-  border: 1px solid #eaeae8;
+  border: 0;
   border-radius: 999px;
   background: white;
+}
+.searchField {
+  box-shadow: 0 10px 28px #1f261f1f;
 }
 .searchSubmit {
   display: grid;
@@ -111,17 +114,18 @@
   display: flex;
   gap: 8px;
   min-height: 48px;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
 }
 .locationSelector {
   display: flex;
   gap: 8px;
   align-items: center;
-  flex: 1;
+  flex: 0 1 142px;
   min-width: 0;
   height: 48px;
-  padding: 0 8px;
-  border-radius: 16px;
+  padding: 0 16px;
+  border-radius: 999px;
   background: white;
   font-size: 14px;
   line-height: 20px;
@@ -141,16 +145,17 @@
   flex: 0 0 auto;
   min-width: 92px;
   color: var(--brand-blue);
-  font-size: 22px;
-  line-height: 28px;
-  font-weight: 600;
+  font-size: 34px;
+  line-height: 40px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
 }
 .headline {
   margin: 0;
-  font-size: 40px;
-  line-height: 44px;
-  font-weight: 300;
-  letter-spacing: -0.7px;
+  font-size: 46px;
+  line-height: 48px;
+  font-weight: 700;
+  letter-spacing: -1.8px;
 }
 .categoryRail {
   display: flex;
@@ -163,19 +168,20 @@
 }
 .category {
   flex-shrink: 0;
-  min-width: 92px;
-  min-height: 48px;
+  min-width: 100px;
+  min-height: 44px;
   padding: 12px;
   border-radius: 999px;
   background: white;
   color: var(--explore-ink);
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   font-weight: 600;
 }
 .category[aria-pressed="true"],
 .category[data-featured="true"] {
-  background: var(--brand-yellow);
+  background: var(--brand-blue);
+  color: white;
 }
 .sectionHeader {
   display: flex;
@@ -208,6 +214,9 @@
   gap: 12px;
   min-height: 44px;
 }
+.homeTools {
+  order: 1;
+}
 .searchTools a {
   display: flex;
   align-items: center;
@@ -218,21 +227,18 @@
 }
 .card {
   position: relative;
-  border-radius: 24px;
-  background: white;
+  background: transparent;
 }
 .cardOpen {
   display: block;
   width: 100%;
-  overflow: hidden;
-  border-radius: 24px;
   text-align: left;
 }
 .photo {
   position: relative;
-  height: 176px;
+  height: 280px;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 32px;
   background: #eaeae8;
 }
 .skeletonLine {
@@ -247,22 +253,54 @@
 }
 .cardContent {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-height: 124px;
-  padding: 16px 16px 8px;
+  justify-content: space-between;
+  gap: 12px;
+  position: relative;
+  margin: -38px 16px 0;
+  min-height: 108px;
+  padding: 14px 16px;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 10px 28px #1f261f1f;
+}
+.cardIdentity {
+  flex: 1;
+  min-width: 0;
+}
+.cardIdentity .supporting {
+  font-size: 12px;
+  line-height: 17px;
 }
 .restaurantName {
-  min-height: 48px;
   margin: 0;
-  font-size: 20px;
-  line-height: 24px;
+  margin-bottom: 4px;
+  font-size: 22px;
+  line-height: 26px;
   font-weight: 600;
+  letter-spacing: -0.5px;
 }
 .rating {
+  display: flex;
+  flex-direction: column;
   margin: 0;
-  font-size: 14px;
-  line-height: 20px;
+  color: var(--explore-muted);
+  font-size: 12px;
+  line-height: 17px;
+}
+.rating strong {
+  color: var(--brand-blue);
+  font-size: 30px;
+  line-height: 32px;
+  letter-spacing: -1px;
+}
+.editorialBadge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--brand-yellow);
+  font-size: 12px;
   font-weight: 600;
 }
 .ratingDivider {
@@ -277,7 +315,7 @@
 }
 .saveButton {
   position: absolute;
-  top: 12px;
+  top: 14px;
   right: 16px;
   display: grid;
   place-items: center;
@@ -375,7 +413,7 @@
 }
 .dock {
   flex-shrink: 0;
-  padding: 0 20px max(14px, env(safe-area-inset-bottom));
+  padding: 8px 24px max(16px, env(safe-area-inset-bottom));
   background: var(--explore-canvas);
 }
 .demoLabel {
@@ -383,16 +421,16 @@
   color: var(--explore-muted);
   font-size: 12px;
   line-height: 16px;
-  text-transform: uppercase;
 }
 .navigation {
   display: flex;
   align-items: center;
-  min-height: 80px;
-  padding: 8px;
-  border-radius: 24px;
-  background: white;
-  box-shadow: 0 6px 24px #00000014;
+  min-height: 68px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: var(--brand-blue);
+  color: white;
+  box-shadow: 0 10px 28px #1f261f1f;
 }
 .navItem {
   display: flex;
@@ -401,10 +439,10 @@
   flex-direction: column;
   gap: 2px;
   align-items: center;
-  justify-content: flex-start;
-  min-height: 64px;
-  padding: 8px 2px;
-  border-radius: 16px;
+  justify-content: center;
+  min-height: 56px;
+  padding: 6px 2px;
+  border-radius: 999px;
 }
 .navItem span {
   max-width: 100%;
@@ -415,6 +453,84 @@
 }
 .navItem[aria-current="page"] {
   background: var(--brand-yellow);
+  color: var(--explore-ink);
+}
+.exploreShell > .safeArea {
+  background: var(--brand-yellow);
+}
+.yellowSafe > .safeArea {
+  background: var(--brand-yellow);
+}
+.pinkSafe > .safeArea {
+  background: var(--brand-petal);
+}
+.exploreShell .quickLocation {
+  visibility: hidden;
+}
+.masthead {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 10px 24px 0;
+  margin: -24px -24px 2px;
+  background: var(--brand-yellow);
+}
+.headlineRow {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+}
+.masthead .category:nth-child(3) {
+  min-width: 126px;
+}
+.masthead {
+  gap: 20px;
+}
+.masthead .searchField input {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+.headlineRow > img {
+  position: absolute;
+  right: 12px;
+  bottom: 0;
+}
+.masthead .categoryRail {
+  margin-top: -8px;
+}
+.searchMasthead {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.searchTitle {
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+}
+.searchHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.searchHeader button {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  background: white;
+  border-radius: 999px;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 .toast {
   position: fixed;

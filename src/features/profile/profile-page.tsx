@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { BrowseIcon } from "@/components/layout/browse-icon";
 import { BrowseNavigation } from "@/components/layout/browse-navigation";
 import { PreviewDialog } from "@/components/ui/preview-dialog";
@@ -39,7 +40,7 @@ export function ProfilePage() {
   if (profile.city !== "jakarta") search.set("city", profile.city);
   if (profile.radius !== 5) search.set("radius", String(profile.radius));
   return (
-    <div className={shared.shell}>
+    <div className={`${shared.shell} ${shared.yellowSafe}`}>
       <a className={shared.skipLink} href="#profile-content">
         Skip to profile
       </a>
@@ -54,17 +55,22 @@ export function ProfilePage() {
       </div>
       <main id="profile-content" tabIndex={-1} className={shared.scrollArea}>
         <div className={styles.content}>
-          <h1>
-            A little
-            <br />
-            about you.
-          </h1>
+          <header className={styles.masthead}>
+            <p className={styles.caption}>MADE FOR YOUR TASTE</p>
+            <h1>
+              Your taste.
+              <br />
+              Your rules.
+            </h1>
+          </header>
           <div className={styles.identity}>
-            <div
-              className={styles.avatar}
-              aria-label="Illustrative account initials AN"
-            >
-              AN
+            <div className={styles.avatar} aria-label="Illustrative account">
+              <Image
+                src="/figma/editorial/avatar.svg"
+                width={28}
+                height={28}
+                alt=""
+              />
             </div>
             <div>
               <h2>{profile.name}</h2>
@@ -73,16 +79,18 @@ export function ProfilePage() {
               </p>
             </div>
           </div>
-          <p className={styles.label}>Display name</p>
-          <button
-            className={styles.action}
-            onClick={(event) => open("name", event.currentTarget)}
-            aria-label="Edit display name"
-          >
-            <AccountIcon name="profile-chevron" />
-            <span>{profile.name}</span>
-          </button>
-          <p className={styles.label}>Preferred city</p>
+          <p className={styles.eyebrow}>DISCOVERY PREFERENCES</p>
+          <div className={styles.extraSetting}>
+            <p className={styles.label}>Display name</p>
+            <button
+              className={styles.action}
+              onClick={(event) => open("name", event.currentTarget)}
+              aria-label="Edit display name"
+            >
+              <AccountIcon name="profile-chevron" />
+              <span>{profile.name}</span>
+            </button>
+          </div>
           <button
             className={styles.action}
             onClick={(event) => open("city", event.currentTarget)}
@@ -90,6 +98,7 @@ export function ProfilePage() {
           >
             <AccountIcon name="profile-pin" />
             <span>
+              Preferred city ·{" "}
               {profile.city === "jakarta" ? "Jakarta" : "Tangerang Selatan"}
             </span>
           </button>
@@ -109,7 +118,6 @@ export function ProfilePage() {
               </button>
             ))}
           </div>
-          <h2 className={styles.sectionHeading}>Your privacy</h2>
           <button
             className={styles.action}
             onClick={(event) => open("privacy", event.currentTarget)}
@@ -117,10 +125,6 @@ export function ProfilePage() {
             <AccountIcon name="profile-shield" />
             <span>Privacy settings</span>
           </button>
-          <p className={styles.supporting}>
-            Your sample wishlist and preferences stay in this open app. No
-            device location is requested.
-          </p>
           <button
             className={styles.action}
             onClick={(event) => open("account", event.currentTarget)}
@@ -128,9 +132,15 @@ export function ProfilePage() {
             <AccountIcon name="profile-user" />
             <span>Account settings</span>
           </button>
-          <Link href="/login" className={styles.action}>
-            Try preview sign-in
-          </Link>
+          <p className={styles.caption}>
+            Your sample wishlist and preferences stay in this open app. No
+            device location is requested.
+          </p>
+          <div className={styles.extraSetting}>
+            <Link href="/login" className={styles.action}>
+              Try preview sign-in
+            </Link>
+          </div>
           <button
             className={styles.action}
             onClick={(event) => open("signout", event.currentTarget)}

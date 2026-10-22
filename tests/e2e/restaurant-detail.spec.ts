@@ -43,20 +43,24 @@ test("gallery cycles all original photos and wraps in both directions", async ({
   });
   await expect(hero).toBeVisible();
   const bounds = await hero.boundingBox();
-  expect(bounds?.width).toBe(350);
-  expect(bounds?.height).toBe(250);
+  expect(bounds?.width).toBe(390);
+  expect(bounds?.height).toBe(318);
   await page.getByRole("button", { name: "Next photo" }).click();
   await expect(page.getByRole("status")).toHaveText("2 / 3");
   await expect(
-    page.getByRole("img", {
-      name: "Illustrative café interior from the Figma gallery",
-    }),
+    page
+      .getByRole("img", {
+        name: "Illustrative sushi platter from the Figma gallery",
+      })
+      .first(),
   ).toBeVisible();
   await page.getByRole("button", { name: "Next photo" }).click();
   await expect(
-    page.getByRole("img", {
-      name: "Illustrative sushi platter from the Figma gallery",
-    }),
+    page
+      .getByRole("img", {
+        name: "Illustrative dessert from the Figma gallery",
+      })
+      .first(),
   ).toBeVisible();
   await page.getByRole("button", { name: "Next photo" }).click();
   await expect(page.getByRole("status")).toHaveText("1 / 3");
@@ -201,7 +205,7 @@ test("missing photos, absent restaurant data and unknown routes have recovery st
   );
   await page.goto(detail);
   await expect(
-    page.getByRole("img", { name: "Photo unavailable" }),
+    page.getByRole("img", { name: "Photo unavailable" }).first(),
   ).toBeVisible();
   await page.goto("/restaurant/kopi-halaman?tab=reviews");
   await expect(

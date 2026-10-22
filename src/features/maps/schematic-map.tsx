@@ -37,17 +37,14 @@ export function SchematicMap({
       role="region"
       aria-label="Illustrative restaurant map"
     >
-      <div className={styles.streets} aria-hidden="true">
-        {Array.from({ length: 7 }, (_, index) => (
-          <div
-            key={index}
-            className={`${styles.street} ${index % 2 ? styles.streetUp : styles.streetDown}`}
-            style={{
-              top: index % 2 ? -32 + (index - 1) * 64 : 58 + index * 64,
-            }}
-          />
-        ))}
-      </div>
+      <Image
+        className={styles.streets}
+        src="/figma/editorial/map-geography.svg"
+        width={390}
+        height={518}
+        alt=""
+        aria-hidden="true"
+      />
       <p className={styles.areaTop}>
         {city === "jakarta" ? "BLOK M" : "BINTARO"}
       </p>
@@ -57,16 +54,10 @@ export function SchematicMap({
       <p className={styles.areaBottom}>
         {city === "jakarta" ? "JAKARTA SELATAN" : "TANGERANG SELATAN"}
       </p>
-      {wishlist ? (
-        <Image
-          className={styles.radiusOverlay}
-          src="/figma/maps/radius.png"
-          width={280}
-          height={280}
-          alt=""
-          aria-hidden="true"
-        />
-      ) : null}
+      <span className={styles.srOnly}>
+        {wishlist ? "Saved places" : "Restaurants"} within {radius} km of the
+        sample location
+      </span>
       {places.map((place) => {
         const saved = savedIds.includes(place.id);
         const nearby = city === "jakarta" && place.distanceM <= radius * 1000;

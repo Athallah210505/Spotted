@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const dimensions = {
-  back: 24,
+  back: 22,
   previous: 20,
   arrow: 20,
   shield: 24,
@@ -17,7 +17,11 @@ const dimensions = {
 export function DetailIcon({ name }: { name: keyof typeof dimensions }) {
   return (
     <Image
-      src={`/figma/detail/${name}.svg`}
+      src={
+        ["back", "external-white"].includes(name)
+          ? `/figma/editorial/${name}.svg`
+          : `/figma/detail/${name}.svg`
+      }
       width={dimensions[name]}
       height={dimensions[name]}
       alt=""
