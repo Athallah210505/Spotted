@@ -16,7 +16,7 @@ Tahap berikutnya mencakup [Profile, selected-place previews, Filters dan QA](12-
 
 [Email Sent, Saved, Sort dan QA](14-email-saved-sorting.md) menambahkan resend simulasi, hasil save detail, dan sorting yang mempertahankan filter/navigasi.
 
-[Jakarta data pilot dan QA](15-jakarta-data-pilot.md) memuat40 titik OSM nyata, importer Scrapling, provenance dan halaman `/catalog`, tanpa provider berbayar atau database baru.
+[Data Google di Explore dan QA](16-google-explore-data.md) menjelaskan32 tempat dengan foto/rating/review Google, jam buka, UI Explore langsung dan batas snapshot. [Jakarta data pilot awal](15-jakarta-data-pilot.md) dipertahankan sebagai riwayat importer OSM.
 
 Blueprint ini menerjemahkan PRD MVP v1.0 dan Figma v2 menjadi keputusan engineering. Dokumen belum merupakan persetujuan implementasi. Tidak ada aplikasi, migration, dependency, service, atau deployment yang dibuat.
 

@@ -2,11 +2,10 @@ import { expect, test } from "@playwright/test";
 
 const detail = "/restaurant/kedai-ramen-sore";
 
-test("Explore detail navigation retains filters and shared saves", async ({
+test("legacy detail navigation retains filters and shared saves", async ({
   page,
 }) => {
-  await page.goto("/explore?q=ramen&category=Japanese");
-  await page.getByRole("link", { name: "View Kedai Ramen Sore" }).click();
+  await page.goto("/restaurant/kedai-ramen-sore?q=ramen&category=Japanese");
   await expect(page).toHaveURL(
     /restaurant\/kedai-ramen-sore\?q=ramen&category=Japanese/,
   );
@@ -21,7 +20,7 @@ test("Explore detail navigation retains filters and shared saves", async ({
     .click();
   await expect(page).toHaveURL(/explore\?q=ramen&category=Japanese/);
   await expect(
-    page.getByRole("button", { name: "Save Kedai Ramen Sore to wishlist" }),
+    page.getByRole("heading", { name: "No places found" }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Wishlist", exact: true }).click();
   await page.getByRole("link", { name: "Kopi Halaman", exact: true }).click();

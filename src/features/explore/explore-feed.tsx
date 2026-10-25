@@ -1,235 +1,95 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState, useTransition } from "react";
-import { usePreviewWishlist } from "@/features/wishlist/preview-wishlist";
-import { RestaurantPhoto } from "@/features/restaurants/restaurant-photo";
+import { useRef, useState, useTransition } from "react";
 import { BrowseNavigation } from "@/components/layout/browse-navigation";
+import { PreviewDialog } from "@/components/ui/preview-dialog";
 import { usePreviewProfile } from "@/features/profile/preview-profile";
-
+import { usePreviewWishlist } from "@/features/wishlist/preview-wishlist";
+import {
+  filterGooglePlaces,
+  googlePlaces,
+} from "@/features/catalog/google-data";
+import { GooglePlaceCard } from "@/features/catalog/google-place-card";
 import {
   categories,
-  demoRestaurants,
-  filterDemoRestaurants,
   exploreSearch,
   sortOptions,
-  type DemoRestaurant,
   type ExploreFilters,
 } from "./demo-data";
 import styles from "@/components/layout/browse.module.css";
-
-type Panel = "location" | "map" | null;
-
-function Icon({ name, size = 24 }: { name: string; size?: number }) {
-  const dimension =
-    name === "bookmark" ? 22 : ["search", "pin"].includes(name) ? 20 : size;
-  return (
-    <Image
-      src={
-        ["search", "bookmark", "pin"].includes(name)
-          ? `/figma/editorial/${name}.svg`
-          : `/figma/explore/icon-${name}.svg`
-      }
-      width={dimension}
-      height={dimension}
-      alt=""
-      aria-hidden="true"
-    />
-  );
-}
-
-function PlacePhoto({
-  place,
-  compact = false,
-  preload = false,
-}: {
-  place: DemoRestaurant;
-  compact?: boolean;
-  preload?: boolean;
-}) {
-  return (
-    <RestaurantPhoto
-      src={`/figma/explore/${place.image}`}
-      alt={place.imageAlt}
-      sizes={compact ? "88px" : "(max-width: 430px) calc(100vw - 48px), 382px"}
-      preload={preload}
-      className={compact ? styles.compactPhoto : styles.photo}
-    />
-  );
-}
+import dataStyles from "@/features/catalog/google-ui.module.css";
 
 export function ExploreFeed({
   filters: initialFilters,
   usePreferredCity = false,
-  realPlaces,
 }: {
   filters: ExploreFilters;
   usePreferredCity?: boolean;
-  realPlaces?: React.ReactNode;
 }) {
+  const router = useRouter();
   const { profile } = usePreviewProfile();
+  const { savedIds } = usePreviewWishlist();
   const filters = {
     ...initialFilters,
     city: usePreferredCity ? profile.city : initialFilters.city,
   };
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
-  const { savedIds, toggle } = usePreviewWishlist();
   const search = exploreSearch(filters, profile.city !== "jakarta");
-  const detailHref = (id: string) =>
-    `/restaurant/${id}${search ? `?${search}` : ""}`;
-  const [panel, setPanel] = useState<Panel>(null);
-  const [notice, setNotice] = useState("");
-  const dialog = useRef<HTMLDialogElement>(null);
-  const dialogTrigger = useRef<HTMLElement | null>(null);
-  const scrollArea = useRef<HTMLElement>(null);
-  const places = filterDemoRestaurants(filters, savedIds);
-  const isFiltered = Boolean(search);
-  const locationLabel =
-    filters.city === "jakarta"
-      ? "Jakarta · Blok M"
-      : "Tangerang Selatan · Bintaro";
-  const savedPlaces = demoRestaurants.filter((place) =>
-    savedIds.includes(place.id),
-  );
-  const nearbyPlaces =
-    filters.city === "jakarta"
-      ? savedPlaces.filter((place) => place.distanceM <= profile.radius * 1000)
-      : [];
-  const cafe =
-    nearbyPlaces.find((place) => place.id === "kopi-halaman") ??
-    nearbyPlaces[0];
-  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`restaurants in ${locationLabel.replace(" · ", " ")}`)}`;
-
-  useEffect(() => {
-    if (panel) {
-      if (!dialog.current?.open) dialog.current?.showModal();
-      dialog.current?.querySelector<HTMLButtonElement>("button")?.focus();
-    }
-    if (!panel && dialog.current?.open) dialog.current.close();
-  }, [panel]);
-
-  useEffect(() => {
-    if (!notice) return;
-    const timer = setTimeout(() => setNotice(""), 3500);
-    return () => clearTimeout(timer);
-  }, [notice]);
-
-  function updateFilters(values: Partial<ExploreFilters>) {
-    const next = { ...filters, ...values };
-    const params = new URLSearchParams(
-      exploreSearch(next, profile.city !== "jakarta"),
+  const places = filterGooglePlaces(filters, savedIds);
+  const [pending, startTransition] = useTransition();
+  const [locationOpen, setLocationOpen] = useState(false);
+  const trigger = useRef<HTMLElement | null>(null);
+  const scrollArea = useRef<HTMLElement | null>(null);
+  function update(values: Partial<ExploreFilters>) {
+    const query = exploreSearch(
+      { ...filters, ...values },
+      profile.city !== "jakarta",
     );
     startTransition(() =>
-      router.replace(`/explore${params.size ? `?${params}` : ""}`, {
-        scroll: false,
-      }),
+      router.replace(`/explore${query ? `?${query}` : ""}`, { scroll: false }),
     );
     scrollArea.current?.scrollTo({ top: 0 });
   }
-
-  function resetFilters() {
+  function reset() {
     startTransition(() => router.replace("/explore", { scroll: false }));
     scrollArea.current?.scrollTo({ top: 0 });
   }
-
-  function toggleSave(place: DemoRestaurant) {
-    const wasSaved = savedIds.includes(place.id);
-    toggle(place.id);
-    setNotice(
-      `${place.name} ${wasSaved ? "removed from" : "saved to"} your preview wishlist.`,
-    );
+  function chooseArea(button: HTMLButtonElement) {
+    trigger.current = button;
+    setLocationOpen(true);
   }
-
-  function restaurantCard(place: DemoRestaurant, preload = false) {
-    const saved = savedIds.includes(place.id);
-    return (
-      <article className={styles.card} key={place.id} aria-label={place.name}>
-        <Link
-          className={styles.cardOpen}
-          href={detailHref(place.id)}
-          aria-label={`View ${place.name}`}
-        >
-          <PlacePhoto place={place} preload={preload} />
-          {preload && !isFiltered ? (
-            <span className={styles.editorialBadge}>THE LOCAL EDIT</span>
-          ) : null}
-          <div className={styles.cardContent}>
-            <div className={styles.cardIdentity}>
-              <h3 className={styles.restaurantName}>{place.name}</h3>
-              <p className={styles.supporting}>
-                {place.category} · {place.area}
-              </p>
-              <p className={styles.supporting}>
-                RpRp ·{" "}
-                {filters.city === "jakarta"
-                  ? place.distanceLabel
-                  : "Distance unavailable"}{" "}
-              </p>
-            </div>
-            <p
-              className={styles.rating}
-              aria-label={`${place.rating} · Google (${place.ratingCount})`}
-            >
-              <strong>{place.rating}</strong>
-              <span>Google</span>
-            </p>
-          </div>
-        </Link>
-        <button
-          className={styles.saveButton}
-          onClick={() => toggleSave(place)}
-          aria-label={`${saved ? "Remove" : "Save"} ${place.name}${saved ? " from" : " to"} wishlist`}
-          aria-pressed={saved}
-          title={
-            saved ? "Saved in preview wishlist" : "Save in preview wishlist"
-          }
-        >
-          <Icon name="bookmark" />
-        </button>
-      </article>
-    );
-  }
-
   return (
-    <div
-      className={`${styles.shell} ${!isFiltered ? styles.exploreShell : ""}`}
-      onClickCapture={(event) => {
-        if (!dialog.current?.open && event.target instanceof Element) {
-          const trigger = event.target.closest<HTMLElement>("button, a");
-          if (trigger) dialogTrigger.current = trigger;
-        }
-      }}
-    >
+    <div className={`${styles.shell} ${!search ? styles.exploreShell : ""}`}>
       <a className={styles.skipLink} href="#explore-content">
         Skip to restaurants
       </a>
       <div className={styles.safeArea}>
         <button
           className={styles.quickLocation}
-          onClick={() => setPanel("location")}
+          onClick={(event) => chooseArea(event.currentTarget)}
           aria-label="Choose location"
         >
-          <Icon name="locate" size={16} />
+          <Image
+            src="/figma/explore/icon-locate.svg"
+            width={16}
+            height={16}
+            alt=""
+          />
         </button>
       </div>
-
       <main
         className={styles.scrollArea}
-        ref={scrollArea}
         id="explore-content"
         tabIndex={-1}
-        aria-busy={isPending}
+        ref={scrollArea}
+        aria-busy={pending}
       >
         <div className={styles.content}>
-          <header
-            className={isFiltered ? styles.searchMasthead : styles.masthead}
-          >
-            {isFiltered ? (
+          <header className={search ? styles.searchMasthead : styles.masthead}>
+            {search ? (
               <div className={styles.searchHeader}>
-                <button onClick={resetFilters} aria-label="Back to Explore">
+                <button onClick={reset} aria-label="Back to Explore">
                   <Image
                     src="/figma/editorial/back.svg"
                     width={22}
@@ -245,13 +105,18 @@ export function ExploreFeed({
                   <span className={styles.wordmark}>spotted.</span>
                   <button
                     className={styles.locationSelector}
-                    onClick={() => setPanel("location")}
-                    aria-haspopup="dialog"
+                    onClick={(event) => chooseArea(event.currentTarget)}
                     aria-label="Choose location"
+                    aria-haspopup="dialog"
                   >
-                    <Icon name="pin" size={20} />
+                    <Image
+                      src="/figma/editorial/pin.svg"
+                      width={20}
+                      height={20}
+                      alt=""
+                    />
                     <span>
-                      {filters.city === "jakarta" ? "Blok M" : "Bintaro"}
+                      {filters.city === "jakarta" ? "Jakarta" : "Bintaro"}
                     </span>
                   </button>
                 </div>
@@ -275,9 +140,10 @@ export function ExploreFeed({
               role="search"
               onSubmit={(event) => {
                 event.preventDefault();
-                const form = new FormData(event.currentTarget);
-                updateFilters({
-                  query: String(form.get("q") ?? "")
+                update({
+                  query: String(
+                    new FormData(event.currentTarget).get("q") ?? "",
+                  )
                     .trim()
                     .slice(0, 120),
                 });
@@ -288,43 +154,35 @@ export function ExploreFeed({
                 type="submit"
                 aria-label="Search restaurants"
               >
-                <Icon name="search" size={20} />
+                <Image
+                  src="/figma/editorial/search.svg"
+                  width={20}
+                  height={20}
+                  alt=""
+                />
               </button>
               <input
-                key={filters.query}
+                type="search"
                 name="q"
+                key={filters.query}
                 defaultValue={filters.query}
                 maxLength={120}
+                autoComplete="off"
                 aria-label="Find food, places or areas"
                 placeholder="Find your next good spot"
-                type="search"
-                autoComplete="off"
               />
             </form>
-
             <div
               className={styles.categoryRail}
               role="group"
               aria-label="Restaurant categories"
             >
-              {[
-                "All",
-                "Coffee",
-                "Japanese",
-                ...categories.filter(
-                  (category) =>
-                    !["All", "Coffee", "Japanese"].includes(category),
-                ),
-              ].map((category) => (
+              {categories.map((category) => (
                 <button
                   key={category}
                   className={styles.category}
-                  aria-pressed={filters.category === category}
-                  onClick={() =>
-                    updateFilters({
-                      category: category as ExploreFilters["category"],
-                    })
-                  }
+                  aria-pressed={category === filters.category}
+                  onClick={() => update({ category })}
                 >
                   {category === "All" ? (
                     <>
@@ -338,9 +196,8 @@ export function ExploreFeed({
               ))}
             </div>
           </header>
-
           <div
-            className={`${styles.searchTools} ${!isFiltered ? styles.homeTools : ""}`}
+            className={`${styles.searchTools} ${!search ? styles.homeTools : ""}`}
           >
             <Link
               className={styles.textAction}
@@ -351,259 +208,111 @@ export function ExploreFeed({
             <Link
               className={styles.textAction}
               href={`/sort${search ? `?${search}` : ""}`}
-              aria-label={`Sort places: ${sortOptions[filters.sort ?? "highest_rated"]}`}
+              aria-label={`Sort places: ${sortOptions[filters.sort ?? "recommended"]}`}
             >
-              {sortOptions[filters.sort ?? "highest_rated"]}
+              {sortOptions[filters.sort ?? "recommended"]}
             </Link>
           </div>
-          <Link className={styles.textAction} href="/catalog">
-            Lihat pilot data Jakarta (OSM)
-          </Link>
-          {filters.sort === "nearest" && filters.city !== "jakarta" ? (
-            <p role="status" className={styles.supporting}>
-              Nearest is unavailable for this city. Showing Highest Rated until
-              a sample origin is known.
-            </p>
-          ) : null}
-          {isPending ? (
-            <p role="status" className={styles.loading}>
+          {pending ? (
+            <p className={styles.loading} role="status">
               Updating your places…
             </p>
           ) : null}
-
-          {isFiltered ? (
-            <>
-              <div className={styles.sectionHeader}>
-                <h2>
-                  {filters.query
-                    ? `Results for “${filters.query}”`
-                    : `${filters.category === "All" ? "Places" : filters.category} in your area`}
-                </h2>
+          <section aria-label="Restaurants in Jakarta">
+            <h2 className={styles.srOnly}>
+              {filters.query
+                ? `Results for ${filters.query}`
+                : "Places for you"}
+            </h2>
+            {places.length ? (
+              <div className={dataStyles.cards}>
+                {places.map((place, index) => (
+                  <GooglePlaceCard
+                    key={place.id}
+                    place={place}
+                    preload={index === 0}
+                    search={search}
+                  />
+                ))}
               </div>
-              {places.length ? (
-                places.map((place, index) => restaurantCard(place, index === 0))
-              ) : (
-                <div className={styles.emptyState}>
-                  <h3>No places found</h3>
-                  <p>Try another craving or reset your filters.</p>
-                </div>
-              )}
-              <button className={styles.textAction} onClick={resetFilters}>
-                Reset filters
-              </button>
-            </>
-          ) : (
-            <>
-              {filters.city === "jakarta" ? realPlaces : null}
-              <p className={styles.rankingNote}>
-                Preview fitur · tempat dan rating contoh
-              </p>
-              <div className={styles.srOnly}>
-                <h2>Top Rated in Your City</h2>
-              </div>
-              {demoRestaurants[0]
-                ? restaurantCard(demoRestaurants[0], true)
-                : null}
-              <p className={styles.rankingNote}>
-                Sample venue · Google rating fixture · Unsplash photo
-              </p>
-
-              <div className={styles.sectionHeader}>
-                <h2>Your Wishlist Nearby</h2>
-                <Link
-                  className={styles.textAction}
-                  href={`/wishlist?${search ? `${search}&` : ""}view=map`}
-                >
-                  View map
-                </Link>
-              </div>
-              <div className={styles.nearbyCallout}>
-                <h3>
-                  {nearbyPlaces.length
-                    ? `${nearbyPlaces.length} saved ${nearbyPlaces.length === 1 ? "place" : "places"} within ${profile.radius} km`
-                    : "No saved places nearby"}
-                </h3>
+            ) : (
+              <div className={styles.emptyState}>
+                <h3>No places found</h3>
                 <p>
-                  {nearbyPlaces.length
-                    ? "Something you saved is around the corner."
-                    : "Save a place to keep it in your food plans."}
+                  {filters.city === "tangsel"
+                    ? "Tempat di area ini belum tersedia. Coba Jakarta."
+                    : "Coba nama lain atau ubah filter pencarian."}
                 </p>
-              </div>
-              {cafe ? (
-                <article
-                  className={styles.compactCard}
-                  aria-label={`Nearby ${cafe.name}`}
-                >
-                  <Link
-                    className={styles.compactPhotoButton}
-                    aria-label={`View ${cafe.name}`}
-                    href={detailHref(cafe.id)}
-                  >
-                    <PlacePhoto place={cafe} compact />
-                  </Link>
-                  <div className={styles.compactDetails}>
-                    <Link
-                      className={styles.nameButton}
-                      href={detailHref(cafe.id)}
-                    >
-                      {cafe.name}
-                    </Link>
-                    <p>
-                      {cafe.rating} · Google ({cafe.ratingCount})
-                    </p>
-                    <p className={styles.supporting}>
-                      Saved · Nearby · {cafe.distanceLabel}
-                    </p>
-                    <div className={styles.compactActions}>
-                      <button onClick={() => toggleSave(cafe)}>Remove</button>
-                      <button onClick={() => setPanel("map")}>
-                        Directions
-                      </button>
-                    </div>
-                  </div>
-                </article>
-              ) : null}
-
-              <div className={styles.sectionHeader}>
-                <h2>Near You</h2>
-                <Link
+                <button
                   className={styles.textAction}
-                  href={`/map${search ? `?${search}` : ""}`}
+                  onClick={() =>
+                    update({
+                      query: "",
+                      category: "All",
+                      city: "jakarta",
+                      minRating: undefined,
+                      distance: undefined,
+                      price: undefined,
+                      openNow: undefined,
+                      halalOnly: undefined,
+                      savedOnly: undefined,
+                      sort: undefined,
+                    })
+                  }
                 >
-                  View map
-                </Link>
+                  Reset filters
+                </button>
               </div>
-              {demoRestaurants[2] ? restaurantCard(demoRestaurants[2]) : null}
-              <div className={styles.sectionHeader}>
-                <h2>Explore by Category</h2>
-              </div>
-              <div
-                className={styles.categoryRail}
-                role="group"
-                aria-label="Explore by category"
-              >
-                {(["Japanese", "Coffee", "Matcha", "Dessert"] as const).map(
-                  (category) => (
-                    <button
-                      className={styles.category}
-                      key={category}
-                      data-featured={category === "Japanese"}
-                      onClick={() => updateFilters({ category })}
-                    >
-                      {category}
-                    </button>
-                  ),
-                )}
-              </div>
-              <p className={styles.supporting}>
-                You’re all caught up for this area.
-              </p>
-            </>
-          )}
+            )}
+          </section>
+          {search && places.length ? (
+            <button className={styles.textAction} onClick={reset}>
+              Reset filters
+            </button>
+          ) : null}
         </div>
       </main>
-
       <BrowseNavigation
         active="Explore"
         search={search}
-        onExplore={() => {
-          setPanel(null);
-          resetFilters();
-        }}
+        onExplore={reset}
+        label={
+          <a
+            href="https://www.google.com/maps/search/restaurants+Jakarta/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google Maps
+          </a>
+        }
       />
-
-      {notice ? (
-        <p className={styles.toast} role="status">
-          {notice}
-        </p>
-      ) : null}
-
-      <dialog
-        className={styles.dialog}
-        ref={dialog}
-        aria-labelledby="explore-dialog-title"
-        onClose={() => {
-          setPanel(null);
-          dialogTrigger.current?.focus({ preventScroll: true });
-        }}
-        onKeyDown={(event) => {
-          if (event.key !== "Tab") return;
-          const controls = [
-            ...event.currentTarget.querySelectorAll<HTMLElement>(
-              'button:not(:disabled), a[href], input:not(:disabled), [tabindex]:not([tabindex="-1"])',
-            ),
-          ].filter((element) => element.getClientRects().length);
-          if (!controls.length) return;
-          event.preventDefault();
-          const index = controls.indexOf(document.activeElement as HTMLElement);
-          const next = event.shiftKey
-            ? index <= 0
-              ? controls.length - 1
-              : index - 1
-            : (index + 1) % controls.length;
-          controls[next]?.focus();
-        }}
-        onClick={(event) => {
-          if (event.target !== event.currentTarget) return;
-          const bounds = event.currentTarget.getBoundingClientRect();
-          if (
-            event.clientX < bounds.left ||
-            event.clientX > bounds.right ||
-            event.clientY < bounds.top ||
-            event.clientY > bounds.bottom
-          )
-            dialog.current?.close();
-        }}
-      >
-        <button
-          className={styles.closeDialog}
-          onClick={() => dialog.current?.close()}
-          aria-label="Close dialog"
+      {locationOpen ? (
+        <PreviewDialog
+          title="Choose your area"
+          trigger={trigger}
+          onClose={() => setLocationOpen(false)}
         >
-          ×
-        </button>
-        {panel === "location" ? (
-          <>
-            <h2 id="explore-dialog-title">Where are you craving?</h2>
-            <p>Choose an area to explore the sample places.</p>
-            {(["jakarta", "tangsel"] as const).map((city) => (
-              <button
-                key={city}
-                className={styles.locationOption}
-                aria-pressed={filters.city === city}
-                onClick={() => {
-                  updateFilters({ city });
-                  setPanel(null);
-                }}
-              >
-                <Icon name="pin" />
-                <span>
-                  {city === "jakarta"
-                    ? "Jakarta · Blok M"
-                    : "Tangerang Selatan · Bintaro"}
-                </span>
-              </button>
-            ))}
-          </>
-        ) : panel === "map" ? (
-          <>
-            <h2 id="explore-dialog-title">Explore this area</h2>
-            <p>{locationLabel}</p>
-            <p>
-              The in-app map is not connected yet. These restaurant names and
-              distances are illustrative.
-            </p>
-            <a
-              className={styles.primaryButton}
-              href={mapUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open area in Google Maps
-            </a>
-          </>
-        ) : null}
-      </dialog>
+          <button
+            className={styles.primaryButton}
+            onClick={() => {
+              update({ city: "jakarta" });
+              setLocationOpen(false);
+            }}
+          >
+            Jakarta · Blok M
+          </button>
+          <button
+            className={styles.primaryButton}
+            onClick={() => {
+              update({ city: "tangsel" });
+              setLocationOpen(false);
+            }}
+          >
+            Tangerang Selatan · Bintaro
+          </button>
+          <p>{googlePlaces.length} tempat tersedia di Jakarta.</p>
+        </PreviewDialog>
+      ) : null}
     </div>
   );
 }

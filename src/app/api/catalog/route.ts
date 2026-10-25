@@ -1,20 +1,7 @@
-import { catalog } from "@/features/catalog/catalog";
-import {
-  catalogPhotos,
-  catalogRatings,
-  catalogDetailHref,
-  googleMapsUrl,
-} from "@/features/catalog/catalog-media";
-
+import { googlePlaces } from "@/features/catalog/google-data";
 export function GET() {
-  return Response.json({
-    ...catalog,
-    places: catalog.places.map((place) => ({
-      ...place,
-      photo: catalogPhotos[place.id] ?? null,
-      googleMapsUrl: googleMapsUrl(place),
-      detailUrl: catalogDetailHref(place),
-      sourceRating: catalogRatings[place.id] ?? null,
-    })),
-  });
+  return Response.json(
+    { schemaVersion: 2, source: "Google Maps", places: googlePlaces },
+    { headers: { "Cache-Control": "no-store" } },
+  );
 }

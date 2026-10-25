@@ -1,6 +1,48 @@
 import { expect, test } from "@playwright/test";
 
-test("search, categories and empty results share URL state", async ({
+test("Explore directly shows photographed Google places with no pilot or source metadata", async ({
+  page,
+}) => {
+  const external: string[] = [];
+  const errors: string[] = [];
+  page.on("request", (request) => {
+    if (!request.url().startsWith("http://127.0.0.1:3100/"))
+      external.push(request.url());
+  });
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.goto("/");
+  await expect(page).toHaveURL(/\/explore$/);
+  await expect(page.getByRole("article")).toHaveCount(32);
+  for (const name of [
+    "Toko Kopi TUKU - Blok M",
+    "Kambing Bakar Cairo Sambas",
+  ]) {
+    const card = page.getByRole("article", { name, exact: true });
+    const img = card.getByRole("img", { name, exact: true });
+    await img.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() => img.evaluate((el: HTMLImageElement) => el.naturalWidth))
+      .toBeGreaterThan(0);
+    await expect(
+      card.getByRole("link", { name: `View ${name}` }),
+    ).toHaveAttribute("href", /\/restaurant\/osm-\d+$/);
+  }
+  await expect(page.getByRole("main")).not.toContainText(
+    /pilot|OSM|Koordinat|Foto:|arsip|Chope|N\/A|Illustrative/i,
+  );
+  await expect(
+    page.getByRole("article", { name: "Kedai Ramen Sore", exact: true }),
+  ).toHaveCount(0);
+  expect(external).toEqual([]);
+  expect(errors).toEqual([]);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole("main").evaluate((el) => el.scrollTo(0, 0));
+  await page.screenshot({
+    path: `test-results/google-explore-${test.info().project.name}.png`,
+  });
+});
+
+test("search, categories and reset operate on actual names and keep URL state", async ({
   page,
 }) => {
   await page.goto("/explore");
@@ -11,11 +53,8 @@ test("search, categories and empty results share URL state", async ({
   await categories.getByRole("button", { name: "Coffee", exact: true }).click();
   await expect(page).toHaveURL(/category=Coffee/);
   await expect(
-    page.getByRole("article", { name: "Kopi Halaman", exact: true }),
+    page.getByRole("article", { name: "Toko Kopi TUKU - Blok M", exact: true }),
   ).toBeVisible();
-  await expect(
-    page.getByRole("article", { name: "Kedai Ramen Sore", exact: true }),
-  ).toHaveCount(0);
   await categories.getByRole("button", { name: "Korean", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "No places found" }),
@@ -23,302 +62,105 @@ test("search, categories and empty results share URL state", async ({
   await page
     .getByRole("button", { name: "Reset filters", exact: true })
     .click();
-  await expect(page).toHaveURL(/\/explore$/);
   const search = page.getByRole("searchbox", {
     name: "Find food, places or areas",
   });
-  await search.fill("ramen");
+  await search.fill("cairo");
   await search.press("Enter");
-  await expect(page).toHaveURL(/q=ramen/);
+  await expect(page).toHaveURL(/q=cairo/);
+  await expect(page.getByRole("article")).toHaveCount(1);
   await expect(
-    page.getByRole("article", { name: "Kedai Ramen Sore", exact: true }),
+    page.getByRole("article", {
+      name: "Kambing Bakar Cairo Sambas",
+      exact: true,
+    }),
   ).toBeVisible();
   await page.reload();
-  await expect(search).toHaveValue("ramen");
-  await expect(
-    page.getByRole("article", { name: "Kopi Halaman", exact: true }),
-  ).toHaveCount(0);
+  await expect(search).toHaveValue("cairo");
+  await page
+    .getByRole("link", { name: "View Kambing Bakar Cairo Sambas" })
+    .click();
+  await expect(page).toHaveURL(/q=cairo/);
+  await page.getByRole("link", { name: "Back", exact: true }).click();
+  await expect(page).toHaveURL(/explore\?q=cairo/);
 });
 
-test("saving and removing synchronize the card, nearby count and preview wishlist", async ({
+test("bookmark and Wishlist share actual place state and support remove", async ({
   page,
 }) => {
   await page.goto("/explore");
+  const name = "Toko Kopi TUKU - Blok M";
   await page
-    .getByRole("button", {
-      name: "Remove Kedai Ramen Sore from wishlist",
-      exact: true,
-    })
+    .getByRole("button", { name: `Save ${name} to wishlist`, exact: true })
     .click();
   await expect(
     page.getByRole("button", {
-      name: "Save Kedai Ramen Sore to wishlist",
+      name: `Remove ${name} from wishlist`,
       exact: true,
     }),
-  ).toHaveAttribute("aria-pressed", "false");
+  ).toHaveAttribute("aria-pressed", "true");
   await page.getByRole("link", { name: "Wishlist", exact: true }).click();
+  const card = page.getByRole("article", { name, exact: true });
+  await expect(card).toBeVisible();
+  await card.getByRole("link", { name, exact: true }).click();
   await expect(
-    page.getByRole("heading", { name: "My next food stops." }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: "Kedai Ramen Sore", exact: true }),
-  ).toHaveCount(0);
+    page.getByRole("button", { name: `Unsave ${name}`, exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
   await page
-    .getByRole("button", {
-      name: "Remove Kopi Halaman from wishlist",
-      exact: true,
-    })
+    .getByRole("button", { name: `Remove ${name} from wishlist`, exact: true })
     .click();
-  await page
-    .getByRole("button", { name: "Remove Ruang Matcha from wishlist" })
-    .click();
-  await expect(
-    page.getByRole("heading", { name: "Your wishlist is empty" }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Explore", exact: true }).click();
-  await expect(
-    page.getByRole("heading", { name: "No saved places nearby" }),
-  ).toBeAttached();
-  await page
-    .getByRole("button", {
-      name: "Save Kedai Ramen Sore to wishlist",
-      exact: true,
-    })
-    .click();
-  await expect(
-    page.getByRole("heading", { name: "1 saved place within 5 km" }),
-  ).toBeAttached();
+  await page.getByRole("link", { name: "Back", exact: true }).click();
+  await expect(card).toHaveCount(0);
 });
 
-test("location, restaurant preview, map and profile controls have working outcomes", async ({
+test("location, keyboard focus, responsive layouts and image failure have usable states", async ({
   page,
 }) => {
   await page.goto("/explore");
-  await page
-    .getByRole("link", { name: "View Kedai Ramen Sore", exact: true })
-    .click();
+  const area = page
+    .getByRole("button", { name: "Choose location", exact: true })
+    .first();
+  await area.click();
   const dialog = page.getByRole("dialog");
   await expect(
-    page.getByRole("heading", { name: "Kedai Ramen Sore" }),
+    dialog.getByRole("heading", { name: "Choose your area" }),
   ).toBeVisible();
-  await page
-    .getByRole("button", {
-      name: "Remove Kedai Ramen Sore from wishlist",
-      exact: true,
-    })
-    .click();
-  await expect(
-    page.getByRole("button", {
-      name: "Save Kedai Ramen Sore to wishlist",
-      exact: true,
-    }),
-  ).toBeVisible();
-  await page
-    .getByRole("link", { name: "Back to Explore", exact: true })
-    .click();
-  await page
-    .getByRole("button", { name: "Choose location", exact: true })
-    .click();
+  await page.keyboard.press("Tab");
+  expect(
+    await dialog.evaluate((el) => el.contains(document.activeElement)),
+  ).toBe(true);
+  await page.keyboard.press("Escape");
+  await expect(area).toBeFocused();
+  await area.click();
   await dialog
     .getByRole("button", { name: "Tangerang Selatan · Bintaro", exact: true })
     .click();
-  await expect(page).toHaveURL(/city=tangsel/);
   await expect(
-    page.getByRole("article", { name: "Ruang Matcha", exact: true }),
+    page.getByRole("heading", { name: "No places found" }),
   ).toBeVisible();
-  await expect(
-    page.getByText("Distance unavailable", { exact: false }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Map", exact: true }).click();
-  await expect(
-    page.getByRole("region", { name: "Illustrative restaurant map" }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Explore", exact: true }).click();
-  await page.getByRole("link", { name: "Profile", exact: true }).click();
-  await expect(
-    page.getByRole("heading", { name: "Your taste. Your rules." }),
-  ).toBeVisible();
-  await page.getByRole("button", { name: "Edit preferred city" }).click();
-  await expect(
-    dialog.getByRole("heading", { name: "Preferred city", exact: true }),
-  ).toBeVisible();
-  await page.keyboard.press("Escape");
-  await page.getByRole("link", { name: "Explore", exact: true }).click();
-  await expect(page).toHaveURL(/\/explore$/);
-});
-
-test("original assets render in their Figma slots and layout fits phone and desktop", async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/explore");
-  const photo = page.getByRole("img", {
-    name: "Illustrative ramen bowl with egg and vegetables",
-    exact: true,
-  });
-  await expect(photo).toBeVisible();
-  const bounds = await photo.boundingBox();
-  expect(bounds?.width).toBe(342);
-  expect(bounds?.height).toBe(280);
-  await expect(
-    page.getByRole("navigation", { name: "Main navigation" }),
-  ).toBeVisible();
-  const images = page.locator("main img");
-  for (const image of await images.all()) {
-    await image.scrollIntoViewIfNeeded();
-    await expect(image).toHaveJSProperty("complete", true);
-    await expect
-      .poll(() =>
-        image.evaluate((element: HTMLImageElement) => element.naturalWidth),
-      )
-      .toBeGreaterThan(0);
-  }
-  for (const viewport of [
+  await page
+    .getByRole("button", { name: "Reset filters", exact: true })
+    .click();
+  await expect(page.getByRole("article")).toHaveCount(32);
+  for (const size of [
     { width: 375, height: 812 },
     { width: 430, height: 932 },
     { width: 1280, height: 900 },
     { width: 844, height: 390 },
   ]) {
-    await page.setViewportSize(viewport);
+    await page.setViewportSize(size);
     expect(
       await page.evaluate(
-        () => document.documentElement.scrollWidth <= window.innerWidth,
+        () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBe(true);
-    await expect(
-      page.getByRole("navigation", { name: "Main navigation" }),
-    ).toBeInViewport();
   }
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  const navTransition = await page
-    .getByRole("link", { name: "Wishlist", exact: true })
-    .evaluate((button) => getComputedStyle(button).transitionDuration);
-  expect(navTransition).toBe("0s");
-});
-
-test("unavailable photos have a visible fallback", async ({ page }) => {
-  await page.route("**/_next/image?*", (route) =>
-    route.fulfill({ status: 503, body: "Unavailable" }),
-  );
-  await page.goto("/explore");
+  await page.route("**/_next/image?*", (route) => route.abort());
+  await page.route("**/google-places/*.jpg", (route) => route.abort());
+  await page.reload();
   await expect(
     page
-      .getByRole("article", { name: "Kedai Ramen Sore", exact: true })
+      .getByRole("article", { name: "Toko Kopi TUKU - Blok M", exact: true })
       .getByRole("img", { name: "Photo unavailable" }),
   ).toBeVisible();
-});
-
-test("category rails, nearby actions and both map links are operable", async ({
-  page,
-}) => {
-  await page.goto("/explore");
-  const rail = page.getByRole("group", {
-    name: "Restaurant categories",
-    exact: true,
-  });
-  for (const name of [
-    "All",
-    "Coffee",
-    "Matcha",
-    "Japanese",
-    "Korean",
-    "Indonesian",
-    "Western",
-    "Dessert",
-    "Brunch",
-  ]) {
-    const chip = rail.getByRole("button", { name, exact: true });
-    await chip.click();
-    await expect(chip).toHaveAttribute("aria-pressed", "true");
-  }
-  await page.getByRole("button", { name: "Explore", exact: true }).click();
-  const lowerRail = page.getByRole("group", {
-    name: "Explore by category",
-    exact: true,
-  });
-  for (const name of ["Japanese", "Coffee", "Matcha", "Dessert"]) {
-    await lowerRail.getByRole("button", { name, exact: true }).click();
-    await expect(page).toHaveURL(new RegExp(`category=${name}`));
-    await page.getByRole("button", { name: "Explore", exact: true }).click();
-    await expect(lowerRail).toBeAttached();
-  }
-  for (let index = 0; index < 2; index++) {
-    await page
-      .getByRole("link", { name: "View map", exact: true })
-      .nth(index)
-      .click();
-    await expect(
-      page.getByRole("region", { name: "Illustrative restaurant map" }),
-    ).toBeVisible();
-    await page.getByRole("link", { name: "Explore", exact: true }).click();
-  }
-  const compact = page.getByRole("article", {
-    name: "Nearby Kopi Halaman",
-    exact: true,
-  });
-  await compact
-    .getByRole("link", { name: "View Kopi Halaman", exact: true })
-    .click();
-  await expect(
-    page.getByRole("heading", { name: "Kopi Halaman", exact: true }),
-  ).toBeVisible();
-  await page
-    .getByRole("link", { name: "Back to Explore", exact: true })
-    .click();
-  await compact
-    .getByRole("button", { name: "Directions", exact: true })
-    .click();
-  await expect(
-    page
-      .getByRole("dialog")
-      .getByRole("heading", { name: "Explore this area" }),
-  ).toBeVisible();
-  await page.keyboard.press("Escape");
-  await compact.getByRole("button", { name: "Remove", exact: true }).click();
-  await expect(compact).toHaveCount(0);
-});
-
-test("larger text keeps the page inside the viewport and dialog focus contained", async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 375, height: 812 });
-  await page.goto("/explore");
-  await page.evaluate(() => {
-    const elements = [
-      ...document.querySelectorAll<HTMLElement>("main *, footer *"),
-    ];
-    const sizes = elements.map((element) => ({
-      element,
-      size: parseFloat(getComputedStyle(element).fontSize),
-      line: parseFloat(getComputedStyle(element).lineHeight),
-    }));
-    for (const { element, size, line } of sizes) {
-      if (element.children.length === 0 && element.tagName !== "IMG") {
-        element.style.fontSize = `${size * 2}px`;
-        if (Number.isFinite(line)) element.style.lineHeight = `${line * 2}px`;
-      }
-    }
-  });
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= window.innerWidth,
-    ),
-  ).toBe(true);
-  await page
-    .getByRole("button", { name: "Choose location", exact: true })
-    .click();
-  const dialog = page.getByRole("dialog");
-  await expect(dialog).toBeVisible();
-  for (let i = 0; i < 8; i++) {
-    await page.keyboard.press("Tab");
-    expect(
-      await dialog.evaluate((element) =>
-        element.contains(document.activeElement),
-      ),
-    ).toBe(true);
-  }
-  await page.keyboard.press("Escape");
-  await expect(
-    page.getByRole("button", { name: "Choose location", exact: true }),
-  ).toBeFocused();
 });

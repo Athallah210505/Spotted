@@ -1,5 +1,7 @@
 # Jakarta data pilot
 
+Status: dokumen ini merekam implementasi awal. UI pilot, metadata OSM di kartu dan rating Chope telah digantikan oleh [data Google langsung di Explore](16-google-explore-data.md). `/catalog` sekarang redirect ke Explore; rujuk dokumen terbaru untuk current functionality.
+
 25 Oktober 2026. Implementasi pilihan pengguna: OpenStreetMap sebagai seed dan Scrapling untuk enrichment website terpilih, tanpa layanan/API berbayar. Pilot dapat dilihat melalui Explore → **Lihat pilot data Jakarta (OSM)** → `/catalog`; JSON publik ada di `/api/catalog`.
 
 ## Current functionality and evidence

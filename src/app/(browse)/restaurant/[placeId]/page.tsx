@@ -1,11 +1,15 @@
 import { notFound } from "next/navigation";
 
 import { detailNavigation } from "@/features/explore/detail-navigation";
+import {
+  parseExploreFilters,
+  exploreSearch,
+} from "@/features/explore/demo-data";
 import { findDemoRestaurant } from "@/features/restaurants/demo-data";
 import { RestaurantDetail } from "@/features/restaurants/restaurant-detail";
 import { DetailSaveButton } from "@/features/wishlist/detail-save-button";
 import { SavedRecommendation } from "@/features/tiktok/saved-recommendation";
-import { findCatalogPlace } from "@/features/catalog/catalog";
+import { findGooglePlace } from "@/features/catalog/google-data";
 import { CatalogDetail } from "@/features/catalog/catalog-detail";
 
 export default async function RestaurantPage({
@@ -16,7 +20,11 @@ export default async function RestaurantPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const [{ placeId }, query] = await Promise.all([params, searchParams]);
-  const realPlace = findCatalogPlace(placeId);
+  const realPlace = findGooglePlace(placeId);
+  const realSearch = exploreSearch(
+    parseExploreFilters(query),
+    query.city === "jakarta",
+  );
   if (realPlace)
     return (
       <CatalogDetail
@@ -28,13 +36,7 @@ export default async function RestaurantPage({
             ? query.tab
             : "overview"
         }
-        backHref={
-          query.from === "catalog"
-            ? "/catalog"
-            : query.from === "wishlist"
-              ? "/wishlist"
-              : "/explore"
-        }
+        backHref={`${query.from === "wishlist" ? "/wishlist" : "/explore"}${realSearch ? `?${realSearch}` : ""}`}
       />
     );
   const place = findDemoRestaurant(placeId);

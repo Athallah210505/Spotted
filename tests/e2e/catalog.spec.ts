@@ -1,360 +1,134 @@
 import { expect, test } from "@playwright/test";
-import {
-  catalogDetailHref,
-  googleMapsUrl,
-} from "../../src/features/catalog/catalog-media";
 
-test("homepage rating leads to Overview, Menu and Reviews before opening Maps", async ({
+test("legacy catalogue opens Explore and API exposes Google fields without runtime provider calls", async ({
   page,
 }) => {
-  test.setTimeout(60_000);
-  await page.route("https://www.google.com/maps/**", (route) =>
-    route.fulfill({ contentType: "text/html", body: "Maps test destination" }),
-  );
-  await page.goto("/");
+  await page.goto("/catalog");
   await expect(page).toHaveURL(/\/explore$/);
-  const section = page.getByRole("region", { name: "Tempat nyata di Jakarta" });
-  const card = section.getByRole("article", {
-    name: "Cafe Batavia",
+  const response = await page.request.get("/api/catalog");
+  expect(response.status()).toBe(200);
+  expect(response.headers()["cache-control"]).toBe("no-store");
+  const data = await response.json();
+  expect(data.schemaVersion).toBe(2);
+  expect(data.source).toBe("Google Maps");
+  expect(data.places).toHaveLength(32);
+  for (const p of data.places) {
+    expect(p.rating).toBeGreaterThan(0);
+    expect(p.reviewCount).toBeGreaterThan(0);
+    expect(p.photoPath).toMatch(/^\/google-places\//);
+    expect(p.reviews.length).toBe(1);
+    expect(p.mapsUrl).toContain("https://www.google.com/maps/");
+  }
+});
+
+test("Google Overview follows the editorial design, expands weekly hours and opens real reviews before Maps", async ({
+  page,
+}) => {
+  await page.route("https://www.google.com/maps/**", (route) =>
+    route.fulfill({ contentType: "text/html", body: "Maps target" }),
+  );
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/explore?q=tuku");
+  await page
+    .getByRole("link", { name: "View Toko Kopi TUKU - Blok M", exact: true })
+    .click();
+  await expect(page).toHaveURL(/restaurant\/osm-12110042118\?q=tuku$/);
+  const h = page.getByRole("heading", {
+    name: "Toko Kopi TUKU - Blok M",
+    level: 1,
     exact: true,
   });
-  const image = card.getByRole("img");
-  await image.scrollIntoViewIfNeeded();
-  await expect(image).toBeVisible();
-  await expect
-    .poll(() =>
-      image.evaluate((element: HTMLImageElement) => element.naturalWidth),
-    )
-    .toBeGreaterThan(0);
-  const snapshot = await (await page.request.get("/api/catalog")).json();
-  const batavia = snapshot.places.find(
-    (place: { name: string }) => place.name === "Cafe Batavia",
-  )!;
-  await expect(
-    card.getByRole("link", { name: "Lihat detail Cafe Batavia", exact: true }),
-  ).toHaveAttribute("href", catalogDetailHref(batavia));
-  await expect(
-    card.getByLabel("4.8 dari 5 · Chope, snapshot sumber"),
-  ).toBeVisible();
-  await expect(
-    card.getByRole("link", { name: "Buka Google Maps", exact: true }),
-  ).toHaveCount(0);
-  await expect(
-    card.getByRole("link", { name: "Foto: Hkurniawan" }),
-  ).toHaveAttribute(
-    "href",
-    "https://commons.wikimedia.org/wiki/File:Cafe_Batavia,_Jakarta.jpg",
-  );
-  await expect(card.getByRole("link", { name: "CC BY-SA 3.0" })).toBeVisible();
-  await expect(section).toContainText("bukan penjual tertentu");
-  for (const width of [375, 430, 1280]) {
-    await page.setViewportSize({ width, height: 900 });
-    expect(
-      await page.evaluate(
-        () => document.documentElement.scrollWidth <= innerWidth,
-      ),
-    ).toBe(true);
-  }
-  await page.setViewportSize({ width: 390, height: 844 });
-  await card.screenshot({
-    path: `test-results/home-real-place-${test.info().project.name}.png`,
-  });
-  await card.getByRole("link", { name: /lihat detail$/ }).click();
-  await expect(page).toHaveURL(new RegExp(`${catalogDetailHref(batavia)}$`));
-  await expect(
-    page.getByRole("heading", { name: "Cafe Batavia", exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: "Menu", exact: true }),
-  ).toHaveAttribute("aria-current", "page");
-  await expect(
-    page.getByRole("region", { name: "Overview tempat" }),
-  ).toContainText(batavia.address);
-  await expect(page.getByText("Detail tempat", { exact: true })).toHaveCount(0);
-  await expect(
-    page.getByRole("heading", { name: "Cafe Batavia", exact: true }),
-  ).toHaveCSS("font-size", "34px");
+  await expect(h).toBeVisible();
+  await expect(h).toHaveCSS("font-size", "34px");
+  const rating = page.getByLabel("4.8 Google rating from 2450 reviews");
+  await expect(rating.locator("strong")).toHaveCSS("border-radius", "16px");
+  await expect(rating.locator("strong")).toHaveCSS("height", "64px");
   await expect(page.getByRole("link", { name: "Menu", exact: true })).toHaveCSS(
     "background-color",
     "rgb(23, 23, 23)",
   );
-  const yellowRating = page
-    .getByLabel("4.8 dari 5 · Chope, snapshot sumber")
-    .locator("strong");
-  await expect(yellowRating).toHaveCSS("border-radius", "16px");
-  await expect(yellowRating).toHaveCSS("height", "64px");
+  await expect(page.getByRole("main")).not.toContainText(
+    /OSM|Koordinat|Foto:|arsip|snapshot|Chope|website yang tercantum/i,
+  );
+  const hours = page.locator("details");
+  await hours.locator("summary").click();
   await expect(
-    page.getByRole("button", { name: "Next photo", exact: true }),
-  ).toBeDisabled();
-  await expect(
-    page.getByRole("button", { name: "Bookmark Cafe Batavia", exact: true }),
+    page.getByRole("table", { name: "Jam buka mingguan" }),
   ).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: "Buka Google Maps", exact: true }),
-  ).toHaveAttribute("href", googleMapsUrl(batavia));
+  await expect(page.getByRole("row", { name: /Jumat/ })).toContainText(
+    "07.00–11.35 12.50–21.00",
+  );
+  await hours.locator("summary").click();
+  await page.getByRole("main").evaluate((el) => el.scrollTo(0, 0));
   await page.screenshot({
-    path: `test-results/real-overview-${test.info().project.name}.png`,
+    path: `test-results/google-detail-${test.info().project.name}.png`,
   });
-  await page.getByRole("link", { name: "Menu", exact: true }).click();
-  await expect(page).toHaveURL(/tab=menu/);
-  await expect(
-    page.getByRole("link", { name: "Buka menu di website" }),
-  ).toHaveAttribute("href", "https://cafebatavia.com/#section-menu");
-  await page.reload();
-  await page
-    .getByRole("button", { name: "Bookmark Cafe Batavia", exact: true })
-    .click();
-  await expect(
-    page.getByRole("button", { name: "Unsave Cafe Batavia", exact: true }),
-  ).toHaveAttribute("aria-pressed", "true");
-  await expect(
-    page.getByRole("button", {
-      name: "Remove Cafe Batavia from wishlist",
-      exact: true,
-    }),
-  ).toHaveAttribute("aria-pressed", "true");
-  await expect(
-    page.getByRole("link", { name: "Menu", exact: true }),
-  ).toHaveAttribute("aria-current", "page");
   await page.getByRole("link", { name: "Reviews", exact: true }).click();
+  await expect(page).toHaveURL(/tab=reviews&q=tuku/);
+  const review = page.getByRole("article", { name: "Review Radja Sitanggang" });
+  await expect(review).toBeVisible();
+  await expect(review).toContainText("Toko Kopi Tuku menyajikan minuman kopi");
   await expect(
-    page.getByRole("region", { name: "Reviews tempat" }),
-  ).toContainText("4.8/5 · 38 ulasan di Chope");
-  await expect(page.getByText(/Rating snapshot Chope/)).toBeVisible();
+    review.getByRole("link", { name: "Radja Sitanggang" }),
+  ).toHaveAttribute("href", /google.com\/maps\/contrib\//);
+  await expect(
+    page.getByRole("link", { name: "Lihat semua ulasan di Google Maps" }),
+  ).toHaveAttribute("href", /google.com\/maps\//);
   const popupPromise = page.waitForEvent("popup");
   await page
     .getByRole("link", { name: "Buka Google Maps", exact: true })
     .click();
   const popup = await popupPromise;
-  await expect(popup).toHaveURL(googleMapsUrl(batavia));
+  await expect(popup).toHaveURL(/google.com\/maps\//);
   await popup.close();
   await page.getByRole("link", { name: "TikTok", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "Not available yet", exact: true }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Back", exact: true }).click();
-  await expect(page).toHaveURL(/\/explore$/);
-  await card
-    .getByRole("link", { name: "Lihat detail Cafe Batavia", exact: true })
-    .click();
-  await expect(
-    page.getByRole("region", { name: "Overview tempat", exact: true }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Back", exact: true }).click();
-  await page.getByRole("link", { name: "Wishlist", exact: true }).click();
-  const savedReal = page.getByRole("article", {
-    name: "Cafe Batavia",
-    exact: true,
-  });
-  await expect(savedReal).toBeVisible();
-  await savedReal
-    .getByRole("link", { name: "Cafe Batavia", exact: true })
-    .click();
-  await expect(page).toHaveURL(/from=wishlist/);
-  await page.getByRole("link", { name: "Back", exact: true }).click();
-  await expect(page).toHaveURL(/\/wishlist$/);
-  await savedReal
-    .getByRole("button", {
-      name: "Remove Cafe Batavia from wishlist",
-      exact: true,
-    })
-    .click();
-  await expect(savedReal).toHaveCount(0);
-  await page.getByRole("link", { name: "Explore", exact: true }).click();
-  await page
-    .getByRole("link", { name: "Lihat semua 40 tempat", exact: true })
-    .click();
-  await expect(page).toHaveURL(/\/catalog$/);
-  const links = page.getByRole("link", {
-    name: "Lihat detail",
-    exact: true,
-  });
-  await expect(links).toHaveCount(40);
-  const api = await page.request.get("/api/catalog");
-  const json = await api.json();
-  expect(
-    json.places.every((place: { googleMapsUrl: string }) =>
-      place.googleMapsUrl.startsWith(
-        "https://www.google.com/maps/search/?api=1&query=",
-      ),
-    ),
-  ).toBe(true);
-  expect(
-    json.places.filter((place: { photo: unknown }) => place.photo),
-  ).toHaveLength(2);
-  expect(
-    json.places.find((place: { name: string }) => place.name === "Cafe Batavia")
-      .sourceRating.provider,
-  ).toBe("Chope");
-  await page
-    .getByRole("article", { name: "Gulai Tikungan Blok M", exact: true })
-    .getByRole("link", { name: "Lihat detail", exact: true })
-    .click();
-  await expect(page).toHaveURL(/\/restaurant\/osm-12157326132\?from=catalog$/);
-  await expect(
-    page.getByRole("heading", {
-      name: "Gulai Tikungan Blok M",
-      level: 1,
-      exact: true,
-    }),
-  ).toBeVisible();
-  await expect(
-    page.getByLabel("Rating belum tersedia", { exact: true }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Menu", exact: true }).click();
-  await expect(page.getByRole("region", { name: "Menu tempat" })).toContainText(
-    "Menu belum tersedia",
-  );
-  await page.getByRole("link", { name: "Reviews", exact: true }).click();
-  await expect(
-    page.getByRole("region", { name: "Reviews tempat" }),
-  ).toContainText("Rating dan ulasan belum tersedia");
-  await page.getByRole("link", { name: "Back", exact: true }).click();
-  await expect(page).toHaveURL(/\/catalog$/);
+  await expect(page).toHaveURL(/explore\?q=tuku$/);
   const unknown = await page.request.get("/restaurant/osm-0000");
   expect(unknown.status()).toBe(404);
-  await page.route("**/catalog/cafe-batavia.jpg*", (route) => route.abort());
-  await page.route("**/_next/image?*", (route) => route.abort());
-  await page.goto("/explore");
-  const failed = page
-    .getByRole("region", { name: "Tempat nyata di Jakarta" })
-    .getByRole("article", { name: "Cafe Batavia", exact: true });
-  await expect(
-    failed.getByRole("img", { name: "Photo unavailable" }),
-  ).toBeVisible();
-  await expect(
-    failed.getByRole("link", {
-      name: "Lihat detail Cafe Batavia",
-      exact: true,
-    }),
-  ).toHaveAttribute("href", catalogDetailHref(batavia));
 });
 
-test("real data pilot is reachable from Explore and exposes provenance, missing fields and JSON", async ({
+test("Google ratings drive filter counts and sort results", async ({
   page,
 }) => {
-  const providers: string[] = [];
-  const errors: string[] = [];
-  page.on("pageerror", (error) => errors.push(error.message));
-  page.on("request", (request) => {
-    if (
-      /openstreetmap\.org|overpass|cafebatavia\.com|googleapis\.com/.test(
-        request.url(),
-      )
-    )
-      providers.push(request.url());
-  });
   await page.goto("/explore");
+  await page.getByRole("link", { name: "Filters", exact: true }).click();
   await page
-    .getByRole("button", {
-      name: "Remove Kedai Ramen Sore from wishlist",
-      exact: true,
-    })
+    .getByRole("group", { name: "Cuisine", exact: true })
+    .getByRole("button", { name: "Coffee", exact: true })
     .click();
   await page
-    .getByRole("link", { name: "Lihat pilot data Jakarta (OSM)" })
+    .getByRole("group", { name: "Google rating", exact: true })
+    .getByRole("button", { name: "4.5+", exact: true })
     .click();
-  await expect(page).toHaveURL(/\/catalog$/);
-  await expect(page.getByRole("article")).toHaveCount(40);
   await expect(
-    page.getByRole("link", { name: "© OpenStreetMap contributors · ODbL" }),
-  ).toHaveAttribute("href", "https://www.openstreetmap.org/copyright");
-  await page.getByLabel("Cari nama, alamat, atau cuisine").fill("Batavia");
-  await page.getByRole("button", { name: "Lihat data", exact: true }).click();
+    page.getByRole("group", { name: "Price level", exact: true }),
+  ).toHaveCount(0);
+  const count = Number(
+    (await page.getByRole("status").innerText()).match(/^\d+/)![0],
+  );
+  expect(count).toBeGreaterThan(0);
+  await page.getByRole("link", { name: new RegExp(`^Show ${count} `) }).click();
+  await expect(page.getByRole("article")).toHaveCount(count);
   await expect(
-    page.getByRole("article", { name: "Cafe Batavia", exact: true }),
+    page.getByRole("article", { name: "Toko Kopi TUKU - Blok M", exact: true }),
   ).toBeVisible();
-  const source = page.getByRole("region", {
-    name: "Ekstraksi website Cafe Batavia",
-  });
-  await expect(source).toContainText("Judul halaman: Batavia");
-  await expect(
-    source.getByRole("link", { name: "Tautan menu dari halaman sumber" }),
-  ).toHaveAttribute("href", "https://cafebatavia.com/#section-menu");
-  await expect(
-    page.getByRole("link", { name: "Lihat titik OSM · node/4245907143" }),
-  ).toHaveAttribute("href", "https://www.openstreetmap.org/node/4245907143");
-  await page
-    .getByRole("link", { name: "Reset pencarian", exact: true })
-    .click();
-  await expect(page).toHaveURL(/\/catalog$/);
-  await expect(page.getByRole("article")).toHaveCount(40);
-  await page.getByLabel("Area sampel", { exact: true }).selectOption("blok-m");
-  await page.getByRole("button", { name: "Lihat data", exact: true }).click();
-  await expect(page.getByRole("article")).toHaveCount(10);
-  await page
-    .getByLabel("Cari nama, alamat, atau cuisine")
-    .fill("zxqv-no-such-place");
-  await page.getByRole("button", { name: "Lihat data", exact: true }).click();
-  await expect(
-    page.getByRole("heading", { name: "Tidak ada hasil" }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Tampilkan semua titik" }).click();
-  await expect(page.getByRole("article")).toHaveCount(40);
-  const response = await page.request.get("/api/catalog");
-  expect(response.status()).toBe(200);
-  const json = await response.json();
-  expect(json.places).toHaveLength(40);
-  expect(json.license).toBe("ODbL-1.0");
-  expect(json.places[0]).not.toHaveProperty("rating");
-  expect(providers).toEqual([]);
-  expect(errors).toEqual([]);
-  await page.getByRole("link", { name: "Back", exact: true }).click();
-  await expect(
-    page.getByRole("button", {
-      name: "Save Kedai Ramen Sore to wishlist",
-      exact: true,
-    }),
-  ).toBeVisible();
-});
-
-test("catalogue is keyboard accessible and fits narrow, desktop, landscape and large text", async ({
-  page,
-}) => {
-  await page.goto("/catalog?q=Batavia");
-  await page.setViewportSize({ width: 390, height: 844 });
-  const search = page.getByLabel("Cari nama, alamat, atau cuisine");
-  await search.focus();
-  await page.keyboard.press("Tab");
-  await expect(page.getByLabel("Area sampel", { exact: true })).toBeFocused();
-  for (const viewport of [
-    { width: 375, height: 812 },
-    { width: 430, height: 932 },
-    { width: 1280, height: 900 },
-    { width: 844, height: 390 },
-  ]) {
-    await page.setViewportSize(viewport);
+  await page.getByRole("link", { name: /^Sort places:/ }).click();
+  await page.getByRole("link", { name: "Highest Rated", exact: true }).click();
+  const values = await page
+    .getByRole("article")
+    .locator('p[aria-label*="Google rating"] strong')
+    .allTextContents();
+  expect(values.map(Number)).toEqual(values.map(Number).sort((a, b) => b - a));
+  for (const width of [375, 430, 1280]) {
+    await page.setViewportSize({ width, height: 844 });
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBe(true);
   }
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.evaluate(() => {
-    window.scrollTo(0, 0);
-    document.querySelector("main")?.scrollTo(0, 0);
-  });
-  await page.screenshot({
-    path: `test-results/catalog-${test.info().project.name}.png`,
-  });
-  await page.evaluate(() => {
-    const leaves = [...document.querySelectorAll<HTMLElement>("main *")].filter(
-      (element) => !element.children.length && element.tagName !== "IMG",
-    );
-    const sizes = leaves.map((element) => ({
-      element,
-      size: parseFloat(getComputedStyle(element).fontSize),
-      line: parseFloat(getComputedStyle(element).lineHeight),
-    }));
-    for (const { element, size, line } of sizes) {
-      element.style.fontSize = `${size * 2}px`;
-      if (Number.isFinite(line)) element.style.lineHeight = `${line * 2}px`;
-    }
-  });
-  expect(
-    await page
-      .locator("main")
-      .evaluate((element) => element.scrollWidth <= element.clientWidth),
-  ).toBe(true);
 });

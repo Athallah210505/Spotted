@@ -18,7 +18,7 @@ import {
 } from "@/features/explore/demo-data";
 import { RestaurantPhoto } from "@/features/restaurants/restaurant-photo";
 import { usePreviewWishlist } from "@/features/wishlist/preview-wishlist";
-import { catalog } from "@/features/catalog/catalog";
+import { googlePlaces } from "@/features/catalog/google-data";
 import {
   catalogPhotos,
   catalogRatings,
@@ -62,7 +62,7 @@ export function DiscoveryPage({
   const search = exploreSearch(filters, profile.city !== "jakarta");
   const saved = demoRestaurants.filter((place) => savedIds.includes(place.id));
   const savedCatalog = wishlist
-    ? catalog.places.filter((place) => savedIds.includes(place.id))
+    ? googlePlaces.filter((place) => savedIds.includes(place.id))
     : [];
   const nearby = saved.filter(
     (place) => filters.city === "jakarta" && place.distanceM <= radius * 1000,
@@ -489,7 +489,7 @@ export function DiscoveryPage({
                   <p>
                     {wishlist
                       ? savedCatalog.length
-                        ? "Open List to see your saved OSM places."
+                        ? "Open List to see your saved places."
                         : "Save a restaurant from Explore to see it here."
                       : "Try another search or category."}
                   </p>
@@ -547,7 +547,7 @@ export function DiscoveryPage({
                         ? `${catalogRatings[place.id]!.value} · ${catalogRatings[place.id]!.provider}`
                         : "Belum ada rating"}
                     </p>
-                    <p className={styles.cardMeta}>Saved · OSM</p>
+                    <p className={styles.cardMeta}>Saved</p>
                     <div className={styles.cardActions}>
                       <button
                         aria-label={`Remove ${place.name} from wishlist`}

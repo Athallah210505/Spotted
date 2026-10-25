@@ -1,0 +1,1556 @@
+[
+  {
+    "id": "node/12110042118",
+    "name": "Toko Kopi TUKU - Blok M",
+    "category": "Kedai Kopi",
+    "area": "blok-m",
+    "latitude": -6.2439233,
+    "longitude": 106.7997294,
+    "address": "3, Jl. Sultan Hasanuddin Dalam No.25, RT.3/RW.1, Melawai, Kebayoran Baru, South Jakarta City, Jakarta 12160",
+    "rating": 4.8,
+    "reviewCount": 2450,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLf0QwQAOUuajK1Pvumcy_IhAHVHLZ91Zgp0h24iQhyZXSYEZW9W-i3d-CII99xK2DqmAeRkOIhoRmgSsjA0GtXMmUug61WDOj7tzLxcx_LlBYE2PZf0K3KbYjp49QNfJRZp_lC3=w408-h306-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "07.00–21.00"
+      },
+      {
+        "day": "Senin",
+        "text": "07.00–21.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "07.00–21.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "07.00–21.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "07.00–21.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "07.00–11.35 12.50–21.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "07.00–21.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Radja Sitanggang",
+        "authorUrl": "https://www.google.com/maps/contrib/101633479713488690621/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "Toko Kopi Tuku menyajikan minuman kopi dan non kopi serta aneka kue bolu yang enak…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Toko+Kopi+Tuku+Blok+M/?hl=id",
+    "checkedAt": "2026-10-25T11:12:55.124Z",
+    "matchDistanceM": 3,
+    "photoPath": "/google-places/node-12110042118.jpg"
+  },
+  {
+    "id": "node/11458337518",
+    "name": "Kambing Bakar Cairo Sambas",
+    "category": "Restoran Barbekyu Daging Domba",
+    "area": "blok-m",
+    "latitude": -6.2463816,
+    "longitude": 106.7956203,
+    "address": "Jl. Sungai Sambas 3 No.126 8, RT.6/RW.5, Kramat Pela, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12130",
+    "rating": 4.6,
+    "reviewCount": 1225,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLejlXwAsmvTx-Ee_yOJph9Kve5asVHOB7wnh7ToqpCARU3BNlRud__Ek5SCR5cZCDvIKD57saGJnz7MskpKz5UsD7RA6eFTcXDiRxO7sj5Xr2f9R07_sgaz4hfju4D4gEwkEMPRHQ=w408-h306-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Senin",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "13.00–23.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "10.00–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Teguh Budianto",
+        "authorUrl": "https://www.google.com/maps/contrib/112413021123584976899/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Resto dengan hidangan khas Kambing Bakar di Jaksel. Kambing Bakar disajikan dengan hotplate dan sambal…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Kambing%20Bakar%20Cairo%20blok%20m%20Jakarta/@-6.246263,106.7956544,18z?hl=id",
+    "checkedAt": "2026-10-25T11:13:50.102Z",
+    "matchDistanceM": 14,
+    "photoPath": "/google-places/node-11458337518.jpg"
+  },
+  {
+    "id": "node/7038074086",
+    "name": "Daun Muda Soulfood by Javanegra - Wolter Monginsidi",
+    "category": "Restoran Indonesia",
+    "area": "blok-m",
+    "latitude": -6.2400859,
+    "longitude": 106.8046389,
+    "address": "Jl. Wolter Monginsidi No.2a 3, RT.3/RW.2, Melawai, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160",
+    "rating": 4.6,
+    "reviewCount": 2222,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfXj2wCew9k8-n-JQi_Dq0b9P0Aahm-W6QtgBT20JOqXKZ4r6JohjbQOwnB7MHa_voMNEofk0Mdiz-yVEclAI45o6b2cd_uSVf5C_YAYdE6nPazbqmsoGc8z0yxpW0VFyvjwckZ=w408-h498-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "11.00–22.00"
+      },
+      {
+        "day": "Senin",
+        "text": "11.00–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "11.00–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "11.00–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "11.00–22.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "11.00–22.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "11.00–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Noah Caca 29",
+        "authorUrl": "https://www.google.com/maps/contrib/101630254037550589282/reviews?hl=id",
+        "rating": 1,
+        "excerpt": "As long aku makan ditempat yang punya concept gourmet gapernah seburuk ini, 1. waktu aku…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Daun%20Muda%20Soulfood%20by%20Peresthu%20blok%20m%20Jakarta/@-6.2400119,106.8045856,18z?hl=id",
+    "checkedAt": "2026-10-25T11:14:09.760Z",
+    "matchDistanceM": 10,
+    "photoPath": "/google-places/node-7038074086.jpg"
+  },
+  {
+    "id": "node/11681193422",
+    "name": "KISAKU Blok M Pasaraya",
+    "category": "Klub Sosial",
+    "area": "blok-m",
+    "latitude": -6.2443875,
+    "longitude": 106.8027292,
+    "address": "Jl. Iskandarsyah II No.2, RT.3/RW.1, Melawai, Kec. Kby. Baru, Jakarta, Daerah Khusus Ibukota Jakarta 12160",
+    "rating": 4.8,
+    "reviewCount": 127,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfVfdhDlq7_1C0cWACNs4qk0JlhZ2q7u8JIC62YjYt582d8EAgZOA0PyEj35Xh1ZCn4JHnvfoCkpMS2aLvoUJspn3oEzyMdkxLDeI2MVjdWnMict1OjCxHymbwtcQ9xDkPHrtrN=w479-h240-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "10.00–21.00"
+      },
+      {
+        "day": "Senin",
+        "text": "08.00–21.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "08.00–21.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "08.00–21.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "08.00–21.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "08.00–21.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "10.00–21.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "knia nzwa",
+        "authorUrl": "https://www.google.com/maps/contrib/111759596181395165620/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "kalau mau nge beer santai, atau me time aku rekomen banget buat nyobain kisaku. di…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Kisaku%20blok%20m%20Jakarta/@-6.2443595,106.8027268,18z?hl=id",
+    "checkedAt": "2026-10-25T11:14:13.777Z",
+    "matchDistanceM": 3,
+    "photoPath": "/google-places/node-11681193422.jpg"
+  },
+  {
+    "id": "node/11681193423",
+    "name": "COTTI COFFEE-Pasaraya Blok M",
+    "category": "Kedai Kopi",
+    "area": "blok-m",
+    "latitude": -6.2438043,
+    "longitude": 106.8028083,
+    "address": "Pasaraya Grande, Jl. Sultan Jl. Iskandarsyah II Blok M GF-B01, RT.3/RW.1, Melawai, Kebayoran Baru, South Jakarta City, Jakarta 12160",
+    "rating": 4.0,
+    "reviewCount": 42,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdUVAQzvYhYYDRr_bFfRSaQraTYmDxUv2vCoRuHsqSXK5ZLocpRfzlFILeoQS6yV88YBojoAXM7hpOGubLHQhBPUS-wdJ3uVZ4meuGJMSozBb_JTRiY_Jv4kVbhRhUT7tWuYuq-FA=w408-h307-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "09.00–21.00"
+      },
+      {
+        "day": "Senin",
+        "text": "07.30–21.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "07.30–21.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "07.30–21.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "07.30–21.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "07.30–21.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "09.00–21.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "JAJAMAN - Jalan Jajan Makan",
+        "authorUrl": "https://www.google.com/maps/contrib/110127654968600063111/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "Lagi pengen ngadem sambil nyobain Ice Red Bean Coconut Latte di Cotti Coffee cabang Pasaraya…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Cotti%20Coffee%20blok%20m%20Jakarta/@-6.2440832,106.8026935,18z?hl=id",
+    "checkedAt": "2026-10-25T11:14:18.089Z",
+    "matchDistanceM": 34,
+    "photoPath": "/google-places/node-11681193423.jpg"
+  },
+  {
+    "id": "node/7719208236",
+    "name": "Shisha Cafe Menteng",
+    "category": "Restoran Timur Tengah",
+    "area": "menteng",
+    "latitude": -6.1969114,
+    "longitude": 106.8287882,
+    "address": "Plasa Menteng, Jl. HOS. Cokroaminoto No.79 3, RT.3/RW.5, Menteng, Central Jakarta City, Jakarta 10310",
+    "rating": 4.1,
+    "reviewCount": 665,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdhvWGATRfUyI0nvZOoNlLi8ed2qj-IiEdIEuzrKTSd_zy6zgvCEhXUHS1AcVUhFoQof_V8vDqIsoVUMhlBiMqxXX0HEMqx0H7Dod5e75rbFbRzw0oBMq4IEyUKOTxXjE4Hcn6c=w426-h240-k-no",
+    "hours": [],
+    "reviews": [
+      {
+        "author": "fifih latifah",
+        "authorUrl": "https://www.google.com/maps/contrib/100833645415505669041/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "Tempat nya cukup nyaman namun lumayan kecil. Rasa makanan enak. service kurang memuaskan, sempat mau…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Shisha%20Cafe%20Menteng%20menteng%20Jakarta/@-6.1968987,106.8287768,18z?hl=id",
+    "checkedAt": "2026-10-25T11:15:42.718Z",
+    "matchDistanceM": 2,
+    "photoPath": "/google-places/node-7719208236.jpg"
+  },
+  {
+    "id": "node/4245902363",
+    "name": "Lara Djonggrang",
+    "category": "Restoran Indonesia",
+    "area": "menteng",
+    "latitude": -6.194136,
+    "longitude": 106.836232,
+    "address": "RSVP only at 0811-9108-966, Jl. Teuku Cik Ditiro No.4, RT.3/RW.2, Gondangdia, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10350",
+    "rating": 4.5,
+    "reviewCount": 2207,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLd3vo9hX3H-8FnXuaVKJWSjCZfppNLnk54bt15uSnnAwbKvHsRsbmsgKHyr8bzGqnfHr5kRyBWLBO06NmaQNnSY8KBXzw1xNO1ArZ4GOEa3oJBWTKNYJB2ccBeqLNulOpv_j0eB=w408-h261-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "11.00–23.00"
+      },
+      {
+        "day": "Senin",
+        "text": "11.00–23.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "11.00–23.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "11.00–23.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "11.00–23.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "11.00–23.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "11.00–23.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Arseto Tri Baskoro",
+        "authorUrl": "https://www.google.com/maps/contrib/115056423198060349982/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "⭐⭐⭐⭐⭐ Lara Djonggrang menawarkan pengalaman yang lebih dari sekadar makan. Begitu ……"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Lara%20Djonggrang%20menteng%20Jakarta/@-6.1942131,106.8361732,18z?hl=id",
+    "checkedAt": "2026-10-25T11:15:39.012Z",
+    "matchDistanceM": 11,
+    "photoPath": "/google-places/node-4245902363.jpg"
+  },
+  {
+    "id": "node/6274340491",
+    "name": "Dunkin' Donuts Menteng",
+    "category": "Toko Donat",
+    "area": "menteng",
+    "latitude": -6.1979003,
+    "longitude": 106.8282813,
+    "address": "Jl. HOS. Cokroaminoto No.94, RT.2/RW.5, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310",
+    "rating": 4.5,
+    "reviewCount": 1766,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLd6Z-7ihih2Swx-wJ6lDVtomKby4TGjbPfG6TO43m2tzgWSXnc8nRSXmrGshKC-teWVKchZzKfv1s_f2ngN7ef5TChhwge72Ebgb4790IXd_8OhNG9u0sVjuOrm3gzy2sutpZEObsi3OK_1=w408-h544-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Senin",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "08.00–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Amei Kwok",
+        "authorUrl": "https://www.google.com/maps/contrib/116538193660885684032/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Salah satu Dunkin donuts yg besar tempatnya Parkirnya jg luas Untuk rasa donat ud ga…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Dunkin'%20menteng%20Jakarta/@-6.1978839,106.8281527,18z?hl=id",
+    "checkedAt": "2026-10-25T11:15:46.392Z",
+    "matchDistanceM": 14,
+    "photoPath": "/google-places/node-6274340491.jpg"
+  },
+  {
+    "id": "node/6274366589",
+    "name": "Tamnak Thai Restaurant",
+    "category": "Restoran Thailand",
+    "area": "menteng",
+    "latitude": -6.1965167,
+    "longitude": 106.8283543,
+    "address": "Menteng Central - Ground Floor, Jl. HOS. Cokroaminoto No.78 - 80, RT.2/RW.5, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310",
+    "rating": 4.5,
+    "reviewCount": 740,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdCv02S6lrRwIJafojbwq2MamIQmdWYOj1bBdJNP4-TOxMLTkVIzO7-mBWZTizkCtISz3QPWRi6DZAGSDPZfGT4QqpCJeHUQ8FdW89W-2nWYBO7zpZTMq6kVDRjYCg98OweUK72=w408-h306-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "11.00–21.00"
+      },
+      {
+        "day": "Senin",
+        "text": "11.00–21.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "11.00–21.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "11.00–21.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "11.00–21.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "11.00–21.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "11.00–21.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Moniq Osi",
+        "authorUrl": "https://www.google.com/maps/contrib/117635501288469635229/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tomyumnya juara ini rikues tanpa mecin aja udah enak mehong tp terbayarkan dengan rasa tomyumnya…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Tamnak%20Thai%20menteng%20Jakarta/@-6.1966387,106.82846,18z?hl=id",
+    "checkedAt": "2026-10-25T11:16:06.914Z",
+    "matchDistanceM": 18,
+    "photoPath": "/google-places/node-6274366589.jpg"
+  },
+  {
+    "id": "node/11126591472",
+    "name": "Gubug Makan Mang Engking Kelapa Gading",
+    "category": "Restoran Sunda",
+    "area": "kelapa-gading",
+    "latitude": -6.1597121,
+    "longitude": 106.9017903,
+    "address": "Jl. Pelepah Raya, RW.5, Klp. Gading Bar., Kec. Klp. Gading, Jkt Utara, Daerah Khusus Ibukota Jakarta 14240",
+    "rating": 4.6,
+    "reviewCount": 1925,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdSWpHuiuLJmM6pB48p2PDTx1qAL6cQ8wxKT4ymJNm6Qicsi1OYl_TpNW_6zm_aWux6mDNKUKAetnIVXKt3Fhpp7lUNMe_MonOALeHzMlOOAEauWPgAhLaIVeCBN85B5PD7jm6z9Q=w533-h240-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Senin",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "10.00–21.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "10.00–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Sofi Sanraesita",
+        "authorUrl": "https://www.google.com/maps/contrib/108373289575909826551/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Sdh booking jam 16.00-17.30. Area parkir luas, lokasi mudah dijangkau. Makanan Sunda agak pricey tapi…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Mang%20Engking%20Kelapa%20Gading%20kelapa%20gading%20Jakarta/@-6.159886,106.902129,18z?hl=id",
+    "checkedAt": "2026-10-25T11:15:57.679Z",
+    "matchDistanceM": 42,
+    "photoPath": "/google-places/node-11126591472.jpg"
+  },
+  {
+    "id": "node/9750975375",
+    "name": "MAXX Coffee",
+    "category": "Kafe",
+    "area": "kelapa-gading",
+    "latitude": -6.1558156,
+    "longitude": 106.9080023,
+    "address": "Jl. Kelapa Gading Boulevard Blok LB 3, Kav 1 & 2, RT.12/RW.18, Klp. Gading Tim., Kec. Klp. Gading, Jakarta, Daerah Khusus Ibukota Jakarta 14240",
+    "rating": 4.6,
+    "reviewCount": 868,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfQ10TUNiH2K0xOosaRwx1nee9Ml2ILaoOjfk1JA6uFFCHBSpWRIeM0NT0ZLNqk6tw_G1Mh2jTzb4wsB-DkW_MOBLVG0A58fP9RETF65j7F1yg5K45qRbnplEscnNREACAMxAU=w408-h408-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "07.00–22.00"
+      },
+      {
+        "day": "Senin",
+        "text": "07.00–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "07.00–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "07.00–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "07.00–22.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "07.00–22.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "07.00–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Riefda Maharani",
+        "authorUrl": "https://www.google.com/maps/contrib/108901231273889925534/reviews?hl=id",
+        "rating": 1,
+        "excerpt": "Grasak grusuk banget baru order jam 9 tpi udh diusir pelan2. Pelayanannya sangat kurang. Rotinya…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Maxx%20Coffee%20kelapa%20gading%20Jakarta/@-6.155719,106.908027,18z?hl=id",
+    "checkedAt": "2026-10-25T11:18:14.982Z",
+    "matchDistanceM": 11,
+    "photoPath": "/google-places/node-9750975375.jpg"
+  },
+  {
+    "id": "node/13973983404",
+    "name": "Five Monkeys Burger - La Piazza Kelapa Gading",
+    "category": "Restoran Hamburger",
+    "area": "kelapa-gading",
+    "latitude": -6.1602775,
+    "longitude": 106.9062545,
+    "address": "Jl. Boulevard Raya, RT.13/RW.18, Klp. Gading Tim., Kec. Klp. Gading, Jakarta, Daerah Khusus Ibukota Jakarta 14240",
+    "rating": 4.8,
+    "reviewCount": 275,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLe3bMSsxEShETbb7_uEsMGAxaxiPIknKJwAQDbg5o1-abfLDo8XcXjQIle3UlvO_oqns8lmW53rvq4BbHlMr7ckJBMZ2n3hakaFmzN6V3OtD79R7hhtnJmEQgmwWtogdpTqQCcC1ow9_0Rg=w408-h725-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "10.00–21.30"
+      },
+      {
+        "day": "Senin",
+        "text": "10.00–21.30"
+      },
+      {
+        "day": "Selasa",
+        "text": "10.00–21.30"
+      },
+      {
+        "day": "Rabu",
+        "text": "10.00–21.30"
+      },
+      {
+        "day": "Kamis",
+        "text": "10.00–21.30"
+      },
+      {
+        "day": "Jumat",
+        "text": "10.00–21.30"
+      },
+      {
+        "day": "Sabtu",
+        "text": "10.00–21.30"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "S Joey",
+        "authorUrl": "https://www.google.com/maps/contrib/100596953528459573086/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "Pesen double Patty wagyu IDR 95.000, harga dengan barang’nya agak ga imbang sih 🤣. Rasa…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Five%20Monkeys%20Fresh%20Burgers%20%26%20Hotdogs%20kelapa%20gading%20Jakarta/@-6.1602568,106.9062401,18z?hl=id",
+    "checkedAt": "2026-10-25T11:18:26.916Z",
+    "matchDistanceM": 3,
+    "photoPath": "/google-places/node-13973983404.jpg"
+  },
+  {
+    "id": "node/13973983604",
+    "name": "Monsieur Spoon Summarecon Mall Kelapa Gading 1",
+    "category": "Kafe",
+    "area": "kelapa-gading",
+    "latitude": -6.158877,
+    "longitude": 106.9067961,
+    "address": "Summarecon Mall, Klp. GADING, Jl. Boulevard Raya 1, Lobby 1 Selatan, RT.13/RW.18, Klp. Gading Tim., Kec. Klp. Gading, Jkt Utara, Daerah Khusus Ibukota Jakarta 14240",
+    "rating": 4.5,
+    "reviewCount": 1090,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdZJmrbPkLYJJ3zPKUYpNS5waQSSA67iyDUyb957VA1aXRR18m-LtI1EwQUX0JmhwjUTSPMsrJ2WmArL5eHklxCKXqTs9fV0sOjv9BmijPIt3RMTgI8rDDXUr1PFXUbCM5sDdaf04rU34s=w408-h306-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Senin",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "10.00–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Ursandnic JKT",
+        "authorUrl": "https://www.google.com/maps/contrib/102165050932678036157/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tempatnya spacious dan interiornya cantik. Dining Areanya terbagi non smoking dan smoking. Kali ini order…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Monsieur%20Spoon%20kelapa%20gading%20Jakarta/@-6.1588182,106.9068777,18z?hl=id",
+    "checkedAt": "2026-10-25T11:18:22.963Z",
+    "matchDistanceM": 11,
+    "photoPath": "/google-places/node-13973983604.jpg"
+  },
+  {
+    "id": "node/9750987138",
+    "name": "UNION Mall Kelapa Gading 3",
+    "category": "Brasserie",
+    "area": "kelapa-gading",
+    "latitude": -6.1560144,
+    "longitude": 106.908828,
+    "address": "Mall Kelapa Gading 3 Lantai Dasar. Jalan Boulevard Raya Blok M No. 4 Kelapa Gading Timur RT.13/RW.18 RT.13, RT.13/RW.18, East Kelapa Gading, Kelapa Gading, North Jakarta City, Jakarta 14240",
+    "rating": 4.7,
+    "reviewCount": 2472,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLcF2VS0Zl71PAHbkoa5dUdN1AqmnSEu0rC87gV4xfwLRjq_iKNsLR6XYJ6ZQ1OOit5TB1hTMGNs3yjFB9fqa_FqySMQWUPnWcz3lpLNS2DHRSZ8cLH85kR_Y16yFJ8sJUza0sId=w408-h408-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "10.00–01.00"
+      },
+      {
+        "day": "Senin",
+        "text": "10.00–01.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "10.00–01.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "10.00–01.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "10.00–01.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "10.00–01.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "10.00–01.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Evandra Kurnia",
+        "authorUrl": "https://www.google.com/maps/contrib/111900269441545024834/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Ok saya kira tadinya seperti kafe modern aja like Starbucks or J.CO, tapi lebih bagus,…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Union%20kelapa%20gading%20Jakarta/@-6.1561084,106.9088631,18z?hl=id",
+    "checkedAt": "2026-10-25T11:18:38.241Z",
+    "matchDistanceM": 11,
+    "photoPath": "/google-places/node-9750987138-30bed53b.png"
+  },
+  {
+    "id": "node/11782602969",
+    "name": "KFC Kantor Pos Kota Tua",
+    "category": "Restoran cepat saji",
+    "area": "kota-tua",
+    "latitude": -6.134216,
+    "longitude": 106.8132361,
+    "address": "Taman Fatahillah, RT.7/RW.7, Pinangsia, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11110",
+    "rating": 4.1,
+    "reviewCount": 573,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLc-CazixC3pNhdL8b0AdOhySz45FiYxYQA6-XPNIuV8kiYrqBCM1EaqgGe66JQGLdQZjAcVAwkIUGSapBhfLhzOCLPpxUAV-0oMQBowuVAiNUA9lDOQm-C0fUrdZHQvEJpRiz0m=w408-h306-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "10.00–20.00"
+      },
+      {
+        "day": "Senin",
+        "text": "10.00–20.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "10.00–20.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "10.00–20.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "10.00–20.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "10.00–20.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "10.00–20.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Bunga Ayu",
+        "authorUrl": "https://www.google.com/maps/contrib/109727026735438985894/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Daripada makan di tempat lain yang mahal dan belum tentu cocok, mending makan di sini…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/KFC%20kota%20tua%20Jakarta/@-6.1342226,106.8131918,18z?hl=id",
+    "checkedAt": "2026-10-25T11:19:08.134Z",
+    "matchDistanceM": 5,
+    "photoPath": "/google-places/node-11782602969.jpg"
+  },
+  {
+    "id": "node/2097992424",
+    "name": "Kantin Mega Rasa",
+    "category": "Rumah Makan",
+    "area": "kota-tua",
+    "latitude": -6.1346666,
+    "longitude": 106.81231,
+    "address": "Jl. Kali Besar Tim. No.5, RT.7/RW.7, Pinangsia, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11110",
+    "rating": 4.3,
+    "reviewCount": 880,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdRGd3p2MCu-ahfgpfkb6Otv-lHXbfTKd4AO3dYeE0ZEyfOlAMjboPHelI_j7S8ZqEmvDavDuacb4sQcwKSsJg6bmG51Y2YdgT02CuZimehwl2vjMBRMvXi8NCyUyyOCFBN1VncHPHuugSE=w408-h544-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "07.00–19.00"
+      },
+      {
+        "day": "Senin",
+        "text": "07.00–17.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "07.00–17.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "07.00–17.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "07.00–17.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "07.00–17.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "07.00–19.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Andries Ishak K",
+        "authorUrl": "https://www.google.com/maps/contrib/112043552845302424744/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Kantin ini terletak agak tersembunyi disebelah minimarket Alfamart. Dan disampingnya ada tempat atm Link sehingga…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Kantin%20Mega%20Rasa%20kota%20tua%20Jakarta/@-6.1346378,106.8123495,18z?hl=id",
+    "checkedAt": "2026-10-25T11:19:15.891Z",
+    "matchDistanceM": 5,
+    "photoPath": "/google-places/node-2097992424-23fb4b80.jpg"
+  },
+  {
+    "id": "node/11458345922",
+    "name": "ABANG TURKI TURKISH STREET FOOD",
+    "category": "Tempat makan",
+    "area": "blok-m",
+    "latitude": -6.2459035,
+    "longitude": 106.7954685,
+    "address": "Jl. Sungai Sambas 3 No.189 8, RT.7/RW.5, Kramat Pela, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12130",
+    "rating": 4.4,
+    "reviewCount": 136,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLe3sogsNKlHgBaznorDi_rVVjs-6SpCiVjLYAop5etrAX4YI6RyispRRG4H-PbIUK_fKT51X4OzPV_bIhMRHLhOyFYMpvb_iV079BnfFyEWM88KEhdew_V5jPA2UQ_wrkiGDpz2YA=w408-h306-k-no",
+    "hours": [],
+    "reviews": [
+      {
+        "author": "Alva",
+        "authorUrl": "https://www.google.com/maps/contrib/106529705508160805637/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "Tempatnya nyaman, dan rapih banget. untuk shawarma nya 5/5! Aku suka sekali dengan rasanya yang…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/ABANG+TURKI+TURKISH+STREET+FOOD/data=!4m7!3m6!1s0x2e69f136bbad621d:0xf23ce38b186c1f9d!8m2!3d-6.2459035!4d106.7954685!16s%2Fg%2F11q3y7l768!19sChIJHWKtuzbxaS4RnR9sGIvjPPI?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:20:42.246Z",
+    "matchDistanceM": 24,
+    "photoPath": "/google-places/node-11458345922.jpg"
+  },
+  {
+    "id": "node/12157326132",
+    "name": "Gultik Blok M Plaza Pak Agus Budi",
+    "category": "Restoran Indonesia",
+    "area": "blok-m",
+    "latitude": -6.2438168,
+    "longitude": 106.7973329,
+    "address": "DKI, 6, Jl. Bulungan No.40, RT.11/RW.6, Kramat Pela, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12130",
+    "rating": 4.5,
+    "reviewCount": 3168,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfNM4d_dq0YOWxmUQXEkgB_yjRgND1_dl4TZvPL0FI7xzE0chqPL-FqZety8cNYuJ0-iyTVng5hKhVBfWaa_tkgxCPIxhgbcrCCXBjLtgmfjZV5AiPXVJEy16ciavQlfL2zfbXwFb7uyZUX=w408-h544-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "17.00–02.00"
+      },
+      {
+        "day": "Senin",
+        "text": "17.00–02.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "17.00–02.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "17.00–02.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "17.00–02.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "17.00–02.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "17.00–02.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Margreth Ernestine",
+        "authorUrl": "https://www.google.com/maps/contrib/111300888621153055222/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Akhirnya bisa cobain gultik legendaris di Blok M, dan menurut saya memang layak terkenal. Kuah…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/Gultik+Blok+M+Plaza+Pak+Agus+Budi/data=!4m7!3m6!1s0x2e69f112ff851aed:0x88b62b4b3233d024!8m2!3d-6.2438168!4d106.7973329!16s%2Fg%2F11bwy_gf6v!19sChIJ7RqF_xLxaS4RJNAzMksrtog?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:20:51.760Z",
+    "matchDistanceM": 30,
+    "photoPath": "/google-places/node-12157326132.jpg"
+  },
+  {
+    "id": "node/4152597829",
+    "name": "KFC Melawai Plaza",
+    "category": "Restoran cepat saji",
+    "area": "blok-m",
+    "latitude": -6.2457024,
+    "longitude": 106.8021076,
+    "address": "GEDUNG METRO, Jl. Melawai Raya No.166 3, RT.3/RW.1, Melawai, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160",
+    "rating": 4.5,
+    "reviewCount": 1162,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLf6PFG7Y-r-OmjZilC97JrhOQNSsF3ZrL2A-kGMCiKXAc13qsMyGTQaRtV5B0ODteb2Bm5u6OczOjWNv1iL92iU7tjFVouVyvlAHaVpw_7u_jZzGLJx42YMCjd_FchfHwUp5V4=w408-h306-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Senin",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "10.00–22.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "10.00–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Elle",
+        "authorUrl": "https://www.google.com/maps/contrib/118443750666941187546/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tempatnya lucu banget kaya hotel jadul gitu, tersedia 2 self order machine. Kali ini nyoba…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/KFC+Melawai+Plaza/data=!4m7!3m6!1s0x2e69f17519e1a115:0x60af0cf08a678e7e!8m2!3d-6.2457024!4d106.8021076!16s%2Fg%2F12ml2yn7l!19sChIJFaHhGXXxaS4Rfo5nivAMr2A?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:20:47.954Z",
+    "matchDistanceM": 12,
+    "photoPath": "/google-places/node-4152597829.jpg"
+  },
+  {
+    "id": "node/11681193424",
+    "name": "Kopi Kenangan - Pasaraya Blok M",
+    "category": "Kedai Kopi",
+    "area": "blok-m",
+    "latitude": -6.2441309,
+    "longitude": 106.8027836,
+    "address": "pasaraya, Jl. Iskandarsyah II Blk M, GF, RT.3/RW.1, Melawai, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160",
+    "rating": 4.5,
+    "reviewCount": 388,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLc3jhOg-9jSMcdTF1tbjAV6F7mZdRV9EcInC8XmCDoflgRGBBox_Yf-OWrabqq6BmaPwcamouPLnvis7_yykRb_ZQNHYfzAwMWqvx99xuQntLdWStB3E_hXqgYPilpFWV8a6hKAbRxu1X-3=w408-h544-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "07.00–18.30"
+      },
+      {
+        "day": "Senin",
+        "text": "07.00–18.30"
+      },
+      {
+        "day": "Selasa",
+        "text": "07.00–18.30"
+      },
+      {
+        "day": "Rabu",
+        "text": "07.00–18.30"
+      },
+      {
+        "day": "Kamis",
+        "text": "07.00–18.30"
+      },
+      {
+        "day": "Jumat",
+        "text": "07.00–18.30"
+      },
+      {
+        "day": "Sabtu",
+        "text": "07.00–18.30"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Septiana Pratiwi",
+        "authorUrl": "https://www.google.com/maps/contrib/116921271451421682659/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tempatnya nyaman, kursinya banyak, pelayanannya cepat dan ada tempat charge hp bisa untuk WFA. Recommended!…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/Kopi+Kenangan+-+Pasaraya+Blok+M/data=!4m7!3m6!1s0x2e69f1f43bf15eaf:0x8f573074a90a6796!8m2!3d-6.2441309!4d106.8027836!16s%2Fg%2F11g_qmkgx2!19sChIJr17xO_TxaS4RlmcKqXQwV48?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:20:59.984Z",
+    "matchDistanceM": 28,
+    "photoPath": "/google-places/node-11681193424.jpg"
+  },
+  {
+    "id": "node/5170977322",
+    "name": "NEIGHBOR Coffee Spot",
+    "category": "Tempat makan",
+    "area": "menteng",
+    "latitude": -6.1957574,
+    "longitude": 106.8285948,
+    "address": "Jl. HOS. Cokroaminoto No.72 1, RT.1/RW.5, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310",
+    "rating": 4.5,
+    "reviewCount": 153,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdc0w7FG4rCWYSFnjzhUAoZN5JEwvqyM4_oEOqwQwfD8lB8059RVym1t-yzuRGpJEnoA3hY8u6rehI5kerzle_SM2ebnTKuZ4HNRnsrXagBKDOdJt0HYrnhLrzEfgiH5A6E-GvG=w408-h544-k-no",
+    "hours": [],
+    "reviews": [
+      {
+        "author": "Fitri Ratna",
+        "authorUrl": "https://www.google.com/maps/contrib/115509046543905758583/reviews?hl=id",
+        "rating": 2,
+        "excerpt": "Saya pesan mochaccino..Tidak rasa kopi maupun mocha, malas rasanya kaya hot chocolat. Pesan butter croissant…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/NEIGHBOR+Coffee+Spot/data=!4m7!3m6!1s0x2e69f422b97ae5e5:0xa7e10f62385f6550!8m2!3d-6.1957574!4d106.8285948!16s%2Fg%2F11gbt6xvcr!19sChIJ5eV6uSL0aS4RUGVfOGIP4ac?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:20:55.917Z",
+    "matchDistanceM": 11,
+    "photoPath": "/google-places/node-5170977322.jpg"
+  },
+  {
+    "id": "node/6274366187",
+    "name": "Wendy's",
+    "category": "Tempat makan",
+    "area": "menteng",
+    "latitude": -6.1974294,
+    "longitude": 106.828258,
+    "address": "Jl. HOS. Cokroaminoto No.88 2, RT.2/RW.5, IRMC, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310",
+    "rating": 4.3,
+    "reviewCount": 334,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLcANHy6GHAK3hmzEmC3QUC9swO8SeLIUBb3vTWlXqQpRf8uwFDh9Vj13OEL7dDsoovfIH20ghUQ40z3ckmQh3B39pYgy4U4uJVsQkwrE2AaQL8rkcAelI4RZtRpaXEZLBeiCf4=w408-h306-k-no",
+    "hours": [],
+    "reviews": [
+      {
+        "author": "Zaki Herdian",
+        "authorUrl": "https://www.google.com/maps/contrib/110399354872295080448/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Lokasinya strategis, mudah di temukan, tempatnya nyaman cozy, pelayanan ramah banyak promo nya, ayam yag…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/Wendy%27s/data=!4m7!3m6!1s0x2e69f4181490324b:0xede4cf1e9d649e23!8m2!3d-6.1974294!4d106.828258!16s%2Fg%2F11df0pbnhl!19sChIJSzKQFBj0aS4RI55knR7P5O0?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:21:04.914Z",
+    "matchDistanceM": 4,
+    "photoPath": "/google-places/node-6274366187.jpg"
+  },
+  {
+    "id": "node/6274366387",
+    "name": "J.CO Donuts & Coffee",
+    "category": "Kedai Kopi",
+    "area": "menteng",
+    "latitude": -6.1966253,
+    "longitude": 106.8284886,
+    "address": "Jl. HOS. Cokroaminoto No.78 2, RT.2/RW.5, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310",
+    "rating": 4.2,
+    "reviewCount": 642,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLefHBIAfWciAlulA8O7KfyOs6yAH4ft4XofzKbmQZStheLdoJCDHmsMabLUcctnUdExoUCrFLJR9WyeJxwcNSUphL5C4x0BDUZLg2h_mXzfI_gLtTgr4ozV0QMecbWri1jHK2Os_A=w408-h306-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Senin",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "08.00–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Difa Doyanjajan",
+        "authorUrl": "https://www.google.com/maps/contrib/117508677393197381243/reviews?hl=id",
+        "rating": 3,
+        "excerpt": "Kepengen makan J.CO malam-malam. Jadi langsung aja melipir kesini karena lokasi nya ga terlalu jauh…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/J.CO+Donuts+%26+Coffee/data=!4m7!3m6!1s0x2e69f4180a0ae8ad:0xfa398c5828b1a1a1!8m2!3d-6.1966253!4d106.8284886!16s%2Fg%2F1pzwgcjc5!19sChIJregKChj0aS4RoaGxKFiMOfo?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:21:17.967Z",
+    "matchDistanceM": 16,
+    "photoPath": "/google-places/node-6274366387.jpg"
+  },
+  {
+    "id": "node/6430301312",
+    "name": "J.CO",
+    "category": "Kafe",
+    "area": "kelapa-gading",
+    "latitude": -6.1574628,
+    "longitude": 106.907796,
+    "address": "Mall Klp. Gading, Jl. Boulevard Raya No.58 Lantai Dasar Lobby 2, RT.13/RW.18, Klp. Gading Tim., Kec. Klp. Gading, Jkt Utara, Daerah Khusus Ibukota Jakarta 14240",
+    "rating": 4.3,
+    "reviewCount": 756,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdx0AlXEpf6VK06nc7SyDM5_tMx_4lWR-PzqU1R2zSQxU0XHoDlBf25YWEGd8lirWhMLmsRzaChozcPwKbJLNrZnby6mBV-krRl3Vl3zEikgAMNrrgs491r4IsUaKcH_eGzulK347iWkGJr=w426-h240-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "09.00–22.00"
+      },
+      {
+        "day": "Senin",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "08.00–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "marcel lino",
+        "authorUrl": "https://www.google.com/maps/contrib/103036283090793923107/reviews?hl=id",
+        "rating": 1,
+        "excerpt": "sangat tidak menyangka sekelas J.CO Mall Kelapa Gading berani jual donat \"sisa\" ke customer. Saya…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/J.CO/data=!4m7!3m6!1s0x2e69f53452a3c80f:0xafd9e23835b433f3!8m2!3d-6.1574628!4d106.907796!16s%2Fg%2F1tzvyv_r!19sChIJD8ijUjT1aS4R8zO0NTji2a8?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:21:08.991Z",
+    "matchDistanceM": 123,
+    "photoPath": "/google-places/node-6430301312.jpg"
+  },
+  {
+    "id": "node/13974608702",
+    "name": "SaladStop! La Piazza Kelapa Gading",
+    "category": "Restoran Makanan Sehat",
+    "area": "kelapa-gading",
+    "latitude": -6.1601409,
+    "longitude": 106.9063647,
+    "address": "La Piazza, Klp. GADING, Jl. Boulevard Raya, RT.13/RW.18, Klp. Gading Tim., Kec. Klp. Gading, Jkt Utara, Daerah Khusus Ibukota Jakarta 14240",
+    "rating": 4.2,
+    "reviewCount": 573,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLeww1GRTiUMNGdAa2lV1NwojdwCiNCsRZJ4HHbE5OQKCgnD7zdfVkvnqM1vari4C5q65GRW7XHXVKeGP0N800alDq5SvGTHMa-BHi5e6tBNweoGVLVTWLAKGneBcy193liWzXlx=w408-h307-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "07.00–22.00"
+      },
+      {
+        "day": "Senin",
+        "text": "07.00–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "07.00–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "07.00–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "07.00–22.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "07.00–22.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "07.00–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Galuh Ayshandra",
+        "authorUrl": "https://www.google.com/maps/contrib/112931243771816856037/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Lokasinya di deket panggung La piaza, tempatnya nyaman bersih, pelayanannya jg bagus, dan tentunyaaa enaakkk!!!…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/SaladStop!+La+Piazza+Kelapa+Gading/data=!4m7!3m6!1s0x2e69f55f6bea97d9:0x9400b9eae2303572!8m2!3d-6.1601409!4d106.9063647!16s%2Fg%2F11h2qmtl1d!19sChIJ2Zfqa1_1aS4RcjUw4uq5AJQ?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:21:13.825Z",
+    "matchDistanceM": 26,
+    "photoPath": "/google-places/node-13974608702.jpg"
+  },
+  {
+    "id": "node/4245907143",
+    "name": "Cafe Batavia",
+    "category": "Restoran Indonesia",
+    "area": "kota-tua",
+    "latitude": -6.1343676,
+    "longitude": 106.8127353,
+    "address": "Jl. Kali Besar Timur 4 No.14, RT.7/RW.6, Pinangsia, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11110",
+    "rating": 4.5,
+    "reviewCount": 9676,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdp7DKvJoOTY7UEDDC9sR_22zsGzfNYNSbPW5FTAAh_gmEIdVzDYLu2TjoeX6ov2l2ebqC2CTWi00fJZDS8NPTScrmOfLlGiLfjxdeo7f-xp1Uv0EAGnKOhMtTXegRna23jyrk7=w408-h306-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "07.00–00.00"
+      },
+      {
+        "day": "Senin",
+        "text": "09.00–00.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "09.00–00.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "09.00–00.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "09.00–00.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "09.00–01.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "07.00–01.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Dariyanto Arkarna",
+        "authorUrl": "https://www.google.com/maps/contrib/111722399502065591245/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Rekomended banget kalau bawa tamu asing alias WNA. tempatnya eksotis banget dengan pemandangan luar kota…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/Cafe+Batavia/data=!4m7!3m6!1s0x2e6a1dff154fd569:0xa38223eb6637cf44!8m2!3d-6.1343676!4d106.8127353!16s%2Fg%2F11c2knnk9l!19sChIJadVPFf8dai4RRM83ZusjgqM?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:21:35.711Z",
+    "matchDistanceM": 7,
+    "photoPath": "/google-places/node-4245907143.jpg"
+  },
+  {
+    "id": "node/4978747831",
+    "name": "J.CO Stasiun Jakarta Kota",
+    "category": "Tempat makan",
+    "area": "kota-tua",
+    "latitude": -6.1376189,
+    "longitude": 106.8145529,
+    "address": "Jl. St. Kota No.48 8, RT.8/RW.6, Pinangsia, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11110",
+    "rating": 4.1,
+    "reviewCount": 45,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfdlPKPAKmt8-LB4d_sh1It657OYr6P4-WUxBnUAzSUM0TUM5ZUEtWhJLmKS0wN0rZwJScU3J7Yd4cKLfaJ4lt-U1OkJ3sDkR4mqgXosvaI4enSpsXdbL43C1mabUjWTnO0Zhmg=w408-h544-k-no",
+    "hours": [],
+    "reviews": [
+      {
+        "author": "Nurul Istiqomah",
+        "authorUrl": "https://www.google.com/maps/contrib/117116769487934470245/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tempatnya nyaman, donat dan minumnya juga enak pas buat kumpul dan bisa buat pengganti kue…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/J.CO+Stasiun+Jakarta+Kota/data=!4m7!3m6!1s0x2e69f601b406f121:0x26c31ae1f88c0459!8m2!3d-6.1376189!4d106.8145529!16s%2Fg%2F11cn8xvymj!19sChIJIfEGtAH2aS4RWQSM-OEawyY?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:21:24.994Z",
+    "matchDistanceM": 23,
+    "photoPath": "/google-places/node-4978747831.jpg"
+  },
+  {
+    "id": "node/4978748326",
+    "name": "Starbucks",
+    "category": "Tempat makan",
+    "area": "kota-tua",
+    "latitude": -6.1374106,
+    "longitude": 106.8145226,
+    "address": "Jl. Taman Sari Jl. St. Kota No.1, RT.8/RW.6, Pinangsia, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11110",
+    "rating": 4.5,
+    "reviewCount": 579,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLd5hv1dfbddCcaJUdKNe0CNF3VSYl3e4n9ii_2FNj0mU-G5p_5ieB6SNCeG2sQEObyCIlrpehJuYIPLRqw04DQWYFQqxblYvl4rDA76APtJojXSK_lJe858pPg2q0GwmBShh0q3=w408-h306-k-no",
+    "hours": [],
+    "reviews": [
+      {
+        "author": "Rina A",
+        "authorUrl": "https://www.google.com/maps/contrib/118412848418951383485/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Nice place buat nongkrong atau sekedar ngobrol. Suasananya nyaman, bisa indoor atau outdoor. Pelayanannya ramah...…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/Starbucks/data=!4m7!3m6!1s0x2e69f601b689774d:0xe4344245ab0a5be1!8m2!3d-6.1374106!4d106.8145226!16s%2Fg%2F11bxfdwwft!19sChIJTXeJtgH2aS4R4VsKq0VCNOQ?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:21:29.865Z",
+    "matchDistanceM": 9,
+    "photoPath": "/google-places/node-4978748326.jpg"
+  },
+  {
+    "id": "node/11256690163",
+    "name": "NEW BATAVIA CAFE kota tua",
+    "category": "Kedai Kopi",
+    "area": "kota-tua",
+    "latitude": -6.134157,
+    "longitude": 106.8134594,
+    "address": "Taman Fatahillah No.3, RT.9/RW.7, Pinangsia, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11110",
+    "rating": 4.4,
+    "reviewCount": 177,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLek9GwWS2wBV3gMVwYzQGF2T6XEv2wTud95o-uOWki-dsG1txbi7pnkj6Ia_j5d_C1FSaejAqZAB1O5R8hwRpOrumXFRku3ElKyEM5HJ896y1ZYlFabrv6jtxhFmLvEcrW8-MNi73OeyxQ6=w408-h544-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "09.00–23.00"
+      },
+      {
+        "day": "Senin",
+        "text": "09.00–21.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "09.00–21.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "09.00–21.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "09.00–21.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "09.00–21.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "09.00–23.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Afifa Khaerunnisa",
+        "authorUrl": "https://www.google.com/maps/contrib/118400293491996174531/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "bukber dsni ternyata seru juga ✨ makanannya enak dan harganya masi affordable. takjilnya juga banyak,…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/NEW+BATAVIA+CAFE+kota+tua/data=!4m7!3m6!1s0x2e6a1d264dd95fd5:0x342579e3d7434194!8m2!3d-6.134157!4d106.8134594!16s%2Fg%2F11v05q5wsg!19sChIJ1V_ZTSYdai4RlEFD1-N5JTQ?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:21:45.054Z",
+    "matchDistanceM": 12,
+    "photoPath": "/google-places/node-11256690163.jpg"
+  },
+  {
+    "id": "node/4978747832",
+    "name": "KFC Stasiun Kota",
+    "category": "Restoran cepat saji",
+    "area": "kota-tua",
+    "latitude": -6.137585,
+    "longitude": 106.814676,
+    "address": "Jl. St. Kota No.48 8, RT.8/RW.6, Pinangsia, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11110",
+    "rating": 4.4,
+    "reviewCount": 1594,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdJdvr0YlJs68HsBet_PljTaAxC86WyQ9nKVI-3BAD2rYucBjVmC9WfF01uKk2-QRtaXsnvVlw-no9DhG00id5piKda7fiEGwnLsc-gbaZFpMyC5afzehZtHXsxhFzpFfVd5e57BOJJmLcv=w408-h306-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "07.00–21.00"
+      },
+      {
+        "day": "Senin",
+        "text": "07.00–21.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "07.00–21.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "07.00–21.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "07.00–21.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "07.00–21.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "07.00–21.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "ELLISA IYOU",
+        "authorUrl": "https://www.google.com/maps/contrib/113901514159064087872/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "Tempat yang strategis, bersih, dan praktis. Pilihan paling aman dan nyaman kalau mau cari makanan…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/KFC+Stasiun+Kota/data=!4m7!3m6!1s0x2e69f601b22da8bd:0x42d8573f62ff8b56!8m2!3d-6.137585!4d106.814676!16s%2Fg%2F11c415hcfw!19sChIJvagtsgH2aS4RVov_Yj9X2EI?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:21:54.439Z",
+    "matchDistanceM": 34,
+    "photoPath": "/google-places/node-4978747832.jpg"
+  },
+  {
+    "id": "node/4978764921",
+    "name": "A&W Stasiun Kota",
+    "category": "Restoran cepat saji",
+    "area": "kota-tua",
+    "latitude": -6.1378155,
+    "longitude": 106.8144989,
+    "address": "Jl. Taman Stasiun Kota. 1, Jalan Stasiun Kota No.8, RT.8/RW.6, Pinangsia, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11110",
+    "rating": 4.5,
+    "reviewCount": 701,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfBnwcTRJXGeru7_lSAx1WlYXNlNGH-adNp3mqePefbpjyxNj7JcRo33Qu4bscWD0u_U4KGrzBQ3cReu_uoAqviR0xtPJmncxOAOmX00q25st-4TQVTRQY1JxPkoZFAYPRS_H8mDYANEsb-=w408-h306-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Senin",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "08.00–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Slime Club",
+        "authorUrl": "https://www.google.com/maps/contrib/107249106292707036536/reviews?hl=id",
+        "rating": 1,
+        "excerpt": "Pesen paket D ksh ayam 1 msh berwarna pink Trs minum colanya berasa kek airputih…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/place/A%26W+Stasiun+Kota/data=!4m7!3m6!1s0x2e6a1fb931b48c47:0x5eb4947857569e42!8m2!3d-6.1378155!4d106.8144989!16s%2Fg%2F1tdlrq3j!19sChIJR4y0Mbkfai4RQp5WV3iUtF4?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+    "checkedAt": "2026-10-25T11:21:39.644Z",
+    "matchDistanceM": 58,
+    "photoPath": "/google-places/node-4978764921.jpg"
+  },
+  {
+    "id": "node/6274366590",
+    "name": "Sate & Seafood Senayan, Menteng",
+    "category": "Restoran Indonesia",
+    "area": "menteng",
+    "latitude": -6.196354,
+    "longitude": 106.828377,
+    "address": "Jl. HOS. Cokroaminoto No.76/78, RT.1/RW.5, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10350",
+    "rating": 4.5,
+    "reviewCount": 2714,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdXQoOY_8bCrzPUniTs4ZNubyHBw7BOmufdyKAXTZcWTL2HLe364Y6wVSKKWHR_V0DKf-KLSlHlnhF4lJP9otTDV7E4V4UIIbndinnxKSeMbbRXZrKnSe6rN5HLP3UlaonF4KBBtQ1TI1fP=w408-h306-k-no",
+    "hours": [
+      {
+        "day": "Minggu",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Senin",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "08.00–22.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "08.00–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Chimogmog",
+        "authorUrl": "https://www.google.com/maps/contrib/105551899045583128964/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Istri lg ngidam sate abang2 sewaktu hamil jadinya makan di sate khas senayan aja karena…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Sate%20Khas%20Senayan%20menteng%20Jakarta/@-6.1963367,106.8285096,18z?hl=id",
+    "checkedAt": "2026-10-25T11:46:46.442Z",
+    "matchDistanceM": 15,
+    "photoPath": "/google-places/node-6274366590-086d850e.jpg"
+  }
+]

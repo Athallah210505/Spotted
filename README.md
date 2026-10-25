@@ -4,19 +4,19 @@ Save what you crave. Find it nearby.
 
 ## Status
 
-Fondasi lokal Next.js App Router + React + TypeScript sudah tersedia. Halaman `/explore` kini merupakan preview interaktif dari node Figma `2029:4592`: foto asli, search/kategori/kota berbasis URL, dan sample wishlist untuk kunjungan saat ini. Data restoran masih ilustratif; belum terhubung ke Google Places atau akun.
+Fondasi lokal Next.js App Router + React + TypeScript tersedia. `/explore` menampilkan32 tempat Jakarta dari pembacaan halaman Google Maps publik: foto tempat, rating, jumlah ulasan dan jam buka yang tersedia. Search/kategori/rating/sort berbasis URL memakai data nyata ini. Google Places API berbayar dan akun belum diaktifkan.
 
 Detail restoran tersedia di `/restaurant/kedai-ramen-sore`, dengan galeri, Menu, Google Reviews, TikTok, dan Save yang tersinkron dengan Explore selama kunjungan. Lihat [implementasi detail dan hasil QA](docs/10-restaurant-detail-implementation.md).
 
 `/map`, `/wishlist`, dan `/wishlist?view=map` menyediakan schematic map, radius nearby, shared Save/Remove, serta navigasi detail yang kembali ke halaman asal. Lihat [implementasi Map/Wishlist dan QA](docs/11-map-wishlist-implementation.md). Peta dan jarak masih memakai fixture ilustratif.
 
-`/profile` menyediakan preferensi sementara, `/filters` menyaring fixtures, dan klik pin Map/Wishlist membuka preview sebelum detail. Lihat [Profile, selected-place previews, Filters dan QA](docs/12-profile-previews-filters.md).
+`/profile` menyediakan preferensi sementara, `/filters` menyaring data Google di Explore dan fixtures pada jalur Map. Klik pin Map/Wishlist membuka preview sebelum detail. Lihat [Profile, selected-place previews, Filters dan QA](docs/12-profile-previews-filters.md).
 
 `/import` menghubungkan link TikTok ke restoran contoh, `/login` menyediakan sign-in simulasi, dan `/import/success` menampilkan hasil save selama sesi. Lihat [Import, sign-in preview dan QA](docs/13-import-login-preview.md).
 
 `/login/sent` menyediakan konfirmasi/resend simulasi, `/saved/[placeId]` menampilkan hasil save dari detail, dan `/sort` mengurutkan hasil pencarian. Lihat [Email Sent, Saved, Sort dan QA](docs/14-email-saved-sorting.md).
 
-`/catalog` menampilkan pilot40 lokasi OSM nyata dari empat area Jakarta, kualitas field, sumber, dan satu hasil ekstraksi website dengan Scrapling. JSON publik ada di `/api/catalog`. Lihat [data pilot, importer dan QA](docs/15-jakarta-data-pilot.md); fixture Explore/detail existing tetap ilustratif.
+`/catalog` mengarah ke Explore; tidak ada UI pilot/metadata OSM. `/api/catalog` menyediakan snapshot Google schemaVersion2. Detail `/restaurant/osm-<id>` mengikuti layout editorial Figma dan menampilkan Overview, jam mingguan, cuplikan review Google dan Get Directions. Lihat [data Google dan hasil verifikasi](docs/16-google-explore-data.md). [Pilot OSM awal](docs/15-jakarta-data-pilot.md) disimpan sebagai riwayat;32 dari40 seed cocok dengan cabang Google dan lolos pemeriksaan foto. TikTok existing tidak ditambah data baru.
 
 Yang disiapkan:
 

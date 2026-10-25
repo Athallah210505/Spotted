@@ -6,14 +6,16 @@ export function BrowseNavigation({
   active,
   search = "",
   onExplore,
+  label = "Illustrative data",
 }: {
   active: "Explore" | "Map" | "Wishlist" | "Profile";
   search?: string;
   onExplore?: () => void;
+  label?: React.ReactNode;
 }) {
   return (
     <footer className={styles.dock}>
-      <p className={styles.demoLabel}>Illustrative data</p>
+      <p className={styles.demoLabel}>{label}</p>
       <nav className={styles.navigation} aria-label="Main navigation">
         {(
           [

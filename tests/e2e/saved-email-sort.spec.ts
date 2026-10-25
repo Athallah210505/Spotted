@@ -77,27 +77,39 @@ test("new detail save opens confirmation with safe return state and recovers aft
   expect(response?.status()).toBe(404);
 });
 
-test("sorting applies to results and survives filter, map and detail navigation", async ({
+test("Google sorting survives filter and detail navigation", async ({
   page,
 }) => {
-  await page.goto("/explore?rating=4.5&saved=1");
+  await page.goto("/explore");
+  await page
+    .getByRole("button", {
+      name: "Save Toko Kopi TUKU - Blok M to wishlist",
+      exact: true,
+    })
+    .click();
+  await page.getByRole("link", { name: "Filters", exact: true }).click();
+  await page
+    .getByRole("group", { name: "Google rating", exact: true })
+    .getByRole("button", { name: "4.5+", exact: true })
+    .click();
+  await page.getByRole("checkbox", { name: "Saved Only", exact: true }).check();
+  await page.getByRole("link", { name: "Show 1 place", exact: true }).click();
   await page.getByRole("link", { name: /^Sort places:/ }).click();
   await expect(
-    page.getByRole("link", { name: "Highest Rated", exact: true }),
+    page.getByRole("link", { name: "Recommended", exact: true }),
   ).toHaveAttribute("aria-current", "true");
   await page.getByRole("link", { name: "Nearest", exact: true }).click();
-  await expect(page).toHaveURL(/rating=4.5&saved=1&sort=nearest/);
+  await expect(page).toHaveURL(/rating=4.5.*saved=1&sort=nearest/);
   await expect(page.getByRole("article").first()).toHaveAccessibleName(
-    "Kopi Halaman",
+    "Toko Kopi TUKU - Blok M",
   );
   await page.getByRole("link", { name: "Filters", exact: true }).click();
   await page.getByRole("link", { name: /^Show / }).click();
   await expect(page).toHaveURL(/sort=nearest/);
-  await page.getByRole("link", { name: "Map", exact: true }).click();
-  await expect(page).toHaveURL(/sort=nearest/);
-  await page.getByRole("button", { name: /Preview Kopi Halaman/ }).click();
-  await page.getByRole("link", { name: "View Details", exact: true }).click();
-  await page.getByRole("link", { name: "Back to Map", exact: true }).click();
+  await page
+    .getByRole("link", { name: "View Toko Kopi TUKU - Blok M", exact: true })
+    .click();
+  await page.getByRole("link", { name: "Back", exact: true }).click();
   await expect(page).toHaveURL(/sort=nearest/);
   await page.goto("/sort?city=tangsel&sort=nearest");
   await expect(

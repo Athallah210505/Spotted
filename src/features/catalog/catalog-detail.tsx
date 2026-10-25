@@ -2,36 +2,31 @@ import Link from "next/link";
 import { RestaurantPhoto } from "@/features/restaurants/restaurant-photo";
 import { DetailIcon } from "@/features/restaurants/detail-icon";
 import { DetailSaveButton } from "@/features/wishlist/detail-save-button";
-import { catalog, kindLabels } from "./catalog";
-import {
-  catalogDetailHref,
-  catalogPhotos,
-  catalogRatings,
-  googleMapsUrl,
-} from "./catalog-media";
+import { findCatalogPlace } from "./catalog";
+import { catalogDetailHref } from "./catalog-media";
+import { areaNames, openingLabel, type GooglePlace } from "./google-data";
+import { OpeningHours } from "./opening-hours";
 import styles from "@/features/restaurants/restaurant-detail.module.css";
-import mediaStyles from "./catalog.module.css";
-import photoStyles from "@/features/restaurants/restaurant-photo.module.css";
 
 export function CatalogDetail({
   place,
   tab,
   backHref,
 }: {
-  place: (typeof catalog.places)[number];
+  place: GooglePlace;
   tab: "overview" | "menu" | "reviews" | "tiktok";
-  backHref: "/explore" | "/catalog" | "/wishlist";
+  backHref: string;
 }) {
-  const rating = catalogRatings[place.id];
-  const photo = catalogPhotos[place.id];
   const base = catalogDetailHref(place);
-  const from = backHref !== "/explore" ? `&from=${backHref.slice(1)}` : "";
+  const context = new URLSearchParams(backHref.split("?")[1]);
+  if (backHref.startsWith("/wishlist")) context.set("from", "wishlist");
+  const from = context.size ? `&${context}` : "";
   const overview = tab === "overview" || tab === "menu";
-  const menu =
-    place.websiteInspection?.status === "fetched"
-      ? place.websiteInspection.menuUrl
-      : null;
   const overviewHref = `${base}${from ? `?${from.slice(1)}` : ""}`;
+  const inspection = findCatalogPlace(
+    base.split("/").pop()!,
+  )?.websiteInspection;
+  const menu = inspection?.status === "fetched" ? inspection.menuUrl : null;
   function sections() {
     return (
       <nav className={styles.sections} aria-label="Restaurant sections">
@@ -55,26 +50,18 @@ export function CatalogDetail({
       </nav>
     );
   }
-  function ratingBlock() {
+  function rating() {
     return (
       <div
         className={styles.rating}
-        aria-label={
-          rating
-            ? `${rating.value} dari 5 · ${rating.provider}, snapshot sumber`
-            : "Rating belum tersedia"
-        }
+        aria-label={`${place.rating} Google rating from ${place.reviewCount} reviews`}
       >
-        <strong>{rating ? rating.value.toFixed(1) : "N/A"}</strong>
+        <strong>{place.rating.toFixed(1)}</strong>
         <div>
-          <b>
-            {rating
-              ? `${rating.reviewCount} ${rating.provider} ratings`
-              : "Belum ada rating"}
-          </b>
-          <p className={styles.open}>
-            {place.openingHours ?? "Hours unavailable"}
-          </p>
+          <b>{place.reviewCount.toLocaleString("id-ID")} Google ratings</b>
+          {place.hours.length ? (
+            <p className={styles.open}>{openingLabel(place)}</p>
+          ) : null}
         </div>
       </div>
     );
@@ -83,7 +70,7 @@ export function CatalogDetail({
     return (
       <a
         className={`${styles.action} ${styles.primary}`}
-        href={googleMapsUrl(place)}
+        href={place.mapsUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Buka Google Maps"
@@ -112,25 +99,13 @@ export function CatalogDetail({
           {overview ? (
             <>
               <div className={styles.heroWrap}>
-                {photo ? (
-                  <RestaurantPhoto
-                    src={photo.src}
-                    alt={photo.alt}
-                    className={styles.hero}
-                    sizes="(max-width: 430px) 100vw, 430px"
-                    preload
-                  />
-                ) : (
-                  <div
-                    className={styles.hero}
-                    role="img"
-                    aria-label="Photo unavailable"
-                  >
-                    <span className={photoStyles.fallback}>
-                      Photo unavailable
-                    </span>
-                  </div>
-                )}
+                <RestaurantPhoto
+                  src={place.photoPath}
+                  alt={place.name}
+                  className={styles.hero}
+                  sizes="(max-width: 430px) 100vw, 430px"
+                  preload
+                />
                 <Link
                   className={`${styles.back} ${styles.heroBack}`}
                   href={backHref}
@@ -145,42 +120,27 @@ export function CatalogDetail({
                   redirectOnSave={false}
                   compact
                 />
-                {photo ? (
-                  <div
-                    className={styles.gallery}
-                    aria-label="Restaurant photo gallery"
-                  >
-                    <button disabled aria-label="Previous photo">
-                      <DetailIcon name="previous" />
-                    </button>
-                    <p>1 / 1</p>
-                    <button disabled aria-label="Next photo">
-                      <DetailIcon name="arrow" />
-                    </button>
-                  </div>
-                ) : null}
               </div>
               <section
                 className={styles.editorialPanel}
                 aria-label="Overview tempat"
               >
                 <p className={styles.eyebrow}>
-                  {kindLabels[place.kind].toUpperCase()} /{" "}
-                  {catalog.areas
-                    .find((area) => area.id === place.area)
-                    ?.name.toUpperCase()}
+                  {place.category.toUpperCase()} /{" "}
+                  {areaNames[place.area]?.toUpperCase()}
                 </p>
                 <h1 className={styles.name}>{place.name}</h1>
-                {ratingBlock()}
-                <p className={styles.address}>
-                  {place.address ?? "Alamat belum tersedia"}
-                </p>
+                {rating()}
+                {place.address ? (
+                  <p className={styles.address}>{place.address}</p>
+                ) : null}
+                <OpeningHours place={place} />
                 {sections()}
                 <h2>A taste of what’s here.</h2>
-                <section aria-label="Menu tempat" className={styles.menuCard}>
+                <section className={styles.menuCard} aria-label="Menu tempat">
                   <p>
                     {menu
-                      ? "Lihat menu di website sumber. Item dan harga belum tersedia di SPOTTED."
+                      ? "Lihat menu lengkap untuk pilihan makanan dan harga."
                       : "Menu belum tersedia untuk tempat ini."}
                   </p>
                 </section>
@@ -195,66 +155,6 @@ export function CatalogDetail({
                     <DetailIcon name="external" />
                     <span>Open official menu</span>
                   </a>
-                ) : (
-                  <button className={styles.action} disabled>
-                    Official menu unavailable
-                  </button>
-                )}
-                <p className={styles.caption}>
-                  Jam buka dan informasi tempat dari OSM belum diverifikasi
-                  pemilik.
-                </p>
-                {place.website ? (
-                  <a
-                    className={styles.action}
-                    href={place.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Website tempat
-                  </a>
-                ) : null}
-                <a
-                  className={mediaStyles.sourceCredit}
-                  href={place.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Lihat sumber lokasi OSM
-                </a>
-                {photo ? (
-                  <div className={mediaStyles.credit}>
-                    <a
-                      href={photo.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Foto: {photo.author}
-                    </a>{" "}
-                    ·{" "}
-                    <a
-                      href={photo.licenseUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {photo.license}
-                    </a>
-                    <span>{photo.note}</span>
-                  </div>
-                ) : null}
-                {rating ? (
-                  <p className={styles.caption}>
-                    Rating snapshot {rating.provider}, halaman sumber diakses{" "}
-                    {rating.checkedAt}.{" "}
-                    <a
-                      className={mediaStyles.sourceCredit}
-                      href={rating.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Sumber rating
-                    </a>
-                  </p>
                 ) : null}
               </section>
             </>
@@ -270,36 +170,42 @@ export function CatalogDetail({
                 </Link>
                 <h1>{place.name}</h1>
               </header>
-              {ratingBlock()}
+              {rating()}
               {sections()}
               {tab === "reviews" ? (
-                <section className={styles.review} aria-label="Reviews tempat">
-                  <h2>Reviews</h2>
-                  {rating ? (
-                    <>
-                      <p>
-                        {rating.value.toFixed(1)}/5 · {rating.reviewCount}{" "}
-                        ulasan di {rating.provider}
-                      </p>
-                      <a
-                        className={styles.action}
-                        href={rating.sourceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                <section aria-label="Reviews tempat">
+                  {place.reviews.length ? (
+                    place.reviews.map((review) => (
+                      <article
+                        className={styles.review}
+                        key={review.authorUrl}
+                        aria-label={`Review ${review.author}`}
                       >
-                        Lihat ulasan di {rating.provider}
-                      </a>
-                      <p className={styles.caption}>
-                        Rating snapshot {rating.provider}, halaman sumber
-                        diakses {rating.checkedAt}.
-                      </p>
-                    </>
+                        <b>
+                          <a
+                            href={review.authorUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {review.author}
+                          </a>{" "}
+                          · {review.rating} / 5
+                        </b>
+                        <blockquote>“{review.excerpt}”</blockquote>
+                        <p className={styles.caption}>Cuplikan ulasan Google</p>
+                      </article>
+                    ))
                   ) : (
-                    <p>Rating dan ulasan belum tersedia untuk tempat ini.</p>
+                    <p className={styles.supporting}>Ulasan belum tersedia.</p>
                   )}
-                  <p className={styles.caption}>
-                    Review Google belum tersedia di SPOTTED.
-                  </p>
+                  <a
+                    className={`${styles.action} ${styles.primary}`}
+                    href={place.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Lihat semua ulasan di Google Maps
+                  </a>
                 </section>
               ) : (
                 <>
@@ -344,13 +250,8 @@ export function CatalogDetail({
           </div>
         ) : null}
         <p className={styles.demoLabel}>
-          <a
-            className={mediaStyles.attribution}
-            href={catalog.licenseUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            © OpenStreetMap contributors · ODbL
+          <a href={place.mapsUrl} target="_blank" rel="noopener noreferrer">
+            Google Maps
           </a>
         </p>
       </footer>

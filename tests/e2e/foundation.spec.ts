@@ -16,7 +16,7 @@ test("the root opens Explore without provider requests", async ({ page }) => {
     page.getByRole("heading", { name: "Follow your cravings." }),
   ).toBeVisible();
   await expect(
-    page.getByText("Illustrative data", { exact: true }),
+    page.getByRole("link", { name: "Google Maps", exact: true }),
   ).toBeVisible();
   await expect(page).toHaveTitle("SPOTTED");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");

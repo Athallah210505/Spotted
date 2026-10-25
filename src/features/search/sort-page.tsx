@@ -27,10 +27,11 @@ export function SortPage({
     <JourneyLayout
       title="Sort places"
       backHref={`/explore${search ? `?${search}` : ""}`}
+      footer="Google Maps"
     >
       <h1>Find your order.</h1>
       {Object.entries(sortOptions).map(([value, label]) => {
-        const selected = (filters.sort ?? "highest_rated") === value;
+        const selected = (filters.sort ?? "recommended") === value;
         const classes = `${styles.action} ${selected ? styles.yellow : ""}`;
         if (value === "nearest" && filters.city !== "jakarta")
           return (
@@ -59,10 +60,8 @@ export function SortPage({
         );
       })}
       <p id="sort-note" className={`${styles.caption} ${styles.sortNote}`}>
-        Recommended uses Spotted’s weighted rating across the sample candidates,
-        before filters. Nearest uses illustrative distances from Blok M; no
-        device location is requested. Rating is based on these sample
-        candidates, not the entire city.
+        Rating dan jumlah ulasan mengikuti Google Maps. Nearest dihitung dari
+        area Blok M.
       </p>
       {filters.city !== "jakarta" ? (
         <p role="status" className={styles.caption}>

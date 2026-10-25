@@ -12,6 +12,7 @@ import {
 } from "@/features/explore/demo-data";
 import { usePreviewWishlist } from "@/features/wishlist/preview-wishlist";
 import { usePreviewProfile } from "@/features/profile/preview-profile";
+import { filterGooglePlaces } from "@/features/catalog/google-data";
 import shared from "@/components/layout/browse.module.css";
 import styles from "./filters.module.css";
 
@@ -32,7 +33,11 @@ export function FiltersPage({
   };
   const [draft, setDraft] = useState<ExploreFilters>(initial);
   const { savedIds } = usePreviewWishlist();
-  const count = filterDemoRestaurants(draft, savedIds).length;
+  const count = (
+    from === "map"
+      ? filterDemoRestaurants(draft, savedIds)
+      : filterGooglePlaces(draft, savedIds)
+  ).length;
   const search = exploreSearch(draft, profile.city !== "jakarta");
   const original = exploreSearch(
     filters,
@@ -69,7 +74,8 @@ export function FiltersPage({
             <h1>Filter your cravings</h1>
           </header>
           <p className={styles.supporting} role="status">
-            {count} matching {count === 1 ? "place" : "places"} · Illustrative
+            {count} matching {count === 1 ? "place" : "places"}
+            {from === "map" ? " · Illustrative" : ""}
           </p>
           <fieldset>
             <legend>Cuisine</legend>
@@ -113,7 +119,9 @@ export function FiltersPage({
             </div>
           </fieldset>
           <fieldset>
-            <legend>Distance</legend>
+            <legend>
+              {from === "map" ? "Distance" : "Distance from Blok M"}
+            </legend>
             <div className={styles.distance}>
               {([1, 3, 5, 10] as const).map((distance) => (
                 <button
@@ -126,46 +134,52 @@ export function FiltersPage({
               ))}
             </div>
           </fieldset>
-          <fieldset>
-            <legend>Price level</legend>
-            <div className={shared.categoryRail}>
-              {([undefined, 1, 2, 3] as const).map((price) => (
-                <button
-                  key={price ?? "any"}
-                  className={shared.category}
-                  aria-pressed={draft.price === price}
-                  onClick={() => update({ price })}
-                >
-                  {price ? "Rp".repeat(price) : "Any"}
-                </button>
-              ))}
-            </div>
-          </fieldset>
+          {from === "map" ? (
+            <fieldset>
+              <legend>Price level</legend>
+              <div className={shared.categoryRail}>
+                {([undefined, 1, 2, 3] as const).map((price) => (
+                  <button
+                    key={price ?? "any"}
+                    className={shared.category}
+                    aria-pressed={draft.price === price}
+                    onClick={() => update({ price })}
+                  >
+                    {price ? "Rp".repeat(price) : "Any"}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+          ) : null}
           {(
             [
               ["openNow", "Open Now"],
               ["halalOnly", "Verified halal only"],
               ["savedOnly", "Saved Only"],
             ] as const
-          ).map(([key, label]) => (
-            <label className={styles.check} key={key}>
-              <span>{label}</span>
-              <input
-                type="checkbox"
-                checked={Boolean(draft[key])}
-                onChange={(event) =>
-                  update({
-                    [key]: event.currentTarget.checked ? true : undefined,
-                  })
-                }
-              />
-            </label>
-          ))}
-          <p className={styles.caption}>
-            Unknown opening hours, distance, price or halal status are excluded
-            when that filter is active. Saved Only uses your preview wishlist
-            for this visit.
-          </p>
+          )
+            .filter(([key]) => from === "map" || key !== "halalOnly")
+            .map(([key, label]) => (
+              <label className={styles.check} key={key}>
+                <span>{label}</span>
+                <input
+                  type="checkbox"
+                  checked={Boolean(draft[key])}
+                  onChange={(event) =>
+                    update({
+                      [key]: event.currentTarget.checked ? true : undefined,
+                    })
+                  }
+                />
+              </label>
+            ))}
+          {from === "map" ? (
+            <p className={styles.caption}>
+              Unknown opening hours, distance, price or halal status are
+              excluded when that filter is active. Saved Only uses your preview
+              wishlist for this visit.
+            </p>
+          ) : null}
           <Link
             className={`${styles.action} ${styles.yellow}`}
             href={`/${from}${search ? `?${search}` : ""}`}
@@ -188,7 +202,9 @@ export function FiltersPage({
         </div>
       </main>
       <footer className={styles.footer}>
-        <p className={shared.demoLabel}>Illustrative data</p>
+        <p className={shared.demoLabel}>
+          {from === "map" ? "Illustrative data" : "Google Maps"}
+        </p>
       </footer>
     </div>
   );

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { findDemoRestaurant } from "@/features/restaurants/demo-data";
-import { findCatalogPlace } from "@/features/catalog/catalog";
+import { findGooglePlace } from "@/features/catalog/google-data";
 
 export default async function RestaurantLayout({
   children,
@@ -12,6 +12,6 @@ export default async function RestaurantLayout({
 }) {
   const { placeId } = await params;
   // Validate before the nested loading boundary starts a streaming 200 response.
-  if (!findDemoRestaurant(placeId) && !findCatalogPlace(placeId)) notFound();
+  if (!findDemoRestaurant(placeId) && !findGooglePlace(placeId)) notFound();
   return children;
 }

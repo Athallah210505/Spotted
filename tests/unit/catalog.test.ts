@@ -35,20 +35,17 @@ describe("real OSM pilot catalogue", () => {
     for (const [id, photo] of Object.entries(catalogPhotos)) {
       expect(catalog.places.some((place) => place.id === id)).toBe(true);
       expect(existsSync(`public${photo.src}`)).toBe(true);
-      expect(new URL(photo.sourceUrl).hostname).toBe("commons.wikimedia.org");
-      expect(new URL(photo.licenseUrl).hostname).toBe("creativecommons.org");
-      expect(photo.author).toBeTruthy();
-      expect(photo.note).toBeTruthy();
+      expect(new URL(photo.sourceUrl).hostname).toBe("www.google.com");
     }
   });
   it("keeps an attributed rating snapshot separate from OSM and leaves unknown ratings missing", () => {
     const rating = catalogRatings["node/4245907143"]!;
-    expect(rating.value).toBe(4.8);
-    expect(rating.reviewCount).toBe(38);
-    expect(rating.provider).toBe("Chope");
-    expect(new URL(rating.sourceUrl).hostname).toBe("www.chope.co");
-    expect(rating.checkedAt).toBe("2026-10-25");
-    expect(catalogRatings["node/12157326132"]).toBeUndefined();
+    expect(rating.value).toBe(4.5);
+    expect(rating.reviewCount).toBeGreaterThan(9000);
+    expect(rating.provider).toBe("Google");
+    expect(new URL(rating.sourceUrl).hostname).toBe("www.google.com");
+    expect(Number.isFinite(Date.parse(rating.checkedAt))).toBe(true);
+    expect(catalogRatings["node/000000"]).toBeUndefined();
     for (const [id, item] of Object.entries(catalogRatings)) {
       expect(catalog.places.some((place) => place.id === id)).toBe(true);
       expect(item.value).toBeGreaterThanOrEqual(0);

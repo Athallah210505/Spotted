@@ -155,11 +155,10 @@ test("nearby preview preserves radius and recovers when the selected save is rem
   ).toHaveAttribute("aria-current", "page");
 });
 
-test("filters calculate real fixture counts, apply across List/Map and reset without claiming unknown metadata", async ({
+test("map filters calculate fixture counts and reset without claiming unknown metadata", async ({
   page,
 }) => {
-  await page.goto("/explore");
-  await page.getByRole("link", { name: "Filters", exact: true }).click();
+  await page.goto("/filters?from=map");
   await page
     .getByRole("group", { name: "Cuisine", exact: true })
     .getByRole("button", { name: "Japanese", exact: true })
@@ -195,9 +194,8 @@ test("filters calculate real fixture counts, apply across List/Map and reset wit
     /category=Japanese&rating=4.5&distance=3&price=2&open=1&saved=1/,
   );
   await expect(
-    page.getByRole("article", { name: "Kedai Ramen Sore", exact: true }),
+    page.getByRole("button", { name: /Preview Kedai Ramen Sore/ }),
   ).toBeVisible();
-  await page.getByRole("link", { name: "Map", exact: true }).click();
   await expect(page.getByRole("button", { name: /^Preview/ })).toHaveCount(1);
   await page.getByText("Search & filters", { exact: true }).click();
   await page.getByRole("link", { name: "Filters", exact: true }).click();
