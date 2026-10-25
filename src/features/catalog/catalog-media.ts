@@ -2,6 +2,31 @@ import type { catalog } from "./catalog";
 
 type Place = (typeof catalog.places)[number];
 
+// shortcut: a manually checked source snapshot; replace with licensed provider updates when available.
+export const catalogRatings: Record<
+  string,
+  {
+    value: number;
+    reviewCount: number;
+    provider: string;
+    sourceUrl: string;
+    checkedAt: string;
+  }
+> = {
+  "node/4245907143": {
+    value: 4.8,
+    reviewCount: 38,
+    provider: "Chope",
+    sourceUrl:
+      "https://www.chope.co/jakarta-restaurants/restaurant/cafe-batavia-jakarta-kota-tua-taman-sari?lang=en_US",
+    checkedAt: "2026-10-25",
+  },
+};
+
+export function catalogDetailHref(place: Pick<Place, "id">) {
+  return `/restaurant/osm-${place.id.slice("node/".length)}`;
+}
+
 export const catalogPhotos: Record<
   string,
   {

@@ -5,6 +5,8 @@ import { findDemoRestaurant } from "@/features/restaurants/demo-data";
 import { RestaurantDetail } from "@/features/restaurants/restaurant-detail";
 import { DetailSaveButton } from "@/features/wishlist/detail-save-button";
 import { SavedRecommendation } from "@/features/tiktok/saved-recommendation";
+import { findCatalogPlace } from "@/features/catalog/catalog";
+import { CatalogDetail } from "@/features/catalog/catalog-detail";
 
 export default async function RestaurantPage({
   params,
@@ -14,6 +16,19 @@ export default async function RestaurantPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const [{ placeId }, query] = await Promise.all([params, searchParams]);
+  const realPlace = findCatalogPlace(placeId);
+  if (realPlace)
+    return (
+      <CatalogDetail
+        place={realPlace}
+        tab={
+          query.tab === "menu" || query.tab === "reviews"
+            ? query.tab
+            : "overview"
+        }
+        backHref={query.from === "catalog" ? "/catalog" : "/explore"}
+      />
+    );
   const place = findDemoRestaurant(placeId);
   if (!place) notFound();
   const tab =

@@ -1,7 +1,10 @@
 import { expect, test } from "@playwright/test";
-import { googleMapsUrl } from "../../src/features/catalog/catalog-media";
+import {
+  catalogDetailHref,
+  googleMapsUrl,
+} from "../../src/features/catalog/catalog-media";
 
-test("homepage shows sourced photos, opens Maps and preserves honest photo fallbacks", async ({
+test("homepage rating leads to Overview, Menu and Reviews before opening Maps", async ({
   page,
 }) => {
   await page.route("https://www.google.com/maps/**", (route) =>
@@ -27,8 +30,14 @@ test("homepage shows sourced photos, opens Maps and preserves honest photo fallb
     (place: { name: string }) => place.name === "Cafe Batavia",
   )!;
   await expect(
+    card.getByRole("link", { name: "Lihat detail Cafe Batavia", exact: true }),
+  ).toHaveAttribute("href", catalogDetailHref(batavia));
+  await expect(
+    card.getByLabel("4.8 dari 5 · Chope, snapshot sumber"),
+  ).toBeVisible();
+  await expect(
     card.getByRole("link", { name: "Buka Google Maps", exact: true }),
-  ).toHaveAttribute("href", googleMapsUrl(batavia));
+  ).toHaveCount(0);
   await expect(
     card.getByRole("link", { name: "Foto: Hkurniawan" }),
   ).toHaveAttribute(
@@ -37,11 +46,6 @@ test("homepage shows sourced photos, opens Maps and preserves honest photo fallb
   );
   await expect(card.getByRole("link", { name: "CC BY-SA 3.0" })).toBeVisible();
   await expect(section).toContainText("bukan penjual tertentu");
-  const popupPromise = page.waitForEvent("popup");
-  await card.getByRole("link", { name: /buka lokasi di Google Maps/ }).click();
-  const popup = await popupPromise;
-  await expect(popup).toHaveURL(googleMapsUrl(batavia));
-  await popup.close();
   for (const width of [375, 430, 1280]) {
     await page.setViewportSize({ width, height: 900 });
     expect(
@@ -54,12 +58,59 @@ test("homepage shows sourced photos, opens Maps and preserves honest photo fallb
   await card.screenshot({
     path: `test-results/home-real-place-${test.info().project.name}.png`,
   });
+  await card.getByRole("link", { name: /lihat detail$/ }).click();
+  await expect(page).toHaveURL(new RegExp(`${catalogDetailHref(batavia)}$`));
+  await expect(
+    page.getByRole("heading", { name: "Cafe Batavia", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Overview", exact: true }),
+  ).toHaveAttribute("aria-current", "page");
+  await expect(
+    page.getByRole("region", { name: "Overview tempat" }),
+  ).toContainText(batavia.address);
+  await expect(
+    page.getByRole("link", { name: "Buka Google Maps", exact: true }),
+  ).toHaveAttribute("href", googleMapsUrl(batavia));
+  await page.screenshot({
+    path: `test-results/real-overview-${test.info().project.name}.png`,
+  });
+  await page.getByRole("link", { name: "Menu", exact: true }).click();
+  await expect(page).toHaveURL(/tab=menu/);
+  await expect(
+    page.getByRole("link", { name: "Buka menu di website" }),
+  ).toHaveAttribute("href", "https://cafebatavia.com/#section-menu");
+  await page.reload();
+  await expect(
+    page.getByRole("link", { name: "Menu", exact: true }),
+  ).toHaveAttribute("aria-current", "page");
+  await page.getByRole("link", { name: "Reviews", exact: true }).click();
+  await expect(
+    page.getByRole("region", { name: "Reviews tempat" }),
+  ).toContainText("4.8/5 · 38 ulasan di Chope");
+  await expect(page.getByText(/Rating snapshot Chope/)).toBeVisible();
+  const popupPromise = page.waitForEvent("popup");
+  await page
+    .getByRole("link", { name: "Buka Google Maps", exact: true })
+    .click();
+  const popup = await popupPromise;
+  await expect(popup).toHaveURL(googleMapsUrl(batavia));
+  await popup.close();
+  await page.getByRole("link", { name: "Back", exact: true }).click();
+  await expect(page).toHaveURL(/\/explore$/);
+  await card
+    .getByRole("link", { name: "Lihat detail Cafe Batavia", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Overview", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "Back", exact: true }).click();
   await page
     .getByRole("link", { name: "Lihat semua 40 tempat", exact: true })
     .click();
   await expect(page).toHaveURL(/\/catalog$/);
   const links = page.getByRole("link", {
-    name: "Buka Google Maps",
+    name: "Lihat detail",
     exact: true,
   });
   await expect(links).toHaveCount(40);
@@ -75,6 +126,29 @@ test("homepage shows sourced photos, opens Maps and preserves honest photo fallb
   expect(
     json.places.filter((place: { photo: unknown }) => place.photo),
   ).toHaveLength(2);
+  expect(
+    json.places.find((place: { name: string }) => place.name === "Cafe Batavia")
+      .sourceRating.provider,
+  ).toBe("Chope");
+  await page
+    .getByRole("article", { name: "Gulai Tikungan Blok M", exact: true })
+    .getByRole("link", { name: "Lihat detail", exact: true })
+    .click();
+  await expect(
+    page.getByLabel("Rating belum tersedia", { exact: true }),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "Menu", exact: true }).click();
+  await expect(page.getByRole("region", { name: "Menu tempat" })).toContainText(
+    "Menu belum tersedia",
+  );
+  await page.getByRole("link", { name: "Reviews", exact: true }).click();
+  await expect(
+    page.getByRole("region", { name: "Reviews tempat" }),
+  ).toContainText("Rating dan ulasan belum tersedia");
+  await page.getByRole("link", { name: "Back", exact: true }).click();
+  await expect(page).toHaveURL(/\/catalog$/);
+  const unknown = await page.request.get("/restaurant/osm-0000");
+  expect(unknown.status()).toBe(404);
   await page.route("**/catalog/cafe-batavia.jpg*", (route) => route.abort());
   await page.route("**/_next/image?*", (route) => route.abort());
   await page.goto("/explore");
@@ -85,8 +159,11 @@ test("homepage shows sourced photos, opens Maps and preserves honest photo fallb
     failed.getByRole("img", { name: "Photo unavailable" }),
   ).toBeVisible();
   await expect(
-    failed.getByRole("link", { name: "Buka Google Maps", exact: true }),
-  ).toHaveAttribute("href", googleMapsUrl(batavia));
+    failed.getByRole("link", {
+      name: "Lihat detail Cafe Batavia",
+      exact: true,
+    }),
+  ).toHaveAttribute("href", catalogDetailHref(batavia));
 });
 
 test("real data pilot is reachable from Explore and exposes provenance, missing fields and JSON", async ({

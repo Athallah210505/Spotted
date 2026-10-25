@@ -4,8 +4,9 @@ import { JourneyLayout } from "@/features/tiktok/journey-layout";
 import shared from "@/features/tiktok/journey.module.css";
 import { catalog, filterCatalog, kindLabels } from "./catalog";
 import styles from "./catalog.module.css";
-import { googleMapsUrl } from "./catalog-media";
+import { catalogDetailHref } from "./catalog-media";
 import { CatalogPhoto } from "./catalog-photo";
+import { CatalogRating } from "./catalog-rating";
 
 const date = (value: string) =>
   new Date(value).toLocaleString("id-ID", {
@@ -146,15 +147,17 @@ export function CatalogPage({
                 {kindLabels[place.kind]}
               </p>
               <h2>{place.name}</h2>
-              <CatalogPhoto placeId={place.id} mapsUrl={googleMapsUrl(place)} />
-              <a
+              <CatalogRating placeId={place.id} />
+              <CatalogPhoto
+                placeId={place.id}
+                href={`${catalogDetailHref(place)}?from=catalog`}
+              />
+              <Link
                 className={styles.mapsAction}
-                href={googleMapsUrl(place)}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`${catalogDetailHref(place)}?from=catalog`}
               >
-                Buka Google Maps
-              </a>
+                Lihat detail
+              </Link>
               <dl className={styles.fields}>
                 <div>
                   <dt>Alamat OSM</dt>

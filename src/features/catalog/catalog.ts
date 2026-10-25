@@ -90,6 +90,11 @@ export const catalogSchema = z
 
 // shortcut: a checked-in pilot snapshot; use persisted source records when the dataset and refresh policy are approved.
 export const catalog = catalogSchema.parse(data);
+export function findCatalogPlace(slug: string) {
+  return catalog.places.find(
+    (row) => slug === `osm-${row.id.slice("node/".length)}`,
+  );
+}
 export const kindLabels = {
   restaurant: "Restoran",
   cafe: "Cafe",

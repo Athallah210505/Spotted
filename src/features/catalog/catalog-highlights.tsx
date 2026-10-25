@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { catalog, kindLabels } from "./catalog";
-import { catalogPhotos, googleMapsUrl } from "./catalog-media";
+import { catalogPhotos, catalogDetailHref } from "./catalog-media";
 import { CatalogPhoto } from "./catalog-photo";
+import { CatalogRating } from "./catalog-rating";
 import styles from "./catalog.module.css";
 
 export function CatalogHighlights() {
@@ -11,7 +12,7 @@ export function CatalogHighlights() {
   return (
     <section className={styles.highlights} aria-label="Tempat nyata di Jakarta">
       <h2>Jakarta, buat rencana berikutnya.</h2>
-      <p>Tempat dari OpenStreetMap. Ketuk foto untuk membuka lokasinya.</p>
+      <p>Tempat dari OpenStreetMap. Ketuk kartu untuk melihat detailnya.</p>
       {places.map((place, index) => (
         <article
           className={styles.highlight}
@@ -20,25 +21,25 @@ export function CatalogHighlights() {
         >
           <CatalogPhoto
             placeId={place.id}
-            mapsUrl={googleMapsUrl(place)}
+            href={catalogDetailHref(place)}
             preload={index === 0}
           >
-            <div className={styles.highlightBody}>
-              <h3>{place.name}</h3>
+            <Link
+              href={catalogDetailHref(place)}
+              className={styles.highlightBody}
+              aria-label={`Lihat detail ${place.name}`}
+            >
+              <div className={styles.identityRow}>
+                <h3>{place.name}</h3>
+                <CatalogRating placeId={place.id} />
+              </div>
               <p>
                 {kindLabels[place.kind]} ·{" "}
                 {catalog.areas.find((area) => area.id === place.area)?.name}
               </p>
               {place.address ? <p>{place.address}</p> : null}
-              <a
-                className={styles.mapsAction}
-                href={googleMapsUrl(place)}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Buka Google Maps
-              </a>
-            </div>
+              <span className={styles.mapsAction}>Lihat detail</span>
+            </Link>
           </CatalogPhoto>
         </article>
       ))}

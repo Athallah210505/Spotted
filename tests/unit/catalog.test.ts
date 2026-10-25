@@ -3,9 +3,15 @@ import {
   catalog,
   catalogSchema,
   filterCatalog,
+  findCatalogPlace,
 } from "@/features/catalog/catalog";
 import { existsSync } from "node:fs";
-import { catalogPhotos, googleMapsUrl } from "@/features/catalog/catalog-media";
+import {
+  catalogPhotos,
+  catalogRatings,
+  catalogDetailHref,
+  googleMapsUrl,
+} from "@/features/catalog/catalog-media";
 
 describe("real OSM pilot catalogue", () => {
   it("links every source coordinate to Maps and keeps photo credits tied to existing places", () => {
@@ -18,7 +24,14 @@ describe("real OSM pilot catalogue", () => {
         `${place.latitude},${place.longitude}`,
       );
       expect(url.searchParams.has("query_place_id")).toBe(false);
+      expect(catalogDetailHref(place)).toBe(
+        `/restaurant/osm-${place.id.slice(5)}`,
+      );
+      expect(
+        findCatalogPlace(catalogDetailHref(place).split("/").pop()!),
+      ).toEqual(place);
     }
+    expect(findCatalogPlace("osm-0000")).toBeUndefined();
     for (const [id, photo] of Object.entries(catalogPhotos)) {
       expect(catalog.places.some((place) => place.id === id)).toBe(true);
       expect(existsSync(`public${photo.src}`)).toBe(true);
@@ -26,6 +39,20 @@ describe("real OSM pilot catalogue", () => {
       expect(new URL(photo.licenseUrl).hostname).toBe("creativecommons.org");
       expect(photo.author).toBeTruthy();
       expect(photo.note).toBeTruthy();
+    }
+  });
+  it("keeps an attributed rating snapshot separate from OSM and leaves unknown ratings missing", () => {
+    const rating = catalogRatings["node/4245907143"]!;
+    expect(rating.value).toBe(4.8);
+    expect(rating.reviewCount).toBe(38);
+    expect(rating.provider).toBe("Chope");
+    expect(new URL(rating.sourceUrl).hostname).toBe("www.chope.co");
+    expect(rating.checkedAt).toBe("2026-10-25");
+    expect(catalogRatings["node/12157326132"]).toBeUndefined();
+    for (const [id, item] of Object.entries(catalogRatings)) {
+      expect(catalog.places.some((place) => place.id === id)).toBe(true);
+      expect(item.value).toBeGreaterThanOrEqual(0);
+      expect(item.value).toBeLessThanOrEqual(5);
     }
   });
   it("contains unique source-linked points inside four declared sample areas", () => {

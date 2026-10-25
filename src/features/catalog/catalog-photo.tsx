@@ -1,36 +1,39 @@
 import { RestaurantPhoto } from "@/features/restaurants/restaurant-photo";
+import Link from "next/link";
 import { catalogPhotos } from "./catalog-media";
 import styles from "./catalog.module.css";
 
 export function CatalogPhoto({
   placeId,
-  mapsUrl,
+  href,
   preload = false,
   children,
 }: {
   placeId: string;
-  mapsUrl: string;
+  href?: string;
   preload?: boolean;
   children?: React.ReactNode;
 }) {
   const photo = catalogPhotos[placeId];
   if (!photo) return null;
+  const image = (
+    <RestaurantPhoto
+      src={photo.src}
+      alt={photo.alt}
+      className={styles.photo}
+      sizes="(max-width: 430px) calc(100vw - 48px), 382px"
+      preload={preload}
+    />
+  );
   return (
     <figure className={styles.figure}>
-      <a
-        href={mapsUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`${photo.alt} · buka lokasi di Google Maps`}
-      >
-        <RestaurantPhoto
-          src={photo.src}
-          alt={photo.alt}
-          className={styles.photo}
-          sizes="(max-width: 430px) calc(100vw - 48px), 382px"
-          preload={preload}
-        />
-      </a>
+      {href ? (
+        <Link href={href} aria-label={`${photo.alt} · lihat detail`}>
+          {image}
+        </Link>
+      ) : (
+        image
+      )}
       {children}
       <figcaption className={styles.credit}>
         <a href={photo.sourceUrl} target="_blank" rel="noopener noreferrer">
