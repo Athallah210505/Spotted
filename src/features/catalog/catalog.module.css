@@ -102,30 +102,6 @@
   font-size: 12px;
   line-height: 18px;
 }
-.ratingNote {
-  font-size: 12px;
-  line-height: 18px;
-  color: var(--muted-foreground);
-}
-.tabs {
-  display: flex;
-  gap: 8px;
-}
-.tabs a {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 10px 8px;
-  background: white;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 600;
-}
-.tabs a[aria-current="page"] {
-  background: var(--brand-yellow);
-}
 .mapsAction,
 .place > .mapsAction {
   display: flex;

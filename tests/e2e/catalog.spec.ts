@@ -7,6 +7,7 @@ import {
 test("homepage rating leads to Overview, Menu and Reviews before opening Maps", async ({
   page,
 }) => {
+  test.setTimeout(60_000);
   await page.route("https://www.google.com/maps/**", (route) =>
     route.fulfill({ contentType: "text/html", body: "Maps test destination" }),
   );
@@ -64,11 +65,30 @@ test("homepage rating leads to Overview, Menu and Reviews before opening Maps", 
     page.getByRole("heading", { name: "Cafe Batavia", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "Overview", exact: true }),
+    page.getByRole("link", { name: "Menu", exact: true }),
   ).toHaveAttribute("aria-current", "page");
   await expect(
     page.getByRole("region", { name: "Overview tempat" }),
   ).toContainText(batavia.address);
+  await expect(page.getByText("Detail tempat", { exact: true })).toHaveCount(0);
+  await expect(
+    page.getByRole("heading", { name: "Cafe Batavia", exact: true }),
+  ).toHaveCSS("font-size", "34px");
+  await expect(page.getByRole("link", { name: "Menu", exact: true })).toHaveCSS(
+    "background-color",
+    "rgb(23, 23, 23)",
+  );
+  const yellowRating = page
+    .getByLabel("4.8 dari 5 · Chope, snapshot sumber")
+    .locator("strong");
+  await expect(yellowRating).toHaveCSS("border-radius", "16px");
+  await expect(yellowRating).toHaveCSS("height", "64px");
+  await expect(
+    page.getByRole("button", { name: "Next photo", exact: true }),
+  ).toBeDisabled();
+  await expect(
+    page.getByRole("button", { name: "Bookmark Cafe Batavia", exact: true }),
+  ).toBeVisible();
   await expect(
     page.getByRole("link", { name: "Buka Google Maps", exact: true }),
   ).toHaveAttribute("href", googleMapsUrl(batavia));
@@ -81,6 +101,18 @@ test("homepage rating leads to Overview, Menu and Reviews before opening Maps", 
     page.getByRole("link", { name: "Buka menu di website" }),
   ).toHaveAttribute("href", "https://cafebatavia.com/#section-menu");
   await page.reload();
+  await page
+    .getByRole("button", { name: "Bookmark Cafe Batavia", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "Unsave Cafe Batavia", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(
+    page.getByRole("button", {
+      name: "Remove Cafe Batavia from wishlist",
+      exact: true,
+    }),
+  ).toHaveAttribute("aria-pressed", "true");
   await expect(
     page.getByRole("link", { name: "Menu", exact: true }),
   ).toHaveAttribute("aria-current", "page");
@@ -96,15 +128,39 @@ test("homepage rating leads to Overview, Menu and Reviews before opening Maps", 
   const popup = await popupPromise;
   await expect(popup).toHaveURL(googleMapsUrl(batavia));
   await popup.close();
+  await page.getByRole("link", { name: "TikTok", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "Not available yet", exact: true }),
+  ).toBeVisible();
   await page.getByRole("link", { name: "Back", exact: true }).click();
   await expect(page).toHaveURL(/\/explore$/);
   await card
     .getByRole("link", { name: "Lihat detail Cafe Batavia", exact: true })
     .click();
   await expect(
-    page.getByRole("heading", { name: "Overview", exact: true }),
+    page.getByRole("region", { name: "Overview tempat", exact: true }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Back", exact: true }).click();
+  await page.getByRole("link", { name: "Wishlist", exact: true }).click();
+  const savedReal = page.getByRole("article", {
+    name: "Cafe Batavia",
+    exact: true,
+  });
+  await expect(savedReal).toBeVisible();
+  await savedReal
+    .getByRole("link", { name: "Cafe Batavia", exact: true })
+    .click();
+  await expect(page).toHaveURL(/from=wishlist/);
+  await page.getByRole("link", { name: "Back", exact: true }).click();
+  await expect(page).toHaveURL(/\/wishlist$/);
+  await savedReal
+    .getByRole("button", {
+      name: "Remove Cafe Batavia from wishlist",
+      exact: true,
+    })
+    .click();
+  await expect(savedReal).toHaveCount(0);
+  await page.getByRole("link", { name: "Explore", exact: true }).click();
   await page
     .getByRole("link", { name: "Lihat semua 40 tempat", exact: true })
     .click();
@@ -134,6 +190,14 @@ test("homepage rating leads to Overview, Menu and Reviews before opening Maps", 
     .getByRole("article", { name: "Gulai Tikungan Blok M", exact: true })
     .getByRole("link", { name: "Lihat detail", exact: true })
     .click();
+  await expect(page).toHaveURL(/\/restaurant\/osm-12157326132\?from=catalog$/);
+  await expect(
+    page.getByRole("heading", {
+      name: "Gulai Tikungan Blok M",
+      level: 1,
+      exact: true,
+    }),
+  ).toBeVisible();
   await expect(
     page.getByLabel("Rating belum tersedia", { exact: true }),
   ).toBeVisible();

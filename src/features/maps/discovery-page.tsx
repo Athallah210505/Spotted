@@ -18,6 +18,12 @@ import {
 } from "@/features/explore/demo-data";
 import { RestaurantPhoto } from "@/features/restaurants/restaurant-photo";
 import { usePreviewWishlist } from "@/features/wishlist/preview-wishlist";
+import { catalog } from "@/features/catalog/catalog";
+import {
+  catalogPhotos,
+  catalogRatings,
+  catalogDetailHref,
+} from "@/features/catalog/catalog-media";
 import shared from "@/components/layout/browse.module.css";
 import { radii, type Radius } from "./map-options";
 import { SchematicMap } from "./schematic-map";
@@ -55,6 +61,9 @@ export function DiscoveryPage({
   const scrollArea = useRef<HTMLElement>(null);
   const search = exploreSearch(filters, profile.city !== "jakarta");
   const saved = demoRestaurants.filter((place) => savedIds.includes(place.id));
+  const savedCatalog = wishlist
+    ? catalog.places.filter((place) => savedIds.includes(place.id))
+    : [];
   const nearby = saved.filter(
     (place) => filters.city === "jakarta" && place.distanceM <= radius * 1000,
   );
@@ -471,11 +480,17 @@ export function DiscoveryPage({
               {places.length === 0 ? (
                 <div className={shared.emptyState}>
                   <h2>
-                    {wishlist ? "Your wishlist is empty" : "No places found"}
+                    {wishlist
+                      ? savedCatalog.length
+                        ? "No saved places on this preview map"
+                        : "Your wishlist is empty"
+                      : "No places found"}
                   </h2>
                   <p>
                     {wishlist
-                      ? "Save a restaurant from Explore to see it here."
+                      ? savedCatalog.length
+                        ? "Open List to see your saved OSM places."
+                        : "Save a restaurant from Explore to see it here."
                       : "Try another search or category."}
                   </p>
                   <Link className={styles.action} href="/explore">
@@ -501,6 +516,49 @@ export function DiscoveryPage({
             </>
           ) : (
             <>
+              {savedCatalog.map((place) => (
+                <article
+                  key={place.id}
+                  className={styles.savedCard}
+                  aria-label={place.name}
+                >
+                  {catalogPhotos[place.id] ? (
+                    <Link
+                      href={`${catalogDetailHref(place)}?from=wishlist`}
+                      aria-label={`View ${place.name}`}
+                    >
+                      <RestaurantPhoto
+                        src={catalogPhotos[place.id]!.src}
+                        alt={catalogPhotos[place.id]!.alt}
+                        className={styles.photo}
+                        sizes="88px"
+                      />
+                    </Link>
+                  ) : null}
+                  <div className={styles.cardDetails}>
+                    <Link
+                      className={styles.placeName}
+                      href={`${catalogDetailHref(place)}?from=wishlist`}
+                    >
+                      {place.name}
+                    </Link>
+                    <p>
+                      {catalogRatings[place.id]
+                        ? `${catalogRatings[place.id]!.value} · ${catalogRatings[place.id]!.provider}`
+                        : "Belum ada rating"}
+                    </p>
+                    <p className={styles.cardMeta}>Saved · OSM</p>
+                    <div className={styles.cardActions}>
+                      <button
+                        aria-label={`Remove ${place.name} from wishlist`}
+                        onClick={() => toggle(place.id)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              ))}
               {places.length ? (
                 places.map((place) => {
                   const isNearby = nearby.some(
@@ -564,7 +622,7 @@ export function DiscoveryPage({
                     </article>
                   );
                 })
-              ) : (
+              ) : savedCatalog.length === 0 ? (
                 <div className={shared.emptyState}>
                   <h2>Your wishlist is empty</h2>
                   <p>Save a restaurant from Explore to see it here.</p>
@@ -572,7 +630,7 @@ export function DiscoveryPage({
                     Browse restaurants
                   </Link>
                 </div>
-              )}
+              ) : null}
               {savedIds.includes("kopi-halaman") ? (
                 <button
                   className={styles.action}

@@ -22,11 +22,19 @@ export default async function RestaurantPage({
       <CatalogDetail
         place={realPlace}
         tab={
-          query.tab === "menu" || query.tab === "reviews"
+          query.tab === "menu" ||
+          query.tab === "reviews" ||
+          query.tab === "tiktok"
             ? query.tab
             : "overview"
         }
-        backHref={query.from === "catalog" ? "/catalog" : "/explore"}
+        backHref={
+          query.from === "catalog"
+            ? "/catalog"
+            : query.from === "wishlist"
+              ? "/wishlist"
+              : "/explore"
+        }
       />
     );
   const place = findDemoRestaurant(placeId);

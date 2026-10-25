@@ -11,11 +11,13 @@ export function DetailSaveButton({
   name,
   savedHref,
   compact = false,
+  redirectOnSave = true,
 }: {
   id: string;
   name: string;
   savedHref: string;
   compact?: boolean;
+  redirectOnSave?: boolean;
 }) {
   const router = useRouter();
   const { savedIds, toggle } = usePreviewWishlist();
@@ -25,7 +27,7 @@ export function DetailSaveButton({
       className={compact ? styles.heroSave : `${styles.action} ${styles.save}`}
       onClick={() => {
         toggle(id);
-        if (!saved) router.push(savedHref);
+        if (!saved && redirectOnSave) router.push(savedHref);
       }}
       aria-pressed={saved}
       aria-label={
