@@ -10,12 +10,14 @@ export function JourneyLayout({
   children,
   masthead,
   navigation = false,
+  footer = "Illustrative data",
 }: {
   title?: string;
   backHref?: string;
   children: React.ReactNode;
   masthead?: React.ReactNode;
   navigation?: boolean;
+  footer?: React.ReactNode;
 }) {
   return (
     <div className={`${shared.shell} ${masthead ? shared.yellowSafe : ""}`}>
@@ -50,7 +52,7 @@ export function JourneyLayout({
       {navigation ? (
         <BrowseNavigation active="Wishlist" />
       ) : (
-        <footer className={styles.footer}>Illustrative data</footer>
+        <footer className={styles.footer}>{footer}</footer>
       )}
     </div>
   );

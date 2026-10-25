@@ -354,6 +354,9 @@ export function ExploreFeed({
               {sortOptions[filters.sort ?? "highest_rated"]}
             </Link>
           </div>
+          <Link className={styles.textAction} href="/catalog">
+            Lihat pilot data Jakarta (OSM)
+          </Link>
           {filters.sort === "nearest" && filters.city !== "jakarta" ? (
             <p role="status" className={styles.supporting}>
               Nearest is unavailable for this city. Showing Highest Rated until

@@ -16,6 +16,8 @@ Detail restoran tersedia di `/restaurant/kedai-ramen-sore`, dengan galeri, Menu,
 
 `/login/sent` menyediakan konfirmasi/resend simulasi, `/saved/[placeId]` menampilkan hasil save dari detail, dan `/sort` mengurutkan hasil pencarian. Lihat [Email Sent, Saved, Sort dan QA](docs/14-email-saved-sorting.md).
 
+`/catalog` menampilkan pilot40 lokasi OSM nyata dari empat area Jakarta, kualitas field, sumber, dan satu hasil ekstraksi website dengan Scrapling. JSON publik ada di `/api/catalog`. Lihat [data pilot, importer dan QA](docs/15-jakarta-data-pilot.md); fixture Explore/detail existing tetap ilustratif.
+
 Yang disiapkan:
 
 - Tailwind CSS dan token warna dari catatan design handoff; font final mengikuti screen canonical nanti.
