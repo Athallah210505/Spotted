@@ -63,9 +63,11 @@ function PlacePhoto({
 export function ExploreFeed({
   filters: initialFilters,
   usePreferredCity = false,
+  realPlaces,
 }: {
   filters: ExploreFilters;
   usePreferredCity?: boolean;
+  realPlaces?: React.ReactNode;
 }) {
   const { profile } = usePreviewProfile();
   const filters = {
@@ -392,6 +394,10 @@ export function ExploreFeed({
             </>
           ) : (
             <>
+              {filters.city === "jakarta" ? realPlaces : null}
+              <p className={styles.rankingNote}>
+                Preview fitur · tempat dan rating contoh
+              </p>
               <div className={styles.srOnly}>
                 <h2>Top Rated in Your City</h2>
               </div>

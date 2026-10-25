@@ -4,8 +4,30 @@ import {
   catalogSchema,
   filterCatalog,
 } from "@/features/catalog/catalog";
+import { existsSync } from "node:fs";
+import { catalogPhotos, googleMapsUrl } from "@/features/catalog/catalog-media";
 
 describe("real OSM pilot catalogue", () => {
+  it("links every source coordinate to Maps and keeps photo credits tied to existing places", () => {
+    for (const place of catalog.places) {
+      const url = new URL(googleMapsUrl(place));
+      expect(url.origin).toBe("https://www.google.com");
+      expect(url.pathname).toBe("/maps/search/");
+      expect(url.searchParams.get("api")).toBe("1");
+      expect(url.searchParams.get("query")).toBe(
+        `${place.latitude},${place.longitude}`,
+      );
+      expect(url.searchParams.has("query_place_id")).toBe(false);
+    }
+    for (const [id, photo] of Object.entries(catalogPhotos)) {
+      expect(catalog.places.some((place) => place.id === id)).toBe(true);
+      expect(existsSync(`public${photo.src}`)).toBe(true);
+      expect(new URL(photo.sourceUrl).hostname).toBe("commons.wikimedia.org");
+      expect(new URL(photo.licenseUrl).hostname).toBe("creativecommons.org");
+      expect(photo.author).toBeTruthy();
+      expect(photo.note).toBeTruthy();
+    }
+  });
   it("contains unique source-linked points inside four declared sample areas", () => {
     expect(catalog.places).toHaveLength(40);
     expect(catalog.areas).toHaveLength(4);

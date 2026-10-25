@@ -1,4 +1,93 @@
 import { expect, test } from "@playwright/test";
+import { googleMapsUrl } from "../../src/features/catalog/catalog-media";
+
+test("homepage shows sourced photos, opens Maps and preserves honest photo fallbacks", async ({
+  page,
+}) => {
+  await page.route("https://www.google.com/maps/**", (route) =>
+    route.fulfill({ contentType: "text/html", body: "Maps test destination" }),
+  );
+  await page.goto("/");
+  await expect(page).toHaveURL(/\/explore$/);
+  const section = page.getByRole("region", { name: "Tempat nyata di Jakarta" });
+  const card = section.getByRole("article", {
+    name: "Cafe Batavia",
+    exact: true,
+  });
+  const image = card.getByRole("img");
+  await image.scrollIntoViewIfNeeded();
+  await expect(image).toBeVisible();
+  await expect
+    .poll(() =>
+      image.evaluate((element: HTMLImageElement) => element.naturalWidth),
+    )
+    .toBeGreaterThan(0);
+  const snapshot = await (await page.request.get("/api/catalog")).json();
+  const batavia = snapshot.places.find(
+    (place: { name: string }) => place.name === "Cafe Batavia",
+  )!;
+  await expect(
+    card.getByRole("link", { name: "Buka Google Maps", exact: true }),
+  ).toHaveAttribute("href", googleMapsUrl(batavia));
+  await expect(
+    card.getByRole("link", { name: "Foto: Hkurniawan" }),
+  ).toHaveAttribute(
+    "href",
+    "https://commons.wikimedia.org/wiki/File:Cafe_Batavia,_Jakarta.jpg",
+  );
+  await expect(card.getByRole("link", { name: "CC BY-SA 3.0" })).toBeVisible();
+  await expect(section).toContainText("bukan penjual tertentu");
+  const popupPromise = page.waitForEvent("popup");
+  await card.getByRole("link", { name: /buka lokasi di Google Maps/ }).click();
+  const popup = await popupPromise;
+  await expect(popup).toHaveURL(googleMapsUrl(batavia));
+  await popup.close();
+  for (const width of [375, 430, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  await card.screenshot({
+    path: `test-results/home-real-place-${test.info().project.name}.png`,
+  });
+  await page
+    .getByRole("link", { name: "Lihat semua 40 tempat", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/catalog$/);
+  const links = page.getByRole("link", {
+    name: "Buka Google Maps",
+    exact: true,
+  });
+  await expect(links).toHaveCount(40);
+  const api = await page.request.get("/api/catalog");
+  const json = await api.json();
+  expect(
+    json.places.every((place: { googleMapsUrl: string }) =>
+      place.googleMapsUrl.startsWith(
+        "https://www.google.com/maps/search/?api=1&query=",
+      ),
+    ),
+  ).toBe(true);
+  expect(
+    json.places.filter((place: { photo: unknown }) => place.photo),
+  ).toHaveLength(2);
+  await page.route("**/catalog/cafe-batavia.jpg*", (route) => route.abort());
+  await page.route("**/_next/image?*", (route) => route.abort());
+  await page.goto("/explore");
+  const failed = page
+    .getByRole("region", { name: "Tempat nyata di Jakarta" })
+    .getByRole("article", { name: "Cafe Batavia", exact: true });
+  await expect(
+    failed.getByRole("img", { name: "Photo unavailable" }),
+  ).toBeVisible();
+  await expect(
+    failed.getByRole("link", { name: "Buka Google Maps", exact: true }),
+  ).toHaveAttribute("href", googleMapsUrl(batavia));
+});
 
 test("real data pilot is reachable from Explore and exposes provenance, missing fields and JSON", async ({
   page,
