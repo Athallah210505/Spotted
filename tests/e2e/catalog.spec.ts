@@ -16,7 +16,7 @@ test("legacy catalogue opens Explore and API exposes Google fields without runti
     expect(p.rating).toBeGreaterThan(0);
     expect(p.reviewCount).toBeGreaterThan(0);
     expect(p.photoPath).toMatch(/^\/google-places\//);
-    expect(p.reviews.length).toBe(1);
+    expect(p.reviews.length).toBe(5);
     expect(p.mapsUrl).toContain("https://www.google.com/maps/");
   }
 });
@@ -64,6 +64,10 @@ test("Google Overview follows the editorial design, expands weekly hours and ope
     path: `test-results/google-detail-${test.info().project.name}.png`,
   });
   await page.getByRole("link", { name: "Reviews", exact: true }).click();
+  await expect(page.getByRole("article")).toHaveCount(5);
+  await expect(page.getByRole("main")).not.toContainText(
+    "Cuplikan ulasan Google",
+  );
   await expect(page).toHaveURL(/tab=reviews&q=tuku/);
   const review = page.getByRole("article", { name: "Review Radja Sitanggang" });
   await expect(review).toBeVisible();

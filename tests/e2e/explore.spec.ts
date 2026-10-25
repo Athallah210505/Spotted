@@ -26,6 +26,12 @@ test("Explore directly shows photographed Google places with no pilot or source 
     await expect(
       card.getByRole("link", { name: `View ${name}` }),
     ).toHaveAttribute("href", /\/restaurant\/osm-\d+$/);
+    const photoBounds = (await img.boundingBox())!;
+    const panelBounds = (await card
+      .locator('div[class*="cardContent"]')
+      .boundingBox())!;
+    expect(panelBounds.x).toBeCloseTo(photoBounds.x, 0);
+    expect(panelBounds.width).toBeCloseTo(photoBounds.width, 0);
   }
   await expect(page.getByRole("main")).not.toContainText(
     /pilot|OSM|Koordinat|Foto:|arsip|Chope|N\/A|Illustrative/i,

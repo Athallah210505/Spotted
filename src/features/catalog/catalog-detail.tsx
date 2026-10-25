@@ -20,6 +20,7 @@ export function CatalogDetail({
   const base = catalogDetailHref(place);
   const context = new URLSearchParams(backHref.split("?")[1]);
   if (backHref.startsWith("/wishlist")) context.set("from", "wishlist");
+  if (backHref.startsWith("/map")) context.set("from", "map");
   const from = context.size ? `&${context}` : "";
   const overview = tab === "overview" || tab === "menu";
   const overviewHref = `${base}${from ? `?${from.slice(1)}` : ""}`;
@@ -136,6 +137,14 @@ export function CatalogDetail({
                 ) : null}
                 <OpeningHours place={place} />
                 {sections()}
+                <section aria-label="Tentang tempat">
+                  <h2>Overview</h2>
+                  <p className={styles.supporting}>
+                    {place.name} merupakan{" "}
+                    {place.category.toLocaleLowerCase("id-ID")} di kawasan{" "}
+                    {areaNames[place.area]}, Jakarta.
+                  </p>
+                </section>
                 <h2>A taste of what’s here.</h2>
                 <section className={styles.menuCard} aria-label="Menu tempat">
                   <p>
@@ -192,7 +201,6 @@ export function CatalogDetail({
                           · {review.rating} / 5
                         </b>
                         <blockquote>“{review.excerpt}”</blockquote>
-                        <p className={styles.caption}>Cuplikan ulasan Google</p>
                       </article>
                     ))
                   ) : (

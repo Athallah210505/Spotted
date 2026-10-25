@@ -26,7 +26,12 @@ describe("published Google place data", () => {
       );
       expect(new URL(place.photoUrl).pathname).not.toMatch(/^\/a-?\//);
       expect(findGooglePlace(`osm-${place.id.slice(5)}`)).toEqual(place);
-      expect(place.reviews).toHaveLength(1);
+      expect(place.reviews).toHaveLength(5);
+      expect(
+        new Set(
+          place.reviews.map((review) => new URL(review.authorUrl).pathname),
+        ).size,
+      ).toBe(5);
       expect(place.reviews[0]!.excerpt.split(/\s+/).length).toBeLessThanOrEqual(
         15,
       );

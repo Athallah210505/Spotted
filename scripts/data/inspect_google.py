@@ -30,6 +30,20 @@ def same_name(original, actual):
     common={"cafe","coffee","kopi","khas","by","the","restoran","restaurant","blok","m","co","sate","padang"}
     return bool((set(re.findall(r"\w+",original))-common)&(set(re.findall(r"\w+",actual))-common))
 
+def parse_reviews(page):
+    reviews = {}
+    for node in page.css("div[data-review-id][aria-label]"):
+        excerpt = text(node.xpath('.//*[contains(@class,"wiI7pd") and not(ancestor::*[contains(@class,"CDe7pd")])]')[:1])
+        star = node.css('[role="img"][aria-label]')
+        profile = node.css('button[data-href*="/maps/contrib/"]')
+        match = next((m for item in star if (m := re.match(r"([1-5]) (?:bintang|stars?)", item.attrib.get("aria-label", "")))), None)
+        if excerpt and match and profile and maps_url(profile[0].attrib["data-href"]):
+            url = profile[0].attrib["data-href"]
+            if not urlsplit(url).path.startswith('/maps/contrib/'): continue
+            words = excerpt.split()
+            reviews[urlsplit(url).path] = {"author":node.attrib["aria-label"], "authorUrl":url, "rating":int(match.group(1)), "excerpt":" ".join(words[:15])+("…" if len(words)>15 else "")}
+    return list(reviews.values())[:5]
+
 def parse_page(raw, place):
     page = Selector(raw["html"])
     name = text(page.css("h1"))
@@ -62,21 +76,7 @@ def parse_page(raw, place):
         cells = row.css("td")
         if len(cells) >= 2:
             hours.append({"day":text(cells[:1]), "text":text(cells[1:2])})
-    reviews = []
-    for node in page.css("div[data-review-id][aria-label]"):
-        excerpt = text(node.css(".wiI7pd"))
-        star = node.css('[role="img"][aria-label*="bintang"]')
-        profile = node.css('button[data-href*="/maps/contrib/"]')
-        if excerpt and star and profile:
-            match = re.match(r"([1-5]) bintang", star[0].attrib.get("aria-label", ""))
-            if match and maps_url(profile[0].attrib["data-href"]):
-                words=[]
-                for word in excerpt.split()[:15]:
-                    if len(" ".join(words+[word]))>600: break
-                    words.append(word)
-                if not words: continue
-                reviews.append({"author":node.attrib["aria-label"], "authorUrl":profile[0].attrib["data-href"], "rating":int(match.group(1)), "excerpt":" ".join(words)+"…"})
-                break
+    reviews = parse_reviews(page)
     return {"id":place["id"], "name":name, "category":text(page.css("button.DkEaL")) or "Tempat makan", "area":place["area"], "latitude":lat, "longitude":lon, "address":address[0].attrib.get("aria-label", "").removeprefix("Alamat: ").strip() if address else None, "rating":rating, "reviewCount":int(re.sub(r"[.,]", "", count.group(1))), "photoUrl":photo, "hours":hours, "reviews":reviews, "mapsUrl":raw["url"], "checkedAt":raw["checkedAt"], "matchDistanceM":round(meters)}
 
 if __name__ == "__main__":
@@ -98,6 +98,9 @@ if __name__ == "__main__":
         for id,row in rows.items():
             old=previous.get(id,{})
             if old.get('photoUrl')==row['photoUrl'] and old.get('photoPath') and (ROOT/"public"/old['photoPath'].lstrip('/')).is_file(): row['photoPath']=old['photoPath']
+            if old.get('reviewsCheckedAt') and old.get('name')==row['name'] and len(old.get('reviews',[]))>len(row['reviews']):
+                row['reviews']=old['reviews']
+                row['reviewsCheckedAt']=old['reviewsCheckedAt']
     if args.download_photos:
         from concurrent.futures import ThreadPoolExecutor
         from urllib.request import Request, urlopen

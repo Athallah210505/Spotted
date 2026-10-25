@@ -42,16 +42,41 @@
     ],
     "reviews": [
       {
+        "author": "Elfrida",
+        "authorUrl": "https://www.google.com/maps/contrib/110000799774127527649/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "The location. I almost missed the venue because it's located side by side with another…"
+      },
+      {
+        "author": "Haura Liew",
+        "authorUrl": "https://www.google.com/maps/contrib/117538526015498425715/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "It was super crowded even on a weekday & we had to queue for quite…"
+      },
+      {
+        "author": "zahwa",
+        "authorUrl": "https://www.google.com/maps/contrib/114684055176810671179/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Kopi Susu Tetangga at Kopi Tuku Blok M is always a great choice. The coffee…"
+      },
+      {
         "author": "Radja Sitanggang",
         "authorUrl": "https://www.google.com/maps/contrib/101633479713488690621/reviews?hl=id",
         "rating": 4,
         "excerpt": "Toko Kopi Tuku menyajikan minuman kopi dan non kopi serta aneka kue bolu yang enak…"
+      },
+      {
+        "author": "Ferik Antoni",
+        "authorUrl": "https://www.google.com/maps/contrib/100472822931191462439/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Kopi Tuku Blok M jadi salah satu tempat yang rasanya selalu enak untuk disinggahi di…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Toko+Kopi+Tuku+Blok+M/?hl=id",
     "checkedAt": "2026-10-25T11:12:55.124Z",
     "matchDistanceM": 3,
-    "photoPath": "/google-places/node-12110042118.jpg"
+    "photoPath": "/google-places/node-12110042118.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:58:28.067162Z"
   },
   {
     "id": "node/11458337518",
@@ -96,16 +121,41 @@
     ],
     "reviews": [
       {
+        "author": "ANDI SETYAWAN",
+        "authorUrl": "https://www.google.com/maps/contrib/113241562169726313748/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "+ must try! I ordered iga bakar kecil, paha bakar besar, & sop bakar +…"
+      },
+      {
+        "author": "Ting Li",
+        "authorUrl": "https://www.google.com/maps/contrib/105515647672025031199/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "My local Indonesian Chinese friend recommendations dining for our gathering, the food was really impressive.…"
+      },
+      {
+        "author": "Kevin Huang",
+        "authorUrl": "https://www.google.com/maps/contrib/113533284365066679298/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "The best kambing bakar I ever tasted. There is not distinct bad smell of goat…"
+      },
+      {
         "author": "Teguh Budianto",
         "authorUrl": "https://www.google.com/maps/contrib/112413021123584976899/reviews?hl=id",
         "rating": 5,
         "excerpt": "Resto dengan hidangan khas Kambing Bakar di Jaksel. Kambing Bakar disajikan dengan hotplate dan sambal…"
+      },
+      {
+        "author": "Inu Meev",
+        "authorUrl": "https://www.google.com/maps/contrib/102220854743867655711/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Baru pertama kali cobain dan langsung paham kenapa jadi salah satu makanan legend di daerahnya.…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Kambing%20Bakar%20Cairo%20blok%20m%20Jakarta/@-6.246263,106.7956544,18z?hl=id",
     "checkedAt": "2026-10-25T11:13:50.102Z",
     "matchDistanceM": 14,
-    "photoPath": "/google-places/node-11458337518.jpg"
+    "photoPath": "/google-places/node-11458337518.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:49:11.594Z"
   },
   {
     "id": "node/7038074086",
@@ -150,16 +200,41 @@
     ],
     "reviews": [
       {
+        "author": "valentine mays",
+        "authorUrl": "https://www.google.com/maps/contrib/112977967750656303655/reviews?hl=en-GB",
+        "rating": 3,
+        "excerpt": "My first visit to Daun Muda Soulfood by Peresthu - Wolter Monginsidi was smooth enough,…"
+      },
+      {
+        "author": "MHng",
+        "authorUrl": "https://www.google.com/maps/contrib/101183161401897659970/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "A unique Indonesian restaurant serving a decent variety of Indonesia dishes. In my every visit…"
+      },
+      {
+        "author": "Ryan Kim",
+        "authorUrl": "https://www.google.com/maps/contrib/105513469856731378387/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Daun Muda Soulfood by Peresthu on Wolter Monginsidi serves flavorful Indonesian dishes with a refined…"
+      },
+      {
         "author": "Noah Caca 29",
         "authorUrl": "https://www.google.com/maps/contrib/101630254037550589282/reviews?hl=id",
         "rating": 1,
         "excerpt": "As long aku makan ditempat yang punya concept gourmet gapernah seburuk ini, 1. waktu aku…"
+      },
+      {
+        "author": "Flatino Munir",
+        "authorUrl": "https://www.google.com/maps/contrib/117221076870409119041/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Makan di Daun Muda Soulfood by Peresthu benar-benar jadi pengalaman yang memuaskan. Makanan yang saya…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Daun%20Muda%20Soulfood%20by%20Peresthu%20blok%20m%20Jakarta/@-6.2400119,106.8045856,18z?hl=id",
     "checkedAt": "2026-10-25T11:14:09.760Z",
     "matchDistanceM": 10,
-    "photoPath": "/google-places/node-7038074086.jpg"
+    "photoPath": "/google-places/node-7038074086.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:49:06.902Z"
   },
   {
     "id": "node/11681193422",
@@ -204,16 +279,41 @@
     ],
     "reviews": [
       {
+        "author": "Bunga",
+        "authorUrl": "https://www.google.com/maps/contrib/116703642132574609241/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "good ambience, great songs, and the ube matcha tastes really nice! hospitality was great too…"
+      },
+      {
+        "author": "ranita amanda",
+        "authorUrl": "https://www.google.com/maps/contrib/104950594698080182512/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "It’s been countless times of my visit. Always my go to! Not only because the…"
+      },
+      {
+        "author": "Charlotte Yk",
+        "authorUrl": "https://www.google.com/maps/contrib/106367689163364291130/reviews?hl=en-GB",
+        "rating": 2,
+        "excerpt": "staffs were unfriendly & unhelpful. coffee tasted average, atmosphere was loud & uncomfortably hot (there…"
+      },
+      {
         "author": "knia nzwa",
         "authorUrl": "https://www.google.com/maps/contrib/111759596181395165620/reviews?hl=id",
         "rating": 5,
         "excerpt": "kalau mau nge beer santai, atau me time aku rekomen banget buat nyobain kisaku. di…"
+      },
+      {
+        "author": "Imam Fathul Falah",
+        "authorUrl": "https://www.google.com/maps/contrib/104294213863757643550/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tempatnya bagus, menu nya enak dan murah. sangat worth it kalau ke blok m"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Kisaku%20blok%20m%20Jakarta/@-6.2443595,106.8027268,18z?hl=id",
     "checkedAt": "2026-10-25T11:14:13.777Z",
     "matchDistanceM": 3,
-    "photoPath": "/google-places/node-11681193422.jpg"
+    "photoPath": "/google-places/node-11681193422.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:49:34.516Z"
   },
   {
     "id": "node/11681193423",
@@ -258,16 +358,41 @@
     ],
     "reviews": [
       {
+        "author": "Tiara R",
+        "authorUrl": "https://www.google.com/maps/contrib/102408570354471156600/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "For the price, Cotti’s Iced Latte is great; still an acceptable coffee. Add a shot…"
+      },
+      {
+        "author": "Fransisca Dameria",
+        "authorUrl": "https://www.google.com/maps/contrib/110589283330896644144/reviews?hl=en-GB",
+        "rating": 3,
+        "excerpt": "The cashier said the EDC machine was not working with my debit card. The EDC…"
+      },
+      {
+        "author": "Joey The Wanderer",
+        "authorUrl": "https://www.google.com/maps/contrib/114848453130693620518/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Good coffee for the price with reasonably fast service. Their matcha latte is pretty nice…"
+      },
+      {
         "author": "JAJAMAN - Jalan Jajan Makan",
         "authorUrl": "https://www.google.com/maps/contrib/110127654968600063111/reviews?hl=id",
         "rating": 4,
         "excerpt": "Lagi pengen ngadem sambil nyobain Ice Red Bean Coconut Latte di Cotti Coffee cabang Pasaraya…"
+      },
+      {
+        "author": "Ryandika Adi",
+        "authorUrl": "https://www.google.com/maps/contrib/101137035163261147352/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Lagi istirahat setelah keliling Blok M dan akhirnya mampir ke Cotti Coffee. Aku pesan Cafe…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Cotti%20Coffee%20blok%20m%20Jakarta/@-6.2440832,106.8026935,18z?hl=id",
     "checkedAt": "2026-10-25T11:14:18.089Z",
     "matchDistanceM": 34,
-    "photoPath": "/google-places/node-11681193423.jpg"
+    "photoPath": "/google-places/node-11681193423.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:49:27.092Z"
   },
   {
     "id": "node/7719208236",
@@ -283,16 +408,41 @@
     "hours": [],
     "reviews": [
       {
+        "author": "Παναγιώτης «Chef Panos»",
+        "authorUrl": "https://www.google.com/maps/contrib/115417155964716349081/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "My first time in shisha Cafe Menteng. The food was so good !!! Especially the…"
+      },
+      {
+        "author": "A K",
+        "authorUrl": "https://www.google.com/maps/contrib/112238349444877528183/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "The food was delicious, we ordered a kebab platter and shakshouka for sharing. However, we…"
+      },
+      {
+        "author": "Chirag Panchal",
+        "authorUrl": "https://www.google.com/maps/contrib/100569230781631944679/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Nice Ambience with good Arabic songs which goes apt with Shisha. Good & courteous staff.…"
+      },
+      {
         "author": "fifih latifah",
         "authorUrl": "https://www.google.com/maps/contrib/100833645415505669041/reviews?hl=id",
         "rating": 4,
         "excerpt": "Tempat nya cukup nyaman namun lumayan kecil. Rasa makanan enak. service kurang memuaskan, sempat mau…"
+      },
+      {
+        "author": "fichy lubis",
+        "authorUrl": "https://www.google.com/maps/contrib/116932604328662515770/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "tempatnya enak, interior bagus. but a bit pricy tapi sesuai dengan rasa. ada satu waitress…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Shisha%20Cafe%20Menteng%20menteng%20Jakarta/@-6.1968987,106.8287768,18z?hl=id",
     "checkedAt": "2026-10-25T11:15:42.718Z",
     "matchDistanceM": 2,
-    "photoPath": "/google-places/node-7719208236.jpg"
+    "photoPath": "/google-places/node-7719208236.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:49:30.948Z"
   },
   {
     "id": "node/4245902363",
@@ -337,16 +487,41 @@
     ],
     "reviews": [
       {
+        "author": "I.S RAHAYU",
+        "authorUrl": "https://www.google.com/maps/contrib/117474949858837773206/reviews?hl=en-GB",
+        "rating": 3,
+        "excerpt": "My experience at Lara Jongrang fell well short of expectations, particularly given the high price…"
+      },
+      {
+        "author": "Louis Nghiem",
+        "authorUrl": "https://www.google.com/maps/contrib/106400134811793377109/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Restaurant decorations feels like walking through a museum. Many beautiful pieces to admire. The overall…"
+      },
+      {
+        "author": "Thơ",
+        "authorUrl": "https://www.google.com/maps/contrib/109479440611901436958/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "The restaurant feels like a museum with a religious feeling, they also play almost-too-eerie music…"
+      },
+      {
         "author": "Arseto Tri Baskoro",
         "authorUrl": "https://www.google.com/maps/contrib/115056423198060349982/reviews?hl=id",
         "rating": 5,
-        "excerpt": "⭐⭐⭐⭐⭐ Lara Djonggrang menawarkan pengalaman yang lebih dari sekadar makan. Begitu ……"
+        "excerpt": "⭐⭐⭐⭐⭐ Lara Djonggrang menawarkan pengalaman yang lebih dari sekadar makan. Begitu …"
+      },
+      {
+        "author": "Naufal Aziz",
+        "authorUrl": "https://www.google.com/maps/contrib/104315866207158599393/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tempat nya bersih, vibes nya tradisional banget. Kesini pas bulan puasa buat buka bareng keluarga,…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Lara%20Djonggrang%20menteng%20Jakarta/@-6.1942131,106.8361732,18z?hl=id",
     "checkedAt": "2026-10-25T11:15:39.012Z",
     "matchDistanceM": 11,
-    "photoPath": "/google-places/node-4245902363.jpg"
+    "photoPath": "/google-places/node-4245902363.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:55:25.502Z"
   },
   {
     "id": "node/6274340491",
@@ -391,16 +566,41 @@
     ],
     "reviews": [
       {
+        "author": "Arief",
+        "authorUrl": "https://www.google.com/maps/contrib/104626276805345261536/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Dunkin located at Jl.HOS.Cokroaminoto - Menteng Parking for car is quite huge and easy access…"
+      },
+      {
+        "author": "Bayu Ubay",
+        "authorUrl": "https://www.google.com/maps/contrib/112483548428612701938/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Hospitable service, pleasant atmosphere, good tasting donuts, refreshing drinks, speedy free wifi, strategic location, spacious…"
+      },
+      {
+        "author": "Ajo Johannes",
+        "authorUrl": "https://www.google.com/maps/contrib/100310007972095522055/reviews?hl=en-GB",
+        "rating": 1,
+        "excerpt": "I used to love coming to Dunkin, but lately, it's become really inconvenient. The AC…"
+      },
+      {
         "author": "Amei Kwok",
         "authorUrl": "https://www.google.com/maps/contrib/116538193660885684032/reviews?hl=id",
         "rating": 5,
         "excerpt": "Salah satu Dunkin donuts yg besar tempatnya Parkirnya jg luas Untuk rasa donat ud ga…"
+      },
+      {
+        "author": "Ïtsmereyyy",
+        "authorUrl": "https://www.google.com/maps/contrib/105152062583987495597/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "Been a while, sudah banyak outlet DD yg tutup... kebetulan lagi lewat disini.. trusss lagi…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Dunkin'%20menteng%20Jakarta/@-6.1978839,106.8281527,18z?hl=id",
     "checkedAt": "2026-10-25T11:15:46.392Z",
     "matchDistanceM": 14,
-    "photoPath": "/google-places/node-6274340491.jpg"
+    "photoPath": "/google-places/node-6274340491.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:49:41.445Z"
   },
   {
     "id": "node/6274366589",
@@ -445,16 +645,41 @@
     ],
     "reviews": [
       {
+        "author": "Halley Christoforus",
+        "authorUrl": "https://www.google.com/maps/contrib/113400952672022789269/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "OMG, I think I found my new favorite spot for Thai food! 🇹🇭 Seriously, this…"
+      },
+      {
+        "author": "Sparkly Freeze",
+        "authorUrl": "https://www.google.com/maps/contrib/115242090651034590983/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "This Thai restaurant, established since 1995, has built a solid reputation for its delicious Thai…"
+      },
+      {
+        "author": "Farrel Arkananta",
+        "authorUrl": "https://www.google.com/maps/contrib/110853219977319317068/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Amazing thai restaurant. Great curry with a balanced taste. Not too heavy, just right. Tom…"
+      },
+      {
         "author": "Moniq Osi",
         "authorUrl": "https://www.google.com/maps/contrib/117635501288469635229/reviews?hl=id",
         "rating": 5,
         "excerpt": "Tomyumnya juara ini rikues tanpa mecin aja udah enak mehong tp terbayarkan dengan rasa tomyumnya…"
+      },
+      {
+        "author": "satya wahyu mahardhika",
+        "authorUrl": "https://www.google.com/maps/contrib/115105207564189206454/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Pertama kali makan malem di sini dan ternyata kuah tom yum nya enak banget plus…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Tamnak%20Thai%20menteng%20Jakarta/@-6.1966387,106.82846,18z?hl=id",
     "checkedAt": "2026-10-25T11:16:06.914Z",
     "matchDistanceM": 18,
-    "photoPath": "/google-places/node-6274366589.jpg"
+    "photoPath": "/google-places/node-6274366589.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:49:38.219Z"
   },
   {
     "id": "node/11126591472",
@@ -499,16 +724,41 @@
     ],
     "reviews": [
       {
+        "author": "medyanto yanuar",
+        "authorUrl": "https://www.google.com/maps/contrib/111960174481575705174/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Delicious food, fast service time (20 minutes), the most exciting thing is the condition of…"
+      },
+      {
+        "author": "Rudy Gunawan",
+        "authorUrl": "https://www.google.com/maps/contrib/104435496264817030118/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "We had family dinner here at our recent holiday in Jakarta and ordered some dishes…"
+      },
+      {
+        "author": "Dapid BM82",
+        "authorUrl": "https://www.google.com/maps/contrib/101482925989052515841/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Great place to eat, lunch or dinner time, no reservations needed mostly becaus it is…"
+      },
+      {
         "author": "Sofi Sanraesita",
         "authorUrl": "https://www.google.com/maps/contrib/108373289575909826551/reviews?hl=id",
         "rating": 5,
         "excerpt": "Sdh booking jam 16.00-17.30. Area parkir luas, lokasi mudah dijangkau. Makanan Sunda agak pricey tapi…"
+      },
+      {
+        "author": "Major Mira Killian",
+        "authorUrl": "https://www.google.com/maps/contrib/110646265963394889141/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Parkir luas Suasananya bikin lupa kalo ini masih di Jakarta Utara, apalagi kalo malam, serasa…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Mang%20Engking%20Kelapa%20Gading%20kelapa%20gading%20Jakarta/@-6.159886,106.902129,18z?hl=id",
     "checkedAt": "2026-10-25T11:15:57.679Z",
     "matchDistanceM": 42,
-    "photoPath": "/google-places/node-11126591472.jpg"
+    "photoPath": "/google-places/node-11126591472.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:49:48.250Z"
   },
   {
     "id": "node/9750975375",
@@ -553,16 +803,41 @@
     ],
     "reviews": [
       {
+        "author": "Agnes De Vries",
+        "authorUrl": "https://www.google.com/maps/contrib/114657619334605401845/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Very good place for WFC! ambiencenya sangat tenang dan support untuk bekerja. The baristas on…"
+      },
+      {
+        "author": "Beverly Michell Siwu",
+        "authorUrl": "https://www.google.com/maps/contrib/102206011365971386794/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "The coffee was great. I ordered around 9:40 PM, when the staff were already cleaning…"
+      },
+      {
+        "author": "Sunniawaty Prayugo",
+        "authorUrl": "https://www.google.com/maps/contrib/110066461162030483869/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "I am quite a regular customer during working days and only managed to give review…"
+      },
+      {
         "author": "Riefda Maharani",
         "authorUrl": "https://www.google.com/maps/contrib/108901231273889925534/reviews?hl=id",
         "rating": 1,
         "excerpt": "Grasak grusuk banget baru order jam 9 tpi udh diusir pelan2. Pelayanannya sangat kurang. Rotinya…"
+      },
+      {
+        "author": "Stephen Odlind",
+        "authorUrl": "https://www.google.com/maps/contrib/109887926499344783914/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tempat nongkrong / kumpul bareng teman 2-6 orang. Tempatnya adem, cukup luas, bersih dan bagus.…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Maxx%20Coffee%20kelapa%20gading%20Jakarta/@-6.155719,106.908027,18z?hl=id",
     "checkedAt": "2026-10-25T11:18:14.982Z",
     "matchDistanceM": 11,
-    "photoPath": "/google-places/node-9750975375.jpg"
+    "photoPath": "/google-places/node-9750975375.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:49:53.255Z"
   },
   {
     "id": "node/13973983404",
@@ -607,16 +882,41 @@
     ],
     "reviews": [
       {
+        "author": "Albert Pangestu",
+        "authorUrl": "https://www.google.com/maps/contrib/106975900878453892833/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "A cheeseburger, with no BS or anything whatsoever coming from a five star chef. This…"
+      },
+      {
+        "author": "Jeanny W",
+        "authorUrl": "https://www.google.com/maps/contrib/103453490610799837756/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "The location is in La Piazza Kelapa Gading, close to the outdoor area. The burger…"
+      },
+      {
+        "author": "v b",
+        "authorUrl": "https://www.google.com/maps/contrib/102845332646463743695/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Good burger. Its freshly made using real ground beef and using real fries cut. The…"
+      },
+      {
         "author": "S Joey",
         "authorUrl": "https://www.google.com/maps/contrib/100596953528459573086/reviews?hl=id",
         "rating": 4,
         "excerpt": "Pesen double Patty wagyu IDR 95.000, harga dengan barang’nya agak ga imbang sih 🤣. Rasa…"
+      },
+      {
+        "author": "acha",
+        "authorUrl": "https://www.google.com/maps/contrib/116403742060718551885/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Cobain BBQ Bacon Cheeseburger, bun nya lembut dan dagingnya enak, juicy juga. Gonna be my…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Five%20Monkeys%20Fresh%20Burgers%20%26%20Hotdogs%20kelapa%20gading%20Jakarta/@-6.1602568,106.9062401,18z?hl=id",
     "checkedAt": "2026-10-25T11:18:26.916Z",
     "matchDistanceM": 3,
-    "photoPath": "/google-places/node-13973983404.jpg"
+    "photoPath": "/google-places/node-13973983404.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:49:57.969Z"
   },
   {
     "id": "node/13973983604",
@@ -661,16 +961,41 @@
     ],
     "reviews": [
       {
+        "author": "Akira Oshita",
+        "authorUrl": "https://www.google.com/maps/contrib/103211370589859474372/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "pleasant visit. The place feels cozy and comfortable, with a nice atmosphere for sitting down,…"
+      },
+      {
+        "author": "Angela S",
+        "authorUrl": "https://www.google.com/maps/contrib/107417644887027653331/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "We came here for dinner on a weekend, there was no line, so we got…"
+      },
+      {
+        "author": "Zeal Amar kapadia",
+        "authorUrl": "https://www.google.com/maps/contrib/110516892898855121497/reviews?hl=en-GB",
+        "rating": 1,
+        "excerpt": "Paid 150K IDR for a coffee and a plate of nachos at Monsieur Spoon—and it…"
+      },
+      {
         "author": "Ursandnic JKT",
         "authorUrl": "https://www.google.com/maps/contrib/102165050932678036157/reviews?hl=id",
         "rating": 5,
         "excerpt": "Tempatnya spacious dan interiornya cantik. Dining Areanya terbagi non smoking dan smoking. Kali ini order…"
+      },
+      {
+        "author": "Narendra Sita",
+        "authorUrl": "https://www.google.com/maps/contrib/114065439656919188352/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Sangat senang sekali berkunjung kesini. Tempatnya bagus dan sangat nyaman. Makanan dan minumannya enak semua.…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Monsieur%20Spoon%20kelapa%20gading%20Jakarta/@-6.1588182,106.9068777,18z?hl=id",
     "checkedAt": "2026-10-25T11:18:22.963Z",
     "matchDistanceM": 11,
-    "photoPath": "/google-places/node-13973983604.jpg"
+    "photoPath": "/google-places/node-13973983604.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:50:55.067Z"
   },
   {
     "id": "node/9750987138",
@@ -715,16 +1040,41 @@
     ],
     "reviews": [
       {
+        "author": "Erin Azhar",
+        "authorUrl": "https://www.google.com/maps/contrib/103328381855389716027/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Had such a great experience at Union! The service was excellent—special thanks to Bihar and…"
+      },
+      {
+        "author": "arir",
+        "authorUrl": "https://www.google.com/maps/contrib/104730750377948376517/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "This one is six stars! To order: Nasi Goreng Siram (The Best), Honey Butter Croissant,…"
+      },
+      {
+        "author": "Chaya Babani",
+        "authorUrl": "https://www.google.com/maps/contrib/101606423299968721210/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Limited choices for vegetarians and vegans. Yes the roasted mushrooms and mushroom truffle soup was…"
+      },
+      {
         "author": "Evandra Kurnia",
         "authorUrl": "https://www.google.com/maps/contrib/111900269441545024834/reviews?hl=id",
         "rating": 5,
         "excerpt": "Ok saya kira tadinya seperti kafe modern aja like Starbucks or J.CO, tapi lebih bagus,…"
+      },
+      {
+        "author": "Izza Fachreza",
+        "authorUrl": "https://www.google.com/maps/contrib/102704893749382290924/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "untuk dari segi makanan fav banget untuk beef tagliatelle dan ice lemon tea nya, untuk…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Union%20kelapa%20gading%20Jakarta/@-6.1561084,106.9088631,18z?hl=id",
     "checkedAt": "2026-10-25T11:18:38.241Z",
     "matchDistanceM": 11,
-    "photoPath": "/google-places/node-9750987138-30bed53b.png"
+    "photoPath": "/google-places/node-9750987138-30bed53b.png",
+    "reviewsCheckedAt": "2026-10-25T13:50:47.798Z"
   },
   {
     "id": "node/11782602969",
@@ -769,16 +1119,41 @@
     ],
     "reviews": [
       {
+        "author": "Arya Black",
+        "authorUrl": "https://www.google.com/maps/contrib/117758829974279111901/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Been here a couple of times usually busy and hard to find an empty table.…"
+      },
+      {
+        "author": "Reza",
+        "authorUrl": "https://www.google.com/maps/contrib/111486383927430089326/reviews?hl=en-GB",
+        "rating": 3,
+        "excerpt": "The only thing that made the difference of this KFC branch is that they are…"
+      },
+      {
+        "author": "Avia Trilova",
+        "authorUrl": "https://www.google.com/maps/contrib/117409164323716669996/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "The staff were all fast and very helpful. They keep everything clean, the moment customer…"
+      },
+      {
         "author": "Bunga Ayu",
         "authorUrl": "https://www.google.com/maps/contrib/109727026735438985894/reviews?hl=id",
         "rating": 5,
         "excerpt": "Daripada makan di tempat lain yang mahal dan belum tentu cocok, mending makan di sini…"
+      },
+      {
+        "author": "Biru",
+        "authorUrl": "https://www.google.com/maps/contrib/106622033851854223738/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tidak perlu malu hidup susah. Tapi, malulah ketika gaya hidup hedonmu yang menyusahkanmu.... …"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/KFC%20kota%20tua%20Jakarta/@-6.1342226,106.8131918,18z?hl=id",
     "checkedAt": "2026-10-25T11:19:08.134Z",
     "matchDistanceM": 5,
-    "photoPath": "/google-places/node-11782602969.jpg"
+    "photoPath": "/google-places/node-11782602969.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:50:51.351Z"
   },
   {
     "id": "node/2097992424",
@@ -823,16 +1198,41 @@
     ],
     "reviews": [
       {
+        "author": "Kent Lee",
+        "authorUrl": "https://www.google.com/maps/contrib/101086439524708959787/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Delicious and authentic Indonesian cuisine! Just a stone's throw away from tourist spots, so very…"
+      },
+      {
+        "author": "Adi Prawiro",
+        "authorUrl": "https://www.google.com/maps/contrib/103107248341239257108/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Truly local restaurant in the heart of Kota Tua. Friendly & fast services, reasonable (or…"
+      },
+      {
+        "author": "Mati Olivieri",
+        "authorUrl": "https://www.google.com/maps/contrib/109822221621896179442/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Great tempe and now goreng, the spicy spice is also cool!"
+      },
+      {
         "author": "Andries Ishak K",
         "authorUrl": "https://www.google.com/maps/contrib/112043552845302424744/reviews?hl=id",
         "rating": 5,
         "excerpt": "Kantin ini terletak agak tersembunyi disebelah minimarket Alfamart. Dan disampingnya ada tempat atm Link sehingga…"
+      },
+      {
+        "author": "Iman Budiman",
+        "authorUrl": "https://www.google.com/maps/contrib/104035687593580104277/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "Lumayan ok buat obat lapar. Harga terjangkau Rasa oke lah.. …"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Kantin%20Mega%20Rasa%20kota%20tua%20Jakarta/@-6.1346378,106.8123495,18z?hl=id",
     "checkedAt": "2026-10-25T11:19:15.891Z",
     "matchDistanceM": 5,
-    "photoPath": "/google-places/node-2097992424-23fb4b80.jpg"
+    "photoPath": "/google-places/node-2097992424-23fb4b80.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:51:12.478Z"
   },
   {
     "id": "node/11458345922",
@@ -848,16 +1248,41 @@
     "hours": [],
     "reviews": [
       {
+        "author": "Alona Kaunang",
+        "authorUrl": "https://www.google.com/maps/contrib/111648354177148494904/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "I like the foods here.. but i am not really fans of the lamb. So…"
+      },
+      {
+        "author": "Samuel Lipoff",
+        "authorUrl": "https://www.google.com/maps/contrib/110394865249528273768/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Food was good and atmosphere was nice and the price was very reasonable. Hummus was…"
+      },
+      {
+        "author": "Panadda Das",
+        "authorUrl": "https://www.google.com/maps/contrib/114734674033753963613/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "I ordered the popular dish Domba bakar guling Abang Turki. The lamb was juicy and…"
+      },
+      {
         "author": "Alva",
         "authorUrl": "https://www.google.com/maps/contrib/106529705508160805637/reviews?hl=id",
         "rating": 4,
         "excerpt": "Tempatnya nyaman, dan rapih banget. untuk shawarma nya 5/5! Aku suka sekali dengan rasanya yang…"
+      },
+      {
+        "author": "subandono rachmadi",
+        "authorUrl": "https://www.google.com/maps/contrib/101574071504730143376/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Restoran masakan olahan daging domba ala Turki berlokasi di Jalan Sambas daerah Barito Jakarta Selatan.…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/ABANG+TURKI+TURKISH+STREET+FOOD/data=!4m7!3m6!1s0x2e69f136bbad621d:0xf23ce38b186c1f9d!8m2!3d-6.2459035!4d106.7954685!16s%2Fg%2F11q3y7l768!19sChIJHWKtuzbxaS4RnR9sGIvjPPI?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:20:42.246Z",
     "matchDistanceM": 24,
-    "photoPath": "/google-places/node-11458345922.jpg"
+    "photoPath": "/google-places/node-11458345922.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:51:00.294Z"
   },
   {
     "id": "node/12157326132",
@@ -902,16 +1327,41 @@
     ],
     "reviews": [
       {
+        "author": "YohanD Setio",
+        "authorUrl": "https://www.google.com/maps/contrib/105204513650775811898/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Nasi gultik is a specialty from West Java, Indonesia. The name \"gultik\" itself comes from…"
+      },
+      {
+        "author": "Nicko",
+        "authorUrl": "https://www.google.com/maps/contrib/102918750517592698482/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Actually there are a lot of different sellers selling gultik, but this is the point…"
+      },
+      {
+        "author": "Dessy Febrina",
+        "authorUrl": "https://www.google.com/maps/contrib/106754837661377691035/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "It's a terrific way to relieve your craving. It's inexpensive, and the serving is, unsurprisingly,…"
+      },
+      {
         "author": "Margreth Ernestine",
         "authorUrl": "https://www.google.com/maps/contrib/111300888621153055222/reviews?hl=id",
         "rating": 5,
         "excerpt": "Akhirnya bisa cobain gultik legendaris di Blok M, dan menurut saya memang layak terkenal. Kuah…"
+      },
+      {
+        "author": "Ibrahimsyah Zairussalam",
+        "authorUrl": "https://www.google.com/maps/contrib/101820550620815325654/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "Destinasi kuliner yang bisa dicoba untuk mereka yang penasaran soal gultik blok M. Gulenya cukup…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/Gultik+Blok+M+Plaza+Pak+Agus+Budi/data=!4m7!3m6!1s0x2e69f112ff851aed:0x88b62b4b3233d024!8m2!3d-6.2438168!4d106.7973329!16s%2Fg%2F11bwy_gf6v!19sChIJ7RqF_xLxaS4RJNAzMksrtog?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:20:51.760Z",
     "matchDistanceM": 30,
-    "photoPath": "/google-places/node-12157326132.jpg"
+    "photoPath": "/google-places/node-12157326132.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:51:08.162Z"
   },
   {
     "id": "node/4152597829",
@@ -956,16 +1406,41 @@
     ],
     "reviews": [
       {
+        "author": "aNa aLfatiya",
+        "authorUrl": "https://www.google.com/maps/contrib/111864960945762053808/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Love the food. Love the ambiance. Love the place. The building is so heritage, loji…"
+      },
+      {
+        "author": "Becks T",
+        "authorUrl": "https://www.google.com/maps/contrib/104958498117057933806/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Beautiful building,nice interior and cozy atmosphere. The service is very prompt and straight foward too.…"
+      },
+      {
+        "author": "Dhea Shiva Olivia",
+        "authorUrl": "https://www.google.com/maps/contrib/102710204518491918480/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "The interior is so good. This is the right place if you want to take…"
+      },
+      {
         "author": "Elle",
         "authorUrl": "https://www.google.com/maps/contrib/118443750666941187546/reviews?hl=id",
         "rating": 5,
         "excerpt": "Tempatnya lucu banget kaya hotel jadul gitu, tersedia 2 self order machine. Kali ini nyoba…"
+      },
+      {
+        "author": "Alva",
+        "authorUrl": "https://www.google.com/maps/contrib/106529705508160805637/reviews?hl=id",
+        "rating": 3,
+        "excerpt": "✅ outdoor ✅ parking space ✅ spacious place to eat …"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/KFC+Melawai+Plaza/data=!4m7!3m6!1s0x2e69f17519e1a115:0x60af0cf08a678e7e!8m2!3d-6.2457024!4d106.8021076!16s%2Fg%2F12ml2yn7l!19sChIJFaHhGXXxaS4Rfo5nivAMr2A?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:20:47.954Z",
     "matchDistanceM": 12,
-    "photoPath": "/google-places/node-4152597829.jpg"
+    "photoPath": "/google-places/node-4152597829.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:51:46.942Z"
   },
   {
     "id": "node/11681193424",
@@ -1010,16 +1485,41 @@
     ],
     "reviews": [
       {
+        "author": "Joey The Wanderer",
+        "authorUrl": "https://www.google.com/maps/contrib/114848453130693620518/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Perfect simple coffeeshop in the area. It’s way less gimmicks compared to the hip cafes…"
+      },
+      {
+        "author": "aryo nugroho",
+        "authorUrl": "https://www.google.com/maps/contrib/108440268587255837810/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "A good kopi kenangan outlet at pasaraya blok M. The service and ambience of this…"
+      },
+      {
+        "author": "pohon bumi",
+        "authorUrl": "https://www.google.com/maps/contrib/107569187825714399593/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Kopi Kenangan at the ground floor of Pasaraya Grande shopping mall This coffee ☕ shop…"
+      },
+      {
         "author": "Septiana Pratiwi",
         "authorUrl": "https://www.google.com/maps/contrib/116921271451421682659/reviews?hl=id",
         "rating": 5,
-        "excerpt": "Tempatnya nyaman, kursinya banyak, pelayanannya cepat dan ada tempat charge hp bisa untuk WFA. Recommended!…"
+        "excerpt": "Tempatnya nyaman, kursinya banyak, pelayanannya cepat dan ada tempat charge hp bisa untuk WFA. Recommended!"
+      },
+      {
+        "author": "Najwa Alya",
+        "authorUrl": "https://www.google.com/maps/contrib/104584987298081701075/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Kopi kenangan emang best banget salah satu brand kopi favorite aku, kopinya selalu konsisten, pelayanannya…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/Kopi+Kenangan+-+Pasaraya+Blok+M/data=!4m7!3m6!1s0x2e69f1f43bf15eaf:0x8f573074a90a6796!8m2!3d-6.2441309!4d106.8027836!16s%2Fg%2F11g_qmkgx2!19sChIJr17xO_TxaS4RlmcKqXQwV48?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:20:59.984Z",
     "matchDistanceM": 28,
-    "photoPath": "/google-places/node-11681193424.jpg"
+    "photoPath": "/google-places/node-11681193424.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:51:17.621Z"
   },
   {
     "id": "node/5170977322",
@@ -1035,16 +1535,41 @@
     "hours": [],
     "reviews": [
       {
+        "author": "Randy",
+        "authorUrl": "https://www.google.com/maps/contrib/100752629670634817281/reviews?hl=en-GB",
+        "rating": 3,
+        "excerpt": "neighbor coffee spot machine : nuova simonelli appia 2 grinder : compak , hario electric…"
+      },
+      {
+        "author": "Kenneth Dwi Kurniawan",
+        "authorUrl": "https://www.google.com/maps/contrib/108251690514554744340/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Quite affordable place in Menteng. Spacious and secluded cafe, good for meeting or simply enjoying…"
+      },
+      {
+        "author": "Venyoke Oke",
+        "authorUrl": "https://www.google.com/maps/contrib/112053357114865414298/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "The avocado is good. Made from fresh avocado with a shot strong coffee."
+      },
+      {
         "author": "Fitri Ratna",
         "authorUrl": "https://www.google.com/maps/contrib/115509046543905758583/reviews?hl=id",
         "rating": 2,
         "excerpt": "Saya pesan mochaccino..Tidak rasa kopi maupun mocha, malas rasanya kaya hot chocolat. Pesan butter croissant…"
+      },
+      {
+        "author": "Dewi Everaers",
+        "authorUrl": "https://www.google.com/maps/contrib/112675033005424267140/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "Posisinya persis di seberang Taman Menteng, sebelum lampu merah Aston Martin. Letaknya di lantai 2.…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/NEIGHBOR+Coffee+Spot/data=!4m7!3m6!1s0x2e69f422b97ae5e5:0xa7e10f62385f6550!8m2!3d-6.1957574!4d106.8285948!16s%2Fg%2F11gbt6xvcr!19sChIJ5eV6uSL0aS4RUGVfOGIP4ac?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:20:55.917Z",
     "matchDistanceM": 11,
-    "photoPath": "/google-places/node-5170977322.jpg"
+    "photoPath": "/google-places/node-5170977322.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:51:22.492Z"
   },
   {
     "id": "node/6274366187",
@@ -1060,16 +1585,41 @@
     "hours": [],
     "reviews": [
       {
+        "author": "CK (kodja)",
+        "authorUrl": "https://www.google.com/maps/contrib/100006356334995427936/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Quite spacious Wendy's. Its interior is fun and interesting. On weekdays they serve paket hemat,…"
+      },
+      {
+        "author": "Vina Arief",
+        "authorUrl": "https://www.google.com/maps/contrib/111342032464143682221/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Cozy place- a bit sad though, they ran out of cone , so I just…"
+      },
+      {
+        "author": "AE",
+        "authorUrl": "https://www.google.com/maps/contrib/112409239026605526194/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Pros: 1. Food tasted great, with nice variety …"
+      },
+      {
         "author": "Zaki Herdian",
         "authorUrl": "https://www.google.com/maps/contrib/110399354872295080448/reviews?hl=id",
         "rating": 5,
         "excerpt": "Lokasinya strategis, mudah di temukan, tempatnya nyaman cozy, pelayanan ramah banyak promo nya, ayam yag…"
+      },
+      {
+        "author": "pratiska riadiati",
+        "authorUrl": "https://www.google.com/maps/contrib/100358548508272682693/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tempat wendy's paling favorite. Gedung sendiri, tempat cozy, pilihan seating banyak, sepi, wifi kencang, banyak…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/Wendy%27s/data=!4m7!3m6!1s0x2e69f4181490324b:0xede4cf1e9d649e23!8m2!3d-6.1974294!4d106.828258!16s%2Fg%2F11df0pbnhl!19sChIJSzKQFBj0aS4RI55knR7P5O0?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:21:04.914Z",
     "matchDistanceM": 4,
-    "photoPath": "/google-places/node-6274366187.jpg"
+    "photoPath": "/google-places/node-6274366187.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:52:34.608Z"
   },
   {
     "id": "node/6274366387",
@@ -1114,16 +1664,41 @@
     ],
     "reviews": [
       {
+        "author": "Nadrah Nizom",
+        "authorUrl": "https://www.google.com/maps/contrib/114881149083592938971/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "I guess j.co in Grand Indonesia was a great place to find something that was…"
+      },
+      {
+        "author": "Wiwie Ma",
+        "authorUrl": "https://www.google.com/maps/contrib/112722314553059415093/reviews?hl=en-GB",
+        "rating": 1,
+        "excerpt": "TEACH YOUR STAFF HOW TO TALK. IS THIS ESTABLISHMENT STRIVING TO BE SCAMMER? I asked…"
+      },
+      {
+        "author": "Theodore Nataniel",
+        "authorUrl": "https://www.google.com/maps/contrib/110812372970284319029/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Went here 2PM Sunday for light work, a bit crowded when I arrived but still…"
+      },
+      {
         "author": "Difa Doyanjajan",
         "authorUrl": "https://www.google.com/maps/contrib/117508677393197381243/reviews?hl=id",
         "rating": 3,
         "excerpt": "Kepengen makan J.CO malam-malam. Jadi langsung aja melipir kesini karena lokasi nya ga terlalu jauh…"
+      },
+      {
+        "author": "Meidy Krisnadi",
+        "authorUrl": "https://www.google.com/maps/contrib/114417238041582337248/reviews?hl=id",
+        "rating": 3,
+        "excerpt": "order Cappucino Hot, dan pas diantar, gula aren nyemplung ke gelas/cangkir, alhasil cappucino tsb tercecer…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/J.CO+Donuts+%26+Coffee/data=!4m7!3m6!1s0x2e69f4180a0ae8ad:0xfa398c5828b1a1a1!8m2!3d-6.1966253!4d106.8284886!16s%2Fg%2F1pzwgcjc5!19sChIJregKChj0aS4RoaGxKFiMOfo?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:21:17.967Z",
     "matchDistanceM": 16,
-    "photoPath": "/google-places/node-6274366387.jpg"
+    "photoPath": "/google-places/node-6274366387.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:52:22.092Z"
   },
   {
     "id": "node/6430301312",
@@ -1168,16 +1743,41 @@
     ],
     "reviews": [
       {
+        "author": "Little Cato",
+        "authorUrl": "https://www.google.com/maps/contrib/102892697525673562763/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "J.CO Donuts at Kelapa Gading offers a cozy spot for donut lovers and coffee enthusiasts.…"
+      },
+      {
+        "author": "ceritaeka (Eka Situmorang-Sir)",
+        "authorUrl": "https://www.google.com/maps/contrib/107858201996072961568/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Love the doughnout, soft and not too sweet. Various topping available from Tiramisu, Oreo, Oreo…"
+      },
+      {
+        "author": "lisa kiryuu",
+        "authorUrl": "https://www.google.com/maps/contrib/116350656604045053917/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "fresh doughnut, variative if you come early after they open, croffle is nice sweet and…"
+      },
+      {
         "author": "marcel lino",
         "authorUrl": "https://www.google.com/maps/contrib/103036283090793923107/reviews?hl=id",
         "rating": 1,
         "excerpt": "sangat tidak menyangka sekelas J.CO Mall Kelapa Gading berani jual donat \"sisa\" ke customer. Saya…"
+      },
+      {
+        "author": "Monica Soen",
+        "authorUrl": "https://www.google.com/maps/contrib/109238610490167900901/reviews?hl=id",
+        "rating": 1,
+        "excerpt": "dtg kesini untuk kerja krn pagi jarang yg buka. jam 8 toko sdh buka utk…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/J.CO/data=!4m7!3m6!1s0x2e69f53452a3c80f:0xafd9e23835b433f3!8m2!3d-6.1574628!4d106.907796!16s%2Fg%2F1tzvyv_r!19sChIJD8ijUjT1aS4R8zO0NTji2a8?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:21:08.991Z",
     "matchDistanceM": 123,
-    "photoPath": "/google-places/node-6430301312.jpg"
+    "photoPath": "/google-places/node-6430301312.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:52:27.053Z"
   },
   {
     "id": "node/13974608702",
@@ -1222,16 +1822,41 @@
     ],
     "reviews": [
       {
+        "author": "Avrillia Brenda",
+        "authorUrl": "https://www.google.com/maps/contrib/117668643050786820559/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Wonderful and peaceful place for lunch! The food was fresh and delicious, and the service…"
+      },
+      {
+        "author": "Ferdinand Sarijowan",
+        "authorUrl": "https://www.google.com/maps/contrib/111448903081919766825/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Located in La Piazza near the outdoor performing stage. It's comfy Food maybe a little…"
+      },
+      {
+        "author": "Miu Miu",
+        "authorUrl": "https://www.google.com/maps/contrib/114729931725744044137/reviews?hl=en-GB",
+        "rating": 3,
+        "excerpt": "The indoor dining area is very small, all the sofa cushion is too dirty. I…"
+      },
+      {
         "author": "Galuh Ayshandra",
         "authorUrl": "https://www.google.com/maps/contrib/112931243771816856037/reviews?hl=id",
         "rating": 5,
-        "excerpt": "Lokasinya di deket panggung La piaza, tempatnya nyaman bersih, pelayanannya jg bagus, dan tentunyaaa enaakkk!!!…"
+        "excerpt": "Lokasinya di deket panggung La piaza, tempatnya nyaman bersih, pelayanannya jg bagus, dan tentunyaaa enaakkk!!!"
+      },
+      {
+        "author": "Clar D",
+        "authorUrl": "https://www.google.com/maps/contrib/101801352685628501670/reviews?hl=id",
+        "rating": 1,
+        "excerpt": "Outlet saladstop terjorok. Ini masih pagi2 saya datang, sblm ada customer. Makanan juga lama sekali.…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/SaladStop!+La+Piazza+Kelapa+Gading/data=!4m7!3m6!1s0x2e69f55f6bea97d9:0x9400b9eae2303572!8m2!3d-6.1601409!4d106.9063647!16s%2Fg%2F11h2qmtl1d!19sChIJ2Zfqa1_1aS4RcjUw4uq5AJQ?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:21:13.825Z",
     "matchDistanceM": 26,
-    "photoPath": "/google-places/node-13974608702.jpg"
+    "photoPath": "/google-places/node-13974608702.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:52:54.205Z"
   },
   {
     "id": "node/4245907143",
@@ -1276,16 +1901,41 @@
     ],
     "reviews": [
       {
+        "author": "Ahmad Rasool",
+        "authorUrl": "https://www.google.com/maps/contrib/115198533734325547632/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "A Living Piece of Jakarta’s History Café Batavia is not just a restaurant; it is…"
+      },
+      {
+        "author": "Hansen",
+        "authorUrl": "https://www.google.com/maps/contrib/106612407165347018265/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "full of historical vibe all around the cafe during the Dutch colonial period. Service is…"
+      },
+      {
+        "author": "Bernard Dublado",
+        "authorUrl": "https://www.google.com/maps/contrib/105087504886304941986/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "I was just sightseeing around Kota Tua when I randomly came across Café Batavia. I…"
+      },
+      {
         "author": "Dariyanto Arkarna",
         "authorUrl": "https://www.google.com/maps/contrib/111722399502065591245/reviews?hl=id",
         "rating": 5,
         "excerpt": "Rekomended banget kalau bawa tamu asing alias WNA. tempatnya eksotis banget dengan pemandangan luar kota…"
+      },
+      {
+        "author": "Hedıye Şükrıye",
+        "authorUrl": "https://www.google.com/maps/contrib/116081978119632558505/reviews?hl=id",
+        "rating": 3,
+        "excerpt": "Bawa orang Turkiye ke sini. Kebiasaan makan protein di negaranya, dipesanin Nasi Goreng, jadi kebanyakan…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/Cafe+Batavia/data=!4m7!3m6!1s0x2e6a1dff154fd569:0xa38223eb6637cf44!8m2!3d-6.1343676!4d106.8127353!16s%2Fg%2F11c2knnk9l!19sChIJadVPFf8dai4RRM83ZusjgqM?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:21:35.711Z",
     "matchDistanceM": 7,
-    "photoPath": "/google-places/node-4245907143.jpg"
+    "photoPath": "/google-places/node-4245907143.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:53:29.599Z"
   },
   {
     "id": "node/4978747831",
@@ -1301,16 +1951,41 @@
     "hours": [],
     "reviews": [
       {
+        "author": "Ge Ana",
+        "authorUrl": "https://www.google.com/maps/contrib/106868022872984500192/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "My favorite place all the time!! I always come to JCo everytime i have time…"
+      },
+      {
+        "author": "Bastanta Lubis",
+        "authorUrl": "https://www.google.com/maps/contrib/105593962163082662468/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Almost at center of this station, very close to ticket vending machine."
+      },
+      {
+        "author": "Kirana Pramudita",
+        "authorUrl": "https://www.google.com/maps/contrib/115758194787889099265/reviews?hl=en-GB",
+        "rating": 1,
+        "excerpt": "Employee was impolite, slow, and I won't even give me a lid for my takeaway…"
+      },
+      {
         "author": "Nurul Istiqomah",
         "authorUrl": "https://www.google.com/maps/contrib/117116769487934470245/reviews?hl=id",
         "rating": 5,
         "excerpt": "Tempatnya nyaman, donat dan minumnya juga enak pas buat kumpul dan bisa buat pengganti kue…"
+      },
+      {
+        "author": "HP",
+        "authorUrl": "https://www.google.com/maps/contrib/104488930711362764857/reviews?hl=id",
+        "rating": 3,
+        "excerpt": "Agak mahal kalo beli harga normal dan kualitas donatnya tidak seenak dulu lebih kecil ukuran…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/J.CO+Stasiun+Jakarta+Kota/data=!4m7!3m6!1s0x2e69f601b406f121:0x26c31ae1f88c0459!8m2!3d-6.1376189!4d106.8145529!16s%2Fg%2F11cn8xvymj!19sChIJIfEGtAH2aS4RWQSM-OEawyY?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:21:24.994Z",
     "matchDistanceM": 23,
-    "photoPath": "/google-places/node-4978747831.jpg"
+    "photoPath": "/google-places/node-4978747831.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:53:25.136Z"
   },
   {
     "id": "node/4978748326",
@@ -1326,16 +2001,41 @@
     "hours": [],
     "reviews": [
       {
+        "author": "linda tolly",
+        "authorUrl": "https://www.google.com/maps/contrib/115217549877682684693/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "This place is cozy and strategically located. It's quite empty maybe because of ongoing pandemic.…"
+      },
+      {
+        "author": "TraveLicious",
+        "authorUrl": "https://www.google.com/maps/contrib/115575078790996013720/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Small space with complete merchandise to sell,have an outdoor sitting and separated smoking section. Not…"
+      },
+      {
+        "author": "Radja Sitanggang",
+        "authorUrl": "https://www.google.com/maps/contrib/101633479713488690621/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "A cozy place for hangout while waiting commuter is leaving. Situated in Jakarta Kota station.…"
+      },
+      {
         "author": "Rina A",
         "authorUrl": "https://www.google.com/maps/contrib/118412848418951383485/reviews?hl=id",
         "rating": 5,
         "excerpt": "Nice place buat nongkrong atau sekedar ngobrol. Suasananya nyaman, bisa indoor atau outdoor. Pelayanannya ramah...…"
+      },
+      {
+        "author": "neelam elhani",
+        "authorUrl": "https://www.google.com/maps/contrib/111889065121320521423/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tempatnya nyaman, ga ramai dan ga bising juga meski di dalem stasiun. Oh ya ada…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/Starbucks/data=!4m7!3m6!1s0x2e69f601b689774d:0xe4344245ab0a5be1!8m2!3d-6.1374106!4d106.8145226!16s%2Fg%2F11bxfdwwft!19sChIJTXeJtgH2aS4R4VsKq0VCNOQ?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:21:29.865Z",
     "matchDistanceM": 9,
-    "photoPath": "/google-places/node-4978748326.jpg"
+    "photoPath": "/google-places/node-4978748326.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:53:47.082Z"
   },
   {
     "id": "node/11256690163",
@@ -1380,16 +2080,41 @@
     ],
     "reviews": [
       {
+        "author": "JO JO",
+        "authorUrl": "https://www.google.com/maps/contrib/105192234169363063466/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Very cute cafe! Staff are very friendly and let you enjoy your meal and drinks…"
+      },
+      {
+        "author": "Warren McLoughlin",
+        "authorUrl": "https://www.google.com/maps/contrib/106028390404485470273/reviews?hl=en-GB",
+        "rating": 1,
+        "excerpt": "This place has good food but honestly the portions are so small. This was one…"
+      },
+      {
+        "author": "Ianhung Lee",
+        "authorUrl": "https://www.google.com/maps/contrib/100691512535478333926/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "A nicely decorated cafe with old timer touch at the corner of the square opposite…"
+      },
+      {
         "author": "Afifa Khaerunnisa",
         "authorUrl": "https://www.google.com/maps/contrib/118400293491996174531/reviews?hl=id",
         "rating": 5,
         "excerpt": "bukber dsni ternyata seru juga ✨ makanannya enak dan harganya masi affordable. takjilnya juga banyak,…"
+      },
+      {
+        "author": "chella dwiarfi",
+        "authorUrl": "https://www.google.com/maps/contrib/104947588336477646880/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "makanannya enakk porsinya juga banyaak banget, pelayanannya baik ramah ramah padahal mau nanya toilet dimana…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/NEW+BATAVIA+CAFE+kota+tua/data=!4m7!3m6!1s0x2e6a1d264dd95fd5:0x342579e3d7434194!8m2!3d-6.134157!4d106.8134594!16s%2Fg%2F11v05q5wsg!19sChIJ1V_ZTSYdai4RlEFD1-N5JTQ?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:21:45.054Z",
     "matchDistanceM": 12,
-    "photoPath": "/google-places/node-11256690163.jpg"
+    "photoPath": "/google-places/node-11256690163.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:53:34.036Z"
   },
   {
     "id": "node/4978747832",
@@ -1434,16 +2159,41 @@
     ],
     "reviews": [
       {
+        "author": "Bob Gunawan",
+        "authorUrl": "https://www.google.com/maps/contrib/105475504190838722829/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "This KFC Restaurant located inside Jakarta Kota Station. This restaurant provide a delicious crispy chicken…"
+      },
+      {
+        "author": "Akip Tsaqif",
+        "authorUrl": "https://www.google.com/maps/contrib/100367453475726825220/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "some of the best place to eat inside jakk station, but sometimes it is too…"
+      },
+      {
+        "author": "FRANSISCA CATHERINE",
+        "authorUrl": "https://www.google.com/maps/contrib/102691899722788859737/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "The first time I went to KFC at Kota Station to take a break before…"
+      },
+      {
         "author": "ELLISA IYOU",
         "authorUrl": "https://www.google.com/maps/contrib/113901514159064087872/reviews?hl=id",
         "rating": 4,
         "excerpt": "Tempat yang strategis, bersih, dan praktis. Pilihan paling aman dan nyaman kalau mau cari makanan…"
+      },
+      {
+        "author": "Riris Amel",
+        "authorUrl": "https://www.google.com/maps/contrib/114906052831065272180/reviews?hl=id",
+        "rating": 1,
+        "excerpt": "Dapet orderan diresto cabang ini , tanggung jawab pihak resto dilimpahin ke driver ,aturan karyawan…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/KFC+Stasiun+Kota/data=!4m7!3m6!1s0x2e69f601b22da8bd:0x42d8573f62ff8b56!8m2!3d-6.137585!4d106.814676!16s%2Fg%2F11c415hcfw!19sChIJvagtsgH2aS4RVov_Yj9X2EI?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:21:54.439Z",
     "matchDistanceM": 34,
-    "photoPath": "/google-places/node-4978747832.jpg"
+    "photoPath": "/google-places/node-4978747832.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:53:37.768Z"
   },
   {
     "id": "node/4978764921",
@@ -1488,16 +2238,41 @@
     ],
     "reviews": [
       {
+        "author": "Alona Sari",
+        "authorUrl": "https://www.google.com/maps/contrib/115871521706490511641/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "The fried chicken is good but the space of table is limited. Always crowded."
+      },
+      {
+        "author": "Tirta Yansen",
+        "authorUrl": "https://www.google.com/maps/contrib/114841549598841395927/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "- Food as good as any other A&W. The chicken nugget are outstanding though. -…"
+      },
+      {
+        "author": "Joseph Chataigner",
+        "authorUrl": "https://www.google.com/maps/contrib/117738853572572073397/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "A good place to eat a Burger in old school ambiance ! I liked it"
+      },
+      {
         "author": "Slime Club",
         "authorUrl": "https://www.google.com/maps/contrib/107249106292707036536/reviews?hl=id",
         "rating": 1,
         "excerpt": "Pesen paket D ksh ayam 1 msh berwarna pink Trs minum colanya berasa kek airputih…"
+      },
+      {
+        "author": "bayu permadi sulaksono",
+        "authorUrl": "https://www.google.com/maps/contrib/107031215158178916999/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "well good. pesan ayam goreng dan root beer sebagai speciality drinknya a&w. ayam gorengnya fresh…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/place/A%26W+Stasiun+Kota/data=!4m7!3m6!1s0x2e6a1fb931b48c47:0x5eb4947857569e42!8m2!3d-6.1378155!4d106.8144989!16s%2Fg%2F1tdlrq3j!19sChIJR4y0Mbkfai4RQp5WV3iUtF4?authuser=0&hl=id&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
     "checkedAt": "2026-10-25T11:21:39.644Z",
     "matchDistanceM": 58,
-    "photoPath": "/google-places/node-4978764921.jpg"
+    "photoPath": "/google-places/node-4978764921.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:53:51.798Z"
   },
   {
     "id": "node/6274366590",
@@ -1542,15 +2317,40 @@
     ],
     "reviews": [
       {
+        "author": "PUTI TAMIR",
+        "authorUrl": "https://www.google.com/maps/contrib/100237491403191392629/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "As a tour guide, I brought my guests to Sate & Seafood Senayan, Menteng to…"
+      },
+      {
+        "author": "Dennis De Witt",
+        "authorUrl": "https://www.google.com/maps/contrib/107293847511199257205/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Conveniently located just a few steps away from Hotel Des Indes in Menteng, the food…"
+      },
+      {
+        "author": "Veenoth Kumar",
+        "authorUrl": "https://www.google.com/maps/contrib/116746009162032861721/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Great place for gatherings with a spacious and clean environment. The menu offers a wide…"
+      },
+      {
         "author": "Chimogmog",
         "authorUrl": "https://www.google.com/maps/contrib/105551899045583128964/reviews?hl=id",
         "rating": 5,
         "excerpt": "Istri lg ngidam sate abang2 sewaktu hamil jadinya makan di sate khas senayan aja karena…"
+      },
+      {
+        "author": "Mf Rif'an",
+        "authorUrl": "https://www.google.com/maps/contrib/101046800923816632656/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Saya bersama teman-teman berkesempatan makan siang di Sate Senayan Menteng. menu-menunya enak dan standar rasa…"
       }
     ],
     "mapsUrl": "https://www.google.com/maps/search/Sate%20Khas%20Senayan%20menteng%20Jakarta/@-6.1963367,106.8285096,18z?hl=id",
     "checkedAt": "2026-10-25T11:46:46.442Z",
     "matchDistanceM": 15,
-    "photoPath": "/google-places/node-6274366590-086d850e.jpg"
+    "photoPath": "/google-places/node-6274366590-086d850e.jpg",
+    "reviewsCheckedAt": "2026-10-25T13:53:56.528Z"
   }
 ]

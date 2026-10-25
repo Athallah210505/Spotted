@@ -51,12 +51,15 @@ export const googlePlaceSchema = z.object({
     .array(
       z.object({
         author: z.string().min(1),
-        authorUrl: mapsUrl,
+        authorUrl: mapsUrl.refine((value) =>
+          new URL(value).pathname.startsWith("/maps/contrib/"),
+        ),
         rating: z.number().int().min(1).max(5),
         excerpt: z.string().min(1).max(1000),
       }),
     )
-    .max(1),
+    .length(5),
+  reviewsCheckedAt: z.iso.datetime().optional(),
   mapsUrl,
   checkedAt: z.iso.datetime(),
   matchDistanceM: z.number().min(0).max(400),

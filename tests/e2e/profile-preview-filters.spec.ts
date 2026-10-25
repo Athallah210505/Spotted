@@ -1,4 +1,8 @@
 import { expect, test } from "@playwright/test";
+import { stubMapTiles } from "./map-fixture";
+test.beforeEach(async ({ page }) => {
+  await stubMapTiles(page);
+});
 
 test("profile validates display name and applies city/radius defaults for this visit", async ({
   page,
@@ -88,38 +92,6 @@ test("profile privacy and account actions explain preview availability and resto
   await dialog.getByRole("button", { name: "Close dialog" }).click();
 });
 
-test("selecting a map pin opens an accessible preview before detail and preserves its return path", async ({
-  page,
-}) => {
-  await page.goto("/map");
-  const pin = page.getByRole("button", { name: /Preview Kedai Ramen Sore/ });
-  await pin.focus();
-  await page.keyboard.press("Enter");
-  await expect(page).toHaveURL(/place=kedai-ramen-sore/);
-  const sheet = page.getByRole("region", {
-    name: "Selected restaurant preview",
-  });
-  await expect(
-    sheet.getByRole("heading", { name: "Kedai Ramen Sore", exact: true }),
-  ).toBeFocused();
-  await expect(pin).toHaveAttribute("aria-pressed", "true");
-  await expect(pin).toHaveCSS("background-color", "rgb(255, 226, 136)");
-  await sheet.getByRole("link", { name: "View Details", exact: true }).click();
-  await page.getByRole("link", { name: "Back to Map", exact: true }).click();
-  await expect(sheet).toBeVisible();
-  await page.reload();
-  await expect(sheet).toBeVisible();
-  await sheet.getByRole("heading").focus();
-  await page.keyboard.press("Escape");
-  await expect(sheet).toHaveCount(0);
-  await expect(pin).toBeFocused();
-  await pin.click();
-  await page.getByRole("button", { name: "Close restaurant preview" }).click();
-  await expect(sheet).toHaveCount(0);
-  await page.goto("/map?category=Coffee&place=kedai-ramen-sore");
-  await expect(sheet).toHaveCount(0);
-});
-
 test("nearby preview preserves radius and recovers when the selected save is removed", async ({
   page,
 }) => {
@@ -155,67 +127,6 @@ test("nearby preview preserves radius and recovers when the selected save is rem
   ).toHaveAttribute("aria-current", "page");
 });
 
-test("map filters calculate fixture counts and reset without claiming unknown metadata", async ({
-  page,
-}) => {
-  await page.goto("/filters?from=map");
-  await page
-    .getByRole("group", { name: "Cuisine", exact: true })
-    .getByRole("button", { name: "Japanese", exact: true })
-    .click();
-  await page
-    .getByRole("group", { name: "Google rating", exact: true })
-    .getByRole("button", { name: "4.5+", exact: true })
-    .click();
-  await page
-    .getByRole("group", { name: "Distance", exact: true })
-    .getByRole("button", { name: "3 km", exact: true })
-    .click();
-  await page
-    .getByRole("group", { name: "Price level", exact: true })
-    .getByRole("button", { name: "RpRp", exact: true })
-    .click();
-  await page.getByRole("checkbox", { name: "Open Now", exact: true }).check();
-  await page.getByRole("checkbox", { name: "Saved Only", exact: true }).check();
-  await expect(page.getByRole("status")).toHaveText(
-    "1 matching place · Illustrative",
-  );
-  await page
-    .getByRole("checkbox", { name: "Verified halal only", exact: true })
-    .check();
-  await expect(page.getByRole("status")).toHaveText(
-    "0 matching places · Illustrative",
-  );
-  await page
-    .getByRole("checkbox", { name: "Verified halal only", exact: true })
-    .uncheck();
-  await page.getByRole("link", { name: "Show 1 place", exact: true }).click();
-  await expect(page).toHaveURL(
-    /category=Japanese&rating=4.5&distance=3&price=2&open=1&saved=1/,
-  );
-  await expect(
-    page.getByRole("button", { name: /Preview Kedai Ramen Sore/ }),
-  ).toBeVisible();
-  await expect(page.getByRole("button", { name: /^Preview/ })).toHaveCount(1);
-  await page.getByText("Search & filters", { exact: true }).click();
-  await page.getByRole("link", { name: "Filters", exact: true }).click();
-  await expect(
-    page.getByRole("checkbox", { name: "Open Now", exact: true }),
-  ).toBeChecked();
-  await page
-    .getByRole("button", { name: "Reset filters", exact: true })
-    .click();
-  await expect(page.getByRole("status")).toHaveText(
-    "2 matching places · Illustrative",
-  );
-  await expect(
-    page.getByRole("checkbox", { name: "Open Now", exact: true }),
-  ).not.toBeChecked();
-  await page.getByRole("link", { name: "Show 2 places", exact: true }).click();
-  await expect(page).toHaveURL(/\/map\?distance=5$/);
-  await expect(page.getByRole("button", { name: /^Preview/ })).toHaveCount(2);
-});
-
 test("four new screen states fit all viewports with original icon dimensions and larger text", async ({
   page,
 }) => {
@@ -232,9 +143,7 @@ test("four new screen states fit all viewports with original icon dimensions and
   for (const [index, path] of paths.entries()) {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(path);
-    if (path.startsWith("/map"))
-      await page.getByText("Search & filters", { exact: true }).click();
-    for (const img of await page.locator("img").all()) {
+    for (const img of await page.locator("img:not(.leaflet-tile)").all()) {
       await img.scrollIntoViewIfNeeded();
       await expect
         .poll(() =>

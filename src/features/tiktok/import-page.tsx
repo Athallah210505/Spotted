@@ -72,7 +72,7 @@ export function ImportPage({ step }: { step: "link" | "confirm" | "success" }) {
         </Link>
         <Link
           className={styles.action}
-          href={`/map?city=${saved.city}&place=${saved.id}`}
+          href={`/wishlist?view=map&city=${saved.city}&place=${saved.id}`}
         >
           <Image src="/figma/journey/map.svg" width={20} height={20} alt="" />
           <span>Find it on the map</span>

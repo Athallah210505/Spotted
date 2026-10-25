@@ -1,10 +1,10 @@
 # Google data in Explore
 
-25 October 2026. Current functionality replaces the technical catalogue UI with the existing SPOTTED Explore design. The user requested Google photos/ratings/reviews and readable opening hours, without pilot labels, coordinates, OSM IDs, website-source labels or archive captions in product cards. TikTok remains unchanged.
+25 October 2026. Updated by [headless review collection and interactive map](17-headless-reviews-interactive-map.md). Current functionality replaces the technical catalogue UI with the existing SPOTTED Explore design. The user requested Google photos/ratings/reviews and readable opening hours, without pilot labels, coordinates, OSM IDs, website-source labels or archive captions in product cards. TikTok remains unchanged.
 
 ## Confirmed information
 
-- 32 published Jakarta places, each with a downloaded venue photo, positive Google rating/review count and one attributed Google review excerpt of at most 15 words. 26 have a weekly hours table in the retrieved page.
+- 32 published Jakarta places, each with a downloaded venue photo, positive Google rating/review count and five attributed Google review excerpts of at most 15 words each. 26 have a weekly hours table in the retrieved page.
 
 - Public Maps pages were read using a normal Scrapling dynamic browser session. No stealth/proxy/challenge bypass, Google API key or billed provider call was used. Existing paid API flags remain disabled. Browser sessions were closed after collection.
 - Names, addresses, ratings/counts, hours, photo references and review authors/ratings came from those pages. TUKU Blok M:4.8/2450 reviews; Kambing Bakar Cairo Sambas:4.6; Cafe Batavia:4.5. The prior Chope value is no longer presented as a Google rating.

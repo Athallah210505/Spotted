@@ -3,6 +3,10 @@
   flex-direction: column;
   gap: 24px;
 }
+.cardContent {
+  margin-inline: 0;
+  border-radius: 32px;
+}
 .hours {
   border-radius: 24px;
   background: white;

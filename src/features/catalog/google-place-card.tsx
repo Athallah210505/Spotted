@@ -6,6 +6,7 @@ import { usePreviewWishlist } from "@/features/wishlist/preview-wishlist";
 import { areaNames, openingLabel, type GooglePlace } from "./google-data";
 import { catalogDetailHref } from "./catalog-media";
 import styles from "@/components/layout/browse.module.css";
+import googleStyles from "./google-ui.module.css";
 
 export function GooglePlaceCard({
   place,
@@ -32,7 +33,7 @@ export function GooglePlaceCard({
           sizes="(max-width: 430px) calc(100vw - 48px), 382px"
           preload={preload}
         />
-        <div className={styles.cardContent}>
+        <div className={`${styles.cardContent} ${googleStyles.cardContent}`}>
           <div className={styles.cardIdentity}>
             <h3 className={styles.restaurantName}>
               {place.name.replaceAll("Blok M", "Blok\u00a0M")}

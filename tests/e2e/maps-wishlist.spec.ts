@@ -1,4 +1,8 @@
 import { expect, test } from "@playwright/test";
+import { stubMapTiles } from "./map-fixture";
+test.beforeEach(async ({ page }) => {
+  await stubMapTiles(page);
+});
 
 test("wishlist radius and display mode are shareable and update nearby counts", async ({
   page,
@@ -99,59 +103,28 @@ test("removing places updates pins, Explore, detail and the empty wishlist", asy
     .getByRole("navigation", { name: "Main navigation" })
     .getByRole("link", { name: "Map", exact: true })
     .click();
-  await expect(map.getByRole("button", { name: /not saved/ })).toHaveCount(3);
-  await map.getByRole("button", { name: /Preview Kedai Ramen Sore/ }).click();
-  await page.getByRole("link", { name: "View Details", exact: true }).click();
-  await page
+  const realMap = page.getByRole("region", { name: "Peta tempat makan" });
+  await realMap
     .getByRole("button", {
-      name: "Save Kedai Ramen Sore to wishlist",
+      name: "Toko Kopi TUKU - Blok M, rating 4.8",
       exact: true,
     })
     .click();
+  await realMap
+    .getByRole("link", { name: "Lihat detail", exact: true })
+    .click();
   await page
-    .getByRole("link", { name: "Back to restaurant", exact: true })
+    .getByRole("button", {
+      name: "Save Toko Kopi TUKU - Blok M to wishlist",
+      exact: true,
+    })
     .click();
   await expect(
-    page.getByRole("button", { name: "Remove Kedai Ramen Sore from wishlist" }),
+    page.getByRole("button", {
+      name: "Remove Toko Kopi TUKU - Blok M from wishlist",
+      exact: true,
+    }),
   ).toHaveAttribute("aria-pressed", "true");
-});
-
-test("map search, categories and manual location retain consistent filters", async ({
-  page,
-}) => {
-  await page.goto("/map");
-  await page.getByText("Search & filters", { exact: true }).click();
-  const categories = page.getByRole("group", { name: "Restaurant categories" });
-  await categories.getByRole("button", { name: "Coffee", exact: true }).click();
-  const map = page.getByRole("region", { name: "Illustrative restaurant map" });
-  await expect(map.getByRole("button", { name: /^Preview/ })).toHaveCount(1);
-  await page
-    .getByRole("button", { name: "Search This Area", exact: true })
-    .click();
-  await expect(page.getByRole("status")).toContainText("1 sample place");
-  await page.getByRole("searchbox").fill("not-a-place");
-  await page.getByRole("button", { name: "Search restaurants" }).click();
-  await expect(
-    page.getByRole("heading", { name: "No places found" }),
-  ).toBeAttached();
-  await page.goto("/map?city=tangsel");
-  await page.getByText("Search & filters", { exact: true }).click();
-  await expect(map.getByRole("button", { name: /^Preview/ })).toHaveCount(1);
-  await expect(
-    map.getByRole("button", { name: /Preview Ruang Matcha/ }),
-  ).toHaveAccessibleName(/saved, rating/);
-  await page
-    .getByRole("navigation", { name: "Display mode" })
-    .getByRole("link", { name: "List", exact: true })
-    .click();
-  await expect(page).toHaveURL(/explore\?city=tangsel/);
-  await page.getByRole("link", { name: "Map", exact: true }).click();
-  await page.getByRole("button", { name: "Change map area" }).click();
-  await page
-    .getByRole("dialog")
-    .getByRole("button", { name: "Jakarta · Blok M", exact: true })
-    .click();
-  await expect(page).toHaveURL(/\/map$/);
 });
 
 test("import entry, directions and profile have keyboard-accessible outcomes", async ({
@@ -191,10 +164,14 @@ test("import entry, directions and profile have keyboard-accessible outcomes", a
     .getByRole("navigation", { name: "Main navigation" })
     .getByRole("link", { name: "Map", exact: true })
     .click();
-  await page.getByRole("button", { name: "Use current location" }).click();
-  await expect(page.getByRole("status")).toContainText(
-    "live location is not connected",
-  );
+  await page.evaluate(() => {
+    Object.defineProperty(navigator.geolocation, "getCurrentPosition", {
+      value: (_success: PositionCallback, error: PositionErrorCallback) =>
+        error({ code: 1 } as GeolocationPositionError),
+    });
+  });
+  await page.getByRole("button", { name: "Gunakan lokasi saya" }).click();
+  await expect(page.getByRole("status")).toContainText("Izin lokasi ditolak");
 });
 
 test("all three screens render local assets and fit phone, desktop and landscape", async ({
@@ -207,9 +184,7 @@ test("all three screens render local assets and fit phone, desktop and landscape
   for (const path of ["/map", "/wishlist", "/wishlist?view=map"]) {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(path);
-    if (path === "/map")
-      await page.getByText("Search & filters", { exact: true }).click();
-    for (const img of await page.locator("img").all()) {
+    for (const img of await page.locator("img:not(.leaflet-tile)").all()) {
       await img.scrollIntoViewIfNeeded();
       await expect
         .poll(() =>

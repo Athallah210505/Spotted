@@ -36,7 +36,7 @@ export default async function RestaurantPage({
             ? query.tab
             : "overview"
         }
-        backHref={`${query.from === "wishlist" ? "/wishlist" : "/explore"}${realSearch ? `?${realSearch}` : ""}`}
+        backHref={`${query.from === "wishlist" ? "/wishlist" : query.from === "map" ? "/map" : "/explore"}${realSearch ? `?${realSearch}` : ""}`}
       />
     );
   const place = findDemoRestaurant(placeId);

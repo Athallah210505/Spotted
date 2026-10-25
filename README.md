@@ -4,19 +4,19 @@ Save what you crave. Find it nearby.
 
 ## Status
 
-Fondasi lokal Next.js App Router + React + TypeScript tersedia. `/explore` menampilkan32 tempat Jakarta dari pembacaan halaman Google Maps publik: foto tempat, rating, jumlah ulasan dan jam buka yang tersedia. Search/kategori/rating/sort berbasis URL memakai data nyata ini. Google Places API berbayar dan akun belum diaktifkan.
+Fondasi lokal Next.js App Router + React + TypeScript tersedia. `/explore` menampilkan 32 tempat Jakarta dari pembacaan halaman Google Maps publik: foto tempat, rating, jumlah ulasan dan jam buka yang tersedia. Search/kategori/rating/sort berbasis URL memakai data nyata ini. Google Places API berbayar dan akun belum diaktifkan.
 
 Detail restoran tersedia di `/restaurant/kedai-ramen-sore`, dengan galeri, Menu, Google Reviews, TikTok, dan Save yang tersinkron dengan Explore selama kunjungan. Lihat [implementasi detail dan hasil QA](docs/10-restaurant-detail-implementation.md).
 
-`/map`, `/wishlist`, dan `/wishlist?view=map` menyediakan schematic map, radius nearby, shared Save/Remove, serta navigasi detail yang kembali ke halaman asal. Lihat [implementasi Map/Wishlist dan QA](docs/11-map-wishlist-implementation.md). Peta dan jarak masih memakai fixture ilustratif.
+`/map` memakai Leaflet/OpenStreetMap yang bisa digeser dan di-zoom, dengan 32 pin tempat nyata serta tombol lokasi yang meminta izin browser. `/wishlist` dan `/wishlist?view=map` masih memakai prototype nearby sebelumnya. Lihat [map interaktif dan data review](docs/17-headless-reviews-interactive-map.md).
 
-`/profile` menyediakan preferensi sementara, `/filters` menyaring data Google di Explore dan fixtures pada jalur Map. Klik pin Map/Wishlist membuka preview sebelum detail. Lihat [Profile, selected-place previews, Filters dan QA](docs/12-profile-previews-filters.md).
+`/profile` menyediakan preferensi sementara, `/filters` menyaring data Google di Explore dan fixtures pada jalur Map. Klik pin membuka nama/rating dan link detail. Lihat [Profile, selected-place previews, Filters dan QA](docs/12-profile-previews-filters.md).
 
 `/import` menghubungkan link TikTok ke restoran contoh, `/login` menyediakan sign-in simulasi, dan `/import/success` menampilkan hasil save selama sesi. Lihat [Import, sign-in preview dan QA](docs/13-import-login-preview.md).
 
 `/login/sent` menyediakan konfirmasi/resend simulasi, `/saved/[placeId]` menampilkan hasil save dari detail, dan `/sort` mengurutkan hasil pencarian. Lihat [Email Sent, Saved, Sort dan QA](docs/14-email-saved-sorting.md).
 
-`/catalog` mengarah ke Explore; tidak ada UI pilot/metadata OSM. `/api/catalog` menyediakan snapshot Google schemaVersion2. Detail `/restaurant/osm-<id>` mengikuti layout editorial Figma dan menampilkan Overview, jam mingguan, cuplikan review Google dan Get Directions. Lihat [data Google dan hasil verifikasi](docs/16-google-explore-data.md). [Pilot OSM awal](docs/15-jakarta-data-pilot.md) disimpan sebagai riwayat;32 dari40 seed cocok dengan cabang Google dan lolos pemeriksaan foto. TikTok existing tidak ditambah data baru.
+`/catalog` mengarah ke Explore; tidak ada UI pilot/metadata OSM. `/api/catalog` menyediakan snapshot Google schemaVersion2. Detail `/restaurant/osm-<id>` mengikuti layout editorial Figma dan menampilkan Overview, jam mingguan, lima review Google per tempat dan Get Directions. Lihat [data Google dan hasil verifikasi](docs/16-google-explore-data.md). [Pilot OSM awal](docs/15-jakarta-data-pilot.md) disimpan sebagai riwayat;32 dari40 seed cocok dengan cabang Google dan lolos pemeriksaan foto. TikTok existing tidak ditambah data baru.
 
 Yang disiapkan:
 
@@ -48,7 +48,7 @@ Lewati `cp` bila `.env.local` sudah ada supaya kredensial tidak tertimpa. Buka [
 
 Supabase client baru dapat dipakai ketika URL dan publishable key diisi bersama. Untuk stack lokal, lihat [supabase/README.md](supabase/README.md). Untuk project cloud yang sudah ada, gunakan kredensial development/staging milik project itu. Jangan arahkan preview ke database production.
 
-Maps, Places, TikTok preview, dan PostHog belum dihubungkan. `PAID_APIS_ENABLED=false` dan daily call limit 0 adalah default. Mengubah flag ini tidak otomatis mengimplementasikan atau menjalankan API: adapter, distributed limit enforcement, dan provider smoke test adalah pekerjaan fitur berikutnya. Jangan menganggap environment guard sebagai billing cap yang sudah aktif.
+Google Places API, TikTok preview, dan PostHog belum dihubungkan. Peta jalan memakai tile OpenStreetMap tanpa API key. `PAID_APIS_ENABLED=false` dan daily call limit 0 adalah default. Mengubah flag ini tidak otomatis mengimplementasikan atau menjalankan API: adapter, distributed limit enforcement, dan provider smoke test adalah pekerjaan fitur berikutnya. Jangan menganggap environment guard sebagai billing cap yang sudah aktif.
 
 Belum ada project Vercel/Supabase cloud yang dibuat atau di-link. Saat hosting disiapkan, verifikasi tujuan team/project terlebih dahulu; jika memakai `vercel env pull .env.local`, backup file lokal yang sudah ada karena perintah tersebut dapat menimpanya. Setup lokal ini tidak memerlukan linkage Vercel.
 
