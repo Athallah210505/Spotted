@@ -76,7 +76,19 @@
     "checkedAt": "2026-10-25T11:12:55.124Z",
     "matchDistanceM": 3,
     "photoPath": "/google-places/node-12110042118.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:58:28.067162Z"
+    "reviewsCheckedAt": "2026-10-25T13:58:28.067162Z",
+    "description": "Kedai kopi di Blok M dengan pilihan minuman kopi, nonkopi, serta kue dan donat.",
+    "menuPhotos": [
+      {
+        "name": "Kopi Susu Tetangga",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdOoE8z1kmIb1kNoGB2RNRYKbxyaMH1lEXdgyLFUXDel4fVBoejfbzUnTzDU4uqOvd0YutxPYZlJ-zU3-VAQjsLJlaqFKIr7cv87vHeJDqxmGbtji6vGII2_-HI4RlqB4cc3g_eSB75ibU=w600-h450-p-k-no",
+        "author": "Radja Sitanggang",
+        "authorUrl": "https://www.google.com/maps/contrib/101633479713488690621/reviews?hl=id",
+        "sourceUrl": "https://www.google.com/maps/search/Toko+Kopi+Tuku+Blok+M/?hl=id",
+        "checkedAt": "2026-10-26T04:05:09.950Z",
+        "photoPath": "/google-menus/node-12110042118-f723596f.jpg"
+      }
+    ]
   },
   {
     "id": "node/11458337518",
@@ -155,7 +167,8 @@
     "checkedAt": "2026-10-25T11:13:50.102Z",
     "matchDistanceM": 14,
     "photoPath": "/google-places/node-11458337518.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:49:11.594Z"
+    "reviewsCheckedAt": "2026-10-25T13:49:11.594Z",
+    "description": "Restoran yang telah lama berdiri dengan interior indah yang menyajikan domba panggang dengan berbagai porsi."
   },
   {
     "id": "node/7038074086",
@@ -234,7 +247,8 @@
     "checkedAt": "2026-10-25T11:14:09.760Z",
     "matchDistanceM": 10,
     "photoPath": "/google-places/node-7038074086.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:49:06.902Z"
+    "reviewsCheckedAt": "2026-10-25T13:49:06.902Z",
+    "description": "Restoran trendi dengan dekorasi berkelas yang menyajikan masakan perpaduan Indonesia kelas atas."
   },
   {
     "id": "node/11681193422",
@@ -313,7 +327,18 @@
     "checkedAt": "2026-10-25T11:14:13.777Z",
     "matchDistanceM": 3,
     "photoPath": "/google-places/node-11681193422.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:49:34.516Z"
+    "reviewsCheckedAt": "2026-10-25T13:49:34.516Z",
+    "menuPhotos": [
+      {
+        "name": "Iced matcha and taro latte",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdPQ1NiVd3mXJgf6tCkSUqYuVdJTvK6c63mjmKy5uDOEzlq059tgz2S2jXTkiFQvnrqoZiT_NVR7e8XHr-O4QZ7gJO_Tkaa_TEcrLd972KSKjT6C5dejEAt-fWoIQaofaJHPx2n8gvaxmVy=w600-h450-p-k-no",
+        "author": "Bunga",
+        "authorUrl": "https://www.google.com/maps/contrib/116703642132574609241/reviews?hl=en-GB",
+        "sourceUrl": "https://www.google.com/maps/search/Kisaku%20blok%20m%20Jakarta/@-6.2443595,106.8027268,18z?hl=en",
+        "checkedAt": "2026-10-26T04:10:02.686Z",
+        "photoPath": "/google-menus/node-11681193422-c02e9b44.jpg"
+      }
+    ]
   },
   {
     "id": "node/11681193423",
@@ -392,7 +417,18 @@
     "checkedAt": "2026-10-25T11:14:18.089Z",
     "matchDistanceM": 34,
     "photoPath": "/google-places/node-11681193423.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:49:27.092Z"
+    "reviewsCheckedAt": "2026-10-25T13:49:27.092Z",
+    "menuPhotos": [
+      {
+        "name": "Pampas Crema Jasmine Latte",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfH0Srd9mQkS9JIwyaaABpTdqNxRLD1peRgfVqpPGeCjQ31Kxa3W08VCk3RNgj_I0rRX_wS6mJa1_MreSJOJyxtgDvqWDD_dl5Z58Bexi05ivmVWEV5_4h6OGeP9OLuF94pXwwLJbd4Nklw=w1200-h900-p-k-no",
+        "author": "Tiara R",
+        "authorUrl": "https://www.google.com/maps/contrib/102408570354471156600/reviews?hl=en-GB",
+        "sourceUrl": "https://www.google.com/maps/search/Cotti%20Coffee%20blok%20m%20Jakarta/@-6.2440832,106.8026935,18z?hl=en",
+        "checkedAt": "2026-10-26T04:09:51.921Z",
+        "photoPath": "/google-menus/node-11681193423-b33b9de5.jpg"
+      }
+    ]
   },
   {
     "id": "node/7719208236",
@@ -442,7 +478,27 @@
     "checkedAt": "2026-10-25T11:15:42.718Z",
     "matchDistanceM": 2,
     "photoPath": "/google-places/node-7719208236.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:49:30.948Z"
+    "reviewsCheckedAt": "2026-10-25T13:49:30.948Z",
+    "menuPhotos": [
+      {
+        "name": "Rolled lahma",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLccuTTVOuir-4EIFcoAVBKYskzHo6nU5STSHl3h1eN-KobptZZRRfzYicysc7X-ziO8Hd8Z8Leh2gxSQ9i0GnRg8ZErO7eQNxkLnw08sqdmc9aKiLxua8d7ZBgXSMFo3_mstg4QBA=w600-h450-p-k-no",
+        "author": "Παναγιώτης «Chef Panos»",
+        "authorUrl": "https://www.google.com/maps/contrib/115417155964716349081/reviews?hl=en-GB",
+        "sourceUrl": "https://www.google.com/maps/search/Shisha%20Cafe%20Menteng%20menteng%20Jakarta/@-6.1968987,106.8287768,18z?hl=en",
+        "checkedAt": "2026-10-26T04:09:57.735Z",
+        "photoPath": "/google-menus/node-7719208236-61397c27.jpg"
+      },
+      {
+        "name": "Dolma",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfISPX8AwbZViR5apIQuf6uuUf7Z6iaXfXIms7exTUk9WoHQyvP4zAZ198jL1Hg2NvJK20le5-oQL_WKwE17_0B9FDo4Zn8U_lXepAwVuG1mzwFAoaffrkOlwRfJRCsKURyDg4=w600-h450-p-k-no",
+        "author": "Παναγιώτης «Chef Panos»",
+        "authorUrl": "https://www.google.com/maps/contrib/115417155964716349081/reviews?hl=en-GB",
+        "sourceUrl": "https://www.google.com/maps/search/Shisha%20Cafe%20Menteng%20menteng%20Jakarta/@-6.1968987,106.8287768,18z?hl=en",
+        "checkedAt": "2026-10-26T04:09:57.735Z",
+        "photoPath": "/google-menus/node-7719208236-830ea8e0.jpg"
+      }
+    ]
   },
   {
     "id": "node/4245902363",
@@ -521,7 +577,19 @@
     "checkedAt": "2026-10-25T11:15:39.012Z",
     "matchDistanceM": 11,
     "photoPath": "/google-places/node-4245902363.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:55:25.502Z"
+    "reviewsCheckedAt": "2026-10-25T13:55:25.502Z",
+    "description": "Menyediakan makanan Indonesia dari berbagai daerah dipadu dgn penyajian yg unik. Interior bertema tempo dulu.",
+    "menuPhotos": [
+      {
+        "name": "Gudeg",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLf2qoXgJS8NmKGOYofz8t86kxfUsSdRfEYPwz9cK5e0JaPWYfEFn-FK_0toQrL8gKdYR5NKlSl9gntshHI14UZsrorq8zhL5breC5YRhGX23tyZf3kg9iITGEBURlSIcXAcTxN2wTLeLtE4=w600-h450-p-k-no",
+        "author": "Arseto Tri Baskoro",
+        "authorUrl": "https://www.google.com/maps/contrib/115056423198060349982/reviews?hl=id",
+        "sourceUrl": "https://www.google.com/maps/search/Lara%20Djonggrang%20menteng%20Jakarta/@-6.1942131,106.8361732,18z?hl=id",
+        "checkedAt": "2026-10-25T11:15:39.012Z",
+        "photoPath": "/google-menus/node-4245902363-f39820ff.jpg"
+      }
+    ]
   },
   {
     "id": "node/6274340491",
@@ -600,7 +668,8 @@
     "checkedAt": "2026-10-25T11:15:46.392Z",
     "matchDistanceM": 14,
     "photoPath": "/google-places/node-6274340491.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:49:41.445Z"
+    "reviewsCheckedAt": "2026-10-25T13:49:41.445Z",
+    "description": "Franchise yang telah lama berdiri dan menyajikan menu sarapan khas & beragam minuman kopi."
   },
   {
     "id": "node/6274366589",
@@ -916,7 +985,18 @@
     "checkedAt": "2026-10-25T11:18:26.916Z",
     "matchDistanceM": 3,
     "photoPath": "/google-places/node-13973983404.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:49:57.969Z"
+    "reviewsCheckedAt": "2026-10-25T13:49:57.969Z",
+    "menuPhotos": [
+      {
+        "name": "Kentang goreng",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfvbwJL2UOU5pI-QzxtmQBbLb5eeyZceScOlG92jBMWpm7k6hQKqfG3S-q6jyObjelNgsjLo23NmQj7KvxuShc80Ch6zVGRocSboUO1loFBwUFPjRsCRs7y_jD0zk5IrNe-ngfbmyyMRayV=w600-h450-p-k-no",
+        "author": "S Joey",
+        "authorUrl": "https://www.google.com/maps/contrib/100596953528459573086/reviews?hl=id",
+        "sourceUrl": "https://www.google.com/maps/search/Five%20Monkeys%20Fresh%20Burgers%20%26%20Hotdogs%20kelapa%20gading%20Jakarta/@-6.1602568,106.9062401,18z?hl=id",
+        "checkedAt": "2026-10-25T11:18:26.916Z",
+        "photoPath": "/google-menus/node-13973983404-52f5e74f.jpg"
+      }
+    ]
   },
   {
     "id": "node/13973983604",
@@ -995,7 +1075,27 @@
     "checkedAt": "2026-10-25T11:18:22.963Z",
     "matchDistanceM": 11,
     "photoPath": "/google-places/node-13973983604.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:50:55.067Z"
+    "reviewsCheckedAt": "2026-10-25T13:50:55.067Z",
+    "menuPhotos": [
+      {
+        "name": "Squid ink pasta",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLevQYdehhjsQrx2x2-CFGZnPFj40WwxaVsN-mKpD10CNhh-eNVGuPHdF3AWT9K716m0HC--ZzAqE6l1PBB1vJwJt7qW1IdnicF-Hy5SsYUrojZ7bH-l_hhOTWeywayO2-GnHIY=w600-h900-p-k-no",
+        "author": "Angela S",
+        "authorUrl": "https://www.google.com/maps/contrib/107417644887027653331/reviews?hl=en-GB",
+        "sourceUrl": "https://www.google.com/maps/search/Monsieur%20Spoon%20kelapa%20gading%20Jakarta/@-6.1588182,106.9068777,18z?hl=en",
+        "checkedAt": "2026-10-26T04:10:09.305Z",
+        "photoPath": "/google-menus/node-13973983604-c9cb6bc2.jpg"
+      },
+      {
+        "name": "Waffle berry",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdTiwMwMwBpWOUZQqdqoDWoiOMB9ly7Cuu9EQSDTeBy2LoCgRd0RewOTJw_-QjKCRL0b1W8jzQvGkw5JQvaAPi9q8DsKsYBgcgpN3O7BK4Mlo8rv5R4FcTMTLSfvn48YKdUuglwSw=w600-h900-p-k-no",
+        "author": "Angela S",
+        "authorUrl": "https://www.google.com/maps/contrib/107417644887027653331/reviews?hl=en-GB",
+        "sourceUrl": "https://www.google.com/maps/search/Monsieur%20Spoon%20kelapa%20gading%20Jakarta/@-6.1588182,106.9068777,18z?hl=en",
+        "checkedAt": "2026-10-26T04:10:09.305Z",
+        "photoPath": "/google-menus/node-13973983604-3dbeafaa.jpg"
+      }
+    ]
   },
   {
     "id": "node/9750987138",
@@ -1074,7 +1174,27 @@
     "checkedAt": "2026-10-25T11:18:38.241Z",
     "matchDistanceM": 11,
     "photoPath": "/google-places/node-9750987138-30bed53b.png",
-    "reviewsCheckedAt": "2026-10-25T13:50:47.798Z"
+    "reviewsCheckedAt": "2026-10-25T13:50:47.798Z",
+    "menuPhotos": [
+      {
+        "name": "Purple ube layer cake slice",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfTtRf41AUg48Fu_x8g9oWjRxIqRp2L8J7CSsuxvcwhm-QGYiZ1DSVpn-P-5phayMfW_OZYxnub6t5eZUxc7QaTn9AFfjR-bokv1qSoVAxPkqSM4KVE2AwMytv29mLcj988z0CtOG0wdtGb=w600-h450-p-k-no",
+        "author": "arir",
+        "authorUrl": "https://www.google.com/maps/contrib/104730750377948376517/reviews?hl=en-GB",
+        "sourceUrl": "https://www.google.com/maps/search/Union%20kelapa%20gading%20Jakarta/@-6.1561084,106.9088631,18z?hl=en",
+        "checkedAt": "2026-10-26T04:10:16.170Z",
+        "photoPath": "/google-menus/node-9750987138-fa291f59.jpg"
+      },
+      {
+        "name": "Fried rice with egg gravy",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLcdwwhbEWaf5BGf6LSnPWKqnOHXSsGr-6CeLEDIvp_jOfPCcDt-_I5CcClsXQRXK4TekWsxZgQzZaatmFjP_t0ql4Wss9Rt_dqPnYZ9e8SWrbKopB1TMYecvqXZi2Pj6eQC363nBxXop2rx=w600-h450-p-k-no",
+        "author": "arir",
+        "authorUrl": "https://www.google.com/maps/contrib/104730750377948376517/reviews?hl=en-GB",
+        "sourceUrl": "https://www.google.com/maps/search/Union%20kelapa%20gading%20Jakarta/@-6.1561084,106.9088631,18z?hl=en",
+        "checkedAt": "2026-10-26T04:10:16.170Z",
+        "photoPath": "/google-menus/node-9750987138-e2200958.jpg"
+      }
+    ]
   },
   {
     "id": "node/11782602969",
@@ -1153,7 +1273,8 @@
     "checkedAt": "2026-10-25T11:19:08.134Z",
     "matchDistanceM": 5,
     "photoPath": "/google-places/node-11782602969.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:50:51.351Z"
+    "reviewsCheckedAt": "2026-10-25T13:50:51.351Z",
+    "description": "Franchise restoran yang terkenal dengan ember ayam goreng, dan hidangan kombo, serta hidangan sampingan."
   },
   {
     "id": "node/2097992424",
@@ -1232,7 +1353,8 @@
     "checkedAt": "2026-10-25T11:19:15.891Z",
     "matchDistanceM": 5,
     "photoPath": "/google-places/node-2097992424-23fb4b80.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:51:12.478Z"
+    "reviewsCheckedAt": "2026-10-25T13:51:12.478Z",
+    "description": "Kantin sederhana dengan tempat duduk hitam & merah modern yang menyajikan hidangan khas Jawa."
   },
   {
     "id": "node/11458345922",
@@ -1361,7 +1483,8 @@
     "checkedAt": "2026-10-25T11:20:51.760Z",
     "matchDistanceM": 30,
     "photoPath": "/google-places/node-12157326132.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:51:08.162Z"
+    "reviewsCheckedAt": "2026-10-25T13:51:08.162Z",
+    "description": "Tempat kuliner terbuka dengan banyak kedai & truk makanan yang menyajikan beragam jajanan kaki lima Indonesia."
   },
   {
     "id": "node/4152597829",
@@ -1440,7 +1563,8 @@
     "checkedAt": "2026-10-25T11:20:47.954Z",
     "matchDistanceM": 12,
     "photoPath": "/google-places/node-4152597829.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:51:46.942Z"
+    "reviewsCheckedAt": "2026-10-25T13:51:46.942Z",
+    "description": "Franchise restoran yang terkenal dengan ember ayam goreng, dan hidangan kombo, serta hidangan sampingan."
   },
   {
     "id": "node/11681193424",
@@ -1777,7 +1901,27 @@
     "checkedAt": "2026-10-25T11:21:08.991Z",
     "matchDistanceM": 123,
     "photoPath": "/google-places/node-6430301312.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:52:27.053Z"
+    "reviewsCheckedAt": "2026-10-25T13:52:27.053Z",
+    "menuPhotos": [
+      {
+        "name": "croffle",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdvUTUuwv1bYINptSQzUFEwOYiWEJJhp6fodR4w8Yf0lHq8iAGGvfNKHF3ulUYAZL4wsSpnvN_iHOYQILnyFn74lWBXYbzc751yN5C0ltS3sBZPUWXhIFP0xnllG1QiCJY2bzwz=w600-h900-p-k-no",
+        "author": "lisa kiryuu",
+        "authorUrl": "https://www.google.com/maps/contrib/116350656604045053917/reviews?hl=en-GB",
+        "sourceUrl": "https://www.google.com/maps/place/J.CO/data=!4m7!3m6!1s0x2e69f53452a3c80f:0xafd9e23835b433f3!8m2!3d-6.1574628!4d106.907796!16s%2Fg%2F1tzvyv_r!19sChIJD8ijUjT1aS4R8zO0NTji2a8?authuser=0&hl=en&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+        "checkedAt": "2026-10-25T13:52:27.053Z",
+        "photoPath": "/google-menus/node-6430301312-819b2dbe.jpg"
+      },
+      {
+        "name": "doughnut",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLd0HXn0BOL3hJ7bgrqcW7C6a8oqfzP4kLsqdt8Ug5JB_E2Nc-KHavgBZYnB5dCcxh4BPteLSFIXGamUgxv_lULpcVx5scDpzjz3l5k1MZvvAScCtwXw5TLyH_y7blcBMnT2UxMlRw=w600-h900-p-k-no",
+        "author": "lisa kiryuu",
+        "authorUrl": "https://www.google.com/maps/contrib/116350656604045053917/reviews?hl=en-GB",
+        "sourceUrl": "https://www.google.com/maps/place/J.CO/data=!4m7!3m6!1s0x2e69f53452a3c80f:0xafd9e23835b433f3!8m2!3d-6.1574628!4d106.907796!16s%2Fg%2F1tzvyv_r!19sChIJD8ijUjT1aS4R8zO0NTji2a8?authuser=0&hl=en&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+        "checkedAt": "2026-10-25T13:52:27.053Z",
+        "photoPath": "/google-menus/node-6430301312-55f19057.jpg"
+      }
+    ]
   },
   {
     "id": "node/13974608702",
@@ -1935,7 +2079,19 @@
     "checkedAt": "2026-10-25T11:21:35.711Z",
     "matchDistanceM": 7,
     "photoPath": "/google-places/node-4245907143.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:53:29.599Z"
+    "reviewsCheckedAt": "2026-10-25T13:53:29.599Z",
+    "description": "Restoran era kolonial elegan plus langit-langit tinggi, yang menjual kreasi masakan Indonesia, kopi & koktail.",
+    "menuPhotos": [
+      {
+        "name": "Nasi goreng with shrimp satay",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLeVnLz9RviCo9Wi72eOh5FMOhJlmNMlqCLjmb_2XfLSu6KkRAVSondudYC7wgTVzBCVSmgRqb_9AAi-FPPt7n12-blkRlJAEzB7GPM_FQJGiegMKUTSfKbDVawEfMTUmBzmR1pGogeD_8ti=w600-h450-p-k-no",
+        "author": "Ahmad Rasool",
+        "authorUrl": "https://www.google.com/maps/contrib/115198533734325547632/reviews?hl=en-GB",
+        "sourceUrl": "https://www.google.com/maps/place/Cafe+Batavia/data=!4m7!3m6!1s0x2e6a1dff154fd569:0xa38223eb6637cf44!8m2!3d-6.1343676!4d106.8127353!16s%2Fg%2F11c2knnk9l!19sChIJadVPFf8dai4RRM83ZusjgqM?authuser=0&hl=en&g_ep=EgoyMDI2MTAyMC4wIJJjKgBIAVAD&rclk=1",
+        "checkedAt": "2026-10-25T13:53:29.599Z",
+        "photoPath": "/google-menus/node-4245907143-9f18fd33.jpg"
+      }
+    ]
   },
   {
     "id": "node/4978747831",
@@ -2193,7 +2349,8 @@
     "checkedAt": "2026-10-25T11:21:54.439Z",
     "matchDistanceM": 34,
     "photoPath": "/google-places/node-4978747832.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:53:37.768Z"
+    "reviewsCheckedAt": "2026-10-25T13:53:37.768Z",
+    "description": "Franchise restoran yang terkenal dengan ember ayam goreng, dan hidangan kombo, serta hidangan sampingan."
   },
   {
     "id": "node/4978764921",
@@ -2272,7 +2429,8 @@
     "checkedAt": "2026-10-25T11:21:39.644Z",
     "matchDistanceM": 58,
     "photoPath": "/google-places/node-4978764921.jpg",
-    "reviewsCheckedAt": "2026-10-25T13:53:51.798Z"
+    "reviewsCheckedAt": "2026-10-25T13:53:51.798Z",
+    "description": "Resto cepat saji yang menyajikan root beer & float bernama sama, plus burger, ayam, hot dog & kentang goreng."
   },
   {
     "id": "node/6274366590",
@@ -2430,7 +2588,8 @@
     "checkedAt": "2026-10-26T03:51:31.183Z",
     "matchDistanceM": 208,
     "reviewsCheckedAt": "2026-10-26T03:54:19.159Z",
-    "photoPath": "/google-places/node-3152256412-53c3bc15.jpg"
+    "photoPath": "/google-places/node-3152256412-53c3bc15.jpg",
+    "description": "Tempat makan lokal dengan pilihan hidangan ayam dan masakan klasik."
   },
   {
     "id": "node/4243787801",
@@ -2638,7 +2797,19 @@
     "checkedAt": "2026-10-26T03:53:02.215Z",
     "matchDistanceM": 18,
     "reviewsCheckedAt": "2026-10-26T03:54:29.103Z",
-    "photoPath": "/google-places/node-7117636212-7c908c4a.jpg"
+    "photoPath": "/google-places/node-7117636212-7c908c4a.jpg",
+    "description": "Restoran indah dengan suasana santai yang menyajikan masakan tradisional khas Padang.",
+    "menuPhotos": [
+      {
+        "name": "Nasi rames",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdj4ro7jasNZ1gQpx8YmHGsNSWKGsvNfjJpA1r-RadUr8nzIfylGNZAS1huSUq7P4R6-OHAuAvhI5JwpqNcTHmcoJj8TUX_5Yywa2FGimBSsDAUeb5kgEyjylTM_xG5ePtKHCdm91fJeFJn=w600-h450-p-k-no",
+        "author": "Diana A",
+        "authorUrl": "https://www.google.com/maps/contrib/106432614619397736816/reviews?hl=id",
+        "sourceUrl": "https://www.google.com/maps/search/Padang+Merdeka+Kota+Tua+Jakarta/?hl=id",
+        "checkedAt": "2026-10-26T03:53:02.215Z",
+        "photoPath": "/google-menus/node-7117636212-c9c165a1.jpg"
+      }
+    ]
   },
   {
     "id": "node/9744112797",
@@ -2688,6 +2859,18 @@
     "checkedAt": "2026-10-26T03:53:16.685Z",
     "matchDistanceM": 22,
     "reviewsCheckedAt": "2026-10-26T03:54:34.497Z",
-    "photoPath": "/google-places/node-9744112797-7b1e62bf.jpg"
+    "photoPath": "/google-places/node-9744112797-7b1e62bf.jpg",
+    "description": "Rumah makan pesan di konter modern dan sederhana yang menyediakan bakso tradisional & camilan.",
+    "menuPhotos": [
+      {
+        "name": "Bakso and Ice Tea",
+        "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLdx3Sl1Pt1MetgdAyxedLgMgcbp7SHGb8s4iCR-3Ae92TczJIW-MTHzgkkT51kj9_ySeZsiWRfM18ROXN2e73BNvtv94drgiXaZhjeBbzKW9lgIAYwy2u6Y-muTkHaKj1d3GVxp_RgD2MI=w1200-h900-p-k-no",
+        "author": "Robith Hadhromi",
+        "authorUrl": "https://www.google.com/maps/contrib/100840941109368942888/reviews?hl=en-GB",
+        "sourceUrl": "https://www.google.com/maps/search/Bakso+Boedjangan+Bulungan+Jakarta/?hl=en",
+        "checkedAt": "2026-10-26T03:54:34.497Z",
+        "photoPath": "/google-menus/node-9744112797-7099d891.jpg"
+      }
+    ]
   }
 ]

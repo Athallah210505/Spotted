@@ -12,6 +12,21 @@ import {
 import { parseExploreFilters } from "@/features/explore/demo-data";
 
 describe("published Google place data", () => {
+  it("keeps menu photos tied to real review authors and existing local dish images", () => {
+    const photos = googlePlaces.flatMap((place) => place.menuPhotos);
+    expect(photos).toHaveLength(16);
+    for (const photo of photos) {
+      expect(existsSync(`public${photo.photoPath}`)).toBe(true);
+      expect(readFileSync(`public${photo.photoPath}`).length).toBeGreaterThan(
+        5000,
+      );
+      expect(new URL(photo.authorUrl).pathname).toMatch(/^\/maps\/contrib\//);
+      expect(photo.name).not.toMatch(/interior|storefront|profile/i);
+    }
+    expect(findGooglePlace("osm-12110042118")!.menuPhotos[0]!.name).toBe(
+      "Kopi Susu Tetangga",
+    );
+  });
   it("publishes only matched branches with downloaded photos, real ratings and short attributed excerpts", () => {
     expect(googlePlaces).toHaveLength(37);
     for (const place of googlePlaces) {

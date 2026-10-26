@@ -12,15 +12,20 @@ export function GooglePlaceCard({
   place,
   preload = false,
   search = "",
+  featured = false,
 }: {
   place: GooglePlace;
   preload?: boolean;
   search?: string;
+  featured?: boolean;
 }) {
   const { savedIds, toggle } = usePreviewWishlist();
   const saved = savedIds.includes(place.id);
   return (
-    <article className={styles.card} aria-label={place.name}>
+    <article
+      className={`${styles.card} ${googleStyles.card}`}
+      aria-label={place.name}
+    >
       <Link
         className={styles.cardOpen}
         href={`${catalogDetailHref(place)}${search ? `?${search}` : ""}`}
@@ -29,10 +34,13 @@ export function GooglePlaceCard({
         <RestaurantPhoto
           src={place.photoPath}
           alt={place.name}
-          className={styles.photo}
+          className={`${styles.photo} ${googleStyles.cardPhoto}`}
           sizes="(max-width: 430px) calc(100vw - 48px), 382px"
           preload={preload}
         />
+        {featured ? (
+          <span className={googleStyles.editorialLabel}>THE LOCAL EDIT</span>
+        ) : null}
         <div className={`${styles.cardContent} ${googleStyles.cardContent}`}>
           <div className={styles.cardIdentity}>
             <h3 className={styles.restaurantName}>
@@ -55,7 +63,7 @@ export function GooglePlaceCard({
         </div>
       </Link>
       <button
-        className={styles.saveButton}
+        className={`${styles.saveButton} ${googleStyles.saveButton}`}
         aria-label={`${saved ? "Remove" : "Save"} ${place.name}${saved ? " from" : " to"} wishlist`}
         aria-pressed={saved}
         onClick={() => toggle(place.id)}

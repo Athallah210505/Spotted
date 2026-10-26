@@ -7,6 +7,7 @@ import { catalogDetailHref } from "./catalog-media";
 import { areaNames, openingLabel, type GooglePlace } from "./google-data";
 import { OpeningHours } from "./opening-hours";
 import styles from "@/features/restaurants/restaurant-detail.module.css";
+import menuStyles from "./google-ui.module.css";
 
 export function CatalogDetail({
   place,
@@ -137,21 +138,66 @@ export function CatalogDetail({
                 ) : null}
                 <OpeningHours place={place} />
                 {sections()}
-                <section aria-label="Tentang tempat">
+                <section
+                  className={menuStyles.overview}
+                  aria-label="Tentang tempat"
+                >
                   <h2>Overview</h2>
                   <p className={styles.supporting}>
-                    {place.name} merupakan{" "}
-                    {place.category.toLocaleLowerCase("id-ID")} di kawasan{" "}
-                    {areaNames[place.area]}, Jakarta.
+                    {place.description ?? (
+                      <>
+                        {place.name} merupakan{" "}
+                        {place.category.toLocaleLowerCase("id-ID")} di kawasan{" "}
+                        {areaNames[place.area]}, Jakarta.
+                      </>
+                    )}
                   </p>
                 </section>
-                <h2>A taste of what’s here.</h2>
-                <section className={styles.menuCard} aria-label="Menu tempat">
-                  <p>
-                    {menu
-                      ? "Lihat menu lengkap untuk pilihan makanan dan harga."
-                      : "Menu belum tersedia untuk tempat ini."}
-                  </p>
+                <section
+                  className={menuStyles.menuSection}
+                  aria-label="Menu dari Google reviews"
+                >
+                  <h2>A taste of what’s here.</h2>
+                  {place.menuPhotos.length ? (
+                    <>
+                      <p className={menuStyles.menuNote}>
+                        Pilihan dari foto pengunjung di Google.
+                      </p>
+                      <div className={menuStyles.menuGrid}>
+                        {place.menuPhotos.map((item) => (
+                          <figure key={item.photoPath}>
+                            <a
+                              href={item.photoPath}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`Lihat foto ${item.name}`}
+                            >
+                              <RestaurantPhoto
+                                src={item.photoPath}
+                                alt={item.name}
+                                className={menuStyles.menuPhoto}
+                                sizes="(max-width: 430px) 50vw, 190px"
+                              />
+                            </a>
+                            <figcaption>{item.name}</figcaption>
+                          </figure>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <p className={styles.supporting}>
+                      Foto menu belum tersedia untuk tempat ini.
+                    </p>
+                  )}
+                  <a
+                    className={menuStyles.sourceLink}
+                    href={place.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Lihat menu &amp; foto di Google Maps{" "}
+                    <DetailIcon name="external" />
+                  </a>
                 </section>
                 {menu ? (
                   <a

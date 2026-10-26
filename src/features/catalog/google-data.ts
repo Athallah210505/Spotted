@@ -60,6 +60,32 @@ export const googlePlaceSchema = z.object({
     )
     .length(5),
   reviewsCheckedAt: z.iso.datetime().optional(),
+  description: z.string().max(600).optional(),
+  menuPhotos: z
+    .array(
+      z.object({
+        name: z.string().min(1).max(100),
+        photoPath: z
+          .string()
+          .regex(/^\/google-menus\/node-\d+-[a-f0-9]{8}\.(jpg|png|webp)$/),
+        photoUrl: z
+          .url()
+          .refine(
+            (value) =>
+              /^lh[3-6]\.googleusercontent\.com$/.test(
+                new URL(value).hostname,
+              ) && !/^\/a-?\//.test(new URL(value).pathname),
+          ),
+        author: z.string().min(1),
+        authorUrl: mapsUrl.refine((value) =>
+          new URL(value).pathname.startsWith("/maps/contrib/"),
+        ),
+        sourceUrl: mapsUrl,
+        checkedAt: z.iso.datetime(),
+      }),
+    )
+    .max(4)
+    .default([]),
   mapsUrl,
   checkedAt: z.iso.datetime(),
   matchDistanceM: z.number().min(0).max(400),

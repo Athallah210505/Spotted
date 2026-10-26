@@ -196,34 +196,33 @@ export function ExploreFeed({
               ))}
             </div>
           </header>
-          <div
-            className={`${styles.searchTools} ${!search ? styles.homeTools : ""}`}
-          >
-            <Link
-              className={styles.textAction}
-              href={`/filters${search ? `?${search}` : ""}`}
-            >
-              Filters
-            </Link>
-            <Link
-              className={styles.textAction}
-              href={`/sort${search ? `?${search}` : ""}`}
-              aria-label={`Sort places: ${sortOptions[filters.sort ?? "recommended"]}`}
-            >
-              {sortOptions[filters.sort ?? "recommended"]}
-            </Link>
-          </div>
           {pending ? (
             <p className={styles.loading} role="status">
               Updating your places…
             </p>
           ) : null}
           <section aria-label="Restaurants in Jakarta">
-            <h2 className={styles.srOnly}>
-              {filters.query
-                ? `Results for ${filters.query}`
-                : "Places for you"}
-            </h2>
+            <div className={dataStyles.sectionHeading}>
+              <div>
+                <h2>
+                  {filters.query
+                    ? `Results for ${filters.query}`
+                    : "Worth a detour."}
+                </h2>
+                <span>{places.length} places</span>
+              </div>
+              <nav className={dataStyles.tools} aria-label="Explore controls">
+                <Link href={`/filters${search ? `?${search}` : ""}`}>
+                  Filters
+                </Link>
+                <Link
+                  href={`/sort${search ? `?${search}` : ""}`}
+                  aria-label={`Sort places: ${sortOptions[filters.sort ?? "recommended"]}`}
+                >
+                  Sort
+                </Link>
+              </nav>
+            </div>
             {places.length ? (
               <div className={dataStyles.cards}>
                 {places.map((place, index) => (
@@ -232,6 +231,7 @@ export function ExploreFeed({
                     place={place}
                     preload={index === 0}
                     search={search}
+                    featured={!search && index === 0}
                   />
                 ))}
               </div>

@@ -29,7 +29,7 @@ export function FiltersPage({
   const initial = {
     ...filters,
     city: usePreferredCity ? profile.city : filters.city,
-    distance: filters.distance ?? profile.radius,
+    distance: filters.distance ?? (from === "map" ? profile.radius : undefined),
   };
   const [draft, setDraft] = useState<ExploreFilters>(initial);
   const { savedIds } = usePreviewWishlist();
@@ -94,7 +94,7 @@ export function FiltersPage({
               ).map((category) => (
                 <button
                   key={category}
-                  className={shared.category}
+                  className={`${shared.category} ${styles.chip}`}
                   aria-pressed={draft.category === category}
                   onClick={() => update({ category })}
                 >
@@ -109,7 +109,7 @@ export function FiltersPage({
               {([undefined, 4, 4.5] as const).map((minRating) => (
                 <button
                   key={minRating ?? "any"}
-                  className={shared.category}
+                  className={`${shared.category} ${styles.chip}`}
                   aria-pressed={draft.minRating === minRating}
                   onClick={() => update({ minRating })}
                 >
@@ -123,13 +123,15 @@ export function FiltersPage({
               {from === "map" ? "Distance" : "Distance from Blok M"}
             </legend>
             <div className={styles.distance}>
-              {([1, 3, 5, 10] as const).map((distance) => (
+              {(
+                [...(from === "map" ? [] : [undefined]), 1, 3, 5, 10] as const
+              ).map((distance) => (
                 <button
-                  key={distance}
+                  key={distance ?? "any"}
                   aria-pressed={draft.distance === distance}
                   onClick={() => update({ distance })}
                 >
-                  {distance} km
+                  {distance ? `${distance} km` : "Any"}
                 </button>
               ))}
             </div>
@@ -180,28 +182,28 @@ export function FiltersPage({
               wishlist for this visit.
             </p>
           ) : null}
-          <Link
-            className={`${styles.action} ${styles.yellow}`}
-            href={`/${from}${search ? `?${search}` : ""}`}
-          >
-            Show {count} {count === 1 ? "place" : "places"}
-          </Link>
-          <button
-            className={styles.action}
-            onClick={() =>
-              setDraft({
-                query: "",
-                category: "All",
-                city: initial.city,
-                distance: profile.radius,
-              })
-            }
-          >
-            Reset filters
-          </button>
         </div>
       </main>
       <footer className={styles.footer}>
+        <Link
+          className={`${styles.action} ${styles.yellow}`}
+          href={`/${from}${search ? `?${search}` : ""}`}
+        >
+          Show {count} {count === 1 ? "place" : "places"}
+        </Link>
+        <button
+          className={styles.action}
+          onClick={() =>
+            setDraft({
+              query: "",
+              category: "All",
+              city: initial.city,
+              distance: from === "map" ? profile.radius : undefined,
+            })
+          }
+        >
+          Reset filters
+        </button>
         <p className={shared.demoLabel}>
           {from === "map" ? "Illustrative data" : "Google Maps"}
         </p>
