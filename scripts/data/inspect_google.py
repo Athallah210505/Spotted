@@ -46,6 +46,8 @@ def parse_reviews(page):
 
 def parse_page(raw, place):
     page = Selector(raw["html"])
+    if any(text([node]).casefold() in {"tutup permanen", "tutup sementara", "permanently closed", "temporarily closed"} for node in page.css('.fCEvvc')):
+        return None
     name = text(page.css("h1"))
     if not maps_url(raw["url"]) or not name or name in {"Hasil", "Results"} or not same_name(place["name"],name):
         return None

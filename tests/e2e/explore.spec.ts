@@ -12,7 +12,7 @@ test("Explore directly shows photographed Google places with no pilot or source 
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
   await expect(page).toHaveURL(/\/explore$/);
-  await expect(page.getByRole("article")).toHaveCount(32);
+  await expect(page.getByRole("article")).toHaveCount(37);
   for (const name of [
     "Toko Kopi TUKU - Blok M",
     "Kambing Bakar Cairo Sambas",
@@ -147,7 +147,7 @@ test("location, keyboard focus, responsive layouts and image failure have usable
   await page
     .getByRole("button", { name: "Reset filters", exact: true })
     .click();
-  await expect(page.getByRole("article")).toHaveCount(32);
+  await expect(page.getByRole("article")).toHaveCount(37);
   for (const size of [
     { width: 375, height: 812 },
     { width: 430, height: 932 },

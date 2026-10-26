@@ -6,6 +6,7 @@ import {
   findCatalogPlace,
 } from "@/features/catalog/catalog";
 import { existsSync } from "node:fs";
+import { googlePlaces } from "@/features/catalog/google-data";
 import {
   catalogPhotos,
   catalogRatings,
@@ -33,7 +34,7 @@ describe("real OSM pilot catalogue", () => {
     }
     expect(findCatalogPlace("osm-0000")).toBeUndefined();
     for (const [id, photo] of Object.entries(catalogPhotos)) {
-      expect(catalog.places.some((place) => place.id === id)).toBe(true);
+      expect(googlePlaces.some((place) => place.id === id)).toBe(true);
       expect(existsSync(`public${photo.src}`)).toBe(true);
       expect(new URL(photo.sourceUrl).hostname).toBe("www.google.com");
     }
@@ -47,7 +48,7 @@ describe("real OSM pilot catalogue", () => {
     expect(Number.isFinite(Date.parse(rating.checkedAt))).toBe(true);
     expect(catalogRatings["node/000000"]).toBeUndefined();
     for (const [id, item] of Object.entries(catalogRatings)) {
-      expect(catalog.places.some((place) => place.id === id)).toBe(true);
+      expect(googlePlaces.some((place) => place.id === id)).toBe(true);
       expect(item.value).toBeGreaterThanOrEqual(0);
       expect(item.value).toBeLessThanOrEqual(5);
     }

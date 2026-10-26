@@ -13,6 +13,10 @@ class GoogleInspectionTests(unittest.TestCase):
         self.assertEqual(result['reviews'][0]['rating'],4)
         self.assertEqual(len(result['reviews'][0]['excerpt'].split()),15)
         self.assertEqual(result['reviews'][0]['author'],'Test Author')
+    def test_closed_businesses_are_not_published_as_active_candidates(self):
+        for label in ['Tutup permanen','Tutup sementara','Permanently closed','Temporarily closed']:
+            raw=self.raw(html=self.raw()['html'].replace('</h1>',f'</h1><span class="fCEvvc"><span>{label}</span></span>'))
+            self.assertIsNone(parse_page(raw,self.place()))
     def test_missing_or_wrong_branch_does_not_create_data(self):
         for raw in [self.raw(url="https://evil.example/maps/place/x"),self.raw(url="https://www.google.com/maps/place/x/data=!3d-6.3!4d106.8"),self.raw(html=self.raw()['html'].replace('Example Coffee</h1>','Other Brand</h1>')),self.raw(html='<h1>Hasil</h1>')]:
             self.assertIsNone(parse_page(raw,self.place()))

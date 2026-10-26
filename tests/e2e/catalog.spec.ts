@@ -1,5 +1,44 @@
 import { expect, test } from "@playwright/test";
 
+test("new Google places open photographed details with five attributed reviews", async ({
+  page,
+}) => {
+  for (const name of [
+    "Ayam Goreng Berkah",
+    "MM Juice Restaurant",
+    "Afterhour Cikini",
+    "Padang Merdeka",
+    "Bakso Boedjangan Bulungan",
+  ]) {
+    await page.goto(`/explore?q=${encodeURIComponent(name)}`);
+    const card = page.getByRole("article", { name, exact: true });
+    await expect(card).toHaveCount(1);
+    await expect
+      .poll(() =>
+        card
+          .getByRole("img", { name, exact: true })
+          .evaluate((img: HTMLImageElement) => img.naturalWidth),
+      )
+      .toBeGreaterThan(0);
+    await card.getByRole("link", { name: `View ${name}`, exact: true }).click();
+    await expect(
+      page.getByRole("heading", { level: 1, name, exact: true }),
+    ).toBeVisible();
+    await page.getByRole("link", { name: "Reviews", exact: true }).click();
+    const reviews = page.getByRole("article");
+    await expect(reviews).toHaveCount(5);
+    const sources = await reviews
+      .getByRole("link")
+      .evaluateAll((links) => links.map((link) => link.getAttribute("href")));
+    expect(new Set(sources).size).toBe(5);
+    expect(
+      sources.every((url) =>
+        url?.startsWith("https://www.google.com/maps/contrib/"),
+      ),
+    ).toBe(true);
+  }
+});
+
 test("legacy catalogue opens Explore and API exposes Google fields without runtime provider calls", async ({
   page,
 }) => {
@@ -11,7 +50,7 @@ test("legacy catalogue opens Explore and API exposes Google fields without runti
   const data = await response.json();
   expect(data.schemaVersion).toBe(2);
   expect(data.source).toBe("Google Maps");
-  expect(data.places).toHaveLength(32);
+  expect(data.places).toHaveLength(37);
   for (const p of data.places) {
     expect(p.rating).toBeGreaterThan(0);
     expect(p.reviewCount).toBeGreaterThan(0);

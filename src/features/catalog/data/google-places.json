@@ -2352,5 +2352,342 @@
     "matchDistanceM": 15,
     "photoPath": "/google-places/node-6274366590-086d850e.jpg",
     "reviewsCheckedAt": "2026-10-25T13:53:56.528Z"
+  },
+  {
+    "id": "node/3152256412",
+    "name": "Ayam Goreng Berkah",
+    "category": "Restoran Masakan Ayam",
+    "area": "blok-m",
+    "latitude": -6.2467535,
+    "longitude": 106.8020183,
+    "address": "Jl. Wijaya IX No.4, RT.4/RW.5, Melawai, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160",
+    "rating": 4.6,
+    "reviewCount": 11210,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfyMyhTHyJ3pf8p5QnhLHUvtlorTJnNhjJHAJ4aolIblcnXYDKidNzwfiMgkVdvvlkrUqzZoVba5M3B0xvzQUZxxUchGJx1WzV9tVLXD1QrNNlJi5fFZbVrqvbbjtKXXt_LWKW2zBRD4pVH=w408-h272-k-no",
+    "hours": [
+      {
+        "day": "Senin",
+        "text": "09.30–22.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "09.30–22.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "09.30–22.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "09.30–22.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "09.30–11.30 12.30–22.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "09.30–22.30"
+      },
+      {
+        "day": "Minggu",
+        "text": "09.30–22.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Endang Norma Indah",
+        "authorUrl": "https://www.google.com/maps/contrib/117171525863939460485/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "Kami datang untuk makan siang di sini & saat sampai karna weekend juga jadi parkirannya…"
+      },
+      {
+        "author": "Pramudya Ade",
+        "authorUrl": "https://www.google.com/maps/contrib/111760088619770048772/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Nyobain yg katanya viral.. ayam goreng nya ga terlalu kering..(kata orang2 sih kering) masih bisa…"
+      },
+      {
+        "author": "Lovita Widjaja",
+        "authorUrl": "https://www.google.com/maps/contrib/112863542640679157105/reviews?hl=id",
+        "rating": 1,
+        "excerpt": "Jujur ya ini ayamnya enakkk loh ngeresep banget smp kedalam.. Karna penasaran perdana aku makan…"
+      },
+      {
+        "author": "Yi Ling",
+        "authorUrl": "https://www.google.com/maps/contrib/115707001285123682601/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "I came here for lunch on a weekday and noticed the place is quite popular.…"
+      },
+      {
+        "author": "Tissa Sujata",
+        "authorUrl": "https://www.google.com/maps/contrib/118330988961728282078/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Simple Comfort Food That Keeps You Coming Back 🍗🔥 Ayam Berkah proves that simple food…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Ayam%20Goreng%20Berkah%20Rachmat%20Melawai%20Jakarta/?hl=id",
+    "checkedAt": "2026-10-26T03:51:31.183Z",
+    "matchDistanceM": 208,
+    "reviewsCheckedAt": "2026-10-26T03:54:19.159Z",
+    "photoPath": "/google-places/node-3152256412-53c3bc15.jpg"
+  },
+  {
+    "id": "node/4243787801",
+    "name": "MM Juice Restaurant",
+    "category": "Restoran cepat saji",
+    "area": "blok-m",
+    "latitude": -6.246094,
+    "longitude": 106.7984266,
+    "address": "Jl. Melawai Raya No.116 Blok F-G, RT.1/RW.6, Kuningan, Melawai, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12130",
+    "rating": 4.4,
+    "reviewCount": 1305,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLes6ZX5sScD0B0ltCvO3Hs1aXxdEJf4_XcnB2L04NvUXWSI_gxXhFDRwq1-5KCTGOJSy_kMOQJy-_T7F-Ayce1RAK28nNkX9joHWHoHV-7O8XcOuAuzzMJ7DX7tZOxKnNtZnqiRrg=w426-h240-k-no",
+    "hours": [
+      {
+        "day": "Senin",
+        "text": "09.00–21.45"
+      },
+      {
+        "day": "Selasa",
+        "text": "09.00–21.45"
+      },
+      {
+        "day": "Rabu",
+        "text": "09.00–21.45"
+      },
+      {
+        "day": "Kamis",
+        "text": "09.00–21.45"
+      },
+      {
+        "day": "Jumat",
+        "text": "09.00–21.45"
+      },
+      {
+        "day": "Sabtu",
+        "text": "09.00–21.45"
+      },
+      {
+        "day": "Minggu",
+        "text": "09.00–21.45"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "dafsyah Putri",
+        "authorUrl": "https://www.google.com/maps/contrib/107507244255098004639/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "makanannya enak enak banget sukaaaa🥰🥰🥰apalagi yg aku makan iga mercon+nasii di tambah minumnya avocado ice…"
+      },
+      {
+        "author": "Kaori Chatto",
+        "authorUrl": "https://www.google.com/maps/contrib/118256126521298612397/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tanpa saya sadari, MM Juice sudah melakukan perbaikan layanan dan kualitas makanan. Kami pesan siomay,…"
+      },
+      {
+        "author": "Gunar Fahrizal",
+        "authorUrl": "https://www.google.com/maps/contrib/103371651841256073346/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "maaf pakai foto lama ,karna liat foto ini jadi pengen beli lagi , belum ada…"
+      },
+      {
+        "author": "Puspacinantya Puspacinantya",
+        "authorUrl": "https://www.google.com/maps/contrib/115326790511667855843/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Honestly, my place if i want to grab a bite around melawai area without thinking…"
+      },
+      {
+        "author": "Sandy Kurnia",
+        "authorUrl": "https://www.google.com/maps/contrib/111565930166230427594/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "The tase is authentic, this is my first time eating here, and surprisingly its good.…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/MM+Juice+Melawai+116+Jakarta/?hl=id",
+    "checkedAt": "2026-10-26T03:53:10.101Z",
+    "matchDistanceM": 3,
+    "reviewsCheckedAt": "2026-10-26T03:54:23.117Z",
+    "photoPath": "/google-places/node-4243787801-47a495b4.jpg"
+  },
+  {
+    "id": "node/6219120499",
+    "name": "Afterhour Cikini",
+    "category": "Bar & Grill",
+    "area": "menteng",
+    "latitude": -6.189203,
+    "longitude": 106.837513,
+    "address": "Jl. Cikini Raya No.16, RT.16/RW.1, Cikini, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10330",
+    "rating": 4.6,
+    "reviewCount": 570,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfr8AoOgfOEsJyH3XoPxVWSrtKIqCwgdRI9YxscXukAD1Ql6hmsDhG3gbXShgM7uvo_VwX4svx0aRiJJJ5FTAakYA9UOU-Wy6tRedz_ru0iLIrpzPbFbYXDt_zcf31__-nNqrVt=w408-h408-k-no",
+    "hours": [],
+    "reviews": [
+      {
+        "author": "Mia Indriani",
+        "authorUrl": "https://www.google.com/maps/contrib/114693692027579545729/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "First time ke Afterhour Cikini, biasanya ke poins square atau blok M. Dan ternyataaa, bagusss.…"
+      },
+      {
+        "author": "Elvjena",
+        "authorUrl": "https://www.google.com/maps/contrib/114646379681523608046/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "ke sini bareng temen2 ajaa.. pengen suasana yg enaak jadi pilih di sini. akusi untuk…"
+      },
+      {
+        "author": "Ina Karlinawati",
+        "authorUrl": "https://www.google.com/maps/contrib/107922684705381805592/reviews?hl=id",
+        "rating": 2,
+        "excerpt": "Kalau mau main pool harus booking lebih awal. Waiting listnya lumayan panjang kalau walkin. …"
+      },
+      {
+        "author": "Edgar Marznap",
+        "authorUrl": "https://www.google.com/maps/contrib/104707891872622206851/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Clean and well staffed. Drinks are comparably priced with establishments in its class. Didn’t inspect…"
+      },
+      {
+        "author": "indri komarasari",
+        "authorUrl": "https://www.google.com/maps/contrib/109824523373609499489/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "nice vibes, great pool table, they have all day time package comes with minimum order…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Afterhours+Cikini+Jakarta/?hl=id",
+    "checkedAt": "2026-10-26T03:51:53.898Z",
+    "matchDistanceM": 57,
+    "reviewsCheckedAt": "2026-10-26T03:54:14.572Z",
+    "photoPath": "/google-places/node-6219120499-b7468302.jpg"
+  },
+  {
+    "id": "node/7117636212",
+    "name": "Padang Merdeka",
+    "category": "Restoran Padang",
+    "area": "kota-tua",
+    "latitude": -6.1358912,
+    "longitude": 106.8138698,
+    "address": "Jl. Lada No.1, RT.4/RW.6, Pinangsia, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11110",
+    "rating": 4.4,
+    "reviewCount": 2425,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLf8hhqm7qcFMTFtJ-4WZOTMXYmF24jjmO3qBph1YkwHjP50sgXlXIMLzhFSf6w27lS7FJ5WRVYFTuKJw1H5P1agb7VIo3utJOPWI_57_8TLgGD-TPnRaSZlsb6oekV-MQ8eU-r5=w426-h240-k-no",
+    "hours": [
+      {
+        "day": "Senin",
+        "text": "10.00–20.00"
+      },
+      {
+        "day": "Selasa",
+        "text": "10.00–20.00"
+      },
+      {
+        "day": "Rabu",
+        "text": "10.00–20.00"
+      },
+      {
+        "day": "Kamis",
+        "text": "10.00–20.00"
+      },
+      {
+        "day": "Jumat",
+        "text": "10.00–20.00"
+      },
+      {
+        "day": "Sabtu",
+        "text": "10.00–20.00"
+      },
+      {
+        "day": "Minggu",
+        "text": "10.00–20.00"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Anggita Ferinda",
+        "authorUrl": "https://www.google.com/maps/contrib/107883215408150175521/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Soal rasa, padang merdeka selalu enak. Di cabang ini / harmoni enak semua. Area makan…"
+      },
+      {
+        "author": "Andy Hasten",
+        "authorUrl": "https://www.google.com/maps/contrib/116145852985633341812/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Tempat luas. Kurang pencahayaan. Meja rapi bersih. Alat makan bagus yah di rendam air panas…"
+      },
+      {
+        "author": "Diana A",
+        "authorUrl": "https://www.google.com/maps/contrib/106432614619397736816/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "Setelah muter-muter keliling Kota Tua, makan disini rasanya mantab masyaAllah. Jadi restoran Padang Merdeka ini…"
+      },
+      {
+        "author": "Sourendu Gupta",
+        "authorUrl": "https://www.google.com/maps/contrib/106056244974831176769/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "In spite of the high ratings, Padang Merdeja surprised me by its quality. The five…"
+      },
+      {
+        "author": "Poodle doodle Poodle doodle",
+        "authorUrl": "https://www.google.com/maps/contrib/117168081234775948916/reviews?hl=en-GB",
+        "rating": 4,
+        "excerpt": "Taste so good! either its really good or I was very hungry, can’t tell However…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Padang+Merdeka+Kota+Tua+Jakarta/?hl=id",
+    "checkedAt": "2026-10-26T03:53:02.215Z",
+    "matchDistanceM": 18,
+    "reviewsCheckedAt": "2026-10-26T03:54:29.103Z",
+    "photoPath": "/google-places/node-7117636212-7c908c4a.jpg"
+  },
+  {
+    "id": "node/9744112797",
+    "name": "Bakso Boedjangan Bulungan",
+    "category": "Restoran Bakso",
+    "area": "blok-m",
+    "latitude": -6.2439793,
+    "longitude": 106.7967502,
+    "address": "Jl. Mahakam No.64 1, RT.1/RW.6, Kramat Pela, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12130",
+    "rating": 4.4,
+    "reviewCount": 3918,
+    "photoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLck7oCOYmWQKlrYfw5JrrxGOYiXITU7gj5Vnn-AUdeMoQkzuTZR99h27AF3vxs0RVATI9MeboOV6gkhsNWbjroR7oETYmsz3_coVLitSA8IYJ2Cg8MqMWkObr3Sn2SebgruRkbDiRIveT_I=w408-h306-k-no",
+    "hours": [],
+    "reviews": [
+      {
+        "author": "Muhamad Panji A.R",
+        "authorUrl": "https://www.google.com/maps/contrib/100249687464205152534/reviews?hl=id",
+        "rating": 4,
+        "excerpt": "Pengalaman pertama yg buruk , awal masuk ruangan panas , ada cutomer baru dateng dilayani…"
+      },
+      {
+        "author": "Irfan Ananto",
+        "authorUrl": "https://www.google.com/maps/contrib/106416459400081124701/reviews?hl=id",
+        "rating": 2,
+        "excerpt": "Bakso kuah kejunya gak berasa, es nona nya juga kurang enak. Pelayanan terhadap customer perlu…"
+      },
+      {
+        "author": "byruangTia",
+        "authorUrl": "https://www.google.com/maps/contrib/102556678329558074612/reviews?hl=id",
+        "rating": 5,
+        "excerpt": "baru ke boedjangan lagi, ternyata udah diperbaikin tempatnya jadi makin okee. colokan tersedia lumayan banyak…"
+      },
+      {
+        "author": "Fierman Authar",
+        "authorUrl": "https://www.google.com/maps/contrib/103171190792844834967/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Bakso Boedjangan Bulungan. One of my favorite hangout spots in Blok M! The place is…"
+      },
+      {
+        "author": "Robith Hadhromi",
+        "authorUrl": "https://www.google.com/maps/contrib/100840941109368942888/reviews?hl=en-GB",
+        "rating": 5,
+        "excerpt": "Nice service even we are close to the last order time. Such a comfort food…"
+      }
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/Bakso+Boedjangan+Bulungan+Jakarta/?hl=id",
+    "checkedAt": "2026-10-26T03:53:16.685Z",
+    "matchDistanceM": 22,
+    "reviewsCheckedAt": "2026-10-26T03:54:34.497Z",
+    "photoPath": "/google-places/node-9744112797-7b1e62bf.jpg"
   }
 ]

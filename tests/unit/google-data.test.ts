@@ -13,7 +13,7 @@ import { parseExploreFilters } from "@/features/explore/demo-data";
 
 describe("published Google place data", () => {
   it("publishes only matched branches with downloaded photos, real ratings and short attributed excerpts", () => {
-    expect(googlePlaces).toHaveLength(32);
+    expect(googlePlaces).toHaveLength(37);
     for (const place of googlePlaces) {
       expect(place.matchDistanceM).toBeLessThanOrEqual(400);
       expect(place.reviewCount).toBeGreaterThan(0);

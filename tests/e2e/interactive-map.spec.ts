@@ -11,7 +11,7 @@ test("real map pans, zooms and opens matched Google places before detail", async
   await page.goto("/map?radius=1");
   const map = page.getByRole("region", { name: "Peta tempat makan" });
   await expect(map).toHaveAttribute("data-zoom", "14");
-  await expect(map.locator(".leaflet-marker-icon")).toHaveCount(32);
+  await expect(map.locator(".leaflet-marker-icon")).toHaveCount(37);
   await expect(
     page.getByRole("button", { name: "Change map area" }),
   ).toHaveCount(0);
