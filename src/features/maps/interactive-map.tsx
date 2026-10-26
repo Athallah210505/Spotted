@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type * as Leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { BrowseNavigation } from "@/components/layout/browse-navigation";
-import { googlePlaces } from "@/features/catalog/google-data";
+import { distanceBetween, googlePlaces } from "@/features/catalog/google-data";
 import { catalogDetailHref } from "@/features/catalog/catalog-media";
 import browse from "@/components/layout/browse.module.css";
 import styles from "./interactive-map.module.css";
+import { radii, type Radius } from "./map-options";
 
 export function InteractiveMap() {
   const router = useRouter();
@@ -17,12 +18,33 @@ export function InteractiveMap() {
   const leafletRef = useRef<typeof Leaflet | null>(null);
   const locationRef = useRef<Leaflet.LayerGroup | null>(null);
   const tilesRef = useRef<Leaflet.TileLayer | null>(null);
+  const locationRequest = useRef(0);
+  const [origin, setOrigin] = useState<{
+    latitude: number;
+    longitude: number;
+    source: "gps" | "manual";
+    accuracy?: number;
+  } | null>(null);
+  const [radius, setRadius] = useState<Radius>(1);
+  const [selecting, setSelecting] = useState(false);
   const [ready, setReady] = useState(false);
   const [loadingLocation, setLoadingLocation] = useState(false);
   const [status, setStatus] = useState(
     "Gunakan lokasi saya untuk melihat peta di sekitar Anda.",
   );
   const [tileError, setTileError] = useState(false);
+  const nearbyCount = origin
+    ? googlePlaces.filter(
+        (place) => distanceBetween(origin, place) <= radius * 1000,
+      ).length
+    : 0;
+  const choosePoint = useCallback((point: Leaflet.LatLng) => {
+    locationRequest.current++;
+    setLoadingLocation(false);
+    setSelecting(false);
+    setOrigin({ latitude: point.lat, longitude: point.lng, source: "manual" });
+    setStatus("Titik dipilih. Geser pin untuk menyesuaikan pusat radius.");
+  }, []);
 
   useEffect(() => {
     let disposed = false;
@@ -128,7 +150,91 @@ export function InteractiveMap() {
     };
   }, [router]);
 
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!ready || !map || !selecting) return;
+    const select = (event: Leaflet.LeafletMouseEvent) =>
+      choosePoint(event.latlng);
+    map.on("click", select);
+    return () => {
+      map.off("click", select);
+    };
+  }, [ready, selecting, choosePoint]);
+
+  useEffect(() => {
+    const L = leafletRef.current;
+    const map = mapRef.current;
+    const layer = locationRef.current;
+    if (!ready || !origin || !L || !map || !layer) return;
+    layer.clearLayers();
+    const point: Leaflet.LatLngTuple = [origin.latitude, origin.longitude];
+    const circle = L.circle(point, {
+      radius: radius * 1000,
+      color: "#4a69b3",
+      weight: 2,
+      fillOpacity: 0.09,
+      interactive: false,
+    }).addTo(layer);
+    circle.getElement()?.setAttribute("role", "img");
+    circle.getElement()?.setAttribute("aria-label", `Radius ${radius} km`);
+    circle
+      .getElement()
+      ?.setAttribute("data-radius-meters", String(radius * 1000));
+    if (origin.source === "gps" && origin.accuracy) {
+      L.circle(point, {
+        radius: origin.accuracy,
+        color: "#61615c",
+        weight: 1,
+        dashArray: "3 4",
+        fillOpacity: 0.04,
+        interactive: false,
+      }).addTo(layer);
+    }
+    const icon = document.createElement("span");
+    icon.className = styles.userPin!;
+    const label =
+      origin.source === "gps" ? "Lokasi Anda" : "Titik pilihan Anda";
+    const pin = L.marker(point, {
+      icon: L.divIcon({
+        html: icon,
+        className: styles.personalMarker,
+        iconSize: [40, 44],
+        iconAnchor: [20, 40],
+      }),
+      draggable: true,
+      zIndexOffset: 1000,
+      title: label,
+    }).addTo(layer);
+    pin.getElement()?.setAttribute("aria-label", label);
+    pin.on("dragend", () => choosePoint(pin.getLatLng()));
+    pin.bindTooltip(label, {
+      permanent: true,
+      direction: "top",
+      offset: [0, -36],
+    });
+    const frameRadius = () =>
+      map.fitBounds(circle.getBounds(), {
+        padding: [24, 24],
+        maxZoom: 16,
+        animate: false,
+      });
+    pin.on("click", frameRadius);
+    pin.getElement()?.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        event.stopPropagation();
+        frameRadius();
+      }
+    });
+    frameRadius();
+    return () => {
+      layer.clearLayers();
+    };
+  }, [ready, origin, radius, choosePoint]);
+
   function locate() {
+    const request = ++locationRequest.current;
+    setSelecting(false);
     if (!navigator.geolocation) {
       setStatus(
         "Browser ini belum mendukung lokasi. Anda tetap bisa menggeser peta.",
@@ -139,37 +245,20 @@ export function InteractiveMap() {
     setStatus("Menunggu izin dan mencari lokasi Anda…");
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const L = leafletRef.current;
-        const map = mapRef.current;
-        if (!map || !L || !locationRef.current) return;
-        const point: Leaflet.LatLngTuple = [
-          position.coords.latitude,
-          position.coords.longitude,
-        ];
-        locationRef.current.clearLayers();
-        L.circle(point, {
-          radius: position.coords.accuracy,
-          color: "#4b68b3",
-          weight: 1,
-          fillOpacity: 0.08,
-        }).addTo(locationRef.current);
-        L.circleMarker(point, {
-          radius: 8,
-          color: "white",
-          weight: 3,
-          fillColor: "#4b68b3",
-          fillOpacity: 1,
-        })
-          .bindTooltip("Lokasi Anda")
-          .addTo(locationRef.current);
-        map.setView(point, 15, { animate: false });
+        if (!mapRef.current || request !== locationRequest.current) return;
+        setOrigin({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          source: "gps",
+          accuracy: position.coords.accuracy,
+        });
         setLoadingLocation(false);
         setStatus(
-          "Peta mengikuti lokasi Anda. Geser atau zoom untuk menjelajah.",
+          "Lokasi Anda ditemukan. Lingkaran menunjukkan radius; pin bisa digeser.",
         );
       },
       (error) => {
-        if (!mapRef.current) return;
+        if (!mapRef.current || request !== locationRequest.current) return;
         setLoadingLocation(false);
         setStatus(
           error.code === 1
@@ -190,15 +279,67 @@ export function InteractiveMap() {
       </a>
       <header className={styles.header}>
         <h1>Find your next spot.</h1>
-        <button onClick={locate} disabled={!ready || loadingLocation}>
-          {loadingLocation ? "Mencari lokasi…" : "Gunakan lokasi saya"}
-        </button>
+        <div className={styles.actions}>
+          <button onClick={locate} disabled={!ready || loadingLocation}>
+            {loadingLocation ? "Mencari lokasi…" : "Gunakan lokasi saya"}
+          </button>
+          <button
+            className={styles.selectButton}
+            disabled={!ready}
+            aria-pressed={selecting}
+            onClick={() => {
+              locationRequest.current++;
+              setLoadingLocation(false);
+              setSelecting(!selecting);
+              setStatus(
+                selecting
+                  ? "Mode pilih titik dibatalkan. Peta tetap bisa digeser."
+                  : "Ketuk peta untuk memasang pin, atau gunakan titik tengah peta.",
+              );
+            }}
+          >
+            {selecting ? "Batal pilih titik" : "Pilih titik"}
+          </button>
+        </div>
+        <div
+          className={styles.radii}
+          role="group"
+          aria-label="Radius dari titik Anda"
+        >
+          {radii.map((value) => (
+            <button
+              key={value}
+              disabled={!ready}
+              aria-pressed={radius === value}
+              onClick={() => setRadius(value)}
+            >
+              {value} km
+            </button>
+          ))}
+        </div>
         <p role="status">{status}</p>
+        {selecting ? (
+          <button
+            className={styles.centerButton}
+            onClick={() => {
+              const center = mapRef.current?.getCenter();
+              if (center) choosePoint(center);
+            }}
+          >
+            Gunakan titik tengah peta
+          </button>
+        ) : null}
+        {origin ? (
+          <p className={styles.nearby} aria-live="polite">
+            {nearbyCount} tempat dalam radius {radius} km
+          </p>
+        ) : null}
       </header>
       <main className={styles.main} id="interactive-map" tabIndex={-1}>
         <div
           ref={container}
           className={styles.map}
+          data-selecting={selecting}
           role="region"
           aria-label="Peta tempat makan"
         />

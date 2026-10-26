@@ -8,7 +8,7 @@ Fondasi lokal Next.js App Router + React + TypeScript tersedia. `/explore` menam
 
 Detail restoran tersedia di `/restaurant/kedai-ramen-sore`, dengan galeri, Menu, Google Reviews, TikTok, dan Save yang tersinkron dengan Explore selama kunjungan. Lihat [implementasi detail dan hasil QA](docs/10-restaurant-detail-implementation.md).
 
-`/map` memakai Leaflet/OpenStreetMap yang bisa digeser dan di-zoom, dengan 37 pin tempat nyata serta tombol lokasi yang meminta izin browser. `/wishlist` dan `/wishlist?view=map` masih memakai prototype nearby sebelumnya. Lihat [map interaktif dan data review](docs/17-headless-reviews-interactive-map.md).
+`/map` memakai Leaflet/OpenStreetMap yang bisa digeser dan di-zoom, dengan 37 pin tempat nyata, pin GPS/manual yang bisa digeser, serta radius 1/3/5/10 km. Lihat [pin pribadi dan radius](docs/20-personal-map-radius.md). `/wishlist` dan `/wishlist?view=map` masih memakai prototype nearby sebelumnya. Lihat [map interaktif dan data review](docs/17-headless-reviews-interactive-map.md).
 
 `/profile` menyediakan preferensi sementara, `/filters` menyaring data Google di Explore dan fixtures pada jalur Map. Klik pin membuka nama/rating dan link detail. Lihat [Profile, selected-place previews, Filters dan QA](docs/12-profile-previews-filters.md).
 

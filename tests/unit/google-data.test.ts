@@ -8,10 +8,23 @@ import {
   isOpenAt,
   filterGooglePlaces,
   distanceFromBlokM,
+  distanceBetween,
 } from "@/features/catalog/google-data";
 import { parseExploreFilters } from "@/features/explore/demo-data";
 
 describe("published Google place data", () => {
+  it("measures radius from any selected point without changing the Blok M origin", () => {
+    const origin = { latitude: 0, longitude: 0 };
+    expect(distanceBetween(origin, origin)).toBe(0);
+    expect(distanceBetween(origin, { latitude: 0, longitude: 1 })).toBeCloseTo(
+      111194.9266,
+      2,
+    );
+    const tuku = findGooglePlace("osm-12110042118")!;
+    expect(distanceFromBlokM(tuku)).toBe(
+      distanceBetween({ latitude: -6.244, longitude: 106.8 }, tuku),
+    );
+  });
   it("keeps menu photos tied to real review authors and existing local dish images", () => {
     const photos = googlePlaces.flatMap((place) => place.menuPhotos);
     expect(photos).toHaveLength(16);

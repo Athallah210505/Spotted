@@ -164,11 +164,12 @@ export function isOpenAt(
     end < start ? minutes >= start : minutes >= start && minutes < end,
   );
 }
-export function distanceFromBlokM(
+export function distanceBetween(
+  origin: Pick<GooglePlace, "latitude" | "longitude">,
   place: Pick<GooglePlace, "latitude" | "longitude">,
 ) {
   const r = Math.PI / 180,
-    a = -6.244 * r,
+    a = origin.latitude * r,
     b = place.latitude * r;
   return (
     6371000 *
@@ -178,10 +179,15 @@ export function distanceFromBlokM(
         Math.sin((b - a) / 2) ** 2 +
           Math.cos(a) *
             Math.cos(b) *
-            Math.sin(((place.longitude - 106.8) * r) / 2) ** 2,
+            Math.sin(((place.longitude - origin.longitude) * r) / 2) ** 2,
       ),
     )
   );
+}
+export function distanceFromBlokM(
+  place: Pick<GooglePlace, "latitude" | "longitude">,
+) {
+  return distanceBetween({ latitude: -6.244, longitude: 106.8 }, place);
 }
 export function matchesCategory(place: GooglePlace, category: Category) {
   const value = `${place.name} ${place.category}`.toLocaleLowerCase("id");

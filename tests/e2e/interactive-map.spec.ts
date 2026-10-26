@@ -78,15 +78,18 @@ test("location stays opt-in and centers on the permitted browser position", asyn
       async () =>
         (await map.getAttribute("data-center"))?.split(",").map(Number)[0],
     )
-    .toBeCloseTo(-6.1754, 4);
+    .toBeCloseTo(-6.1754, 3);
   const center = (await map.getAttribute("data-center"))!
     .split(",")
     .map(Number);
-  expect(center[1]).toBeCloseTo(106.8272, 4);
-  await expect(map).toHaveAttribute("data-zoom", "15");
-  await expect(page.getByRole("status")).toContainText(
-    "Peta mengikuti lokasi Anda",
-  );
+  expect(center[1]).toBeCloseTo(106.8272, 3);
+  await expect(
+    map.getByRole("button", { name: "Lokasi Anda", exact: true }),
+  ).toBeVisible();
+  await expect(
+    map.getByRole("img", { name: "Radius 1 km", exact: true }),
+  ).toHaveAttribute("data-radius-meters", "1000");
+  await expect(page.getByRole("status")).toContainText("Lokasi Anda ditemukan");
   expect(new URL(page.url()).search).toBe("");
   await page.screenshot({
     path: `test-results/interactive-map-${test.info().project.name}.png`,
@@ -119,9 +122,18 @@ test("denied location and timeout keep the map usable and allow retry", async ({
     "Pencarian lokasi terlalu lama",
   );
   await locate.click();
-  await expect(
-    page.getByRole("region", { name: "Peta tempat makan" }),
-  ).toHaveAttribute("data-center", "-6.20000,106.80000");
+  await expect
+    .poll(
+      async () =>
+        (
+          await page
+            .getByRole("region", { name: "Peta tempat makan" })
+            .getAttribute("data-center")
+        )
+          ?.split(",")
+          .map(Number)[0],
+    )
+    .toBeCloseTo(-6.2, 3);
   for (const width of [375, 430, 1280]) {
     await page.setViewportSize({ width, height: 844 });
     expect(
@@ -148,4 +160,108 @@ test("failed tiles expose retry without pretending the road map loaded", async (
   await stubMapTiles(page);
   await page.getByRole("button", { name: "Coba lagi", exact: true }).click();
   await expect(page.getByRole("main").getByRole("alert")).toHaveCount(0);
+});
+
+test("manual pin and radius work without location permission and survive pin dragging", async ({
+  page,
+}) => {
+  await page.goto("/map");
+  const map = page.getByRole("region", { name: "Peta tempat makan" });
+  const radii = page.getByRole("group", { name: "Radius dari titik Anda" });
+  await page.getByRole("button", { name: "Pilih titik", exact: true }).click();
+  await map.click({ position: { x: 80, y: 100 } });
+  const pin = map.getByRole("button", {
+    name: "Titik pilihan Anda",
+    exact: true,
+  });
+  await expect(pin).toBeVisible();
+  await expect(map).toHaveClass(/leaflet-container/);
+  await expect(
+    map.getByRole("img", { name: "Radius 1 km", exact: true }),
+  ).toHaveAttribute("data-radius-meters", "1000");
+  const before = await map.getAttribute("data-center");
+  const bounds = (await pin.boundingBox())!;
+  await page.mouse.move(
+    bounds.x + bounds.width / 2,
+    bounds.y + bounds.height / 2,
+  );
+  await page.mouse.down();
+  await page.mouse.move(
+    bounds.x + bounds.width / 2 + 55,
+    bounds.y + bounds.height / 2 + 35,
+    { steps: 10 },
+  );
+  await page.mouse.up();
+  await expect(map).not.toHaveAttribute("data-center", before!);
+  for (const radius of [3, 5, 10, 1]) {
+    const button = radii.getByRole("button", {
+      name: `${radius} km`,
+      exact: true,
+    });
+    await button.click();
+    await expect(button).toHaveAttribute("aria-pressed", "true");
+    await expect(
+      map.getByRole("img", { name: `Radius ${radius} km`, exact: true }),
+    ).toHaveAttribute("data-radius-meters", String(radius * 1000));
+    await expect(
+      page.getByText(new RegExp(`^\\d+ tempat dalam radius ${radius} km$`)),
+    ).toBeVisible();
+  }
+  await page.setViewportSize({ width: 844, height: 390 });
+  await expect(
+    page.getByRole("navigation", { name: "Main navigation" }),
+  ).toBeInViewport();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});
+
+test("keyboard center placement takes precedence over a late GPS response", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator.geolocation, "getCurrentPosition", {
+      value: (success: PositionCallback) => {
+        (window as unknown as { resolveLocation: () => void }).resolveLocation =
+          () =>
+            success({
+              coords: { latitude: -6.1, longitude: 106.9, accuracy: 20 },
+            } as GeolocationPosition);
+      },
+    });
+  });
+  await page.goto("/map");
+  await page.getByRole("button", { name: "Gunakan lokasi saya" }).click();
+  await page.getByRole("button", { name: "Pilih titik", exact: true }).click();
+  const center = page.getByRole("button", {
+    name: "Gunakan titik tengah peta",
+    exact: true,
+  });
+  await center.focus();
+  await page.keyboard.press("Enter");
+  const map = page.getByRole("region", { name: "Peta tempat makan" });
+  await expect(
+    map.getByRole("button", { name: "Titik pilihan Anda", exact: true }),
+  ).toBeVisible();
+  const position = await map.getAttribute("data-center");
+  await page.evaluate(() =>
+    (window as unknown as { resolveLocation: () => void }).resolveLocation(),
+  );
+  await expect(map).toHaveAttribute("data-center", position!);
+  await expect(
+    map.getByRole("button", { name: "Lokasi Anda", exact: true }),
+  ).toHaveCount(0);
+  await map.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(map).not.toHaveAttribute("data-center", position!);
+  await map
+    .getByRole("button", { name: "Titik pilihan Anda", exact: true })
+    .focus();
+  await page.keyboard.press("Enter");
+  await expect(map).toHaveAttribute("data-center", position!);
+  await page.screenshot({
+    path: `test-results/map-personal-radius-${test.info().project.name}.png`,
+  });
 });

@@ -3,6 +3,80 @@
 }
 .header {
   padding: 20px 20px 12px;
+  min-height: 0;
+  overflow-y: auto;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+}
+.header .actions button {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 20px;
+  padding-inline: 12px;
+}
+.header .selectButton {
+  background: white;
+}
+.header .selectButton[aria-pressed="true"] {
+  background: var(--brand-blue);
+  color: white;
+}
+.radii {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.header .radii button {
+  flex: 1;
+  padding: 10px 8px;
+  background: white;
+  font-size: 14px;
+}
+.header .radii button[aria-pressed="true"] {
+  background: var(--brand-blue);
+  color: white;
+}
+.header .centerButton {
+  margin-top: 8px;
+  background: white;
+  font-size: 14px;
+}
+.header .nearby {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.map[data-selecting="true"] {
+  cursor: crosshair;
+}
+.personalMarker {
+  background: transparent;
+  border: 0;
+}
+.userPin {
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  display: block;
+  width: 28px;
+  height: 28px;
+  border: 3px solid white;
+  border-radius: 50% 50% 50% 0;
+  background: var(--brand-blue);
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 6px #0003;
+}
+.userPin::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 7px;
+  left: 7px;
+  border-radius: 50%;
+  background: white;
 }
 .header h1 {
   margin: 0 0 12px;
@@ -37,6 +111,7 @@
 .map {
   position: absolute;
   inset: 0;
+  overflow: hidden;
   background: #e8eddf;
   font-family: inherit;
   z-index: 0;
