@@ -1,0 +1,134 @@
+[
+  {
+    "first_id": "node/4240718317",
+    "second_id": "way/505723234",
+    "distance_m": 18.4,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/4245894102",
+    "second_id": "node/4800795870",
+    "distance_m": 39.0,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/1912479346",
+    "second_id": "node/7199182447",
+    "distance_m": 15.1,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/6239576388",
+    "second_id": "node/9731845715",
+    "distance_m": 51.7,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/3180186207",
+    "second_id": "node/3180205299",
+    "distance_m": 66.6,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/5315749039",
+    "second_id": "way/529321542",
+    "distance_m": 62.7,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/3742147558",
+    "second_id": "way/282187999",
+    "distance_m": 32.3,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/4235105999",
+    "second_id": "way/124080192",
+    "distance_m": 24.4,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/13457519001",
+    "second_id": "node/13457634601",
+    "distance_m": 2.4,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/6926389534",
+    "second_id": "node/7050781147",
+    "distance_m": 57.8,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/5996815585",
+    "second_id": "node/12811297169",
+    "distance_m": 2.4,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/6385768085",
+    "second_id": "node/6954210985",
+    "distance_m": 74.5,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/7698690888",
+    "second_id": "way/484876039",
+    "distance_m": 4.5,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/8647824819",
+    "second_id": "way/525493214",
+    "distance_m": 0.3,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/8837144065",
+    "second_id": "way/493587309",
+    "distance_m": 4.0,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/10052810117",
+    "second_id": "way/1098029544",
+    "distance_m": 2.9,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/10101656688",
+    "second_id": "node/10101656689",
+    "distance_m": 16.6,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/11254823443",
+    "second_id": "node/11258952027",
+    "distance_m": 36.0,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/13457385201",
+    "second_id": "node/13457634303",
+    "distance_m": 8.3,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/13457518902",
+    "second_id": "node/13457634302",
+    "distance_m": 1.6,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/13457519101",
+    "second_id": "node/13457634701",
+    "distance_m": 7.5,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/13714056583",
+    "second_id": "way/1497391477",
+    "distance_m": 2.6,
+    "status": "needs_branch_review"
+  }
+]

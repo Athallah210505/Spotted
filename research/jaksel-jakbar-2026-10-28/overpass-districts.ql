@@ -1,0 +1,1 @@
+[out:json][timeout:45];rel(id:5802438,7626001);map_to_area->.scope;rel(area.scope)["boundary"="administrative"]["admin_level"="6"];out geom;

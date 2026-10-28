@@ -35,6 +35,8 @@ Diagram editable: [System architecture](diagrams/system-architecture.drawio), [E
 
 ## Research data
 
+[Database kuliner Jaksel/Jakbar](../research/jaksel-jakbar-2026-10-28/README.md): 2.223 record di 18 kecamatan, tersedia dalam SQLite, CSV, dan JSON dengan provenance serta antrean enrichment.
+
 [100 kandidat kuliner Jakarta Selatan, 28 Oktober 2026](../research/jaksel-100-2026-10-28/README.md): daftar tempat/menu, CSV dan JSON dengan sumber. [Pelengkapan Google](../research/jaksel-100-2026-10-28/completion.md) menambahkan 67 tempat ke Explore/Map, sehingga katalog berisi 104 tempat. Listing tutup atau belum cukup terverifikasi memiliki status tersendiri.
 
 [Implementasi dan verifikasi katalog 104 tempat](22-jaksel-google-enrichment.md).
