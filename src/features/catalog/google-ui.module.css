@@ -1,7 +1,93 @@
 .cards {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
+}
+.quickFilters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.quickFilters button {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--muted-foreground);
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.quickFilters button[aria-pressed="true"] {
+  background: var(--brand-yellow);
+  border-color: var(--foreground);
+}
+.quickFilters button span {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted-foreground);
+}
+.reviewCount {
+  max-width: 80px;
+  margin-top: 5px;
+  font-size: 11px;
+  line-height: 15px;
+  font-variant-numeric: tabular-nums;
+}
+.menuPicks {
+  padding-block: 24px;
+  border-block: 1px solid #deded8;
+}
+.menuPicks h2 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 34px;
+  letter-spacing: -1px;
+  font-weight: 600;
+}
+.menuPicks > p {
+  margin: 6px 0 18px;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--muted-foreground);
+}
+.dishRail {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding: 4px 4px 12px;
+  margin: -4px;
+}
+.dishRail > a {
+  flex: 0 0 152px;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+.dishThumb {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #eaeae8;
+}
+.dishRail strong,
+.dishRail span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.dishRail strong {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.dishRail span {
+  margin-top: 4px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 17px;
 }
 .card .cardContent {
   width: 100%;
@@ -93,7 +179,19 @@
 .sectionHeading span {
   color: var(--muted-foreground);
   font-size: 12px;
-  white-space: nowrap;
+  display: block;
+  line-height: 18px;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .card h3 {
+    transition: color 160ms ease;
+  }
+  .card:hover h3 {
+    color: var(--brand-blue);
+  }
+  .dishRail a:hover strong {
+    text-decoration: underline;
+  }
 }
 @keyframes arrive {
   from {

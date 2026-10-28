@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState, useTransition } from "react";
+import { Fragment, useRef, useState, useTransition } from "react";
 import { BrowseNavigation } from "@/components/layout/browse-navigation";
 import { PreviewDialog } from "@/components/ui/preview-dialog";
 import { usePreviewProfile } from "@/features/profile/preview-profile";
@@ -12,6 +12,8 @@ import {
   googlePlaces,
 } from "@/features/catalog/google-data";
 import { GooglePlaceCard } from "@/features/catalog/google-place-card";
+import { catalogDetailHref } from "@/features/catalog/catalog-media";
+import { RestaurantPhoto } from "@/features/restaurants/restaurant-photo";
 import {
   categories,
   exploreSearch,
@@ -20,6 +22,10 @@ import {
 } from "./demo-data";
 import styles from "@/components/layout/browse.module.css";
 import dataStyles from "@/features/catalog/google-ui.module.css";
+
+const menuPicks = googlePlaces.flatMap((place) =>
+  place.menuPhotos.slice(0, 1).map((photo) => ({ place, photo })),
+);
 
 export function ExploreFeed({
   filters: initialFilters,
@@ -37,6 +43,9 @@ export function ExploreFeed({
   };
   const search = exploreSearch(filters, profile.city !== "jakarta");
   const places = filterGooglePlaces(filters, savedIds);
+  const savedCount = googlePlaces.filter((place) =>
+    savedIds.includes(place.id),
+  ).length;
   const [pending, startTransition] = useTransition();
   const [locationOpen, setLocationOpen] = useState(false);
   const trigger = useRef<HTMLElement | null>(null);
@@ -152,6 +161,7 @@ export function ExploreFeed({
               <button
                 className={styles.searchSubmit}
                 type="submit"
+                disabled={pending}
                 aria-label="Search restaurants"
               >
                 <Image
@@ -163,6 +173,7 @@ export function ExploreFeed({
               </button>
               <input
                 type="search"
+                disabled={pending}
                 name="q"
                 key={filters.query}
                 defaultValue={filters.query}
@@ -180,6 +191,7 @@ export function ExploreFeed({
               {categories.map((category) => (
                 <button
                   key={category}
+                  disabled={pending}
                   className={styles.category}
                   aria-pressed={category === filters.category}
                   onClick={() => update({ category })}
@@ -209,7 +221,10 @@ export function ExploreFeed({
                     ? `Results for ${filters.query}`
                     : "Worth a detour."}
                 </h2>
-                <span>{places.length} places</span>
+                <span aria-live="polite">
+                  {places.length} places ·{" "}
+                  {sortOptions[filters.sort ?? "recommended"]}
+                </span>
               </div>
               <nav className={dataStyles.tools} aria-label="Explore controls">
                 <Link href={`/filters${search ? `?${search}` : ""}`}>
@@ -223,16 +238,81 @@ export function ExploreFeed({
                 </Link>
               </nav>
             </div>
+            <div
+              className={dataStyles.quickFilters}
+              role="group"
+              aria-label="Quick filters"
+            >
+              <button
+                disabled={pending}
+                aria-pressed={filters.minRating === 4.5}
+                onClick={() =>
+                  update({
+                    minRating: filters.minRating === 4.5 ? undefined : 4.5,
+                  })
+                }
+              >
+                4.5+ rated
+              </button>
+              <button
+                disabled={pending}
+                aria-pressed={filters.savedOnly === true}
+                onClick={() =>
+                  update({ savedOnly: filters.savedOnly ? undefined : true })
+                }
+              >
+                <Image
+                  src="/figma/editorial/bookmark.svg"
+                  width={16}
+                  height={16}
+                  alt=""
+                />
+                Saved places <span>{savedCount}</span>
+              </button>
+            </div>
             {places.length ? (
               <div className={dataStyles.cards}>
                 {places.map((place, index) => (
-                  <GooglePlaceCard
-                    key={place.id}
-                    place={place}
-                    preload={index === 0}
-                    search={search}
-                    featured={!search && index === 0}
-                  />
+                  <Fragment key={place.id}>
+                    <GooglePlaceCard
+                      place={place}
+                      preload={index === 0}
+                      search={search}
+                      featured={!search && index === 0}
+                    />
+                    {!search && index === 2 && menuPicks.length ? (
+                      <section
+                        className={dataStyles.menuPicks}
+                        aria-labelledby="menu-picks-heading"
+                      >
+                        <h2 id="menu-picks-heading">On the table.</h2>
+                        <p>A closer look, photographed by visitors.</p>
+                        <div
+                          className={dataStyles.dishRail}
+                          role="group"
+                          aria-label="Visitor menu photos"
+                          tabIndex={0}
+                        >
+                          {menuPicks.map(({ place: venue, photo }) => (
+                            <Link
+                              key={venue.id}
+                              href={`${catalogDetailHref(venue)}?tab=menu`}
+                              aria-label={`See ${photo.name} at ${venue.name}`}
+                            >
+                              <RestaurantPhoto
+                                src={photo.photoPath}
+                                alt={photo.name}
+                                className={dataStyles.dishThumb}
+                                sizes="152px"
+                              />
+                              <strong>{photo.name}</strong>
+                              <span>{venue.name}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      </section>
+                    ) : null}
+                  </Fragment>
                 ))}
               </div>
             ) : (
@@ -241,7 +321,9 @@ export function ExploreFeed({
                 <p>
                   {filters.city === "tangsel"
                     ? "Tempat di area ini belum tersedia. Coba Jakarta."
-                    : "Coba nama lain atau ubah filter pencarian."}
+                    : filters.savedOnly && savedCount === 0
+                      ? "Belum ada tempat tersimpan. Tekan bookmark pada tempat yang ingin kamu simpan."
+                      : "Coba nama lain atau ubah filter pencarian."}
                 </p>
                 <button
                   className={styles.textAction}

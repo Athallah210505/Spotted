@@ -59,6 +59,9 @@ export function GooglePlaceCard({
           >
             <strong>{place.rating.toFixed(1)}</strong>
             <span>Google</span>
+            <span className={googleStyles.reviewCount}>
+              {place.reviewCount.toLocaleString("en-US")} reviews
+            </span>
           </p>
         </div>
       </Link>

@@ -457,6 +457,8 @@
 }
 .exploreShell > .safeArea {
   background: var(--brand-yellow);
+  flex-basis: env(safe-area-inset-top, 0px);
+  padding-top: 0;
 }
 .yellowSafe > .safeArea {
   background: var(--brand-yellow);
@@ -470,7 +472,7 @@
 .masthead {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   padding: 10px 24px 0;
   margin: -24px -24px 2px;
   background: var(--brand-yellow);
@@ -482,9 +484,6 @@
 }
 .masthead .category:nth-child(3) {
   min-width: 126px;
-}
-.masthead {
-  gap: 20px;
 }
 .masthead .searchField input {
   font-size: 14px;
