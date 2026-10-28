@@ -35,7 +35,9 @@ Diagram editable: [System architecture](diagrams/system-architecture.drawio), [E
 
 ## Research data
 
-[100 kandidat kuliner Jakarta Selatan, 28 Oktober 2026](../research/jaksel-100-2026-10-28/README.md): daftar tempat/menu, CSV dan JSON dengan sumber. Kandidat belum dipublikasikan ke Explore; rating dan cabang Google belum diverifikasi.
+[100 kandidat kuliner Jakarta Selatan, 28 Oktober 2026](../research/jaksel-100-2026-10-28/README.md): daftar tempat/menu, CSV dan JSON dengan sumber. [Pelengkapan Google](../research/jaksel-100-2026-10-28/completion.md) menambahkan 67 tempat ke Explore/Map, sehingga katalog berisi 104 tempat. Listing tutup atau belum cukup terverifikasi memiliki status tersendiri.
+
+[Implementasi dan verifikasi katalog 104 tempat](22-jaksel-google-enrichment.md).
 
 ## Keputusan utama
 

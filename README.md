@@ -4,11 +4,11 @@ Save what you crave. Find it nearby.
 
 ## Status
 
-Fondasi lokal Next.js App Router + React + TypeScript tersedia. `/explore` menampilkan 37 tempat Jakarta dari pembacaan halaman Google Maps publik: foto tempat, rating, jumlah ulasan dan jam buka yang tersedia. Search/kategori/rating/sort berbasis URL memakai data nyata ini. Google Places API berbayar dan akun belum diaktifkan.
+Fondasi lokal Next.js App Router + React + TypeScript tersedia. `/explore` menampilkan 104 tempat Jakarta dari pembacaan halaman Google Maps publik: foto tempat, rating, jumlah ulasan dan jam buka yang tersedia. Termasuk 67 tambahan dari [pelengkapan 100 kandidat Jaksel](research/jaksel-100-2026-10-28/completion.md). Search/kategori/rating/sort berbasis URL memakai data nyata ini. Google Places API berbayar dan akun belum diaktifkan.
 
 Detail restoran tersedia di `/restaurant/kedai-ramen-sore`, dengan galeri, Menu, Google Reviews, TikTok, dan Save yang tersinkron dengan Explore selama kunjungan. Lihat [implementasi detail dan hasil QA](docs/10-restaurant-detail-implementation.md).
 
-`/map` memakai Leaflet/OpenStreetMap yang bisa digeser dan di-zoom, dengan 37 pin tempat nyata, pin GPS/manual yang bisa digeser, serta radius 1/3/5/10 km. Lihat [pin pribadi dan radius](docs/20-personal-map-radius.md). `/wishlist` dan `/wishlist?view=map` masih memakai prototype nearby sebelumnya. Lihat [map interaktif dan data review](docs/17-headless-reviews-interactive-map.md).
+`/map` memakai Leaflet/OpenStreetMap yang bisa digeser dan di-zoom, dengan 104 pin tempat nyata, pin GPS/manual yang bisa digeser, serta radius 1/3/5/10 km. Lihat [pin pribadi dan radius](docs/20-personal-map-radius.md). `/wishlist` dan `/wishlist?view=map` masih memakai prototype nearby sebelumnya. Lihat [map interaktif dan data review](docs/17-headless-reviews-interactive-map.md).
 
 `/profile` menyediakan preferensi sementara, `/filters` menyaring data Google di Explore dan fixtures pada jalur Map. Klik pin membuka nama/rating dan link detail. Lihat [Profile, selected-place previews, Filters dan QA](docs/12-profile-previews-filters.md).
 

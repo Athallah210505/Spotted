@@ -1,4 +1,4 @@
-import { googlePlaces } from "./google-data";
+import { googlePlaces, googlePlaceSlug } from "./google-data";
 
 export const catalogRatings = Object.fromEntries(
   googlePlaces.map((place) => [
@@ -19,7 +19,7 @@ export const catalogPhotos = Object.fromEntries(
   ]),
 );
 export function catalogDetailHref(place: { id: string }) {
-  return `/restaurant/osm-${place.id.slice(5)}`;
+  return `/restaurant/${googlePlaceSlug(place.id)}`;
 }
 export function googleMapsUrl(place: { latitude: number; longitude: number }) {
   return `https://www.google.com/maps/search/?${new URLSearchParams({ api: "1", query: `${place.latitude},${place.longitude}` })}`;

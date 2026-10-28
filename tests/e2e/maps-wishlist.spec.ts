@@ -104,12 +104,12 @@ test("removing places updates pins, Explore, detail and the empty wishlist", asy
     .getByRole("link", { name: "Map", exact: true })
     .click();
   const realMap = page.getByRole("region", { name: "Peta tempat makan" });
-  await realMap
-    .getByRole("button", {
-      name: "Toko Kopi TUKU - Blok M, rating 4.8",
-      exact: true,
-    })
-    .click();
+  const tukuMarker = realMap.getByRole("button", {
+    name: "Toko Kopi TUKU - Blok M, rating 4.8",
+    exact: true,
+  });
+  await tukuMarker.focus();
+  await tukuMarker.press("Enter");
   await realMap
     .getByRole("link", { name: "Lihat detail", exact: true })
     .click();

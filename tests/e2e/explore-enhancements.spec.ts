@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import published from "../../src/features/catalog/data/google-places.json" with { type: "json" };
 
 test("quick filters keep search state and react to saved places", async ({
   page,
@@ -26,6 +27,8 @@ test("quick filters keep search state and react to saved places", async ({
   await card.getByRole("button", { name: /^Save / }).click();
   await expect(saved).toHaveText("Saved places 1");
   await saved.click();
+  await expect(page).toHaveURL(/saved=1/);
+  await expect(saved).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByRole("article")).toHaveCount(1);
   await card.getByRole("link", { name: /^View / }).click();
   await page.getByRole("link", { name: "Back", exact: true }).click();
@@ -43,7 +46,7 @@ test("visitor photo rail opens real menu details and fits narrow screens", async
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/explore");
-  await expect(page.getByRole("article")).toHaveCount(37);
+  await expect(page.getByRole("article")).toHaveCount(published.length);
   const first = page.getByRole("article").first();
   await expect(first).toContainText("reviews");
   await expect(

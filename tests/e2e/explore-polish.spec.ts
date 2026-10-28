@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import published from "../../src/features/catalog/data/google-places.json" with { type: "json" };
 
 test("Explore controls stay before full-width cards across navigation and reduced motion", async ({
   page,
@@ -38,9 +39,14 @@ test("Explore controls stay before full-width cards across navigation and reduce
     .getByRole("button", { name: "Reset filters", exact: true })
     .click();
   await expect(
-    page.getByRole("link", { name: "Show 37 places", exact: true }),
+    page.getByRole("link", {
+      name: `Show ${published.length} places`,
+      exact: true,
+    }),
   ).toBeInViewport();
-  await page.getByRole("link", { name: "Show 37 places", exact: true }).click();
+  await page
+    .getByRole("link", { name: `Show ${published.length} places`, exact: true })
+    .click();
   for (const width of [375, 390, 430, 1280]) {
     await page.setViewportSize({ width, height: 844 });
     const photoBounds = (await photo.boundingBox())!;

@@ -53,16 +53,19 @@ def validate():
             assert photo.scheme == "https" and photo.hostname == "manual.co.id"
             assert photo.path.startswith("/wp-content/uploads/")
             assert not photo.path.endswith("manual-cover.jpg")
-        assert row["publicationStatus"] == "research_candidate_not_app_published"
+        assert row["publicationStatus"] in {"published_to_app", "excluded_closed", "needs_verification"}
         assert row["popularityBasis"] == "culinary_editorial_coverage"
         assert row["currentViralStatus"] == "not_verified"
-        assert row["operatingStatus"] == "not_independently_verified"
-        for unknown in (
-            "googleRating", "googleReviewCount", "latitude", "longitude",
-            "currentMenuPrice", "halalStatus",
-        ):
+        assert row["operatingStatus"] in {"not_independently_verified", "google_listing_closed", "google_listing_not_marked_closed"}
+        for unknown in ("currentMenuPrice", "halalStatus"):
             assert row[unknown] is None, (row["name"], unknown)
-        assert row["googleReviews"] == []
+        assert len(row["googleReviews"]) <= 5
+        if row["publicationStatus"] == "published_to_app":
+            assert row["appRecordId"].startswith("jaksel/")
+            assert len({r["authorUrl"].split("?")[0] for r in row["googleReviews"]}) == 5
+            assert row["googleRating"] and row["googleReviewCount"]
+            assert row["latitude"] is not None and row["longitude"] is not None
+            assert (ROOT / "public" / row["localPhotoPath"].lstrip("/")).is_file()
 
     assert metadata["foodTypes"] == dict(Counter(r["foodType"] for r in rows))
     assert metadata["areas"] == dict(Counter(r["area"] for r in rows))
@@ -80,15 +83,23 @@ def validate():
             expected = row[field]
             if isinstance(expected, list):
                 expected = " | ".join(expected)
-            assert value == (expected or ""), (row["name"], field)
+            assert value == (str(expected) if expected is not None else ""), (row["name"], field)
 
     app = json.loads((ROOT / "src/features/catalog/data/google-places.json").read_text())
-    overlap = {normalize(r["name"]) for r in app} & {normalize(r["name"]) for r in rows}
+    overlap = {normalize(r["name"]) for r in app if r['id'].startswith('node/')} & {normalize(r["name"]) for r in rows}
     assert not overlap, overlap
+    live = {r['id']: r for r in app}
+    published = [row for row in rows if row['publicationStatus'] == 'published_to_app']
+    assert len(published) == metadata['publishedResearchCount']
+    assert len(app) == metadata['appPlaceCount']
+    for row in published:
+        place = live[row['appRecordId']]
+        assert place['branchVerification']['sourceUrl'] == row['sourceUrl']
+        assert place['photoPath'] == row['localPhotoPath']
     report = (FOLDER / "README.md").read_text()
     assert all(row["sourceUrl"] in report for row in rows)
     print("PASS: 100 unique Jakarta Selatan venue/food records; CSV, JSON and report agree.")
-    print("98 photo references; 98 source-hour snapshots; no fabricated Google fields.")
+    print(f"{len(published)} research candidates published; {len(app)} app places; incomplete fields stay explicit.")
 
 
 if __name__ == "__main__":

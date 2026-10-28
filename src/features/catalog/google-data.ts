@@ -3,109 +3,33 @@ import snapshot from "./data/google-places.json";
 import type { ExploreFilters } from "@/features/explore/demo-data";
 import type { Category } from "@/features/restaurants/demo-data";
 
-const mapsUrl = z.url().refine((value) => {
-  const url = new URL(value);
-  return (
-    url.protocol === "https:" &&
-    url.hostname === "www.google.com" &&
-    url.pathname.startsWith("/maps/")
-  );
-});
-export const googlePlaceSchema = z.object({
-  id: z.string().regex(/^node\/\d+$/),
-  name: z.string().min(1).max(200),
-  category: z.string().min(1),
-  area: z.string(),
-  latitude: z.number().min(-90).max(90),
-  longitude: z.number().min(-180).max(180),
-  address: z.string().nullable(),
-  rating: z.number().min(1).max(5),
-  reviewCount: z.number().int().positive(),
-  photoUrl: z
-    .url()
-    .refine(
-      (value) =>
-        /^lh[3-6]\.googleusercontent\.com$/.test(new URL(value).hostname) &&
-        !/^\/a-?\//.test(new URL(value).pathname),
-    ),
-  photoPath: z
-    .string()
-    .regex(/^\/google-places\/node-\d+(?:-[a-f0-9]{8})?\.(jpg|png|webp)$/),
-  hours: z
-    .array(
-      z.object({
-        day: z.enum([
-          "Senin",
-          "Selasa",
-          "Rabu",
-          "Kamis",
-          "Jumat",
-          "Sabtu",
-          "Minggu",
-        ]),
-        text: z.string().min(1).max(120),
-      }),
-    )
-    .max(7),
-  reviews: z
-    .array(
-      z.object({
-        author: z.string().min(1),
-        authorUrl: mapsUrl.refine((value) =>
-          new URL(value).pathname.startsWith("/maps/contrib/"),
-        ),
-        rating: z.number().int().min(1).max(5),
-        excerpt: z.string().min(1).max(1000),
-      }),
-    )
-    .length(5),
-  reviewsCheckedAt: z.iso.datetime().optional(),
-  description: z.string().max(600).optional(),
-  menuPhotos: z
-    .array(
-      z.object({
-        name: z.string().min(1).max(100),
-        photoPath: z
-          .string()
-          .regex(/^\/google-menus\/node-\d+-[a-f0-9]{8}\.(jpg|png|webp)$/),
-        photoUrl: z
-          .url()
-          .refine(
-            (value) =>
-              /^lh[3-6]\.googleusercontent\.com$/.test(
-                new URL(value).hostname,
-              ) && !/^\/a-?\//.test(new URL(value).pathname),
-          ),
-        author: z.string().min(1),
-        authorUrl: mapsUrl.refine((value) =>
-          new URL(value).pathname.startsWith("/maps/contrib/"),
-        ),
-        sourceUrl: mapsUrl,
-        checkedAt: z.iso.datetime(),
-      }),
-    )
-    .max(4)
-    .default([]),
-  mapsUrl,
-  checkedAt: z.iso.datetime(),
-  matchDistanceM: z.number().min(0).max(400),
-});
+import { googlePlaceSchema } from "./google-place-schema";
+export { googlePlaceSchema } from "./google-place-schema";
+
 export type GooglePlace = z.infer<typeof googlePlaceSchema>;
 export const googlePlaces = z
   .array(googlePlaceSchema)
   .min(1)
-  .max(40)
+  .max(200)
   .parse(snapshot);
 if (new Set(googlePlaces.map((place) => place.id)).size !== googlePlaces.length)
   throw new Error("Duplicate place IDs");
 export function findGooglePlace(slug: string) {
-  return googlePlaces.find((place) => `osm-${place.id.slice(5)}` === slug);
+  return googlePlaces.find((place) => googlePlaceSlug(place.id) === slug);
+}
+export function googlePlaceSlug(id: string) {
+  return id.startsWith("node/") ? `osm-${id.slice(5)}` : id.replace("/", "-");
 }
 export const areaNames: Record<string, string> = {
   "blok-m": "Blok M",
   menteng: "Menteng",
   "kelapa-gading": "Kelapa Gading",
   "kota-tua": "Kota Tua",
+  ...Object.fromEntries(
+    googlePlaces
+      .filter((place) => place.areaLabel)
+      .map((place) => [place.area, place.areaLabel!]),
+  ),
 };
 const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 function localTime(now: Date) {

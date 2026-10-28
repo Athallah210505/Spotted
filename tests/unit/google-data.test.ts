@@ -9,10 +9,28 @@ import {
   filterGooglePlaces,
   distanceFromBlokM,
   distanceBetween,
+  googlePlaceSlug,
 } from "@/features/catalog/google-data";
 import { parseExploreFilters } from "@/features/explore/demo-data";
 
 describe("published Google place data", () => {
+  it("keeps legacy detail links and verifies the provenance of new Jaksel IDs", () => {
+    expect(googlePlaceSlug("node/12110042118")).toBe("osm-12110042118");
+    expect(googlePlaceSlug("jaksel/troppo-pizza")).toBe("jaksel-troppo-pizza");
+    const baseline = googlePlaces[0]!;
+    expect(
+      googlePlaceSchema.safeParse({ ...baseline, id: "jaksel/troppo-pizza" })
+        .success,
+    ).toBe(false);
+    expect(
+      googlePlaceSchema.safeParse({ ...baseline, id: "jaksel/../../bad" })
+        .success,
+    ).toBe(false);
+    expect(
+      googlePlaceSchema.safeParse({ ...baseline, matchDistanceM: undefined })
+        .success,
+    ).toBe(false);
+  });
   it("measures radius from any selected point without changing the Blok M origin", () => {
     const origin = { latitude: 0, longitude: 0 };
     expect(distanceBetween(origin, origin)).toBe(0);
@@ -41,9 +59,14 @@ describe("published Google place data", () => {
     );
   });
   it("publishes only matched branches with downloaded photos, real ratings and short attributed excerpts", () => {
-    expect(googlePlaces).toHaveLength(37);
+    expect(googlePlaces.length).toBeGreaterThan(37);
     for (const place of googlePlaces) {
-      expect(place.matchDistanceM).toBeLessThanOrEqual(400);
+      if (place.id.startsWith("node/"))
+        expect(place.matchDistanceM).toBeLessThanOrEqual(400);
+      else {
+        expect(place.branchVerification?.method).toBe("name-and-address");
+        expect(place.branchVerification?.googleAddress).toBe(place.address);
+      }
       expect(place.reviewCount).toBeGreaterThan(0);
       expect(existsSync(`public${place.photoPath}`)).toBe(true);
       expect(readFileSync(`public${place.photoPath}`).length).toBeGreaterThan(
@@ -53,7 +76,7 @@ describe("published Google place data", () => {
         /^lh[3-6]\.googleusercontent\.com$/,
       );
       expect(new URL(place.photoUrl).pathname).not.toMatch(/^\/a-?\//);
-      expect(findGooglePlace(`osm-${place.id.slice(5)}`)).toEqual(place);
+      expect(findGooglePlace(googlePlaceSlug(place.id))).toEqual(place);
       expect(place.reviews).toHaveLength(5);
       expect(
         new Set(

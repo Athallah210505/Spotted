@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import published from "../../src/features/catalog/data/google-places.json" with { type: "json" };
 
 test("new Google places open photographed details with five attributed reviews", async ({
   page,
@@ -50,7 +51,7 @@ test("legacy catalogue opens Explore and API exposes Google fields without runti
   const data = await response.json();
   expect(data.schemaVersion).toBe(2);
   expect(data.source).toBe("Google Maps");
-  expect(data.places).toHaveLength(37);
+  expect(data.places).toHaveLength(published.length);
   for (const p of data.places) {
     expect(p.rating).toBeGreaterThan(0);
     expect(p.reviewCount).toBeGreaterThan(0);

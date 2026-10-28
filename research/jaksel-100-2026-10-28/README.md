@@ -1,5 +1,7 @@
 # 100 kandidat kuliner Jakarta Selatan
 
+**Update pelengkapan Google:** 67 kandidat sudah dipublikasikan ke Explore dan Map; katalog aplikasi sekarang 104 tempat. Google menandai 19 listing tutup dan 14 kandidat lainnya ditahan karena bukti cabang/koordinat atau ulasan belum cukup. [Lihat hasil lengkap setiap kandidat](completion.md). JSON dan CSV sudah memuat hasil Google beserta status publikasinya. Uraian pengumpulan di bawah mencatat tahap riset awal.
+
 Dikumpulkan 28 Oktober 2026. Satu baris = satu tempat/cabang dan satu makanan yang disebut dalam liputan, termasuk dessert/bakery. Bukan 100 jenis hidangan berbeda dan bukan peringkat viral.
 
 [Download CSV](places.csv) · [Dataset JSON](places.json)
@@ -9,18 +11,18 @@ Dikumpulkan 28 Oktober 2026. Satu baris = satu tempat/cabang dan satu makanan ya
 - 100 tempat unik: 83 makanan dan 17 dessert/bakery. Seluruh halaman detail menyebut South Jakarta/Jakarta Selatan.
 - 191 halaman detail diperiksa; 147 menyebut Jakarta Selatan. Toko nonkuliner, bar yang berfokus minuman, lokasi di luar Jaksel, serta alamat yang ambigu tidak dipilih.
 - 98 referensi foto dan 98 jam buka menurut sumber; 100 tautan pencarian Google Maps.
-- Tidak ada nama identik setelah normalisasi dengan 37 tempat di aplikasi; pencocokan alias/cabang Google belum dilakukan.
+- Saat pengumpulan awal, tidak ada nama identik setelah normalisasi dengan 37 tempat aplikasi. Hasil pencocokan Google berikutnya tersedia di [laporan pelengkapan](completion.md).
 - Setiap makanan dicocokkan ke teks halaman. Cuplikan maksimal 25 kata, URL, tanggal publikasi, waktu pengambilan dan SHA-256 respons disimpan untuk audit.
 
 ## Arti “hits” dan batas data
 
 Basis pemilihan adalah liputan kuliner Manual Jakarta. Ini sinyal untuk discovery, bukan bukti semua tempat sedang viral pada 28 Oktober 2026. Tanggal liputan: 2026: 9 tempat, 2025: 11 tempat, 2024: 33 tempat, 2023: 27 tempat, 2022: 18 tempat, 2021: 2 tempat. Tanggal pengambilan baru tidak berarti semua informasi bisnis baru.
 
-Nama makanan berarti disebut sumber, bukan otomatis bestseller atau masih tersedia. Area adalah pengelompokan alamat untuk browsing, bukan hasil geocoding. Status buka/tutup saat ini, harga, halal, koordinat, rating dan review Google belum diverifikasi sehingga dibiarkan kosong. Jam buka disalin sebagai snapshot sumber, bukan “buka sekarang”.
+Nama makanan berarti disebut sumber, bukan otomatis bestseller atau masih tersedia. Area adalah pengelompokan alamat untuk browsing. Pada tahap awal, data Google belum diverifikasi; hasil pelengkapannya kini ada pada field `google*`, koordinat, `appRecordId` dan `publicationStatus`. Harga/halal tetap kosong jika tidak ada bukti. Jam buka tetap snapshot sumber, bukan jaminan “buka sekarang”.
 
 Tautan Maps dibuat dari nama dan alamat untuk memudahkan pencarian, belum merupakan Google place ID yang cocok persis. URL foto hanya referensi sumber; foto belum diunduh, diperiksa visual satu per satu, atau mendapat izin penggunaan ulang.
 
-Data ada di folder research dan belum dimasukkan ke Explore/Map. Kandidat perlu dicocokkan ke cabang Google, foto, rating, lokasi, jam buka dan review yang terverifikasi sebelum mengikuti kontrak data aplikasi.
+67 kandidat yang cocok dan lengkap sudah masuk Explore/Map setelah pemeriksaan foto, rating, lokasi dan lima review unik. Kandidat lain tetap ada di research dengan alasan pengecualian; tidak diisi data perkiraan.
 
 ## Metode dan pemeriksaan
 
@@ -28,7 +30,7 @@ Scrapling MCP tidak bisa menjalankan GET karena tidak memiliki sesi aktif. Pengu
 
 Filter kategori digabung wilayah pada direktori ternyata memasukkan toko/bar. Daftar kategori dan wilayah diambil terpisah, lalu locality dan isi halaman diperiksa. Google Maps URL kosong dari sumber tidak dianggap sebagai lokasi terverifikasi.
 
-Jalankan `python3 research/jaksel-100-2026-10-28/validate.py` dari repo untuk memeriksa jumlah, keunikan, cakupan wilayah, kutipan makanan, URL, nilai yang belum diverifikasi, dan kesamaan CSV/JSON. Tidak ada kode aplikasi atau database yang diubah.
+Jalankan `python3 research/jaksel-100-2026-10-28/validate.py` dari repo untuk memeriksa jumlah, keunikan, cakupan wilayah, kutipan makanan, URL, nilai yang belum diverifikasi, dan kesamaan CSV/JSON. Tahap awal hanya menghasilkan riset; pelengkapan berikutnya memasukkan 67 kandidat terverifikasi ke katalog JSON aplikasi.
 
 ## Daftar lengkap
 

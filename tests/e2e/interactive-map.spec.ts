@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import published from "../../src/features/catalog/data/google-places.json" with { type: "json" };
 import { stubMapTiles } from "./map-fixture";
 
 test.beforeEach(async ({ page }) => {
@@ -11,7 +12,9 @@ test("real map pans, zooms and opens matched Google places before detail", async
   await page.goto("/map?radius=1");
   const map = page.getByRole("region", { name: "Peta tempat makan" });
   await expect(map).toHaveAttribute("data-zoom", "14");
-  await expect(map.locator(".leaflet-marker-icon")).toHaveCount(37);
+  await expect(map.locator(".leaflet-marker-icon")).toHaveCount(
+    published.length,
+  );
   await expect(
     page.getByRole("button", { name: "Change map area" }),
   ).toHaveCount(0);
