@@ -33,6 +33,10 @@ Blueprint ini menerjemahkan PRD MVP v1.0 dan Figma v2 menjadi keputusan engineer
 
 Diagram editable: [System architecture](diagrams/system-architecture.drawio), [ERD](diagrams/database-erd.drawio). Diagram Mermaid juga tersedia di dokumen agar tetap terbaca tanpa draw.io.
 
+## Research data
+
+[100 kandidat kuliner Jakarta Selatan, 28 Oktober 2026](../research/jaksel-100-2026-10-28/README.md): daftar tempat/menu, CSV dan JSON dengan sumber. Kandidat belum dipublikasikan ke Explore; rating dan cabang Google belum diverifikasi.
+
 ## Keputusan utama
 
 Feature-based modular monolith: satu Next.js application di Vercel, Route Handlers sebagai BFF, Supabase Auth + PostgreSQL dengan RLS, Google Maps/Places melalui batas integrasi eksplisit. React local state + URL + TanStack Query, tanpa Zustand. Data wishlist persisten menyimpan identitas tempat, bukan salinan katalog Google.
