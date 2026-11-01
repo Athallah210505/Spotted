@@ -41,12 +41,15 @@
     "confectionery": 2,
     "tea": 2
   },
-  "google_verified_records": 88,
-  "google_reviews": 440,
+  "google_verified_records": 89,
+  "google_matched_records": 477,
+  "google_rated_records": 471,
+  "google_hours_records": 389,
+  "google_reviews": 459,
   "research_candidates": 100,
   "unnamed_records": 48,
-  "missing_addresses": 1477,
-  "possible_duplicate_pairs": 22,
+  "missing_addresses": 1239,
+  "possible_duplicate_pairs": 23,
   "excluded_osm": [],
   "google_outside_scope": [
     "node/7719208236",
@@ -70,5 +73,21 @@
   "raw_sha256": {
     "food": "01b80d0b3860a4a58d5210fc8b8eae428238944348c5973f958a508d8114027e",
     "districts": "300e35575264b9767c6e14a77caf8b2dc54680566045351b01a37df37ced8f7c"
+  },
+  "google_enrichment_checked_at": "2026-10-28T21:42:08.539065+00:00",
+  "enrichment_audit_statuses": {
+    "needs_identity_evidence": 48,
+    "matched_with_five_reviews": 1,
+    "unresolved_search": 257,
+    "matched_partial": 320,
+    "missing_coordinates": 150,
+    "fetch_error": 39,
+    "name_mismatch": 71,
+    "closed": 68,
+    "non_food_category_needs_review": 12,
+    "outside_match_radius": 27,
+    "previously_verified": 88,
+    "blocked": 3,
+    "not_attempted_provider_blocked": 1139
   }
 }

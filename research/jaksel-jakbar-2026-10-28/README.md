@@ -8,15 +8,25 @@ Dikumpulkan 28 Oktober 2026. **2.223 record tempat/cabang** tersedia sebagai dat
 | Jakarta Barat   |    874 |
 | Total           |  2.223 |
 
-Satuan record adalah objek sumber atau cabang yang terverifikasi. Sebanyak **22 pasangan** memiliki nama sama dan jarak maksimal 75 m, sehingga perlu pemeriksaan duplikat sebelum jumlah ini dianggap sebagai jumlah bisnis unik.
+Satuan record adalah objek sumber atau cabang yang terverifikasi. Sebanyak **23 pasangan** memiliki nama sama dan jarak maksimal 75 m, sehingga perlu pemeriksaan duplikat sebelum jumlah ini dianggap sebagai jumlah bisnis unik.
+
+## Hasil pelengkapan dan batas akses
+
+[Laporan pelengkapan](completion.md) dan [audit setiap record](google-enrichment.json) memuat hasil pemeriksaan. Sebanyak 969 record memiliki capture; 88 record yang telah terverifikasi sebelumnya dipertahankan. Google kemudian mengembalikan HTTP 429 pada tiga request yang sedang berjalan dan collector berhenti. Ada 1.139 record bernama yang belum dicoba akibat pembatasan, serta 27 dari 48 titik tanpa nama yang belum dicari. Seluruh 48 titik tanpa nama tetap memerlukan bukti identitas.
+
+68 listing bertanda tutup disimpan sebagai riwayat. Sebanyak 23 pasangan potensi duplikat memiliki 3 pasangan dengan Google CID yang sama; 20 pasangan lainnya masih perlu diperiksa. Record sumber tidak dihapus atau digabung hanya berdasarkan kemiripan nama.
+
+Foto tersedia sebagai 94 referensi sumber; foto baru belum diperiksa visual untuk publikasi. Menu lengkap, harga terkini, dan lima ulasan untuk setiap tempat belum tersedia. Katalog aplikasi tetap memakai 104 tempat yang sudah memenuhi persyaratan tampilannya.
+
+Collector menyimpan `provider-blocked.json` dalam cache dan menolak request baru selama tanda blokir itu ada. Pembatasan akses tidak dilewati. Data source yang sudah dikumpulkan pada 28 Oktober 2026 dapat dibangun ulang secara offline; pemeriksaan ulang artefak dilakukan 1 November 2026.
 
 ## File siap digunakan
 
-- [Database SQLite](food-database.sqlite): tabel tempat, sumber, ulasan, kandidat makanan, metadata, dan view antrean enrichment.
+- [Database SQLite](food-database.sqlite): tabel tempat, sumber, ulasan, kandidat makanan, metadata, `enrichment_attempts`, dan view antrean enrichment.
 - [CSV tempat](places.csv): nama, kota, kecamatan, kategori, alamat, koordinat, jam buka, rating, URL Google Maps, referensi foto, status, dan waktu pengambilan.
 - [JSON tempat](places.json), [metadata ringkasan](summary.json), [detail sumber](sources.json).
 - [100 kandidat makanan dari riset sebelumnya](research-candidates.csv), termasuk hasil pencocokan Google dan hubungan ke record database bila cocok.
-- [22 pasangan kemungkinan duplikat](possible-duplicates.json).
+- [23 pasangan kemungkinan duplikat](possible-duplicates.json).
 - [Schema SQLite](schema.sql), [query tempat](overpass-food.ql), [query kecamatan](overpass-districts.ql).
 
 File SQLite dapat dibuka melalui DB Browser for SQLite atau `sqlite3`. File ini berisi data yang sudah diimpor; tidak memerlukan akun, server database, API key, atau billing. Supabase cloud belum diubah.
@@ -35,9 +45,9 @@ Pengambilan utama menggunakan HTTP API publik Overpass dengan **2.156 objek OSM*
 
 Kategori OSM yang dikumpulkan: `restaurant`, `cafe`, `fast_food`, `food_court`, `ice_cream`, `bakery`, `deli`, `confectionery`, `pastry`, `chocolate`, `coffee`, dan `tea`. Ini mencakup warung yang telah dipetakan dengan tag tersebut. Cakupan warung, pedagang keliling, dan bisnis yang belum dipetakan masih merupakan kesenjangan sumber.
 
-Data Google dari katalog aplikasi dicocokkan dengan wilayah yang sama: **88 record dan 440 ulasan**. Sebanyak 21 record memakai identitas OSM yang sudah ada; 67 record menambah database. Sebanyak 16 record Google berada di luar Jaksel/Jakbar dan dikeluarkan dari dataset ini. Status dan tanggal sumber Google tetap berupa snapshot sebelumnya, tanpa pengambilan ulang Google massal dalam pekerjaan ini.
+Snapshot awal memuat 88 record Google dan 440 ulasan. Pelengkapan berikutnya menambahkan 389 kecocokan cabang, sehingga sekarang ada **477 record cocok dengan Google, 471 dengan rating, 389 dengan data jam buka, dan 459 cuplikan ulasan**. Sebanyak 89 record memenuhi kontrak rating, referensi foto, dan lima penulis ulasan berbeda; status ini tidak berarti seluruh menu dan field sudah lengkap. Sebanyak 16 record katalog aplikasi berada di luar Jaksel/Jakbar dan tidak dimasukkan.
 
-Field Google pada record lainnya tetap `NULL`. Ada **48 objek tanpa nama** dan **1.477 record tanpa alamat**; lokasi peta dan provenance tetap disimpan untuk pelengkapan. Nama bisnis, rating, ulasan, menu, harga, dan status buka tidak dibuat dari perkiraan. Field `opening_hours` mempertahankan sintaks tag OSM; jam mingguan Google tersimpan dalam payload sumber Google. Referensi foto belum diunduh ulang atau diperiksa ulang dalam pengumpulan ini.
+Field Google pada record lainnya tetap `NULL`. Ada **48 objek tanpa nama** dan **1.239 record tanpa alamat**; lokasi peta dan provenance tetap disimpan untuk pelengkapan. Nama bisnis, rating, ulasan, menu, harga, dan status buka tidak dibuat dari perkiraan. Field `opening_hours` mempertahankan sintaks tag OSM; jam Google yang tersedia tersimpan pada `google_hours_json` serta payload sumber. Kolom `google_cid` menyimpan identitas listing yang benar-benar teramati. Referensi foto belum diunduh ulang atau diperiksa ulang dalam pengumpulan ini.
 
 `research_candidates.food_mentioned` menyimpan 100 makanan yang disebut liputan sebelumnya. Makanan tersebut tetap memerlukan pemeriksaan menu terkini. Daftar semua menu seluruh bisnis dan sensus seluruh tempat makan di dunia nyata belum tersedia dari sumber ini.
 
@@ -45,9 +55,15 @@ Field Google pada record lainnya tetap `NULL`. Ada **48 objek tanpa nama** dan *
 
 `places.id` mempertahankan identitas objek OSM (`node/...`, `way/...`) atau ID katalog Google (`jaksel/...`). Nama sama di cabang berbeda dipertahankan. Penggabungan otomatis hanya dilakukan ketika ID OSM record Google sama persis dengan ID objek sumber; pasangan nama/jarak tetap masuk pemeriksaan manual.
 
-Nama dan alamat Google yang sudah cocok diprioritaskan untuk 88 record Google; kategori dan jam tag OSM tetap dipertahankan bila berasal dari OSM. `place_sources` menyimpan provider, URL, waktu pengambilan, waktu edit sumber bila tersedia, dan payload bukti. `google_reviews` menyimpan nama penulis, profil sumber, skor, serta cuplikan yang sudah terverifikasi. `enrichment_queue` menampilkan kebutuhan nama, pemeriksaan duplikat, atau pencocokan Google. Record tanpa verifikasi bisnis memakai status `osm_only` dan `not_independently_verified`.
+Nama dan alamat Google yang sudah cocok diprioritaskan untuk 477 record Google; kategori dan jam tag OSM tetap dipertahankan bila berasal dari OSM. `place_sources` menyimpan provider, URL, waktu pengambilan, waktu edit sumber bila tersedia, dan payload bukti. `google_reviews` menyimpan nama penulis, profil sumber, skor, serta cuplikan yang sudah terverifikasi. `enrichment_queue` menampilkan kebutuhan nama, pemeriksaan duplikat, atau pencocokan Google. Record tanpa verifikasi bisnis memakai status `osm_only` dan `not_independently_verified`.
 
 Katalog Explore/Map tetap memakai 104 record terverifikasi dengan foto dan lima ulasan. Database riset yang lebih luas ini tersedia terpisah untuk pelengkapan bertahap.
+
+## Metode pencocokan
+
+Nama bisnis harus cocok dengan cabang sumber dan koordinat listing berjarak maksimal 100 m, atau nama, jalan, serta nomor alamat cocok secara eksplisit. Dua listing dengan CID berbeda tidak digabung ulasannya. Koordinat yang tidak terlihat di HTML dapat berasal dari metadata marker terpilih yang teramati dalam request resource Google; bukti URL disimpan pada `coordinateEvidenceUrl`. Titik OSM yang dipakai untuk pencocokan alamat diberi label `existing-osm-point`; koordinat Google tetap kosong bila tidak tersedia.
+
+48 Google CID dari capture terdahulu yang sudah diverifikasi digunakan kembali melalui [bukti identitas](verified-google-identities.json), dengan pemeriksaan nama dan lokasi sebelum import. URL challenge dalam audit dibuang parameter query-nya. Raw HTML tetap berada di `/tmp`.
 
 ## Menjalankan ulang
 
@@ -67,13 +83,13 @@ Raw response tetap di `/tmp`; hash SHA-256 dan timestamp basis OSM dicatat dalam
 ## Pemeriksaan
 
 - PASS: hitungan server 2.156 objek sesuai hasil yang diterima, tanpa record OSM terbuang di pemeriksaan batas kota.
-- PASS: 2.223 ID record unik dan cakupan 18 kecamatan; 22 pasangan potensi duplikat tercatat terpisah.
+- PASS: 2.223 ID record unik dan cakupan 18 kecamatan; 23 pasangan potensi duplikat tercatat terpisah.
 - PASS: CSV, JSON, SQLite, jumlah ulasan, dan sumber data dicocokkan melalui validator.
 - PASS: SQLite integrity dan foreign key valid; parser batas kota, filter kategori, dan batas nilai database memiliki test otomatis.
-- PASS: data yang belum diverifikasi tetap kosong; seluruh rating database memiliki payload sumber Google dan lima penulis ulasan berbeda.
+- PASS: data yang belum diverifikasi tetap kosong; seluruh rating database memiliki payload sumber Google; lima ulasan hanya dinyatakan tersedia bila ada lima penulis berbeda.
 
 ## Attribution
 
 Data OSM: **© OpenStreetMap contributors**, [ODbL](https://www.openstreetmap.org/copyright). Batas kota: [Jakarta Selatan](https://www.openstreetmap.org/relation/5802438), [Jakarta Barat](https://www.openstreetmap.org/relation/7626001). Metode area query mengikuti [dokumentasi Overpass](https://dev.overpass-api.de/overpass-doc/en/full_data/area.html).
 
-Provider Google dan Manual tetap memiliki sumber serta ketentuan masing-masing; lisensi ODbL pada baris OSM tidak menyatakan seluruh konten provider lain berlisensi ODbL. Halaman direktori hanya diperiksa sebagai sumber tambahan; tidak dilakukan crawling baru massal atau penggunaan Firecrawl berbayar. Pengumpulan baru dalam pekerjaan ini menggunakan HTTP publik; tidak membuka browser.
+Provider Google dan Manual tetap memiliki sumber serta ketentuan masing-masing; lisensi ODbL pada baris OSM tidak menyatakan seluruh konten provider lain berlisensi ODbL. Direktori Manual hanya diperiksa sebagai sumber tambahan dan tidak dicrawl ulang massal. Tidak ada penggunaan Firecrawl berbayar. Pelengkapan Google memakai Scrapling MCP serta parser Scrapling dengan Playwright headless biasa. Tidak ada jendela browser terlihat, stealth, proxy rotation, aktivasi billing, atau penggunaan Firecrawl berbayar.

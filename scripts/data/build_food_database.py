@@ -13,7 +13,7 @@ from collections import Counter, defaultdict
 from contextlib import closing
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -152,6 +152,7 @@ def build(raw, districts_raw, google, research, checked_at):
             "coordinate_method": "osm_node" if element["type"] == "node" else "osm_bbox_center",
             "address": address(tags), "cuisine": tags.get("cuisine"),
             "opening_hours": tags.get("opening_hours"), "google_rating": None,
+            "google_hours_json": "[]", "google_cid": None,
             "google_review_count": None, "google_maps_url": None, "photo_url": None,
             "primary_source_url": f"https://www.openstreetmap.org/{identifier}",
             "operating_status": "not_independently_verified", "verification_status": "osm_only",
@@ -168,17 +169,26 @@ def build(raw, districts_raw, google, research, checked_at):
             google_outside.append(row["id"])
             continue
         identifier = row["id"]
+        if row.get("enrichmentStatus"):
+            if identifier not in places or distance((places[identifier]["latitude"], places[identifier]["longitude"]), (row["latitude"], row["longitude"])) > 100:
+                raise ValueError("Enrichment must match an existing source point within 100 m")
+            url = urlsplit(row["mapsUrl"])
+            if url.scheme != "https" or url.hostname != "www.google.com" or not url.path.startswith("/maps/"):
+                raise ValueError("Invalid Google source URL")
         if identifier not in places:
             places[identifier] = {"id": identifier, "name": row["name"], "city": city, "district": district,
                                   "category": google_category(row["category"]), "latitude": row["latitude"], "longitude": row["longitude"],
                                   "coordinate_method": "google_listing", "address": row["address"], "cuisine": None,
                                   "opening_hours": None, "possible_duplicate_group": None, "observed_at": row["checkedAt"]}
         place = places[identifier]
+        complete = bool(row["rating"] and row["reviewCount"] and row["photoUrl"] and len(row["reviews"]) == 5)
+        cid = re.search(r"0x[0-9a-f]+:0x([0-9a-f]+)", row["mapsUrl"])
         place.update(name=row["name"], address=row["address"] or place.get("address"),
                      google_rating=row["rating"], google_review_count=row["reviewCount"],
+                     google_hours_json=dump(row["hours"]), google_cid=row.get("googleCid") or (cid.group(1) if cid else None),
                      google_maps_url=row["mapsUrl"], photo_url=row["photoUrl"],
-                     primary_source_url=row["mapsUrl"], operating_status="google_not_marked_closed",
-                     verification_status="google_verified_snapshot")
+                     primary_source_url=row["mapsUrl"], operating_status="google_listing_closed" if row.get("closedReason") else "google_not_marked_closed",
+                     verification_status="google_closed_snapshot" if row.get("closedReason") else "google_verified_snapshot" if complete else "google_branch_matched")
         sources.append({"place_id": identifier, "provider": "google", "source_id": identifier,
                         "source_url": row["mapsUrl"], "observed_at": row["checkedAt"],
                         "source_updated_at": None, "license": "Google source terms; not ODbL",
@@ -199,7 +209,8 @@ def build(raw, districts_raw, google, research, checked_at):
                 if meters <= 75:
                     group = normalize_name(a["name"])
                     a["possible_duplicate_group"] = b["possible_duplicate_group"] = group
-                    duplicate_pairs.append({"first_id": a["id"], "second_id": b["id"], "distance_m": round(meters, 1), "status": "needs_branch_review"})
+                    status = "confirmed_same_google_listing" if a["google_cid"] and a["google_cid"] == b["google_cid"] else "different_google_listings" if a["google_cid"] and b["google_cid"] else "needs_branch_review"
+                    duplicate_pairs.append({"first_id": a["id"], "second_id": b["id"], "distance_m": round(meters, 1), "status": status})
     candidates = []
     for row in research["places"]:
         candidates.append({"id": row["id"], "name": row["name"], "city": row["city"], "address": row["address"],
@@ -209,7 +220,8 @@ def build(raw, districts_raw, google, research, checked_at):
     result = sorted(places.values(), key=lambda r: (r["city"], r["district"] or "", r["name"] or "", r["id"]))
     if {r["city"] for r in result} != set(CITIES.values()):
         raise ValueError("Both cities must contain food records")
-    osm_districts = {r["district"] for r in result if r["verification_status"] == "osm_only"}
+    osm_ids = {s["place_id"] for s in sources if s["provider"] == "openstreetmap"}
+    osm_districts = {r["district"] for r in result if r["id"] in osm_ids}
     if osm_districts != {r["name"] for r in districts}:
         raise ValueError("Food coverage is missing a kecamatan")
     for row in result:
@@ -221,7 +233,10 @@ def build(raw, districts_raw, google, research, checked_at):
         "osm_base_timestamp": raw["osm3s"]["timestamp_osm_base"], "cities": dict(Counter(r["city"] for r in result)),
         "districts": dict(sorted(Counter((r["city"] + " / " + r["district"]) for r in result).items())),
         "categories": dict(Counter(r["category"] for r in result)),
-        "google_verified_records": sum(r["google_rating"] is not None for r in result),
+        "google_verified_records": sum(r["verification_status"] == "google_verified_snapshot" for r in result),
+        "google_matched_records": sum(r["google_maps_url"] is not None for r in result),
+        "google_rated_records": sum(r["google_rating"] is not None for r in result),
+        "google_hours_records": sum(r["google_hours_json"] != "[]" for r in result),
         "google_reviews": len(reviews), "research_candidates": len(candidates),
         "unnamed_records": sum(r["name"] is None for r in result), "missing_addresses": sum(r["address"] is None for r in result),
         "possible_duplicate_pairs": len(duplicate_pairs), "excluded_osm": excluded, "google_outside_scope": google_outside,
@@ -229,7 +244,7 @@ def build(raw, districts_raw, google, research, checked_at):
     }
 
 
-def export(folder, places, sources, reviews, candidates, duplicate_pairs, metadata):
+def export(folder, places, sources, reviews, candidates, duplicate_pairs, metadata, audit=None):
     folder.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=folder) as temp:
         stage = Path(temp)
@@ -240,6 +255,11 @@ def export(folder, places, sources, reviews, candidates, duplicate_pairs, metada
                     fields = list(rows[0])
                     db.executemany(f"INSERT INTO {table} ({','.join(fields)}) VALUES ({','.join('?' for _ in fields)})", [tuple(row[k] for k in fields) for row in rows])
             db.execute("INSERT INTO collection_metadata VALUES (?, ?)", ("summary", dump(metadata)))
+            if audit:
+                db.executemany("INSERT INTO enrichment_attempts VALUES (?,?,?,?,?,?)", [
+                    (r['id'], r['status'], r.get('lastAttemptAt') or r.get('checkedAt'), r.get('captureCount', 0), int(bool(r.get('limitedPublicView'))), dump(r))
+                    for r in audit
+                ])
             assert db.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
             assert not db.execute("PRAGMA foreign_key_check").fetchall()
             assert db.execute("SELECT COUNT(*) FROM places").fetchone()[0] == len(places)
@@ -268,9 +288,29 @@ if __name__ == "__main__":
             fetch(FOLDER / f"overpass-{name}.ql", args.raw_dir / f"{name}.json")
     raw_file, district_file = args.raw_dir / "food.json", args.raw_dir / "districts.json"
     checked_at = datetime.fromtimestamp(raw_file.stat().st_mtime, timezone.utc).isoformat()
-    output = build(checked_json(raw_file), checked_json(district_file),
-                   json.loads((ROOT / "src/features/catalog/data/google-places.json").read_text()),
+    google_rows = json.loads((ROOT / "src/features/catalog/data/google-places.json").read_text())
+    identities = FOLDER / 'verified-google-identities.json'
+    if identities.exists():
+        known = {r['id']: r for r in json.loads(identities.read_text())}
+        for row in google_rows:
+            proof = known.get(row['id'])
+            if proof:
+                if proof['name'] != row['name'] or distance((proof['latitude'], proof['longitude']), (row['latitude'], row['longitude'])) > 1 or not re.fullmatch(r'[a-f0-9]{1,16}', proof['googleCid']):
+                    raise ValueError('Google identity evidence does not match the published branch')
+                row.update(googleCid=proof['googleCid'], identityEvidence=proof)
+    enrichment = FOLDER / "google-enrichment.json"
+    audit = []
+    enrichment_metadata = {}
+    if enrichment.exists():
+        enrichment_data = json.loads(enrichment.read_text())
+        google_rows.extend(enrichment_data["places"])
+        audit = enrichment_data['audit']
+        enrichment_metadata = enrichment_data['metadata']
+    output = build(checked_json(raw_file), checked_json(district_file), google_rows,
                    json.loads((ROOT / "research/jaksel-100-2026-10-28/places.json").read_text()), checked_at)
     output[-1]["raw_sha256"] = {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in [("food", raw_file), ("districts", district_file)]}
-    export(args.output, *output)
+    if audit:
+        output[-1]['google_enrichment_checked_at'] = enrichment_metadata['checkedAt']
+        output[-1]['enrichment_audit_statuses'] = dict(Counter(r['status'] for r in audit))
+    export(args.output, *output, audit=audit)
     print(dump({k: v for k, v in output[-1].items() if k not in {"excluded_osm", "districts", "categories", "google_outside_scope"}}))

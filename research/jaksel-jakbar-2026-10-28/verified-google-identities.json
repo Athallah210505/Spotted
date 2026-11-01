@@ -1,0 +1,482 @@
+[
+  {
+    "id": "jaksel/troppo-pizza",
+    "name": "TROPPO PIZZA",
+    "latitude": -6.2211236,
+    "longitude": 106.7878563,
+    "googleCid": "8ae0ce1d14c3f845",
+    "sourceUrl": "https://www.google.com/maps/place/TROPPO+PIZZA/@-6.2211236,106.7878563,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1b55e0bcc81:0x8ae0ce1d14c3f845!8m2!3d-6.2211236!4d106.7878563!16s%2Fg%2F11yqkndtld?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:01:25.855Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/salira",
+    "name": "SALIRA",
+    "latitude": -6.2310971,
+    "longitude": 106.808369,
+    "googleCid": "c124877f8c4d6ab5",
+    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Salira+Jalan+Senopati+No.52%2C+Kebayoran+Baru+Jakarta+Selatan&hl=id",
+    "checkedAt": "2026-10-28T10:02:30.267Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/scarletts-house-pim-5",
+    "name": "Scarlett's House Pondok Indah (PIM 5)",
+    "latitude": -6.2619345,
+    "longitude": 106.7838817,
+    "googleCid": "cced6ef6b6741a57",
+    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Scarlett%E2%80%99s+House+PIM+5+Jl.+Sultan+Iskandar+Muda+No.5%2C+Kebayoran+Lama%2C+Jakarta+Selatan&hl=id",
+    "checkedAt": "2026-10-28T10:02:30.486Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/supagetti",
+    "name": "Supagetti",
+    "latitude": -6.2562058,
+    "longitude": 106.8053896,
+    "googleCid": "9f93f719d36141f8",
+    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Supagetti+JI.+Prapanca+Raya+No.18+Blok+P3%2C+Kebayoran+Baru+Jakarta+Selatan&hl=id",
+    "checkedAt": "2026-10-28T10:02:30.804Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/baked-gunawarman",
+    "name": "BAKED. Gunawarman",
+    "latitude": -6.2368346,
+    "longitude": 106.8074529,
+    "googleCid": "c3731c34dd4210c4",
+    "sourceUrl": "https://www.google.com/maps/place/BAKED.+Gunawarman/@-6.2368346,106.8074529,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1dc0fcc4fe7:0xc3731c34dd4210c4!8m2!3d-6.2368346!4d106.8074529!16s%2Fg%2F11xcf99x6x?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T14:07:27.729Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/little-frenchie",
+    "name": "Little Frenchie Jakarta",
+    "latitude": -6.2314485,
+    "longitude": 106.810802,
+    "googleCid": "f4b6edbe4839b823",
+    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Little+Frenchie+Jl.+Taman+MPU+Sendok+No.9%2C+Kebayoran+Baru+Jakarta+Selatan&hl=id",
+    "checkedAt": "2026-10-28T10:02:31.135Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/louie-coffee",
+    "name": "Louie Coffee",
+    "latitude": -6.2773695,
+    "longitude": 106.7728595,
+    "googleCid": "dbd570061a29c139",
+    "sourceUrl": "https://www.google.com/maps/place/Louie+Coffee/@-6.2773695,106.7728595,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1b4fa7bbfa3:0xdbd570061a29c139!8m2!3d-6.2773695!4d106.7728595!16s%2Fg%2F11c2kgt1dl?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:02:31.322Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/rm-budi-jaya",
+    "name": "RM. Budi Jaya (Masakan Padang)",
+    "latitude": -6.2968233,
+    "longitude": 106.7938159,
+    "googleCid": "44f45fc53a3bbc06",
+    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=RM+Budi+Jaya+Jl.+Lebak+Bulus+I+No.1A%2C+RT.1%2FRW.4%2C+Cilandak+Barat+Jakarta+Selatan&hl=id",
+    "checkedAt": "2026-10-28T10:02:31.473Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/rm-sinar-gakong",
+    "name": "RM SINAR GAKONG WIJAYA",
+    "latitude": -6.2534056,
+    "longitude": 106.79936,
+    "googleCid": "9de202dedb4d04b5",
+    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=RM+Sinar+Gakong+Grand+Wijaya+Centre%2C+Jl.+Wijaya+II+No.40+Blok+C+Jakarta+Selatan&hl=id",
+    "checkedAt": "2026-10-28T10:10:36.708Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/young-restaurant",
+    "name": "YOUNG Restaurant",
+    "latitude": -6.2520361,
+    "longitude": 106.8019102,
+    "googleCid": "aec226447de91fba",
+    "sourceUrl": "https://www.google.com/maps/place/YOUNG+Restaurant/@-6.2520361,106.8019102,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1b820e4d427:0xaec226447de91fba!8m2!3d-6.2520361!4d106.8019102!16s%2Fg%2F11w59h6jwz?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T14:07:28.039Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/sop-sapi-minarwati",
+    "name": "Sop Sapi Minarwati (Cipete Raya)",
+    "latitude": -6.2776722,
+    "longitude": 106.801606,
+    "googleCid": "f96c898e2e8c5b8e",
+    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sop+Sapi+Minarwati+Jl.+Cipete+Raya+No.7C%2C+Cipete+Selatan+Jakarta+Selatan&hl=id",
+    "checkedAt": "2026-10-28T10:10:37.464Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/saap-thai",
+    "name": "Saap Thai - ASHTA District 8",
+    "latitude": -6.2282472,
+    "longitude": 106.8071961,
+    "googleCid": "6785add07712af67",
+    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Saap+Thai+ASHTA+District+8+Upper+Ground%2C+Lot+28%2C+Scbd%2C+Jl.+Jend.+Sudirman+kav+52-53+Jakarta+Selatan&hl=id",
+    "checkedAt": "2026-10-28T10:11:27.094Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/knots",
+    "name": "KNOTS Kemang",
+    "latitude": -6.2656712,
+    "longitude": 106.8241545,
+    "googleCid": "a5769adfe8381fc9",
+    "sourceUrl": "https://www.google.com/maps/place/KNOTS+Kemang/@-6.2656712,106.8241545,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f3006e7ddd75:0xa5769adfe8381fc9!8m2!3d-6.2656712!4d106.8241545!16s%2Fg%2F11wx0s4w6m?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:11:55.981Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/tide-and-table",
+    "name": "Tide & Table — Restaurant",
+    "latitude": -6.2433597,
+    "longitude": 106.8041515,
+    "googleCid": "3b7f3c1e07358244",
+    "sourceUrl": "https://www.google.com/maps/place/Tide+%26+Table+%E2%80%94+Restaurant/@-6.2433597,106.8041515,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f13be22bf54d:0x3b7f3c1e07358244!8m2!3d-6.2433597!4d106.8041515!16s%2Fg%2F11y8gby89s?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:11:56.385Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/fragments-ashta-district-8",
+    "name": "Fragments",
+    "latitude": -6.2293046,
+    "longitude": 106.8068426,
+    "googleCid": "b8faa601315cbd00",
+    "sourceUrl": "https://www.google.com/maps/?cid=13329148571209743616&hl=id",
+    "checkedAt": "2026-10-28T14:07:28.403Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/fried-club",
+    "name": "Fried Club Modern Diner",
+    "latitude": -6.2527747,
+    "longitude": 106.8003892,
+    "googleCid": "5f8e6046e72f24b",
+    "sourceUrl": "https://www.google.com/maps/place/Fried+Club+Modern+Diner/@-6.2527747,106.8003892,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1cfa80587f1:0x5f8e6046e72f24b!8m2!3d-6.2527747!4d106.8003892!16s%2Fg%2F11shjf_2kn?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:12:58.596Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/mi-mie-dang",
+    "name": "Mi Mie Dang Darmawangsa Square",
+    "latitude": -6.2531596,
+    "longitude": 106.8017133,
+    "googleCid": "4521548a2b6540fc",
+    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Mi+Mie+Dang+The+Darmawangsa+Square%2C+Jl.+Wijaya+II+No.5+Jakarta+Selatan&hl=id",
+    "checkedAt": "2026-10-28T10:13:42.607Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/bodeja-by-nadjas-gourmet",
+    "name": "BODEJA by Nadja’s Gourmet",
+    "latitude": -6.2654484,
+    "longitude": 106.8197973,
+    "googleCid": "1c4cdc1221e8607f",
+    "sourceUrl": "https://www.google.com/maps/place/BODEJA+by+Nadja%E2%80%99s+Gourmet/@-6.2654484,106.8197973,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f384952a5bbd:0x1c4cdc1221e8607f!8m2!3d-6.2654484!4d106.8197973!16s%2Fg%2F11w34qgyrx?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:13:43.176Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/nothing-personal",
+    "name": "NOTHING PERSONAL",
+    "latitude": -6.2442026,
+    "longitude": 106.7952884,
+    "googleCid": "406599a9a8ff78dd",
+    "sourceUrl": "https://www.google.com/maps/place/NOTHING+PERSONAL/@-6.2442026,106.7952884,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f146bd59e8dd:0x406599a9a8ff78dd!8m2!3d-6.2442026!4d106.7952884!16s%2Fg%2F11rfpzy0m8?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:15:08.653Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/onni-garden-house",
+    "name": "ONNI Garden House",
+    "latitude": -6.2983616,
+    "longitude": 106.7797638,
+    "googleCid": "341030ea15c4dd6d",
+    "sourceUrl": "https://www.google.com/maps/place/ONNI+Garden+House/@-6.2983616,106.7797638,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f13f305ab601:0x341030ea15c4dd6d!8m2!3d-6.2983616!4d106.7797638!16s%2Fg%2F11vpksq4sx?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:15:09.296Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/rm-berkah-jeruk-purut",
+    "name": "RM Berkah Sop Daging",
+    "latitude": -6.2914543,
+    "longitude": 106.8129205,
+    "googleCid": "13b6e3005ac442e1",
+    "sourceUrl": "https://www.google.com/maps/place/RM+Berkah+Sop+Daging/@-6.2914543,106.8129205,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1f72f031e29:0x13b6e3005ac442e1!8m2!3d-6.2914543!4d106.8129205!16s%2Fg%2F11bc7myc16?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:15:09.845Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/sando-shop",
+    "name": "Sando Shop",
+    "latitude": -6.230251,
+    "longitude": 106.8021119,
+    "googleCid": "d180ab845610c84f",
+    "sourceUrl": "https://www.google.com/maps/place/Sando+Shop/@-6.230251,106.8021119,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f117300d3e53:0xd180ab845610c84f!8m2!3d-6.230251!4d106.8021119!16s%2Fg%2F11vw_vqb_k?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:15:35.407Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/bouchon",
+    "name": "L'Entrecôte by Bouchon",
+    "latitude": -6.2328748,
+    "longitude": 106.8121339,
+    "googleCid": "a30f2754ef79d01a",
+    "sourceUrl": "https://www.google.com/maps/place/L'Entrec%C3%B4te+by+Bouchon/@-6.2328748,106.8121339,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1dd75422e37:0xa30f2754ef79d01a!8m2!3d-6.2328748!4d106.8121339!16s%2Fg%2F11vq9mtrbc?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:16:21.490Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/kurasu-kissaten",
+    "name": "Kurasu Kissaten",
+    "latitude": -6.2434083,
+    "longitude": 106.8042378,
+    "googleCid": "bd078fa7fc64f96a",
+    "sourceUrl": "https://www.google.com/maps/place/Kurasu+Kissaten/@-6.2434083,106.8042378,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1a0e08492b9:0xbd078fa7fc64f96a!8m2!3d-6.2434083!4d106.8042378!16s%2Fg%2F11vld8zhhp?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:17:25.735Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/toscana",
+    "name": "Toscana",
+    "latitude": -6.271872,
+    "longitude": 106.8150214,
+    "googleCid": "558e9e2b854f01",
+    "sourceUrl": "https://www.google.com/maps/place/Toscana/@-6.271872,106.8150214,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f189a9792b0d:0x558e9e2b854f01!8m2!3d-6.271872!4d106.8150214!16s%2Fg%2F1thjq8xq?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:18:44.552Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/kopi-toko-tjaraka",
+    "name": "Tjaraka",
+    "latitude": -6.2840695,
+    "longitude": 106.8399452,
+    "googleCid": "5a2e9c8340b483d5",
+    "sourceUrl": "https://www.google.com/maps/place/Tjaraka/@-6.2840695,106.8399452,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f36db2e6f115:0x5a2e9c8340b483d5!8m2!3d-6.2840695!4d106.8399452!16s%2Fg%2F11k52zcq5s?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:19:23.141Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/baked-kemang",
+    "name": "BAKED. KEMANG",
+    "latitude": -6.2579365,
+    "longitude": 106.821045,
+    "googleCid": "3d1847031aa75665",
+    "sourceUrl": "https://www.google.com/maps/place/BAKED.+KEMANG/@-6.2579365,106.821045,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f3d804549741:0x3d1847031aa75665!8m2!3d-6.2579365!4d106.821045!16s%2Fg%2F11svtmqyv8?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:20:20.433Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/flor",
+    "name": "FLOR",
+    "latitude": -6.2320112,
+    "longitude": 106.8077615,
+    "googleCid": "9d8ab8328e3d1903",
+    "sourceUrl": "https://www.google.com/maps/place/FLOR/@-6.2320112,106.8077615,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1e92f4f90df:0x9d8ab8328e3d1903!8m2!3d-6.2320112!4d106.8077615!16s%2Fg%2F11kqd999vx?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:20:21.887Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/warung-bhakti",
+    "name": "Nasi Goreng Bhakti",
+    "latitude": -6.2331853,
+    "longitude": 106.8150375,
+    "googleCid": "9d30b6da8af43f6a",
+    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Warung+Bhakti+Jl.+Bakti+No.11+Jakarta+Selatan&hl=id",
+    "checkedAt": "2026-10-28T10:21:00.399Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/rumah-makan-lokiin",
+    "name": "Rumah Makan Lokiin Melawai",
+    "latitude": -6.2457413,
+    "longitude": 106.8024149,
+    "googleCid": "bb01942a8bf74fd7",
+    "sourceUrl": "https://www.google.com/maps/place/Rumah+Makan+Lokiin+Melawai/@-6.2457413,106.8024149,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f156574cde6d:0xbb01942a8bf74fd7!8m2!3d-6.2457413!4d106.8024149!16s%2Fg%2F11sk4ntdhf?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:21:02.558Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/contra",
+    "name": "Contra",
+    "latitude": -6.236251,
+    "longitude": 106.8112699,
+    "googleCid": "8edd65ec5bc888ab",
+    "sourceUrl": "https://www.google.com/maps/place/Contra/@-6.236251,106.8112699,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1adc5e747f9:0x8edd65ec5bc888ab!8m2!3d-6.236251!4d106.8112699!16s%2Fg%2F11khz79_9r?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:21:44.701Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/koultoura-coffee",
+    "name": "Koultoura Coffee",
+    "latitude": -6.235604,
+    "longitude": 106.8110788,
+    "googleCid": "4599600ab8419ed2",
+    "sourceUrl": "https://www.google.com/maps/place/Koultoura+Coffee/@-6.235604,106.8110788,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1b45cc99ec1:0x4599600ab8419ed2!8m2!3d-6.235604!4d106.8110788!16s%2Fg%2F11hdqvthk_?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T14:07:54.100Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/teru",
+    "name": "TERU",
+    "latitude": -6.2437594,
+    "longitude": 106.7933397,
+    "googleCid": "afcdf022dcc55410",
+    "sourceUrl": "https://www.google.com/maps/place/TERU/@-6.2437594,106.7933397,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f12db065151d:0xafcdf022dcc55410!8m2!3d-6.2437594!4d106.7933397!16s%2Fg%2F11tf4_hc7x?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:24:30.806Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/braud-general-store",
+    "name": "BRAUD® Cafe Jakarta",
+    "latitude": -6.2306337,
+    "longitude": 106.8070525,
+    "googleCid": "6845c7e9af29d18d",
+    "sourceUrl": "https://www.google.com/maps/place/BRAUD%C2%AE+Cafe+Jakarta/@-6.2306337,106.8070525,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1c18e1d1e3f:0x6845c7e9af29d18d!8m2!3d-6.2306337!4d106.8070525!16s%2Fg%2F11rp7bbf3c?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:24:32.296Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/arabica-jakarta-roastery",
+    "name": "% Arabica Jakarta Roastery",
+    "latitude": -6.234521,
+    "longitude": 106.8072462,
+    "googleCid": "ef503dff46709df6",
+    "sourceUrl": "https://www.google.com/maps/place/%25+Arabica+Jakarta+Roastery/@-6.234521,106.8072462,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f17ee5503299:0xef503dff46709df6!8m2!3d-6.234521!4d106.8072462!16s%2Fg%2F11tjm02bvc?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:25:04.487Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/kohai-sushi-bar",
+    "name": "Kohai Sushi Bar",
+    "latitude": -6.2290412,
+    "longitude": 106.8230283,
+    "googleCid": "6ffd4f23318016e3",
+    "sourceUrl": "https://www.google.com/maps/place/Kohai+Sushi+Bar/@-6.2290412,106.8230283,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f3080cb721cf:0x6ffd4f23318016e3!8m2!3d-6.2290412!4d106.8230283!16s%2Fg%2F11qkr87tgp?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:26:13.710Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/bubur-ayam-palapa-raya",
+    "name": "Bubur Ayam Palapa Raya",
+    "latitude": -6.2872835,
+    "longitude": 106.8385454,
+    "googleCid": "7efb00abb9caee44",
+    "sourceUrl": "https://www.google.com/maps/place/Bubur+Ayam+Palapa+Raya/@-6.2872835,106.8385454,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f2128a646225:0x7efb00abb9caee44!8m2!3d-6.2872835!4d106.8385454!16s%2Fg%2F11c2njdh4m?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:26:14.176Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/kopikalyan-wijaya",
+    "name": "Kopikalyan Wijaya - Cafe Melawai",
+    "latitude": -6.2487953,
+    "longitude": 106.8035563,
+    "googleCid": "4f5d905d76006fba",
+    "sourceUrl": "https://www.google.com/maps/place/Kopikalyan+Wijaya+-+Cafe+Melawai/@-6.2487953,106.8035563,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f13c72e1b2b9:0x4f5d905d76006fba!8m2!3d-6.2487953!4d106.8035563!16s%2Fg%2F11qqscqsk5?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:27:00.491Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/kouji-genki-project-2",
+    "name": "kouji genki project",
+    "latitude": -6.2305105,
+    "longitude": 106.8513712,
+    "googleCid": "8c298ab015758a01",
+    "sourceUrl": "https://www.google.com/maps/place/kouji+genki+project/@-6.2305105,106.8513712,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f11f26fc99c5:0x8c298ab015758a01!8m2!3d-6.2305105!4d106.8513712!16s%2Fg%2F11h4g9d92r?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:27:02.480Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/rowstid-chikin",
+    "name": "Rowstid Chikin' Panglima Polim",
+    "latitude": -6.2523249,
+    "longitude": 106.7980767,
+    "googleCid": "7e34a7af409552d4",
+    "sourceUrl": "https://www.google.com/maps/place/Rowstid+Chikin'+Panglima+Polim/@-6.2523249,106.7980767,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f14a947d1b65:0x7e34a7af409552d4!8m2!3d-6.2523249!4d106.7980767!16s%2Fg%2F11k72nj3c2?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:27:07.409Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/moon-gypsy",
+    "name": "Moon Gypsy",
+    "latitude": -6.2297292,
+    "longitude": 106.8043566,
+    "googleCid": "5b6e5233b83ecc46",
+    "sourceUrl": "https://www.google.com/maps/place/Moon+Gypsy/@-6.2297292,106.8043566,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f157577ac5df:0x5b6e5233b83ecc46!8m2!3d-6.2297292!4d106.8043566!16s%2Fg%2F11sr8nh8w2?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:28:38.518Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/galapung-bakehouse",
+    "name": "Galapung Bakehouse & Cafe",
+    "latitude": -6.2723929,
+    "longitude": 106.8381817,
+    "googleCid": "2166027f7851b6fb",
+    "sourceUrl": "https://www.google.com/maps/place/Galapung+Bakehouse+%26+Cafe/@-6.2723929,106.8381817,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f3e9633f8b6d:0x2166027f7851b6fb!8m2!3d-6.2723929!4d106.8381817!16s%2Fg%2F11s5c4dyk7?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:28:40.423Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/zapoli",
+    "name": "Zapoli pizzeria",
+    "latitude": -6.2648075,
+    "longitude": 106.8236457,
+    "googleCid": "b0002f53fcdb62f1",
+    "sourceUrl": "https://www.google.com/maps/place/Zapoli+pizzeria/@-6.2648075,106.8236457,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f38a530b5455:0xb0002f53fcdb62f1!8m2!3d-6.2648075!4d106.8236457!16s%2Fg%2F11q4m1f6bk?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:28:40.794Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/ombe-kofie-senopati",
+    "name": "Ombé Kofie Senopati",
+    "latitude": -6.2300471,
+    "longitude": 106.8054876,
+    "googleCid": "b2288e63fd70dcab",
+    "sourceUrl": "https://www.google.com/maps/place/Omb%C3%A9+Kofie+Senopati/@-6.2300471,106.8054876,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f10f08b0f3bf:0xb2288e63fd70dcab!8m2!3d-6.2300471!4d106.8054876!16s%2Fg%2F11sz3n28n8?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:29:44.150Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/fern-coffee-house",
+    "name": "Fern Coffee House",
+    "latitude": -6.3060503,
+    "longitude": 106.7921317,
+    "googleCid": "35517e5cc7df87cb",
+    "sourceUrl": "https://www.google.com/maps/place/Fern+Coffee+House/@-6.3060503,106.7921317,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ef4f151db79d:0x35517e5cc7df87cb!8m2!3d-6.3060503!4d106.7921317!16s%2Fg%2F11js5g6yys?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:29:45.226Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/nasi-peda-pelangi",
+    "name": "Nasi Peda Pelangi SCBD",
+    "latitude": -6.2267054,
+    "longitude": 106.8068274,
+    "googleCid": "4a8e8814e73d9c6e",
+    "sourceUrl": "https://www.google.com/maps/place/Nasi+Peda+Pelangi+SCBD/@-6.2267054,106.8068274,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1ae25ee0279:0x4a8e8814e73d9c6e!8m2!3d-6.2267054!4d106.8068274!16s%2Fg%2F11g_zx05c3?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:29:45.991Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/tengkleng-rica-rica-pak-manto",
+    "name": "Sate Kambing dan Tengkleng Pak Manto",
+    "latitude": -6.2745115,
+    "longitude": 106.7630083,
+    "googleCid": "62b792555b0682b4",
+    "sourceUrl": "https://www.google.com/maps/place/Sate+Kambing+dan+Tengkleng+Pak+Manto/@-6.2745115,106.7630083,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f195cff1e4d7:0x62b792555b0682b4!8m2!3d-6.2745115!4d106.7630083!16s%2Fg%2F11fmzgqp5z?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:30:27.787Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  },
+  {
+    "id": "jaksel/pierre",
+    "name": "PIERRE",
+    "latitude": -6.2310073,
+    "longitude": 106.8091905,
+    "googleCid": "c48babd363674d1e",
+    "sourceUrl": "https://www.google.com/maps/place/PIERRE/@-6.2310073,106.8091905,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1287ac56497:0xc48babd363674d1e!8m2!3d-6.2310073!4d106.8091905!16s%2Fg%2F11qqr06r2q?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-10-28T10:30:49.851Z",
+    "evidence": "Previously branch-verified Scrapling capture; identity preserved from existing staged data"
+  }
+]

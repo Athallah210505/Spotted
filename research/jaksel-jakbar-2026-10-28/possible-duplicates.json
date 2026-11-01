@@ -48,10 +48,10 @@
     "status": "needs_branch_review"
   },
   {
-    "first_id": "node/13457519001",
-    "second_id": "node/13457634601",
-    "distance_m": 2.4,
-    "status": "needs_branch_review"
+    "first_id": "node/4261923947",
+    "second_id": "way/669236489",
+    "distance_m": 2.5,
+    "status": "confirmed_same_google_listing"
   },
   {
     "first_id": "node/6926389534",
@@ -63,12 +63,24 @@
     "first_id": "node/5996815585",
     "second_id": "node/12811297169",
     "distance_m": 2.4,
-    "status": "needs_branch_review"
+    "status": "confirmed_same_google_listing"
+  },
+  {
+    "first_id": "node/6210540992",
+    "second_id": "node/11690092686",
+    "distance_m": 4.3,
+    "status": "confirmed_same_google_listing"
   },
   {
     "first_id": "node/6385768085",
     "second_id": "node/6954210985",
     "distance_m": 74.5,
+    "status": "needs_branch_review"
+  },
+  {
+    "first_id": "node/13457519001",
+    "second_id": "node/13457634601",
+    "distance_m": 2.4,
     "status": "needs_branch_review"
   },
   {
@@ -105,12 +117,6 @@
     "first_id": "node/11254823443",
     "second_id": "node/11258952027",
     "distance_m": 36.0,
-    "status": "needs_branch_review"
-  },
-  {
-    "first_id": "node/13457385201",
-    "second_id": "node/13457634303",
-    "distance_m": 8.3,
     "status": "needs_branch_review"
   },
   {

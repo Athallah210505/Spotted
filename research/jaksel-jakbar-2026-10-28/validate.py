@@ -33,15 +33,25 @@ with closing(sqlite3.connect(f"file:{FOLDER / 'food-database.sqlite'}?mode=ro", 
         providers = [s for s in sources if s["place_id"] == row["id"]]
         assert providers and row["district"] and row["city"] in summary["cities"]
         reviews = list(db.execute("SELECT author_url,rating FROM google_reviews WHERE place_id=?", (row["id"],)))
-        if row["google_rating"] is None:
+        google_sources = [s for s in providers if s["provider"] == "google"]
+        if not google_sources:
             assert not reviews and row["google_review_count"] is None
             assert row["google_maps_url"] is None and row["photo_url"] is None
         else:
-            google = next(s for s in providers if s["provider"] == "google")
+            google = google_sources[0]
             source = json.loads(google["payload_json"])
             assert row["google_rating"] == source["rating"]
             assert row["google_review_count"] == source["reviewCount"]
-            assert len(reviews) == len({r[0] for r in reviews}) == 5
+            assert row["google_maps_url"] == source["mapsUrl"]
+            assert json.loads(row["google_hours_json"]) == source["hours"]
+            assert len(reviews) == len({r[0] for r in reviews}) == len(source["reviews"]) <= 5
+            if row["verification_status"] == 'google_verified_snapshot':
+                assert len(reviews) == 5 and row['google_rating'] is not None and row['photo_url']
     assert db.execute("SELECT COUNT(*) FROM google_reviews").fetchone()[0] == summary["google_reviews"]
     assert db.execute("SELECT COUNT(*) FROM research_candidates").fetchone()[0] == summary["research_candidates"]
+    if 'enrichment_audit_statuses' in summary:
+        assert db.execute('SELECT COUNT(*) FROM enrichment_attempts').fetchone()[0] == len(rows)
+        for record in db.execute('SELECT place_id,status,evidence_json FROM enrichment_attempts'):
+            evidence = json.loads(record['evidence_json'])
+            assert record['place_id'] == evidence['id'] and record['status'] == evidence['status']
     print(f"PASS: {len(rows)} database records, 18 kecamatan, matching CSV/JSON/SQLite, source-backed Google fields and valid foreign keys.")
