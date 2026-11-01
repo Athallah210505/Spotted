@@ -126,40 +126,65 @@ test("failed recommendations can be retried and filters fit narrow screens", asy
   await expect(dialog.getByRole("article")).toHaveCount(5);
 });
 
-test("map loads database clusters without overlapping markers and drills into them", async ({
-  page,
-}) => {
-  await stubMapTiles(page);
-  await page.goto("/map");
-  const map = page.getByRole("region", { name: "Peta tempat makan" });
-  await expect
-    .poll(async () => Number(await map.getAttribute("data-places")))
-    .toBeGreaterThan(104);
-  const markers = map.locator(".leaflet-marker-icon");
-  expect(await markers.count()).toBeLessThan(100);
-  const boxes = await markers.evaluateAll((nodes) =>
-    nodes.map((node) => {
-      const r = node.getBoundingClientRect();
-      return { x: r.x, y: r.y, width: r.width, height: r.height };
-    }),
-  );
-  for (let i = 0; i < boxes.length; i++)
-    for (let j = i + 1; j < boxes.length; j++) {
-      const a = boxes[i]!,
-        b = boxes[j]!;
-      expect(
-        a.x + a.width <= b.x ||
-          b.x + b.width <= a.x ||
-          a.y + a.height <= b.y ||
-          b.y + b.height <= a.y,
-      ).toBe(true);
+for (const entry of ["direct", "explore"] as const) {
+  test(`map loads database clusters with centered labels via ${entry}`, async ({
+    page,
+  }) => {
+    await stubMapTiles(page);
+    if (entry === "explore") {
+      await page.goto("/explore");
+      await page.getByRole("link", { name: "Map", exact: true }).click();
+    } else await page.goto("/map");
+    const map = page.getByRole("region", { name: "Peta tempat makan" });
+    await expect
+      .poll(async () => Number(await map.getAttribute("data-places")))
+      .toBeGreaterThan(104);
+    const markers = map.locator(".leaflet-marker-icon");
+    expect(await markers.count()).toBeLessThan(100);
+    const boxes = await markers.evaluateAll((nodes) =>
+      nodes.map((node) => {
+        const r = node.getBoundingClientRect();
+        return { x: r.x, y: r.y, width: r.width, height: r.height };
+      }),
+    );
+    for (let i = 0; i < boxes.length; i++)
+      for (let j = i + 1; j < boxes.length; j++) {
+        const a = boxes[i]!,
+          b = boxes[j]!;
+        expect(
+          a.x + a.width <= b.x ||
+            b.x + b.width <= a.x ||
+            a.y + a.height <= b.y ||
+            b.y + b.height <= a.y,
+        ).toBe(true);
+      }
+    const zoom = map.getByRole("button", {
+      name: "Perbesar peta",
+      exact: true,
+    });
+    await expect(zoom).toHaveCSS("width", "44px");
+    await expect(zoom).toHaveCSS("height", "44px");
+    const offsets = await markers.evaluateAll((nodes) =>
+      nodes.map((node) => {
+        const marker = node.getBoundingClientRect();
+        const text = node.querySelector("span")!.getBoundingClientRect();
+        return {
+          x: Math.abs(text.x + text.width / 2 - marker.x - marker.width / 2),
+          y: Math.abs(text.y + text.height / 2 - marker.y - marker.height / 2),
+        };
+      }),
+    );
+    for (const offset of offsets) {
+      expect(offset.x).toBeLessThanOrEqual(1);
+      expect(offset.y).toBeLessThanOrEqual(1);
     }
-  await page.screenshot({
-    path: `test-results/food-clusters-${test.info().project.name}.png`,
+    await page.screenshot({
+      path: `test-results/food-clusters-${test.info().project.name}.png`,
+    });
+    await map
+      .getByRole("button", { name: /tempat, perbesar area/ })
+      .first()
+      .click();
+    await expect(map).toHaveAttribute("data-zoom", "16");
   });
-  await map
-    .getByRole("button", { name: /tempat, perbesar area/ })
-    .first()
-    .click();
-  await expect(map).toHaveAttribute("data-zoom", "16");
-});
+}

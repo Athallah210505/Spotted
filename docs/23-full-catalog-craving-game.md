@@ -30,3 +30,7 @@ Motion is bounded: card entrance, bookmark feedback and question opacity respect
 - PASS: 38 unit/integration tests, including full database counts, non-repeating pagination, null ratings, bad API parameters, cluster conservation/separation, recommendation changes and unknown cuisine.
 - PASS: 42 scoped browser cases across Chromium and mobile WebKit, including full-catalog search/detail, filters, pagination, swipes/buttons, previous answer/restart, recommendation failure/retry, 320–1280 px layouts, map clusters, GPS movement/cleanup and existing photo/review flows.
 - Desktop/mobile screenshots inspected for Explore, grouped Map and game results. Map tests use local tiles; GPS uses simulated positions. Physical device GPS and new photography collection were not performed.
+
+## Marker alignment follow-up
+
+Client navigation from Explore could load Leaflet's `display: block` rule after the Map CSS, moving count labels to the marker corner. Map-scoped selectors now preserve centered grid layout regardless of stylesheet order and keep zoom controls at 44 px on touch devices. Regression coverage opens Map both directly and through Explore, checks text centers within one pixel, and preserves cluster spacing and zoom behavior on Chromium/mobile WebKit. The failing navigation case was reproduced before the CSS fix; four targeted cases passed afterward.
