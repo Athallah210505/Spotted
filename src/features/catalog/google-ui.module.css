@@ -130,6 +130,9 @@
 .card .saveButton[aria-pressed="true"] {
   background: var(--brand-yellow);
 }
+.card .saveButton[aria-pressed="true"] img {
+  animation: saved 260ms ease-out;
+}
 .card .saveButton:active {
   transform: scale(0.92);
 }
@@ -203,12 +206,20 @@
     transform: translateY(0);
   }
 }
+@keyframes saved {
+  50% {
+    transform: scale(1.18);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .card {
     animation: none;
   }
   .card .saveButton {
     transition: none;
+  }
+  .card .saveButton img {
+    animation: none;
   }
 }
 .hours {

@@ -19,6 +19,10 @@ export function InteractiveMap() {
   const locationRef = useRef<Leaflet.LayerGroup | null>(null);
   const tilesRef = useRef<Leaflet.TileLayer | null>(null);
   const locationRequest = useRef(0);
+  const watchId = useRef<number | null>(null);
+  const followLocation = useRef(true);
+  const frameRequested = useRef(true);
+  const [tracking, setTracking] = useState(false);
   const [origin, setOrigin] = useState<{
     latitude: number;
     longitude: number;
@@ -38,13 +42,29 @@ export function InteractiveMap() {
         (place) => distanceBetween(origin, place) <= radius * 1000,
       ).length
     : 0;
-  const choosePoint = useCallback((point: Leaflet.LatLng) => {
+  const stopTracking = useCallback(() => {
     locationRequest.current++;
+    if (watchId.current !== null) {
+      navigator.geolocation.clearWatch(watchId.current);
+      watchId.current = null;
+    }
+    setTracking(false);
     setLoadingLocation(false);
-    setSelecting(false);
-    setOrigin({ latitude: point.lat, longitude: point.lng, source: "manual" });
-    setStatus("Titik dipilih. Geser pin untuk menyesuaikan pusat radius.");
   }, []);
+  const choosePoint = useCallback(
+    (point: Leaflet.LatLng) => {
+      stopTracking();
+      frameRequested.current = true;
+      setSelecting(false);
+      setOrigin({
+        latitude: point.lat,
+        longitude: point.lng,
+        source: "manual",
+      });
+      setStatus("Titik dipilih. Geser pin untuk menyesuaikan pusat radius.");
+    },
+    [stopTracking],
+  );
 
   useEffect(() => {
     let disposed = false;
@@ -58,6 +78,9 @@ export function InteractiveMap() {
           14,
         );
         mapRef.current = map;
+        map.on("dragstart", () => {
+          followLocation.current = false;
+        });
         L.control
           .zoom({
             position: "bottomright",
@@ -142,6 +165,10 @@ export function InteractiveMap() {
       });
     return () => {
       disposed = true;
+      if (watchId.current !== null) {
+        navigator.geolocation.clearWatch(watchId.current);
+        watchId.current = null;
+      }
       resize?.disconnect();
       mapRef.current?.remove();
       mapRef.current = null;
@@ -226,50 +253,89 @@ export function InteractiveMap() {
         frameRadius();
       }
     });
-    frameRadius();
+    if (origin.source === "manual" || frameRequested.current) {
+      frameRadius();
+      frameRequested.current = false;
+    } else if (followLocation.current) {
+      map.panTo(point, {
+        animate: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+        duration: 0.3,
+      });
+    }
     return () => {
       layer.clearLayers();
     };
   }, [ready, origin, radius, choosePoint]);
 
   function locate() {
-    const request = ++locationRequest.current;
+    stopTracking();
     setSelecting(false);
-    if (!navigator.geolocation) {
+    if (!window.isSecureContext) {
       setStatus(
-        "Browser ini belum mendukung lokasi. Anda tetap bisa menggeser peta.",
+        "Lokasi memerlukan HTTPS atau localhost. Gunakan Pilih titik untuk menentukan lokasi secara manual.",
       );
       return;
     }
+    if (!navigator.geolocation) {
+      setStatus(
+        "Browser ini belum mendukung lokasi. Gunakan Pilih titik untuk menentukan lokasi secara manual.",
+      );
+      return;
+    }
+    const request = locationRequest.current;
+    followLocation.current = true;
+    frameRequested.current = true;
     setLoadingLocation(true);
+    setTracking(true);
     setStatus("Menunggu izin dan mencari lokasi Anda…");
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        if (!mapRef.current || request !== locationRequest.current) return;
-        setOrigin({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          source: "gps",
-          accuracy: position.coords.accuracy,
-        });
-        setLoadingLocation(false);
-        setStatus(
-          "Lokasi Anda ditemukan. Lingkaran menunjukkan radius; pin bisa digeser.",
-        );
-      },
-      (error) => {
-        if (!mapRef.current || request !== locationRequest.current) return;
-        setLoadingLocation(false);
-        setStatus(
-          error.code === 1
-            ? "Izin lokasi ditolak. Aktifkan lewat pengaturan browser untuk mencoba lagi; peta tetap bisa digeser."
-            : error.code === 3
-              ? "Pencarian lokasi terlalu lama. Coba lagi atau geser peta secara manual."
-              : "Lokasi belum terbaca. Coba lagi atau geser peta secara manual.",
-        );
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
-    );
+    let receivedFix = false;
+    function watch(highAccuracy: boolean) {
+      watchId.current = navigator.geolocation.watchPosition(
+        (position) => {
+          if (!mapRef.current || request !== locationRequest.current) return;
+          const { latitude, longitude, accuracy } = position.coords;
+          if (
+            !Number.isFinite(latitude) ||
+            !Number.isFinite(longitude) ||
+            Math.abs(latitude) > 90 ||
+            Math.abs(longitude) > 180
+          )
+            return;
+          receivedFix = true;
+          setOrigin({ latitude, longitude, source: "gps", accuracy });
+          setLoadingLocation(false);
+          setStatus(
+            "Lokasi Anda ditemukan. Posisi diperbarui selama pelacakan aktif.",
+          );
+        },
+        (error) => {
+          if (!mapRef.current || request !== locationRequest.current) return;
+          if (receivedFix && error.code !== 1) {
+            setStatus(
+              "Sinyal lokasi terputus. Menampilkan titik terakhir sambil menunggu pembaruan…",
+            );
+            return;
+          }
+          if (highAccuracy && error.code !== 1) {
+            if (watchId.current !== null)
+              navigator.geolocation.clearWatch(watchId.current);
+            setStatus("GPS belum tersedia. Mencoba lokasi dari jaringan…");
+            watch(false);
+            return;
+          }
+          stopTracking();
+          setStatus(
+            error.code === 1
+              ? "Izin lokasi ditolak. Izinkan lokasi di pengaturan browser dan perangkat, lalu coba lagi. Anda tetap bisa memilih titik."
+              : error.code === 3
+                ? "Pencarian lokasi terlalu lama. Coba lagi atau gunakan Pilih titik."
+                : "Lokasi belum terbaca. Periksa layanan lokasi perangkat atau gunakan Pilih titik.",
+          );
+        },
+        { enableHighAccuracy: highAccuracy, timeout: 12000, maximumAge: 0 },
+      );
+    }
+    watch(true);
   }
 
   return (
@@ -280,7 +346,11 @@ export function InteractiveMap() {
       <header className={styles.header}>
         <h1>Find your next spot.</h1>
         <div className={styles.actions}>
-          <button onClick={locate} disabled={!ready || loadingLocation}>
+          <button
+            onClick={locate}
+            disabled={!ready || loadingLocation}
+            aria-pressed={tracking}
+          >
             {loadingLocation ? "Mencari lokasi…" : "Gunakan lokasi saya"}
           </button>
           <button
@@ -288,8 +358,7 @@ export function InteractiveMap() {
             disabled={!ready}
             aria-pressed={selecting}
             onClick={() => {
-              locationRequest.current++;
-              setLoadingLocation(false);
+              stopTracking();
               setSelecting(!selecting);
               setStatus(
                 selecting
@@ -311,13 +380,35 @@ export function InteractiveMap() {
               key={value}
               disabled={!ready}
               aria-pressed={radius === value}
-              onClick={() => setRadius(value)}
+              onClick={() => {
+                frameRequested.current = true;
+                setRadius(value);
+              }}
             >
               {value} km
             </button>
           ))}
         </div>
         <p role="status">{status}</p>
+        {origin?.source === "gps" && origin.accuracy !== undefined ? (
+          <p>
+            Akurasi lokasi ±
+            {Math.round(origin.accuracy).toLocaleString("id-ID")} m
+          </p>
+        ) : null}
+        {tracking ? (
+          <button
+            className={styles.stopButton}
+            onClick={() => {
+              stopTracking();
+              setStatus(
+                "Pelacakan dihentikan. Titik terakhir tetap terlihat di peta.",
+              );
+            }}
+          >
+            Hentikan pelacakan
+          </button>
+        ) : null}
         {selecting ? (
           <button
             className={styles.centerButton}

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Fragment, useRef, useState, useTransition } from "react";
+import { Fragment, useEffect, useRef, useState, useTransition } from "react";
 import { BrowseNavigation } from "@/components/layout/browse-navigation";
 import { PreviewDialog } from "@/components/ui/preview-dialog";
 import { usePreviewProfile } from "@/features/profile/preview-profile";
@@ -22,6 +22,7 @@ import {
 } from "./demo-data";
 import styles from "@/components/layout/browse.module.css";
 import dataStyles from "@/features/catalog/google-ui.module.css";
+import explore from "./explore.module.css";
 
 const menuPicks = googlePlaces.flatMap((place) =>
   place.menuPhotos.slice(0, 1).map((photo) => ({ place, photo })),
@@ -50,6 +51,22 @@ export function ExploreFeed({
   const [locationOpen, setLocationOpen] = useState(false);
   const trigger = useRef<HTMLElement | null>(null);
   const scrollArea = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    const root = scrollArea.current;
+    if (!root) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.setAttribute("data-revealed", "true");
+          observer.unobserve(entry.target);
+        }
+      },
+      { root, threshold: 0.12, rootMargin: "-140px 0px -24px 0px" },
+    );
+    root.querySelectorAll("article").forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, [search]);
   function update(values: Partial<ExploreFilters>) {
     const query = exploreSearch(
       { ...filters, ...values },
@@ -58,7 +75,15 @@ export function ExploreFeed({
     startTransition(() =>
       router.replace(`/explore${query ? `?${query}` : ""}`, { scroll: false }),
     );
-    scrollArea.current?.scrollTo({ top: 0 });
+    const main = scrollArea.current;
+    if (main) {
+      main.scrollTo({
+        top: Math.min(
+          main.scrollTop,
+          main.querySelector("header")?.offsetHeight ?? 0,
+        ),
+      });
+    }
   }
   function reset() {
     startTransition(() => router.replace("/explore", { scroll: false }));
@@ -69,7 +94,7 @@ export function ExploreFeed({
     setLocationOpen(true);
   }
   return (
-    <div className={`${styles.shell} ${!search ? styles.exploreShell : ""}`}>
+    <div className={`${styles.shell} ${styles.exploreShell} ${explore.shell}`}>
       <a className={styles.skipLink} href="#explore-content">
         Skip to restaurants
       </a>
@@ -95,55 +120,41 @@ export function ExploreFeed({
         aria-busy={pending}
       >
         <div className={styles.content}>
-          <header className={search ? styles.searchMasthead : styles.masthead}>
-            {search ? (
-              <div className={styles.searchHeader}>
-                <button onClick={reset} aria-label="Back to Explore">
-                  <Image
-                    src="/figma/editorial/back.svg"
-                    width={22}
-                    height={22}
-                    alt=""
-                  />
-                </button>
-                <h1 className={styles.searchTitle}>Find a good spot.</h1>
-              </div>
-            ) : (
-              <>
-                <div className={styles.brandRow}>
-                  <span className={styles.wordmark}>spotted.</span>
-                  <button
-                    className={styles.locationSelector}
-                    onClick={(event) => chooseArea(event.currentTarget)}
-                    aria-label="Choose location"
-                    aria-haspopup="dialog"
-                  >
-                    <Image
-                      src="/figma/editorial/pin.svg"
-                      width={20}
-                      height={20}
-                      alt=""
-                    />
-                    <span>
-                      {filters.city === "jakarta" ? "Jakarta" : "Bintaro"}
-                    </span>
-                  </button>
-                </div>
-                <div className={styles.headlineRow}>
-                  <h1 className={styles.headline}>
-                    Follow your
-                    <br />
-                    cravings.
-                  </h1>
-                  <Image
-                    src="/figma/editorial/pin-motif.svg"
-                    width={48}
-                    height={48}
-                    alt=""
-                  />
-                </div>
-              </>
-            )}
+          <header className={`${styles.masthead} ${explore.masthead}`}>
+            <div className={styles.brandRow}>
+              <span className={styles.wordmark}>spotted.</span>
+              <button
+                className={styles.locationSelector}
+                onClick={(event) => chooseArea(event.currentTarget)}
+                aria-label="Choose location"
+                aria-haspopup="dialog"
+              >
+                <Image
+                  src="/figma/editorial/pin.svg"
+                  width={20}
+                  height={20}
+                  alt=""
+                />
+                <span>
+                  {filters.city === "jakarta" ? "Jakarta" : "Bintaro"}
+                </span>
+              </button>
+            </div>
+            <div className={styles.headlineRow}>
+              <h1 className={styles.headline}>
+                Follow your
+                <br />
+                cravings.
+              </h1>
+              <Image
+                src="/figma/editorial/pin-motif.svg"
+                width={48}
+                height={48}
+                alt=""
+              />
+            </div>
+          </header>
+          <div className={explore.controls}>
             <form
               className={styles.searchField}
               role="search"
@@ -207,16 +218,20 @@ export function ExploreFeed({
                 </button>
               ))}
             </div>
-          </header>
+          </div>
           {pending ? (
-            <p className={styles.loading} role="status">
+            <p className={styles.srOnly} role="status">
               Updating your places…
             </p>
           ) : null}
-          <section aria-label="Restaurants in Jakarta">
+          <section
+            className={explore.results}
+            data-pending={pending}
+            aria-label="Restaurants in Jakarta"
+          >
             <div className={dataStyles.sectionHeading}>
               <div>
-                <h2>
+                <h2 tabIndex={-1} id="explore-results">
                   {filters.query
                     ? `Results for ${filters.query}`
                     : "Worth a detour."}

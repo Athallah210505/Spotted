@@ -93,3 +93,34 @@ test("visitor photo rail opens real menu details and fits narrow screens", async
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(first).toHaveCSS("animation-name", "none");
 });
+
+test("Explore keeps its header through filtering and search stays reachable during scrolling", async ({
+  page,
+}) => {
+  await page.goto("/explore");
+  const main = page.getByRole("main");
+  const headline = page.getByRole("heading", { name: "Follow your cravings." });
+  const initial = (await headline.boundingBox())!;
+  const coffee = page.getByRole("button", { name: "Coffee", exact: true });
+  await coffee.click();
+  await expect(page).toHaveURL(/category=Coffee/);
+  await expect(headline).toBeVisible();
+  expect((await headline.boundingBox())!.y).toBeCloseTo(initial.y, 0);
+  await page.getByRole("button", { name: "Explore", exact: true }).click();
+  await expect(page).toHaveURL(/\/explore$/);
+  await main.evaluate((el) => el.scrollTo(0, 1100));
+  const search = page.getByRole("searchbox", {
+    name: "Find food, places or areas",
+  });
+  await expect(search).toBeInViewport();
+  await coffee.click();
+  await expect(page).toHaveURL(/category=Coffee/);
+  await expect(search).toBeInViewport();
+  const heading = page.getByRole("heading", { name: "Worth a detour." });
+  await expect(heading).toBeInViewport();
+  await expect(main).toHaveAttribute("aria-busy", "false");
+  await expect(coffee).toHaveAttribute("aria-pressed", "true");
+  await page.screenshot({
+    path: `test-results/explore-sticky-${test.info().project.name}.png`,
+  });
+});
