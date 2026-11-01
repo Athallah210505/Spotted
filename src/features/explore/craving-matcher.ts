@@ -16,7 +16,7 @@ export function cravingTraits(
     .replaceAll("_", " ");
   const cafe = /\b(cafe|café|coffee|kopi|kafe|tea house|teahouse)\b/.test(text);
   const sweet =
-    /bakery|cake|dessert|ice.?cream|pastry|donut|donat|kue|patisserie|confection|chocol/.test(
+    /bakery|roti|cake|dessert|ice.?cream|es krim|pastry|donut|donat|kue|patisserie|confection|manisan|chocol|cokelat/.test(
       text,
     );
   const local =
@@ -32,7 +32,9 @@ export function cravingTraits(
     local ||
     asian ||
     other ||
-    /restaurant|fast food|food court|seafood/.test(text);
+    /restaurant|restoran|fast food|makanan cepat saji|food court|pujasera|seafood/.test(
+      text,
+    );
   return [
     meal ? true : cafe || sweet ? false : null,
     local ? true : asian || other ? false : null,

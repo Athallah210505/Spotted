@@ -120,7 +120,50 @@ def fetch(query, destination):
     destination.write_bytes(raw)
 
 
-def build(raw, districts_raw, google, research, checked_at):
+def normalize_hours(rows):
+    days = dict(zip(['sunday','monday','tuesday','wednesday','thursday','friday','saturday'], ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu']))
+    result = []
+    def clock(match):
+        hour, minute, period = int(match[1]), int(match[2] or 0), match[3].lower()
+        if not 1 <= hour <= 12 or not 0 <= minute < 60: return match[0]
+        return f"{hour % 12 + (12 if period == 'p' else 0):02d}.{minute:02d}"
+    for row in rows:
+        day, value = row['day'], ' '.join(row['text'].split())
+        day = days.get(day.casefold(), day)
+        if re.fullmatch(r'(?:open )?24 (?:hours|jam)|buka 24 jam', value, re.I): value = 'Buka 24 jam'
+        elif value.casefold() == 'closed': value = 'Tutup'
+        else:
+            value = re.sub(r'\b(\d{1,2})(?:[.:](\d{2}))?\s*([ap])\.?m\.?', clock, value, flags=re.I)
+            value = re.sub(r'\b(\d{1,2})[:.](\d{2})\b', lambda m:f'{int(m[1]):02d}.{m[2]}', value)
+            value = re.sub(r'\s*[–-]\s*', '–', value)
+        result.append({'day':day,'text':value})
+    return result
+
+
+def discovery_seed(source, evidence):
+    expected = 'overture/' + source['id']
+    names = normalize_name(source['name']), normalize_name(evidence['name'])
+    points = [source['latitude'], source['longitude'], evidence['latitude'], evidence['longitude']]
+    if evidence['id'] != expected or normalize_name(evidence.get('sourceRecordName')) != names[0] or not all(names) or not (names[0] == names[1] or min(map(len, names)) >= 8 and (names[0].startswith(names[1]) or names[1].startswith(names[0]))):
+        raise ValueError('Discovery Google evidence must identify the same named branch')
+    if source['address_locality_conflict'] or (source['confidence'] or 0) < 0.8 or not all(type(v) in (int,float) and math.isfinite(v) for v in points) or not (-90 <= points[0] <= 90 and -90 <= points[2] <= 90 and -180 <= points[1] <= 180 and -180 <= points[3] <= 180) or distance(points[:2], points[2:]) > 100:
+        raise ValueError('Discovery Google evidence must match a reliable source point within 100 m')
+    url = source['source_url']
+    place = {'id': expected, 'name': source['name'], 'city': source['city'], 'district': source['district'],
+             'category': source['category'], 'latitude': source['latitude'], 'longitude': source['longitude'],
+             'coordinate_method': 'overture_point', 'address': source['address'], 'cuisine': None, 'opening_hours': None,
+             'address_source_url': url if source['address'] else None, 'name_source_url': url,
+             'google_rating': None, 'google_hours_json': '[]', 'google_cid': None, 'google_review_count': None,
+             'google_maps_url': None, 'photo_url': None, 'primary_source_url': url,
+             'operating_status': 'not_independently_verified', 'verification_status': 'open_data_matched',
+             'possible_duplicate_group': None, 'observed_at': source['checked_at']}
+    provenance = {'place_id': expected, 'provider': 'overture', 'source_id': source['id'], 'source_url': url,
+                  'observed_at': source['checked_at'], 'source_updated_at': max((r['update_time'] for r in source['sources'] if r.get('update_time')), default=None),
+                  'license': ';'.join(sorted({r['license'] for r in source['sources'] if r.get('license')})), 'payload_json': dump(source)}
+    return place, provenance
+
+
+def build(raw, districts_raw, google, research, checked_at, discovery_sources=()):
     city_relations = [r for r in raw["elements"] if r.get("id") in CITIES and r["type"] == "relation"]
     if len(city_relations) != 2 or any(r["tags"]["name"] != CITIES[r["id"]] for r in city_relations):
         raise ValueError("Both expected city boundaries are required")
@@ -172,12 +215,25 @@ def build(raw, districts_raw, google, research, checked_at):
                         "source_updated_at": element.get("timestamp"), "license": "ODbL-1.0",
                         "payload_json": dump({k: v for k, v in tags.items() if re.fullmatch(r'name:[a-z]{2,3}', k) or k in {"name", "brand", "brand:wikidata", "amenity", "shop", "cuisine", "opening_hours", "addr:full", "addr:street", "addr:housenumber", "addr:suburb", "addr:city", "addr:postcode", "takeaway", "delivery", "wheelchair", "diet:halal"}})})
     google_outside = []
-    for row in google:
+    discovery_by_id = {"overture/" + r["id"]: r for r in discovery_sources}
+    for original in google:
+        row = dict(original)
+        row['hours'] = normalize_hours(original['hours'])
+        if row['hours'] != original['hours']: row['rawHours'] = original['hours']
         city, district = locate(row["latitude"], row["longitude"])
         if not city:
             google_outside.append(row["id"])
             continue
         identifier = row["id"]
+        if identifier.startswith('overture/') and identifier not in places:
+            if identifier not in discovery_by_id:
+                raise ValueError('Missing original discovery source')
+            place, provenance = discovery_seed(discovery_by_id[identifier], row)
+            source_city, source_district = locate(place['latitude'], place['longitude'])
+            if (source_city, source_district) != (place['city'], place['district']):
+                raise ValueError('Discovery source is outside its declared administrative bounds')
+            places[identifier] = place
+            sources.append(provenance)
         if row.get("enrichmentStatus"):
             if identifier not in places or distance((places[identifier]["latitude"], places[identifier]["longitude"]), (row["latitude"], row["longitude"])) > 100:
                 raise ValueError("Enrichment must match an existing source point within 100 m")
@@ -267,7 +323,7 @@ def build(raw, districts_raw, google, research, checked_at):
         "google_matched_records": sum(r["google_maps_url"] is not None for r in result),
         "google_rated_records": sum(r["google_rating"] is not None for r in result),
         "google_hours_records": sum(r["google_hours_json"] != "[]" for r in result),
-        "overture_matched_records": overture_count, "overture_addresses_added": overture_addresses,
+        "overture_matched_records": overture_count + sum(r['id'].startswith('overture/') for r in result), "overture_addresses_added": overture_addresses,
         "google_reviews": len(reviews), "research_candidates": len(candidates),
         "unnamed_records": sum(r["name"] is None for r in result), "missing_addresses": sum(r["address"] is None for r in result),
         "possible_duplicate_pairs": len(duplicate_pairs), "excluded_osm": excluded, "google_outside_scope": google_outside,
@@ -355,14 +411,23 @@ if __name__ == "__main__":
         google_rows.extend(enrichment_data["places"])
         audit = enrichment_data['audit']
         enrichment_metadata = enrichment_data['metadata']
+    discoveries_file = FOLDER / 'overture-places.json'
+    discoveries = json.loads(discoveries_file.read_text())['places'] if discoveries_file.exists() else []
+    discovery_enrichment_file = FOLDER / 'discovery-google-enrichment.json'
+    discovery_enrichment = json.loads(discovery_enrichment_file.read_text()) if discovery_enrichment_file.exists() else None
+    if discovery_enrichment:
+        google_rows.extend(discovery_enrichment['places'])
+        imported_ids = {r['id'] for r in discovery_enrichment['places']}
+        audit.extend(r for r in discovery_enrichment['audit'] if r['id'] in imported_ids)
     output = build(checked_json(raw_file), checked_json(district_file), google_rows,
-                   json.loads((ROOT / "research/jaksel-100-2026-10-28/places.json").read_text()), checked_at)
+                   json.loads((ROOT / "research/jaksel-100-2026-10-28/places.json").read_text()), checked_at, discovery_sources=discoveries)
     output[-1]["raw_sha256"] = {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in [("food", raw_file), ("districts", district_file)]}
     if audit:
         output[-1]['google_enrichment_checked_at'] = enrichment_metadata['checkedAt']
         output[-1]['enrichment_audit_statuses'] = dict(Counter(r['status'] for r in audit))
-    discoveries_file = FOLDER / 'overture-places.json'
-    discoveries = json.loads(discoveries_file.read_text())['places'] if discoveries_file.exists() else []
+    if discovery_enrichment:
+        output[-1]['discovery_google_enrichment'] = discovery_enrichment['metadata']
+        output[-1]['google_enrichment_checked_at'] = max(output[-1].get('google_enrichment_checked_at',''), discovery_enrichment['metadata']['checkedAt'])
     output[-1]['discovery_records'] = len(discoveries)
     output[-1]['discovery_address_records'] = sum(bool(r['address']) for r in discoveries)
     output[-1]['discovery_locality_conflicts'] = sum(r['address_locality_conflict'] for r in discoveries)

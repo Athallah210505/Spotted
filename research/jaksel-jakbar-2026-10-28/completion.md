@@ -1,5 +1,9 @@
 # Hasil pelengkapan database Jaksel/Jakbar
 
+**Update terbaru:** tabel utama kini 2.258 record, dengan 582 kecocokan Google, 576 rating, 471 jam buka, 566 cuplikan ulasan, dan 129 referensi foto tempat lokal. Total view gabungan tetap 25.907. Batch discovery memeriksa 73 record dan mengimpor 35 hasil cocok; lihat [audit](discovery-google-enrichment.json) dan [laporan terbaru](../../docs/24-discovery-data-repair.md).
+
+Angka di bawah merupakan hasil sebelum batch discovery terbaru, dipertahankan sebagai riwayat.
+
 Diperbarui 1 November 2026. **25.907 record gabungan** tersedia: 2.223 record utama dan 23.951 kandidat Overture, dikurangi 267 pengaitan satu-ke-satu yang terkonfirmasi. Jumlah ini belum merupakan jumlah bisnis unik atau sensus lengkap.
 
 | Data utama                                     | Sebelumnya | Sekarang |

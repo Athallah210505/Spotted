@@ -12,6 +12,8 @@ export type FoodPlace = {
   rating: number | null;
   reviewCount: number | null;
   photoPath: string | null;
+  description: string | null;
+  menuPhotos: GooglePlace["menuPhotos"];
   hours: GooglePlace["hours"];
   mapsUrl: string;
 };

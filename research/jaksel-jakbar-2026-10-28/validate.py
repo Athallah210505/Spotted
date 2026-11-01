@@ -1,6 +1,7 @@
 """Validate the delivered database against both portable exports and provenance."""
 
 import csv
+import hashlib
 import json
 import sqlite3
 from contextlib import closing
@@ -75,6 +76,14 @@ with closing(sqlite3.connect(f"file:{FOLDER / 'food-database.sqlite'}?mode=ro", 
             assert row["google_maps_url"] == source["mapsUrl"]
             assert json.loads(row["google_hours_json"]) == source["hours"]
             assert len(reviews) == len({r[0] for r in reviews}) == len(source["reviews"]) <= 5
+            for photo in ([{'photoPath': source.get('photoPath'), 'mediaEvidence': source.get('photoEvidence')}] + source.get('menuPhotos', [])):
+                if not photo.get('photoPath'): continue
+                assert photo['photoPath'].startswith(('/google-places/', '/google-menus/')) and '..' not in photo['photoPath']
+                file = FOLDER.parent.parent / 'public' / photo['photoPath'].lstrip('/')
+                assert file.is_file()
+                evidence = photo.get('mediaEvidence')
+                if evidence: assert hashlib.sha256(file.read_bytes()).hexdigest() == evidence['sha256']
+            assert all(h['day'] in {'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'} for h in source['hours'])
             if row["verification_status"] == 'google_verified_snapshot':
                 assert len(reviews) == 5 and row['google_rating'] is not None and row['photo_url']
     assert db.execute("SELECT COUNT(*) FROM google_reviews").fetchone()[0] == summary["google_reviews"]

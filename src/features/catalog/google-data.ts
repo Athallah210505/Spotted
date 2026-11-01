@@ -125,7 +125,8 @@ export function matchesCategory(
     Korean: /korea|korean/,
     Indonesian: /indonesia|sunda|sate|gultik|manado|padang|betawi/,
     Western: /burger|barat|steak|hotdog/,
-    Dessert: /donut|donat|dessert|kue/,
+    Dessert:
+      /donut|donat|dessert|kue|bakery|roti|pastry|ice.?cream|es krim|chocol|cokelat/,
     Brunch: /brunch/,
   };
   return category === "All" || patterns[category].test(value);

@@ -22,7 +22,7 @@ describe("real OSM pilot catalogue", () => {
       expect(url.pathname).toBe("/maps/search/");
       expect(url.searchParams.get("api")).toBe("1");
       expect(url.searchParams.get("query")).toBe(
-        `${place.latitude},${place.longitude}`,
+        [place.name, place.address].filter(Boolean).join(" "),
       );
       expect(url.searchParams.has("query_place_id")).toBe(false);
       expect(catalogDetailHref(place)).toBe(
@@ -32,6 +32,11 @@ describe("real OSM pilot catalogue", () => {
         findCatalogPlace(catalogDetailHref(place).split("/").pop()!),
       ).toEqual(place);
     }
+    expect(
+      new URL(
+        googleMapsUrl({ latitude: -6.2, longitude: 106.8 }),
+      ).searchParams.get("query"),
+    ).toBe("-6.2,106.8");
     expect(findCatalogPlace("osm-0000")).toBeUndefined();
     for (const [id, photo] of Object.entries(catalogPhotos)) {
       expect(googlePlaces.some((place) => place.id === id)).toBe(true);

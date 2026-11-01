@@ -4,11 +4,17 @@ Diperbarui 1 November 2026. **25.907 record gabungan** tersedia dalam SQLite dan
 
 | Layer                                    | Jakarta Selatan | Jakarta Barat |  Total |
 | ---------------------------------------- | --------------: | ------------: | -----: |
-| Record utama, OSM dan Google             |           1.349 |           874 |  2.223 |
+| Record utama, OSM dan Google             |           1.366 |           892 |  2.258 |
 | Kandidat Overture sebelum pengaitan      |          14.592 |         9.359 | 23.951 |
-| Gabungan setelah 267 kecocokan ditautkan |          15.757 |        10.150 | 25.907 |
+| Gabungan setelah 302 kecocokan ditautkan |          15.757 |        10.150 | 25.907 |
 
-267 kandidat yang cocok ditautkan ke record utama dan dikeluarkan dari bagian kandidat view gabungan. Kandidat lain masih dapat memiliki duplikat antar-sumber; identitas tidak digabung berdasarkan nama saja. Ada 23 pasangan potensi duplikat pada record utama dan 10 pencocokan Overture ambigu yang ditahan untuk pemeriksaan.
+302 kandidat yang cocok ditautkan ke record utama dan dikeluarkan dari bagian kandidat view gabungan. Kandidat lain masih dapat memiliki duplikat antar-sumber; identitas tidak digabung berdasarkan nama saja. Ada 24 pasangan potensi duplikat pada record utama dan 10 pencocokan Overture ambigu yang ditahan untuk pemeriksaan.
+
+## Perbaikan detail discovery
+
+Batch terbaru memeriksa 73 record di 18 kecamatan lewat Scrapling headless, dengan maksimal satu follow-up per record. Sebanyak 35 cabang berhasil cocok (termasuk satu listing tutup), 34 belum terselesaikan, tiga membutuhkan pemeriksaan nama/cabang manual, dan satu berada di luar radius cocok. [Audit discovery](discovery-google-enrichment.json) menyimpan hasil dan URL capture; [antrean](discovery-review-queue.json) menyimpan record yang benar-benar diperiksa. Total gabungan tetap 25.907 karena 35 record dipromosikan ke tabel utama dan hubungan GERS-nya dikeluarkan dari layer kandidat.
+
+Ketoprak Cobek Pak Yono kini memiliki rating 4,7 dari 945 ulasan, tujuh hari jam buka, foto tempat, dua foto pilihan menu, dan lima cuplikan dari penulis berbeda. Foto menu memperlihatkan pilihan pada banner, bukan daftar harga lengkap. [Catatan perbaikan](../../docs/24-discovery-data-repair.md) memuat validasi dan batas hasil ini.
 
 ## File siap digunakan
 
@@ -19,7 +25,7 @@ Diperbarui 1 November 2026. **25.907 record gabungan** tersedia dalam SQLite dan
 - [Laporan pelengkapan](completion.md), [audit Google](google-enrichment.json), [bukti identitas Google sebelumnya](verified-google-identities.json).
 - [Potensi duplikat](possible-duplicates.json), [100 kandidat makanan dari riset sebelumnya](research-candidates.csv), [schema](schema.sql).
 
-SQLite dapat dibuka langsung, tanpa akun, server, API key, atau billing. Tidak ada perubahan Supabase cloud. Katalog Explore/Map tetap memakai 104 record yang memenuhi kebutuhan tampilannya; kandidat baru belum otomatis dipublikasikan ke aplikasi.
+SQLite dapat dibuka langsung, tanpa akun, server, API key, atau billing. Tidak ada perubahan Supabase cloud. Explore/Map membaca view gabungan secara bertahap. Katalog 104 foto lama tetap dipertahankan; record tambahan yang belum lengkap menampilkan field yang tersedia tanpa mengarang rating atau foto.
 
 ```sql
 SELECT city, district, count(*) FROM all_food_places GROUP BY city, district;
@@ -31,13 +37,13 @@ SELECT * FROM enrichment_queue;
 
 ## Kelengkapan saat ini
 
-Record utama memiliki **547 kecocokan Google, 541 rating, 438 data jam buka Google, dan 459 cuplikan ulasan**. Ada 94 referensi foto; referensi belum berarti foto telah diperiksa untuk publikasi. Sebanyak 89 record memenuhi kontrak rating, referensi foto, dan lima penulis ulasan berbeda. Menu lengkap, harga terkini, dan lima ulasan setiap tempat belum tersedia.
+Record utama memiliki **582 kecocokan Google, 576 rating, 471 data jam buka Google, dan 566 cuplikan ulasan**. Ada 129 referensi foto tempat dengan berkas lokal; tidak seluruh foto diperiksa visual satu per satu. Sebanyak 90 record memenuhi kontrak rating, referensi foto, dan lima penulis ulasan berbeda. Menu lengkap, harga terkini, dan lima ulasan setiap tempat belum tersedia.
 
 Alamat kosong pada record utama turun dari 1.239 menjadi **1.061** dibanding hasil sebelumnya. Overture mengisi 113 alamat yang belum diisi sumber lain. Dua nama ditemukan dalam tag bahasa asli OSM; **46 record masih tanpa nama**. Nama, rating, menu, dan ulasan yang tidak terbukti tidak diisi dengan perkiraan.
 
 Kandidat Overture memiliki alamat pada 23.291 record. Sebanyak 172 alamat memiliki locality yang bertentangan dengan titik dalam batas kota; flag konflik dipertahankan dan alamat ini tidak digunakan untuk mengisi record utama. Confidence Overture adalah skor sumber, **bukan rating pelanggan**. Rating dan jumlah ulasan Google selalu NULL pada layer kandidat. Status operasional tidak dianggap buka bila tidak tersedia.
 
-Google sempat kembali memberi HTTP 200 pada 1 November, sehingga pengumpulan dilanjutkan dengan cache dan concurrency dua. Google kemudian kembali memberi HTTP 429; collector berhenti dan menyimpan `provider-blocked.json`. Tidak ada request Google lanjutan setelah blokir, penyelesaian CAPTCHA, atau rotasi identitas. Pelengkapan selanjutnya memakai dataset publik Overture, bukan melewati pembatasan Google.
+Pada pengumpulan awal Google sempat kembali memberi HTTP 200 pada 1 November, sehingga pengumpulan dilanjutkan dengan cache dan concurrency dua. Google kemudian kembali memberi HTTP 429; collector berhenti dan menyimpan `provider-blocked.json`. Tidak ada request Google lanjutan setelah blokir, penyelesaian CAPTCHA, atau rotasi identitas. Pelengkapan saat itu memakai dataset publik Overture. Pemeriksaan berikutnya pada sore 1 November berhasil HTTP 200 secara biasa untuk contoh Pak Yono, lalu memeriksa batch discovery di atas tanpa blokir, proxy atau CAPTCHA bypass.
 
 ## Sumber dan metode
 
@@ -70,7 +76,7 @@ Dependensi collector ada di `scripts/data/requirements.txt`; DuckDB menggunakan 
 
 ## Pemeriksaan
 
-37 test lulus. Validator membandingkan seluruh field CSV/JSON/SQLite, sumber setiap rating dan alamat, ID unik, jumlah kandidat, view gabungan, serta foreign key. Rating Google pada kandidat dipastikan kosong. Test mencakup polygon berlubang, WKB, kategori, cabang jauh, nomor alamat berbeda, ambiguitas, CID berbeda, lima penulis, dan penghentian pada blokir.
+42 test Python lulus. Validator membandingkan seluruh field CSV/JSON/SQLite, sumber setiap rating dan alamat, ID unik, jumlah kandidat, view gabungan, serta foreign key. Rating Google pada kandidat dipastikan kosong. Test mencakup polygon berlubang, WKB, kategori, cabang jauh, nomor alamat berbeda, ambiguitas, CID berbeda, lima penulis, dan penghentian pada blokir.
 
 ## Attribution
 

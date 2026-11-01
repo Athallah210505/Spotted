@@ -112,7 +112,7 @@
       "matchDistanceM": 10.8,
       "googleCid": null,
       "closedReason": null,
-      "photoStatus": "source_reference_not_visually_reviewed",
+      "photoStatus": "downloaded_listing_photo",
       "enrichmentStatus": "matched_with_five_reviews",
       "matchMethod": "name-and-coordinates-within-100m",
       "sourceRecordName": "Arjuna Bakery",
@@ -121,7 +121,14 @@
       "captureUrls": [
         "https://www.google.com/maps/search/Arjuna%20Bakery%20-6.1467531%2C106.7349632?hl=id",
         "https://www.google.com/maps/search/Arjuna%20Bakery%20Jalan%20Fajar%20Baru%20Selatan%2022%2C%20Cengkareng%20Timur%20-%20Jakarta%20Barat%2C%2011720?hl=en"
-      ]
+      ],
+      "photoPath": "/google-places/node-10583053062-c6f873fb.jpg",
+      "photoEvidence": {
+        "photoPath": "/google-places/node-10583053062-c6f873fb.jpg",
+        "sha256": "c6f873fbcaedcb8f1008cddc8a8960af41b2fc1a77b54c8ee95ec8bca9f19265",
+        "downloadedAt": "2026-11-01T15:14:23.276267+00:00",
+        "sourcePhotoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfZNsocN9xw16N6TPlEI8ieEV7AP8sWZdkpSNvkqbzXLa7KnDyLvDriMpngZuNXMuGALPo9SLBXoNmioA5WXxvNx94mJOYwyP_AKgfDW7alnyBDNaJynMMDuB3kYekZhRuvgY0FJg=w519-h240-k-no"
+      }
     },
     {
       "id": "node/9755068451",
@@ -188,7 +195,7 @@
       "matchDistanceM": 34.5,
       "googleCid": null,
       "closedReason": null,
-      "photoStatus": "source_reference_not_visually_reviewed",
+      "photoStatus": "downloaded_listing_photo",
       "enrichmentStatus": "matched_partial",
       "matchMethod": "name-and-coordinates-within-100m",
       "sourceRecordName": "Ayam Keprabon Express",
@@ -196,7 +203,14 @@
       "coordinateEvidenceType": "listing-url-or-preload",
       "captureUrls": [
         "https://www.google.com/maps/search/Ayam%20Keprabon%20Express%20-%20Semanan%20-6.1633681%2C106.7239473?hl=id"
-      ]
+      ],
+      "photoPath": "/google-places/node-9755068451-63dd202a.jpg",
+      "photoEvidence": {
+        "photoPath": "/google-places/node-9755068451-63dd202a.jpg",
+        "sha256": "63dd202a795a89879d99eab3ad855f0471a0b0c4d25d8d802c90e8f9feae0918",
+        "downloadedAt": "2026-11-01T15:14:23.482510+00:00",
+        "sourcePhotoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLd614mPyIuop1PePKUam4XIBP4Y8oDimiHzIaUIZN0F-2kaa7iqgRniwFImjGpjaiklyEWGhG8Osd_yK8v8oB2spCEejdtnK075rhGoxR2GCJFksEnNli1AORBmkMtIEOW1TKBY1ccxC4I=w408-h544-k-no"
+      }
     },
     {
       "id": "node/5311547523",
@@ -271,7 +285,7 @@
       "matchDistanceM": 15.1,
       "googleCid": "824fd0ffe6927842",
       "closedReason": null,
-      "photoStatus": "source_reference_not_visually_reviewed",
+      "photoStatus": "downloaded_listing_photo",
       "enrichmentStatus": "matched_partial",
       "matchMethod": "name-and-coordinates-within-100m",
       "sourceRecordName": "Ayam Penyet Mas Marno",
@@ -280,7 +294,14 @@
       "captureUrls": [
         "https://www.google.com/maps/place/Ayam+Penyet+Mas+Marno/@-6.1432746,106.7357253,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f7e349db86b9:0x824fd0ffe6927842!8m2!3d-6.1432746!4d106.7357253!16s%2Fg%2F11bwkpxmmw?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyOC4wIKXMDSoASAFQAw%3D%3D",
         "https://www.google.com/maps/place/Ayam+Penyet+Mas+Marno/@-6.1432746,106.7357253,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f7e349db86b9:0x824fd0ffe6927842!8m2!3d-6.1432746!4d106.7357253!16s%2Fg%2F11bwkpxmmw?hl=id&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D"
-      ]
+      ],
+      "photoPath": "/google-places/node-5311547523-2683349a.jpg",
+      "photoEvidence": {
+        "photoPath": "/google-places/node-5311547523-2683349a.jpg",
+        "sha256": "2683349a5df66408d9137c62cc2ba1bec92100e98e028aef0c54873c42297280",
+        "downloadedAt": "2026-11-01T15:14:23.711612+00:00",
+        "sourcePhotoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLcR91b8NYM-iRLbe7e97HcK49bXHliaPk8vXT2hC1SFPlafvZ-ibqqXoNfi2zWPrfT-GrymfupLgeWnfxMPx7mAcgR2Ax4RFUad0xf6or8e8At6i6YONiD6D1x9LsDfI8bI3Nmr9g=w408-h544-k-no"
+      }
     },
     {
       "id": "node/5315749024",
@@ -399,7 +420,7 @@
       "matchDistanceM": null,
       "googleCid": null,
       "closedReason": null,
-      "photoStatus": "source_reference_not_visually_reviewed",
+      "photoStatus": "downloaded_listing_photo",
       "enrichmentStatus": "matched_partial",
       "matchMethod": "name-and-exact-street-number",
       "sourceRecordName": "Dapur Sehat Kencana (Vegetarian & Vegan)",
@@ -408,7 +429,14 @@
       "captureUrls": [
         "https://www.google.com/maps/search/Dapur%20Sehat%20Kencana%20-6.127913%2C106.726337?hl=en",
         "https://www.google.com/maps/search/Dapur%20Sehat%20Kencana%20-6.127913%2C106.726337?hl=id"
-      ]
+      ],
+      "photoPath": "/google-places/node-9725804678-eebddc3d.jpg",
+      "photoEvidence": {
+        "photoPath": "/google-places/node-9725804678-eebddc3d.jpg",
+        "sha256": "eebddc3d45769af41a7ab8cb53a8ac87430e87da43da6e15c8bacf77140c6281",
+        "downloadedAt": "2026-11-01T15:14:23.934235+00:00",
+        "sourcePhotoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLfkiqkgMoeqi_lJJjyDMVSIaJ8EdL4AQbQ-rLG1Iw_MSKYGJhhmgXW6-RRcSx8g6AwSc9bgjHNtMvTGccEJTYmzi00_LslBOhAAsHdR8Hf4XoAPhDacBx_5GtbDVrub5rPTxpsCutxLQcg3=w408-h305-k-no"
+      }
     },
     {
       "id": "node/9729403367",
@@ -483,7 +511,7 @@
       "matchDistanceM": 39.2,
       "googleCid": null,
       "closedReason": null,
-      "photoStatus": "source_reference_not_visually_reviewed",
+      "photoStatus": "downloaded_listing_photo",
       "enrichmentStatus": "matched_partial",
       "matchMethod": "name-and-coordinates-within-100m",
       "sourceRecordName": "HARRIS Cafe by HARRIS Suites Puri Mansion",
@@ -491,7 +519,14 @@
       "coordinateEvidenceType": "listing-url-or-preload",
       "captureUrls": [
         "https://www.google.com/maps/search/Harris%20Cafe%20-%20Harris%20Suites%20Puri%20Mansion%20-6.1800279%2C106.7245354?hl=id"
-      ]
+      ],
+      "photoPath": "/google-places/node-9729403367-f06ae238.jpg",
+      "photoEvidence": {
+        "photoPath": "/google-places/node-9729403367-f06ae238.jpg",
+        "sha256": "f06ae238468cbad6e24a85b8ee4fac0fcbae3f76e2a6395db83cfbb04d9a6067",
+        "downloadedAt": "2026-11-01T15:14:24.328350+00:00",
+        "sourcePhotoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLc_VX-MYU3DsgACqVYt-st4jkowPoWVqxUgRextKw0nXZBFjiXShUE31xtx7UYrhmaLE1FKXZLysjZsvKiZdejWa4dGf-3WkSu06Fk6H60Y9zJocNAxIJTxtzURy54kwztJMGlc=w1200-h900-p-k-no"
+      }
     },
     {
       "id": "node/12271486110",
@@ -673,7 +708,7 @@
       "matchDistanceM": null,
       "googleCid": null,
       "closedReason": null,
-      "photoStatus": "source_reference_not_visually_reviewed",
+      "photoStatus": "downloaded_listing_photo",
       "enrichmentStatus": "matched_partial",
       "matchMethod": "name-and-exact-street-number",
       "sourceRecordName": "Rumah Makan Gudeg Jogja Bu Yani",
@@ -682,7 +717,14 @@
       "captureUrls": [
         "https://www.google.com/maps/search/Gudeg%20Jogja%20Bu%20Yani%20-6.1225145%2C106.7316364?hl=en",
         "https://www.google.com/maps/search/Gudeg%20Jogja%20Bu%20Yani%20-6.1225145%2C106.7316364?hl=id"
-      ]
+      ],
+      "photoPath": "/google-places/way-521691090-48d11864.jpg",
+      "photoEvidence": {
+        "photoPath": "/google-places/way-521691090-48d11864.jpg",
+        "sha256": "48d1186402789cb11fcc68af8366877c63338a781a537c5bf30266db44491748",
+        "downloadedAt": "2026-11-01T15:14:25.564103+00:00",
+        "sourcePhotoUrl": "https://lh3.googleusercontent.com/grass-cs/AABkmLcXmkEiGprKe_5bLC6qaigGKmQypD9a_0wOIuUcvv0SYc4jgqf1skGDQM6-uuafO8VE3dkxpJCF5iJaNMkaxMSgENPGyvyIXflsBgP9-r388EZnp0sXDZF0VaX1dqVe_91JIcm-=w408-h306-k-no"
+      }
     },
     {
       "id": "node/10583053063",

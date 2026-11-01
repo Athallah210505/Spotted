@@ -2,6 +2,8 @@ import Link from "next/link";
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 import { DetailIcon } from "@/features/restaurants/detail-icon";
+import { RestaurantPhoto } from "@/features/restaurants/restaurant-photo";
+import menuStyles from "./google-ui.module.css";
 import { OpeningHours } from "./opening-hours";
 import { catalogDetailHref } from "./catalog-media";
 import type { FoodPlace } from "./food-types";
@@ -46,12 +48,31 @@ export function FoodDetail({
     <div className={styles.shell}>
       <main className={styles.scrollArea}>
         <div className={styles.content}>
-          <header className={styles.header}>
-            <Link className={styles.back} href={backHref} aria-label="Back">
-              <DetailIcon name="back" />
-            </Link>
-            <p>{place.district}</p>
-          </header>
+          {place.photoPath ? (
+            <div className={styles.heroWrap}>
+              <RestaurantPhoto
+                src={place.photoPath}
+                alt={place.name}
+                className={styles.hero}
+                sizes="(max-width:430px) 100vw,430px"
+                preload
+              />
+              <Link
+                className={`${styles.back} ${styles.heroBack}`}
+                href={backHref}
+                aria-label="Back"
+              >
+                <DetailIcon name="back" />
+              </Link>
+            </div>
+          ) : (
+            <header className={styles.header}>
+              <Link className={styles.back} href={backHref} aria-label="Back">
+                <DetailIcon name="back" />
+              </Link>
+              <p>{place.district}</p>
+            </header>
+          )}
           <section
             className={styles.editorialPanel}
             aria-label="Overview tempat"
@@ -70,7 +91,9 @@ export function FoodDetail({
                 </div>
               </div>
             ) : (
-              <p className={styles.supporting}>Rating belum tersedia.</p>
+              <p className={styles.supporting}>
+                Rating Google belum tersimpan.
+              </p>
             )}
             <p className={styles.address}>
               {place.address ??
@@ -122,22 +145,50 @@ export function FoodDetail({
                 )}
               </section>
             ) : tab === "menu" ? (
-              <section>
+              <section aria-label="Menu dari Google reviews">
                 <h2>Menu</h2>
-                <p className={styles.supporting}>
-                  Menu dan harga belum tersedia untuk tempat ini.
-                </p>
+                {place.menuPhotos.length ? (
+                  <div className={menuStyles.menuGrid}>
+                    {place.menuPhotos.map((photo) => (
+                      <figure key={photo.photoPath}>
+                        <a
+                          href={photo.photoPath}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Lihat foto ${photo.name}`}
+                        >
+                          <RestaurantPhoto
+                            src={photo.photoPath}
+                            alt={photo.name}
+                            className={menuStyles.menuPhoto}
+                            sizes="190px"
+                          />
+                        </a>
+                        <figcaption>{photo.name}</figcaption>
+                        <a
+                          className={menuStyles.sourceLink}
+                          href={photo.authorUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {photo.author} · Google
+                        </a>
+                      </figure>
+                    ))}
+                  </div>
+                ) : (
+                  <p className={styles.supporting}>
+                    Menu dan harga belum tersimpan untuk tempat ini.
+                  </p>
+                )}
               </section>
             ) : (
               <section aria-label="Tentang tempat">
                 <h2>Overview</h2>
                 <p className={styles.supporting}>
-                  {place.name} tercatat sebagai{" "}
-                  {place.category.replaceAll("_", " ")} di {place.district},{" "}
-                  {place.city}.
-                  {place.cuisine
-                    ? ` Jenis makanan: ${place.cuisine.replaceAll("_", " ")}.`
-                    : ""}
+                  {place.description ??
+                    `${place.name} berada di ${place.district}, ${place.city}.`}
+                  {place.cuisine ? ` Pilihan masakan: ${place.cuisine}.` : ""}
                 </p>
               </section>
             )}

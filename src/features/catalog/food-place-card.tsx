@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { RestaurantPhoto } from "@/features/restaurants/restaurant-photo";
 import type { FoodPlace } from "./food-types";
 import { googlePlaces } from "./google-data";
 import { GooglePlaceCard } from "./google-place-card";
@@ -34,6 +35,15 @@ export function FoodPlaceCard({
         href={`${catalogDetailHref(place)}${search ? `?${search}` : ""}`}
         aria-label={`View ${place.name}`}
       >
+        {place.photoPath ? (
+          <RestaurantPhoto
+            src={place.photoPath}
+            alt={place.name}
+            className={styles.photo}
+            sizes="(max-width: 430px) calc(100vw - 48px), 382px"
+            preload={preload}
+          />
+        ) : null}
         <div className={styles.identity}>
           <p>
             {place.district} · {place.city}
@@ -56,7 +66,7 @@ export function FoodPlaceCard({
         <div className={styles.bottom}>
           <span>
             {place.rating === null
-              ? "Rating belum tersedia"
+              ? "Rating belum tersimpan"
               : place.reviewCount === null
                 ? "Rating Google tersedia"
                 : `${place.reviewCount.toLocaleString("id-ID")} ulasan`}

@@ -188,3 +188,75 @@ for (const entry of ["direct", "explore"] as const) {
     await expect(map).toHaveAttribute("data-zoom", "16");
   });
 }
+
+test("Pak Yono discovery record shows sourced photos, rating, hours, five reviews and menu", async ({
+  page,
+}) => {
+  await page.goto("/explore?q=Ketoprak%20Cobek%20Pak%20Yono");
+  const card = page.getByRole("article", {
+    name: "Ketoprak Cobek Pak Yono",
+    exact: true,
+  });
+  await expect(card).toContainText("4.7");
+  const photo = card.getByRole("img", {
+    name: "Ketoprak Cobek Pak Yono",
+    exact: true,
+  });
+  await expect
+    .poll(() => photo.evaluate((image: HTMLImageElement) => image.naturalWidth))
+    .toBeGreaterThan(0);
+  await card
+    .getByRole("link", { name: "View Ketoprak Cobek Pak Yono", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", {
+      name: "Ketoprak Cobek Pak Yono",
+      level: 1,
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("945 Google ratings", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("region", { name: "Tentang tempat", exact: true }),
+  ).toContainText("Warung ketoprak");
+  await expect(page.getByRole("main")).not.toContainText(
+    "Jenis makanan: restaurant",
+  );
+  await page.getByText("Jam buka", { exact: true }).click();
+  await expect(
+    page.getByRole("table", { name: "Jam buka mingguan", exact: true }),
+  ).toContainText("Senin");
+  await expect(
+    page.getByRole("table", { name: "Jam buka mingguan", exact: true }),
+  ).toContainText("06.30–15.00");
+  await expect(
+    page.getByRole("link", { name: "Buka Google Maps", exact: true }),
+  ).toHaveAttribute("href", /query_place_id=ChIJiTJ1pjDuaS4RSr3-_Iwkwm4/);
+  await page.screenshot({
+    path: `test-results/pak-yono-data-${test.info().project.name}.png`,
+  });
+  await page.getByRole("link", { name: "Reviews", exact: true }).click();
+  const reviews = page.getByRole("region", {
+    name: "Reviews tempat",
+    exact: true,
+  });
+  await expect(reviews.getByRole("article")).toHaveCount(5);
+  await expect(reviews.getByRole("link").first()).toHaveAttribute(
+    "href",
+    /^https:\/\/www.google.com\/maps\/contrib\//,
+  );
+  await page.getByRole("link", { name: "Menu", exact: true }).click();
+  const menu = page.getByRole("region", {
+    name: "Menu dari Google reviews",
+    exact: true,
+  });
+  await expect(menu.getByRole("img")).toHaveCount(2);
+  for (const image of await menu.getByRole("img").all()) {
+    await image.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() => image.evaluate((el: HTMLImageElement) => el.naturalWidth))
+      .toBeGreaterThan(0);
+  }
+});

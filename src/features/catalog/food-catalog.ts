@@ -1,5 +1,6 @@
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
+import { existsSync } from "node:fs";
 import {
   googlePlaces,
   areaNames,
@@ -12,6 +13,30 @@ import { cravingMatch } from "@/features/explore/craving-matcher";
 import type { ExploreFilters } from "@/features/explore/demo-data";
 import type { FoodPlace, MapSpot } from "./food-types";
 
+const categoryLabels: Record<string, string> = {
+  restaurant: "Restoran",
+  cafe: "Kedai kopi",
+  fast_food: "Makanan cepat saji",
+  food_court: "Pujasera",
+  food_business: "Tempat makan",
+  bakery: "Toko roti",
+  pastry: "Pastry",
+  ice_cream: "Es krim",
+  coffee_shop: "Kedai kopi",
+  coffee: "Kopi",
+  tea: "Teh",
+  chocolate: "Cokelat",
+  confectionery: "Toko manisan",
+  deli: "Deli",
+  food_and_beverage_store: "Makanan dan minuman",
+};
+function localPhoto(value: unknown): string | null {
+  return typeof value === "string" &&
+    /^\/google-places\/[a-z0-9-]+\.(jpg|png|webp)$/.test(value) &&
+    existsSync(path.join(process.cwd(), "public", value))
+    ? value
+    : null;
+}
 const publishedOrder = new Map(
   googlePlaces.map((place, index) => [place.id, index]),
 );
@@ -29,9 +54,15 @@ export function foodCatalog() {
     const rows = db
       .prepare(
         `SELECT a.*, p.cuisine, p.google_hours_json, p.google_maps_url,
-      d.category AS source_category, d.address_locality_conflict FROM all_food_places a
+      d.category AS source_category, d.address_locality_conflict,
+      json_extract(gs.payload_json,'$.category') AS google_category,
+      json_extract(gs.payload_json,'$.photoPath') AS local_photo_path,
+      json_extract(gs.payload_json,'$.description') AS description,
+      json_extract(gs.payload_json,'$.menuPhotos') AS menu_photos_json
+      FROM all_food_places a
       LEFT JOIN places p ON p.id=a.id
-      LEFT JOIN discovery_places d ON d.id=substr(a.id,10)`,
+      LEFT JOIN discovery_places d ON d.id=substr(a.id,10)
+      LEFT JOIN place_sources gs ON gs.place_id=a.id AND gs.provider='google' `,
       )
       .all();
     const places = new Map<string, FoodPlace>();
@@ -47,8 +78,14 @@ export function foodCatalog() {
         name: String(row.name),
         city: String(row.city),
         district: String(row.district),
-        category: String(row.category),
-        cuisine: String(row.cuisine ?? row.source_category ?? ""),
+        category:
+          categoryLabels[
+            String(row.google_category ?? row.category).toLowerCase()
+          ] ?? String(row.google_category ?? row.category).replaceAll("_", " "),
+        cuisine:
+          row.cuisine && !Object.hasOwn(categoryLabels, String(row.cuisine))
+            ? String(row.cuisine).replaceAll("_", " ").replaceAll(";", ", ")
+            : "",
         ...coords,
         address:
           row.address_locality_conflict === 1
@@ -61,13 +98,31 @@ export function foodCatalog() {
           row.google_review_count === null
             ? null
             : Number(row.google_review_count),
-        photoPath: null,
+        photoPath: localPhoto(row.local_photo_path),
+        description:
+          typeof row.description === "string" ? row.description : null,
+        menuPhotos: (
+          JSON.parse(
+            String(row.menu_photos_json ?? "[]"),
+          ) as FoodPlace["menuPhotos"]
+        ).filter((photo) => localPhoto(photo.photoPath)),
         hours: row.google_hours_json
           ? JSON.parse(String(row.google_hours_json))
           : [],
         mapsUrl: row.google_maps_url
           ? String(row.google_maps_url)
-          : googleMapsUrl(coords),
+          : googleMapsUrl({
+              ...coords,
+              name: String(row.name),
+              address:
+                row.address_locality_conflict === 1
+                  ? null
+                  : row.address
+                    ? String(row.address)
+                    : null,
+              district: String(row.district),
+              city: String(row.city),
+            }),
       });
     }
     for (const row of googlePlaces)
@@ -84,6 +139,8 @@ export function foodCatalog() {
         rating: row.rating,
         reviewCount: row.reviewCount,
         photoPath: row.photoPath,
+        description: row.description ?? null,
+        menuPhotos: row.menuPhotos,
         hours: row.hours,
         mapsUrl: row.mapsUrl,
       });

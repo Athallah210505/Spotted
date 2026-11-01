@@ -55,3 +55,13 @@
 .bottom img {
   transform: rotate(180deg);
 }
+.photo {
+  position: relative;
+  grid-column: 1 / -1;
+  width: calc(100% + 40px);
+  margin: -20px -20px 0;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
+  background: #eaeae8;
+}

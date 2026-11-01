@@ -19,6 +19,7 @@ CREATE TABLE place_sources (
   source_url TEXT NOT NULL, observed_at TEXT NOT NULL, source_updated_at TEXT, license TEXT NOT NULL,
   payload_json TEXT NOT NULL CHECK(json_valid(payload_json)), PRIMARY KEY(provider,source_id)
 );
+CREATE INDEX source_place_provider ON place_sources(place_id,provider);
 CREATE TABLE google_reviews (
   place_id TEXT NOT NULL REFERENCES places(id), author TEXT NOT NULL, author_url TEXT NOT NULL,
   rating INTEGER NOT NULL CHECK(rating BETWEEN 1 AND 5), excerpt TEXT NOT NULL,

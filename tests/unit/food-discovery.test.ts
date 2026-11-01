@@ -3,12 +3,16 @@ import { GET } from "@/app/api/places/route";
 import {
   clusterMapPlaces,
   foodCatalog,
+  findFoodPlace,
   searchFoodPlaces,
 } from "@/features/catalog/food-catalog";
 import {
   cravingMatch,
   cravingTraits,
 } from "@/features/explore/craving-matcher";
+import { existsSync } from "node:fs";
+import path from "node:path";
+import { isOpenAt } from "@/features/catalog/google-data";
 import { parseExploreFilters } from "@/features/explore/demo-data";
 
 const request = (query = "") =>
@@ -30,6 +34,33 @@ describe("full food catalog", () => {
         (p) => p.rating !== null && p.rating >= 4.5,
       ),
     ).toBe(true);
+  });
+  it("exposes matched discovery facts, local photos and normalized hours for Pak Yono", async () => {
+    const place = findFoodPlace(
+      "overture-1f6bf00d-8973-4a0f-a305-0b13d86acf23",
+    )!;
+    expect(place.rating).toBe(4.7);
+    expect(place.reviewCount).toBe(945);
+    expect(place.cuisine).not.toBe("restaurant");
+    expect(place.photoPath).toMatch(/^\/google-places\/overture-/);
+    expect(
+      existsSync(path.join(process.cwd(), "public", place.photoPath!)),
+    ).toBe(true);
+    expect(place.menuPhotos).toHaveLength(2);
+    expect(new URL(place.mapsUrl).searchParams.get("query_place_id")).toBe(
+      "ChIJiTJ1pjDuaS4RSr3-_Iwkwm4",
+    );
+    expect(place.hours.find((row) => row.day === "Senin")?.text).toBe(
+      "06.30–15.00",
+    );
+    expect(isOpenAt(place, new Date("2026-11-02T00:00:00Z"))).toBe(true);
+    expect(isOpenAt(place, new Date("2026-11-02T09:00:00Z"))).toBe(false);
+    const result = await GET(request("q=Ketoprak%20Cobek%20Pak%20Yono")).json();
+    expect(result.places[0].id).toBe(place.id);
+    const unknown = foodCatalog().places.find((p) => p.rating === null)!;
+    expect(new URL(unknown.mapsUrl).searchParams.get("query")).toContain(
+      unknown.name,
+    );
   });
   it("validates hostile pagination, malformed quiz and invalid geography", () => {
     for (const query of [

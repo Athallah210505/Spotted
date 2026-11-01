@@ -10,7 +10,7 @@ from pathlib import Path
 from urllib.parse import quote, urlsplit
 
 from scrapling.parser import Selector
-from build_food_database import ROOT, FOLDER, distance, normalize_name
+from build_food_database import ROOT, FOLDER, distance, normalize_name, discovery_seed
 from enrich_jaksel_candidates import inspect, name_evidence, address_evidence
 
 BASELINE_IDS = {row["id"] for row in json.loads((ROOT / "src/features/catalog/data/google-places.json").read_text())}
@@ -170,6 +170,7 @@ def combine(place, captures):
            "rating": g["rating"], "reviewCount": g["reviewCount"], "photoUrl": g["photoUrl"],
            "hours": g["hours"], "reviews": selected, "mapsUrl": g["url"], "checkedAt": max(r["checkedAt"] for r in accepted),
            "matchDistanceM": baseline["distanceM"], "googleCid": g.get("cid"), "closedReason": g.get("closedReason"),
+           "reviewPhotos": list({photo['url']:photo for capture in accepted for photo in capture.get('reviewPhotos', [])}.values()),
            "photoStatus": "source_reference_not_visually_reviewed", "enrichmentStatus": status,
            "matchMethod": "name-and-coordinates-within-100m" if baseline["distanceM"] is not None else "name-and-exact-street-number", "sourceRecordName": place["name"],
            "coordinateEvidenceUrl": g.get('coordinateEvidenceUrl'),
@@ -184,8 +185,30 @@ def write_json(path, value):
     temp.replace(path)
 
 
+def preserve_assets(row, previous):
+    if not previous or row['name'] != previous['name']:
+        return row
+    cid, old_cid = row.get('googleCid'), previous.get('googleCid')
+    if cid and old_cid and cid != old_cid:
+        return row
+    same_photo = bool(row.get('photoUrl')) and row.get('photoUrl') == previous.get('photoUrl')
+    same_point = distance((row['latitude'],row['longitude']),(previous['latitude'],previous['longitude'])) <= 25
+    same_identity = bool(cid and cid == old_cid) or (same_photo and same_point and row.get('mapsUrl') == previous.get('mapsUrl'))
+    if not same_identity:
+        return row
+    for key in ('description','descriptionSourceUrl','menuPhotos'):
+        if previous.get(key) and not row.get(key): row[key] = previous[key]
+    if same_photo:
+        for key in ('photoPath','photoEvidence','photoStatus'):
+            if previous.get(key): row[key] = previous[key]
+    return row
+
+
 def report(places, folder, output):
     results, verified = [], []
+    previous = {r['id']:r for r in json.loads(output.read_text())['places']} if output.exists() else {}
+    source_file = FOLDER / 'overture-places.json'
+    discovery_sources = {'overture/'+r['id']: r for r in json.loads(source_file.read_text())['places']} if any(r['id'].startswith('overture/') for r in places) else {}
     files_by_prefix = defaultdict(list)
     for path in folder.glob('*.json'):
         files_by_prefix[path.stem.rsplit('-', 1)[0]].append(path)
@@ -208,6 +231,17 @@ def report(places, folder, output):
             f"https://{urlsplit(r['url']).hostname}{urlsplit(r['url']).path}" if blocked(r) else r['url']
             for r in captures
         ))
+        old = previous.get(place['id'])
+        if not row and old and matching_name(place['name'],old.get('sourceRecordName') or old['name']) and distance((place['latitude'],place['longitude']),(old['latitude'],old['longitude'])) <= 100:
+            row = old
+            audit['retainedPreviousSnapshot'] = True
+        if row: row = preserve_assets(row, old)
+        if row and place['id'].startswith('overture/'):
+            try:
+                discovery_seed(discovery_sources[place['id']], row)
+            except (ValueError, KeyError):
+                audit.update(status='needs_manual_branch_review', candidate={'name':row['name'],'address':row['address'],'sourceUrl':row['mapsUrl'],'distanceM':row['matchDistanceM']})
+                row = None
         results.append(audit)
         if row:
             verified.append(row)
@@ -218,6 +252,7 @@ def report(places, folder, output):
                 result['status'] = 'not_attempted_provider_blocked'
     value = {"metadata": {"checkedAt": datetime.now(timezone.utc).isoformat(), "total": len(places),
                            "statuses": dict(Counter(r["status"] for r in results)), "newMatched": len(verified),
+                           "retainedPreviousSnapshots": sum(bool(r.get('retainedPreviousSnapshot')) for r in results),
                            "providerBlocked": provider_blocked,
                            "recordsWithCaptures": sum(bool(r.get('captureCount') or r.get('searched')) for r in results)},
              "places": verified, "audit": results}
@@ -302,9 +337,10 @@ if __name__ == "__main__":
     cli.add_argument("--executable")
     cli.add_argument("--limit", type=int, help="Smoke test only; omit to process the full named queue")
     cli.add_argument("--output", type=Path, default=FOLDER / "google-enrichment.json")
+    cli.add_argument("--seed", type=Path, help="Explicit source records, including discovery candidates; defaults to the core catalog")
     args = cli.parse_args()
     args.captures.mkdir(parents=True, exist_ok=True)
-    places = json.loads((FOLDER / "places.json").read_text())["places"]
+    places = json.loads(args.seed.read_text()) if args.seed else json.loads((FOLDER / "places.json").read_text())["places"]
     try:
         if args.collect:
             asyncio.run(collect(places, args.captures, args.executable, args.limit))

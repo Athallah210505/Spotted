@@ -4,7 +4,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-from complete_food_database import blocked, combine, match, result_link, exact_address_match, selected_marker, collect
+from complete_food_database import preserve_assets, blocked, combine, match, result_link, exact_address_match, selected_marker, collect
 
 
 PLACE = {"id": "node/1", "name": "Test Ramen", "latitude": -6.2, "longitude": 106.8, "address": "Jl. Test No.10"}
@@ -17,6 +17,15 @@ def capture(start=1, cid="aaa", lat=-6.2, address="Jl. Test No.10, Jakarta Selat
 
 
 class CompletionTests(unittest.TestCase):
+    def test_capture_refresh_preserves_derived_assets_only_for_the_same_listing(self):
+        row = {'name':'Test Ramen','googleCid':'aaa','photoUrl':'https://lh3.googleusercontent.com/p/a','latitude':-6.2,'longitude':106.8,'mapsUrl':'https://www.google.com/maps/search/Test+Ramen'}
+        previous = {**row,'photoPath':'/google-places/test.jpg','description':'Sourced description','descriptionSourceUrl':'https://example.com/source','menuPhotos':[{'photoPath':'/google-places/menu.jpg'}]}
+        self.assertEqual(preserve_assets(dict(row),previous)['photoPath'], previous['photoPath'])
+        self.assertEqual(preserve_assets(dict(row),previous)['description'], previous['description'])
+        self.assertEqual(preserve_assets({**row,'googleCid':None},{**previous,'googleCid':None})['photoPath'], previous['photoPath'])
+        self.assertNotIn('photoPath',preserve_assets({**row,'googleCid':'bbb'},previous))
+        self.assertNotIn('photoPath',preserve_assets({**row,'photoUrl':'https://lh3.googleusercontent.com/p/b'},previous))
+
     def test_same_brand_distant_branch_and_conflicting_number_are_rejected(self):
         self.assertEqual(match(capture(lat=-6.3), PLACE)["status"], "outside_match_radius")
         self.assertEqual(match(capture(address="Jl. Test No.11, Jakarta Selatan"), PLACE)["status"], "address_conflict")
