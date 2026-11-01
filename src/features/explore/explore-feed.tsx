@@ -7,11 +7,10 @@ import { BrowseNavigation } from "@/components/layout/browse-navigation";
 import { PreviewDialog } from "@/components/ui/preview-dialog";
 import { usePreviewProfile } from "@/features/profile/preview-profile";
 import { usePreviewWishlist } from "@/features/wishlist/preview-wishlist";
-import {
-  filterGooglePlaces,
-  googlePlaces,
-} from "@/features/catalog/google-data";
-import { GooglePlaceCard } from "@/features/catalog/google-place-card";
+import { googlePlaces } from "@/features/catalog/google-data";
+import { FoodPlaceCard } from "@/features/catalog/food-place-card";
+import { useFoodPlaces } from "@/features/catalog/use-food-places";
+import { CravingGame } from "./craving-game";
 import { catalogDetailHref } from "@/features/catalog/catalog-media";
 import { RestaurantPhoto } from "@/features/restaurants/restaurant-photo";
 import {
@@ -43,7 +42,12 @@ export function ExploreFeed({
     city: usePreferredCity ? profile.city : initialFilters.city,
   };
   const search = exploreSearch(filters, profile.city !== "jakarta");
-  const places = filterGooglePlaces(filters, savedIds);
+  const catalog = useFoodPlaces(
+    exploreSearch(filters, profile.city !== "jakarta"),
+    filters.savedOnly ? savedIds : [],
+  );
+  const places = catalog.data?.pages.flatMap((page) => page.places) ?? [];
+  const total = catalog.data?.pages[0]?.total ?? 0;
   const savedCount = googlePlaces.filter((place) =>
     savedIds.includes(place.id),
   ).length;
@@ -66,7 +70,7 @@ export function ExploreFeed({
     );
     root.querySelectorAll("article").forEach((card) => observer.observe(card));
     return () => observer.disconnect();
-  }, [search]);
+  }, [search, places.length]);
   function update(values: Partial<ExploreFilters>) {
     const query = exploreSearch(
       { ...filters, ...values },
@@ -117,7 +121,7 @@ export function ExploreFeed({
         id="explore-content"
         tabIndex={-1}
         ref={scrollArea}
-        aria-busy={pending}
+        aria-busy={pending || catalog.isPending}
       >
         <div className={styles.content}>
           <header className={`${styles.masthead} ${explore.masthead}`}>
@@ -226,7 +230,9 @@ export function ExploreFeed({
           ) : null}
           <section
             className={explore.results}
-            data-pending={pending}
+            data-pending={
+              pending || (catalog.isFetching && !catalog.isFetchingNextPage)
+            }
             aria-label="Restaurants in Jakarta"
           >
             <div className={dataStyles.sectionHeading}>
@@ -237,8 +243,10 @@ export function ExploreFeed({
                     : "Worth a detour."}
                 </h2>
                 <span aria-live="polite">
-                  {places.length} places ·{" "}
-                  {sortOptions[filters.sort ?? "recommended"]}
+                  {catalog.isPending
+                    ? "Memuat katalog…"
+                    : `${total.toLocaleString("en-US")} places`}{" "}
+                  · {sortOptions[filters.sort ?? "recommended"]}
                 </span>
               </div>
               <nav className={dataStyles.tools} aria-label="Explore controls">
@@ -285,11 +293,26 @@ export function ExploreFeed({
                 Saved places <span>{savedCount}</span>
               </button>
             </div>
-            {places.length ? (
+            {!search ? <CravingGame /> : null}
+            {catalog.isPending ? (
+              <p className={styles.loading} role="status">
+                Memuat tempat makan…
+              </p>
+            ) : catalog.isError ? (
+              <div className={styles.emptyState} role="alert">
+                <p>Data tempat belum bisa dimuat.</p>
+                <button
+                  className={styles.textAction}
+                  onClick={() => catalog.refetch()}
+                >
+                  Coba lagi
+                </button>
+              </div>
+            ) : places.length ? (
               <div className={dataStyles.cards}>
                 {places.map((place, index) => (
                   <Fragment key={place.id}>
-                    <GooglePlaceCard
+                    <FoodPlaceCard
                       place={place}
                       preload={index === 0}
                       search={search}
@@ -362,6 +385,17 @@ export function ExploreFeed({
               </div>
             )}
           </section>
+          {catalog.hasNextPage ? (
+            <button
+              className={explore.loadMore}
+              disabled={catalog.isFetchingNextPage}
+              onClick={() => catalog.fetchNextPage()}
+            >
+              {catalog.isFetchingNextPage
+                ? "Memuat…"
+                : "Lihat lebih banyak tempat"}
+            </button>
+          ) : null}
           {search && places.length ? (
             <button className={styles.textAction} onClick={reset}>
               Reset filters
@@ -373,15 +407,7 @@ export function ExploreFeed({
         active="Explore"
         search={search}
         onExplore={reset}
-        label={
-          <a
-            href="https://www.google.com/maps/search/restaurants+Jakarta/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Google Maps
-          </a>
-        }
+        label=""
       />
       {locationOpen ? (
         <PreviewDialog
@@ -407,7 +433,12 @@ export function ExploreFeed({
           >
             Tangerang Selatan · Bintaro
           </button>
-          <p>{googlePlaces.length} tempat tersedia di Jakarta.</p>
+          <p>
+            {catalog.data?.pages[0]?.databaseTotal.toLocaleString("id-ID") ??
+              "…"}{" "}
+            record dalam database. Tempat tanpa nama dan listing yang ditandai
+            tutup tidak ditampilkan.
+          </p>
         </PreviewDialog>
       ) : null}
     </div>

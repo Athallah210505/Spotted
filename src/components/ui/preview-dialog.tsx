@@ -35,7 +35,7 @@ export function PreviewDialog({
         if (event.key !== "Tab") return;
         const controls = [
           ...event.currentTarget.querySelectorAll<HTMLElement>(
-            "button:not(:disabled), a[href], input:not(:disabled)",
+            "button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex='0']",
           ),
         ].filter((element) => element.getClientRects().length);
         event.preventDefault();

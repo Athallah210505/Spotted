@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import type * as Leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { BrowseNavigation } from "@/components/layout/browse-navigation";
-import { distanceBetween, googlePlaces } from "@/features/catalog/google-data";
+import type { MapSpot } from "@/features/catalog/food-types";
 import { catalogDetailHref } from "@/features/catalog/catalog-media";
 import browse from "@/components/layout/browse.module.css";
 import styles from "./interactive-map.module.css";
@@ -37,11 +37,9 @@ export function InteractiveMap() {
     "Gunakan lokasi saya untuk melihat peta di sekitar Anda.",
   );
   const [tileError, setTileError] = useState(false);
-  const nearbyCount = origin
-    ? googlePlaces.filter(
-        (place) => distanceBetween(origin, place) <= radius * 1000,
-      ).length
-    : 0;
+  const [nearbyCount, setNearbyCount] = useState<number | null>(null);
+  const [placesError, setPlacesError] = useState(false);
+  const reloadPlaces = useRef<(() => void) | null>(null);
   const stopTracking = useCallback(() => {
     locationRequest.current++;
     if (watchId.current !== null) {
@@ -73,10 +71,12 @@ export function InteractiveMap() {
       .then((L) => {
         if (disposed || !container.current) return;
         leafletRef.current = L;
-        const map = L.map(container.current, { zoomControl: false }).setView(
-          [-6.244, 106.8],
-          14,
-        );
+        const map = L.map(container.current, {
+          zoomControl: false,
+          minZoom: 3,
+          maxZoom: 19,
+          worldCopyJump: true,
+        }).setView([-6.244, 106.8], 14);
         mapRef.current = map;
         map.on("dragstart", () => {
           followLocation.current = false;
@@ -100,51 +100,118 @@ export function InteractiveMap() {
         tiles.on("tileerror", () => {
           if (!disposed) setTileError(true);
         });
-        for (const place of googlePlaces) {
-          const label = document.createElement("span");
-          label.textContent = `★ ${place.rating.toFixed(1)}`;
-          const content = document.createElement("div");
-          content.className = styles.popup!;
-          const name = document.createElement("strong");
-          name.textContent = place.name;
-          const rating = document.createElement("p");
-          rating.textContent = `${place.rating.toFixed(1)} · Google (${place.reviewCount.toLocaleString("id-ID")})`;
-          const link = document.createElement("a");
-          link.href = `${catalogDetailHref(place)}?from=map`;
-          link.textContent = "Lihat detail";
-          link.addEventListener("click", (event) => {
-            if (
-              event.button === 0 &&
-              !event.metaKey &&
-              !event.ctrlKey &&
-              !event.shiftKey &&
-              !event.altKey
-            ) {
-              event.preventDefault();
-              router.push(link.getAttribute("href")!);
-            }
+        const venueLayer = L.layerGroup().addTo(map);
+        let controller: AbortController | undefined;
+        let scheduled: ReturnType<typeof setTimeout> | undefined;
+        const loadPlaces = async () => {
+          controller?.abort();
+          controller = new AbortController();
+          const bounds = map.getBounds();
+          const query = new URLSearchParams({
+            view: "map",
+            zoom: String(map.getZoom()),
+            bounds: [
+              bounds.getWest(),
+              Math.max(-85, bounds.getSouth()),
+              bounds.getEast(),
+              Math.min(85, bounds.getNorth()),
+            ].join(","),
           });
-          content.append(name, rating, link);
-          const marker = L.marker([place.latitude, place.longitude], {
-            icon: L.divIcon({
-              html: label,
-              className: styles.marker,
-              iconSize: [62, 36],
-              iconAnchor: [31, 18],
-            }),
-            title: place.name,
-            alt: `${place.name}, rating ${place.rating.toFixed(1)}`,
-            riseOnHover: true,
-          })
-            .bindPopup(content, { maxWidth: 260 })
-            .addTo(map);
-          marker
-            .getElement()
-            ?.setAttribute(
-              "aria-label",
-              `${place.name}, rating ${place.rating.toFixed(1)}`,
-            );
-        }
+          try {
+            const response = await fetch(`/api/places?${query}`, {
+              signal: controller.signal,
+            });
+            if (!response.ok) throw new Error("Map places unavailable");
+            const data = (await response.json()) as { spots: MapSpot[] };
+            if (disposed) return;
+            setPlacesError(false);
+            venueLayer.clearLayers();
+            for (const spot of data.spots) {
+              const label = document.createElement("span");
+              label.textContent =
+                spot.count > 1
+                  ? spot.count.toLocaleString("id-ID")
+                  : spot.place?.rating !== null &&
+                      spot.place?.rating !== undefined
+                    ? spot.place.rating.toFixed(1)
+                    : "Tempat";
+              const name =
+                spot.count > 1
+                  ? `${spot.count} tempat, perbesar area`
+                  : `${spot.place!.name}${spot.place!.rating !== null ? `, rating ${spot.place!.rating.toFixed(1)}` : ""}`;
+              const marker = L.marker([spot.latitude, spot.longitude], {
+                icon: L.divIcon({
+                  html: label,
+                  className:
+                    spot.count > 1
+                      ? `${styles.marker} ${styles.cluster}`
+                      : styles.marker,
+                  iconSize: spot.count > 1 ? [44, 44] : [76, 36],
+                  iconAnchor: spot.count > 1 ? [22, 22] : [38, 18],
+                }),
+                title: name,
+                alt: name,
+              }).addTo(venueLayer);
+              marker.getElement()?.setAttribute("aria-label", name);
+              if (spot.count > 1 && map.getZoom() < 19) {
+                marker.on("click", () =>
+                  map.setView(
+                    [spot.latitude, spot.longitude],
+                    Math.min(19, map.getZoom() + 2),
+                    {
+                      animate: !window.matchMedia(
+                        "(prefers-reduced-motion: reduce)",
+                      ).matches,
+                    },
+                  ),
+                );
+                continue;
+              }
+              const content = document.createElement("div");
+              content.className = styles.popup!;
+              for (const place of spot.members ?? [spot.place!]) {
+                const link = document.createElement("a");
+                link.href = `${catalogDetailHref(place)}?from=map`;
+                link.textContent = place.name;
+                link.addEventListener("click", (event) => {
+                  if (
+                    event.button === 0 &&
+                    !event.metaKey &&
+                    !event.ctrlKey &&
+                    !event.shiftKey &&
+                    !event.altKey
+                  ) {
+                    event.preventDefault();
+                    router.push(link.getAttribute("href")!);
+                  }
+                });
+                content.append(link);
+              }
+              marker.bindPopup(content, { maxWidth: 280, maxHeight: 240 });
+            }
+            if (container.current)
+              container.current.dataset.places = String(
+                data.spots.reduce((sum, s) => sum + s.count, 0),
+              );
+          } catch (error) {
+            if (
+              !disposed &&
+              !(error instanceof Error && error.name === "AbortError")
+            )
+              setPlacesError(true);
+          }
+        };
+        reloadPlaces.current = () => void loadPlaces();
+        const schedule = () => {
+          clearTimeout(scheduled);
+          scheduled = setTimeout(() => void loadPlaces(), 150);
+        };
+        map.on("moveend", schedule);
+        void loadPlaces();
+        map.on("unload", () => {
+          controller?.abort();
+          clearTimeout(scheduled);
+        });
         locationRef.current = L.layerGroup().addTo(map);
         const updatePosition = () => {
           if (!container.current) return;
@@ -165,6 +232,7 @@ export function InteractiveMap() {
       });
     return () => {
       disposed = true;
+      reloadPlaces.current = null;
       if (watchId.current !== null) {
         navigator.geolocation.clearWatch(watchId.current);
         watchId.current = null;
@@ -266,6 +334,27 @@ export function InteractiveMap() {
       layer.clearLayers();
     };
   }, [ready, origin, radius, choosePoint]);
+
+  useEffect(() => {
+    if (!origin) return;
+    const controller = new AbortController();
+    const params = new URLSearchParams({
+      view: "count",
+      lat: String(origin.latitude),
+      lon: String(origin.longitude),
+      radius: String(radius),
+    });
+    void fetch(`/api/places?${params}`, { signal: controller.signal })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Count unavailable");
+        const data = (await response.json()) as { total: number };
+        setNearbyCount(data.total);
+      })
+      .catch((error) => {
+        if (error.name !== "AbortError") setNearbyCount(null);
+      });
+    return () => controller.abort();
+  }, [origin, radius]);
 
   function locate() {
     stopTracking();
@@ -422,7 +511,9 @@ export function InteractiveMap() {
         ) : null}
         {origin ? (
           <p className={styles.nearby} aria-live="polite">
-            {nearbyCount} tempat dalam radius {radius} km
+            {nearbyCount === null
+              ? "Menghitung tempat sekitar…"
+              : `${nearbyCount.toLocaleString("id-ID")} tempat dalam radius ${radius} km`}
           </p>
         ) : null}
       </header>
@@ -435,6 +526,18 @@ export function InteractiveMap() {
           aria-label="Peta tempat makan"
         />
         {!ready ? <p className={styles.notice}>Memuat peta…</p> : null}
+        {placesError ? (
+          <div className={styles.notice} role="alert">
+            Tempat di area ini belum termuat.{" "}
+            <button
+              onClick={() => {
+                reloadPlaces.current?.();
+              }}
+            >
+              Coba muat tempat lagi
+            </button>
+          </div>
+        ) : null}
         {tileError ? (
           <div className={styles.notice} role="alert">
             Peta jalan belum termuat. Periksa koneksi Anda.

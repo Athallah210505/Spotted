@@ -1,10 +1,11 @@
 import { expect, test } from "@playwright/test";
-import published from "../../src/features/catalog/data/google-places.json" with { type: "json" };
 
 test("Explore controls stay before full-width cards across navigation and reduced motion", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
+  const catalogTotal = (await (await page.request.get("/api/places")).json())
+    .total;
   await page.goto("/explore");
   const filters = page.getByRole("link", { name: "Filters", exact: true });
   await expect(filters).toBeInViewport();
@@ -40,12 +41,12 @@ test("Explore controls stay before full-width cards across navigation and reduce
     .click();
   await expect(
     page.getByRole("link", {
-      name: `Show ${published.length} places`,
+      name: `Show ${catalogTotal} places`,
       exact: true,
     }),
   ).toBeInViewport();
   await page
-    .getByRole("link", { name: `Show ${published.length} places`, exact: true })
+    .getByRole("link", { name: `Show ${catalogTotal} places`, exact: true })
     .click();
   for (const width of [375, 390, 430, 1280]) {
     await page.setViewportSize({ width, height: 844 });

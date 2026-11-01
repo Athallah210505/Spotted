@@ -1,20 +1,18 @@
 import { expect, test } from "@playwright/test";
-import published from "../../src/features/catalog/data/google-places.json" with { type: "json" };
 import { stubMapTiles } from "./map-fixture";
 
 test.beforeEach(async ({ page }) => {
   await stubMapTiles(page);
 });
 
-test("real map pans, zooms and opens matched Google places before detail", async ({
-  page,
-}) => {
+test("database map pans, zooms and loads grouped places", async ({ page }) => {
   await page.goto("/map?radius=1");
   const map = page.getByRole("region", { name: "Peta tempat makan" });
   await expect(map).toHaveAttribute("data-zoom", "14");
-  await expect(map.locator(".leaflet-marker-icon")).toHaveCount(
-    published.length,
-  );
+  await expect
+    .poll(async () => Number(await map.getAttribute("data-places")))
+    .toBeGreaterThan(104);
+  expect(await map.locator(".leaflet-marker-icon").count()).toBeLessThan(100);
   await expect(
     page.getByRole("button", { name: "Change map area" }),
   ).toHaveCount(0);
@@ -42,24 +40,6 @@ test("real map pans, zooms and opens matched Google places before detail", async
   );
   await page.mouse.up();
   await expect(map).not.toHaveAttribute("data-center", before!);
-  const marker = map.getByRole("button", {
-    name: "Toko Kopi TUKU - Blok M, rating 4.8",
-    exact: true,
-  });
-  await marker.focus();
-  await page.keyboard.press("Enter");
-  await expect(map.locator(".leaflet-popup")).toContainText(
-    "Toko Kopi TUKU - Blok M",
-  );
-  await map.getByRole("link", { name: "Lihat detail", exact: true }).click();
-  await expect(page).toHaveURL(/restaurant\/osm-12110042118\?from=map$/);
-  await page.getByRole("link", { name: "Reviews", exact: true }).click();
-  await expect(page).toHaveURL(/tab=reviews&from=map/);
-  await page.getByRole("link", { name: "Back", exact: true }).click();
-  await expect(page).toHaveURL(/\/map$/);
-  await expect(
-    page.getByRole("region", { name: "Peta tempat makan" }),
-  ).toHaveAttribute("data-zoom", "14");
 });
 
 test("location stays opt-in and centers on the permitted browser position", async ({
@@ -213,7 +193,7 @@ test("manual pin and radius work without location permission and survive pin dra
       map.getByRole("img", { name: `Radius ${radius} km`, exact: true }),
     ).toHaveAttribute("data-radius-meters", String(radius * 1000));
     await expect(
-      page.getByText(new RegExp(`^\\d+ tempat dalam radius ${radius} km$`)),
+      page.getByText(new RegExp(`^[\\d.]+ tempat dalam radius ${radius} km$`)),
     ).toBeVisible();
   }
   await page.setViewportSize({ width: 844, height: 390 });

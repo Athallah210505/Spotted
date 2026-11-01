@@ -1,0 +1,141 @@
+.start {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  min-height: 64px;
+  margin: 0 0 20px;
+  background: var(--brand-green);
+  border-radius: 20px;
+  text-align: left;
+}
+.start > span:first-child {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+.start > span:last-child {
+  max-width: 120px;
+  font-size: 12px;
+}
+.start b {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 18px;
+}
+.quiz {
+  overflow-x: clip;
+}
+.quiz > p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+.progress progress {
+  width: 100%;
+  height: 6px;
+  accent-color: var(--brand-blue);
+}
+.question {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 270px;
+  margin: 20px 0;
+  padding: 24px;
+  background: var(--brand-yellow);
+  border-radius: 28px;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+}
+.question:active {
+  cursor: grabbing;
+}
+.question > span {
+  color: var(--brand-blue);
+  font-weight: 700;
+  font-size: 20px;
+}
+.question h3 {
+  margin: 20px 0;
+  font-size: 32px;
+  line-height: 1.12;
+  letter-spacing: -1px;
+}
+.question p {
+  font-size: 13px;
+  margin: 0;
+}
+.answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.answers button {
+  min-height: 52px;
+  border-radius: 16px;
+  background: white;
+  font-weight: 600;
+  border: 1px solid #deded8;
+}
+.answers button:last-child {
+  background: var(--brand-blue);
+  color: white;
+  border-color: var(--brand-blue);
+}
+.restart {
+  display: block;
+  min-height: 44px;
+  margin: 12px auto 0;
+  color: var(--brand-blue);
+  text-decoration: underline;
+  font-size: 13px;
+}
+.resultTitle {
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.7px;
+}
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.results ul {
+  padding-left: 18px;
+  font-size: 12px;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+.match {
+  font-size: 12px !important;
+  color: var(--brand-blue);
+  margin-bottom: 8px !important;
+  font-weight: 600;
+}
+.question {
+  animation: nextQuestion 180ms ease-out;
+}
+@keyframes nextQuestion {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .question {
+    animation: none;
+  }
+}

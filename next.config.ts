@@ -11,6 +11,12 @@ parseEnv(serverEnvSchema, process.env);
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  outputFileTracingIncludes: {
+    "/api/places": ["./research/jaksel-jakbar-2026-10-28/food-database.sqlite"],
+    "/restaurant/[placeId]": [
+      "./research/jaksel-jakbar-2026-10-28/food-database.sqlite",
+    ],
+  },
   devIndicators: false,
   async headers() {
     return [

@@ -1,7 +1,7 @@
 import { openingLabel, type GooglePlace } from "./google-data";
 import styles from "./google-ui.module.css";
 
-export function OpeningHours({ place }: { place: GooglePlace }) {
+export function OpeningHours({ place }: { place: Pick<GooglePlace, "hours"> }) {
   if (!place.hours.length) return null;
   return (
     <details className={styles.hours}>

@@ -12,7 +12,7 @@ import {
 } from "@/features/explore/demo-data";
 import { usePreviewWishlist } from "@/features/wishlist/preview-wishlist";
 import { usePreviewProfile } from "@/features/profile/preview-profile";
-import { filterGooglePlaces } from "@/features/catalog/google-data";
+import { useFoodPlaces } from "@/features/catalog/use-food-places";
 import shared from "@/components/layout/browse.module.css";
 import styles from "./filters.module.css";
 
@@ -33,12 +33,12 @@ export function FiltersPage({
   };
   const [draft, setDraft] = useState<ExploreFilters>(initial);
   const { savedIds } = usePreviewWishlist();
-  const count = (
-    from === "map"
-      ? filterDemoRestaurants(draft, savedIds)
-      : filterGooglePlaces(draft, savedIds)
-  ).length;
   const search = exploreSearch(draft, profile.city !== "jakarta");
+  const catalog = useFoodPlaces(search, draft.savedOnly ? savedIds : []);
+  const count =
+    from === "map"
+      ? filterDemoRestaurants(draft, savedIds).length
+      : catalog.data?.pages[0]?.total;
   const original = exploreSearch(
     filters,
     !usePreferredCity && filters.city === "jakarta",
@@ -185,11 +185,23 @@ export function FiltersPage({
         </div>
       </main>
       <footer className={styles.footer}>
+        {catalog.isError && from !== "map" ? (
+          <p role="alert">
+            Data belum bisa dimuat.{" "}
+            <button onClick={() => catalog.refetch()}>Coba lagi</button>
+          </p>
+        ) : null}
         <Link
           className={`${styles.action} ${styles.yellow}`}
           href={`/${from}${search ? `?${search}` : ""}`}
+          aria-disabled={count === undefined}
+          onClick={(event) => {
+            if (count === undefined) event.preventDefault();
+          }}
         >
-          Show {count} {count === 1 ? "place" : "places"}
+          {count === undefined
+            ? "Memuat tempat…"
+            : `Show ${count} ${count === 1 ? "place" : "places"}`}
         </Link>
         <button
           className={styles.action}

@@ -10,6 +10,8 @@ import { RestaurantDetail } from "@/features/restaurants/restaurant-detail";
 import { DetailSaveButton } from "@/features/wishlist/detail-save-button";
 import { SavedRecommendation } from "@/features/tiktok/saved-recommendation";
 import { findGooglePlace } from "@/features/catalog/google-data";
+import { findFoodPlace } from "@/features/catalog/food-catalog";
+import { FoodDetail } from "@/features/catalog/food-detail";
 import { CatalogDetail } from "@/features/catalog/catalog-detail";
 
 export default async function RestaurantPage({
@@ -37,6 +39,15 @@ export default async function RestaurantPage({
             : "overview"
         }
         backHref={`${query.from === "wishlist" ? "/wishlist" : query.from === "map" ? "/map" : "/explore"}${realSearch ? `?${realSearch}` : ""}`}
+      />
+    );
+  const foodPlace = findFoodPlace(placeId);
+  if (foodPlace)
+    return (
+      <FoodDetail
+        place={foodPlace}
+        backHref={`${query.from === "map" ? "/map" : "/explore"}${realSearch ? `?${realSearch}` : ""}`}
+        tab={typeof query.tab === "string" ? query.tab : "overview"}
       />
     );
   const place = findDemoRestaurant(placeId);

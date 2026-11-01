@@ -193,3 +193,18 @@
   margin-top: 8px;
   text-decoration: underline;
 }
+.cluster {
+  background: var(--brand-yellow);
+  color: var(--foreground);
+  border-color: white;
+  font-size: 12px;
+}
+.popup a + a {
+  margin-top: 8px;
+}
+.cluster {
+  border-radius: 50%;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 1px 4px #0002;
+}

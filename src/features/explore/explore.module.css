@@ -80,3 +80,24 @@
     transform: none;
   }
 }
+.results {
+  min-width: 0;
+}
+.results > div:first-child {
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.results > div:first-child > div {
+  flex: 1 1 170px;
+}
+.results > div:first-child nav {
+  flex: 0 0 auto;
+}
+.loadMore {
+  min-height: 48px;
+  background: white;
+  color: var(--brand-blue);
+  border-radius: 16px;
+  font-weight: 600;
+  padding: 12px 16px;
+}

@@ -1,5 +1,4 @@
 import { expect, test } from "@playwright/test";
-import published from "../../src/features/catalog/data/google-places.json" with { type: "json" };
 
 test("quick filters keep search state and react to saved places", async ({
   page,
@@ -46,7 +45,7 @@ test("visitor photo rail opens real menu details and fits narrow screens", async
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/explore");
-  await expect(page.getByRole("article")).toHaveCount(published.length);
+  await expect(page.getByRole("article")).toHaveCount(24);
   const first = page.getByRole("article").first();
   await expect(first).toContainText("reviews");
   await expect(

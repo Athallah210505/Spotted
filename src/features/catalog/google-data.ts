@@ -113,10 +113,13 @@ export function distanceFromBlokM(
 ) {
   return distanceBetween({ latitude: -6.244, longitude: 106.8 }, place);
 }
-export function matchesCategory(place: GooglePlace, category: Category) {
+export function matchesCategory(
+  place: Pick<GooglePlace, "name" | "category">,
+  category: Category,
+) {
   const value = `${place.name} ${place.category}`.toLocaleLowerCase("id");
   const patterns: Record<Exclude<Category, "All">, RegExp> = {
-    Coffee: /kopi|coffee|kafe|café/,
+    Coffee: /kopi|coffee|kafe|café|cafe/,
     Matcha: /matcha/,
     Japanese: /jepang|japanese|sushi|ramen/,
     Korean: /korea|korean/,
