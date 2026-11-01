@@ -2,7 +2,7 @@ import unittest
 import sqlite3
 from contextlib import closing
 
-from build_food_database import FOLDER, address, category, contains, eligible, geometry, google_category
+from build_food_database import FOLDER, address, category, contains, eligible, geometry, google_category, source_name
 
 
 def segment(points, role="outer"):
@@ -29,6 +29,9 @@ class FoodDatabaseTests(unittest.TestCase):
         self.assertEqual(google_category("Kedai Kopi"), "cafe")
         self.assertIsNone(address({"name": "Unknown address"}))
         self.assertEqual(address({"addr:street": "Jalan A", "addr:housenumber": "5"}), "Jalan A 5")
+        self.assertEqual(source_name({'name:ja': '置屋'}), '置屋')
+        self.assertEqual(source_name({'name': ' ', 'name:hi': 'Kantin MangkuLuhur City'}), 'Kantin MangkuLuhur City')
+        self.assertIsNone(source_name({'brand': 'KOI', 'operator': 'Example'}))
 
     def test_database_rejects_orphan_reviews_and_out_of_range_ratings(self):
         with closing(sqlite3.connect(":memory:")) as db, db:

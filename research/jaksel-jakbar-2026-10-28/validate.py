@@ -26,12 +26,42 @@ with closing(sqlite3.connect(f"file:{FOLDER / 'food-database.sqlite'}?mode=ro", 
     assert not db.execute("PRAGMA foreign_key_check").fetchall()
     actual = {r["id"]: dict(r) for r in db.execute("SELECT * FROM places")}
     assert actual == {r["id"]: r for r in rows}
+    if summary.get('all_food_records'):
+        combined = [dict(r) for r in db.execute('SELECT * FROM all_food_places')]
+        assert len(combined) == summary['all_food_records'] == len({r['id'] for r in combined})
+        with (FOLDER / 'all-places.csv').open(encoding='utf-8-sig',newline='') as stream:
+            combined_csv = {r['id']: r for r in csv.DictReader(stream)}
+        assert len(combined_csv) == len(combined)
+        for r in combined:
+            assert combined_csv[r['id']] == {key: '' if value is None else str(value) for key,value in r.items()}
+            if r['data_layer'] == 'overture_discovery':
+                assert r['google_rating'] is None and r['google_review_count'] is None
+                assert r['verification_status'] == 'open_data_candidate'
+    if summary.get('discovery_records'):
+        discovery = json.loads((FOLDER / 'overture-places.json').read_text())['places']
+        assert len(discovery) == summary['discovery_records'] == len({r['id'] for r in discovery})
+        actual_discovery = {r['id']: dict(r) for r in db.execute('SELECT * FROM discovery_places')}
+        assert set(actual_discovery) == {r['id'] for r in discovery}
+        for r in discovery:
+            got = actual_discovery[r['id']]
+            for key in ('name','city','district','category','latitude','longitude','address','confidence','operating_status','source_url'):
+                assert got[key] == r[key]
+            assert got['address_locality_conflict'] == int(r['address_locality_conflict'])
+        with (FOLDER / 'discovery-places.csv').open(encoding='utf-8-sig',newline='') as stream:
+            exported = list(csv.DictReader(stream))
+        assert len(exported) == len(discovery)
+        for got, wanted in zip(exported,discovery):
+            assert got == {key: '' if wanted[key] is None else str(wanted[key]) for key in got}
     db_sources = [dict(r) for r in db.execute("SELECT * FROM place_sources")]
     assert sorted(db_sources, key=lambda r: (r["provider"], r["source_id"])) == sorted(sources, key=lambda r: (r["provider"], r["source_id"]))
     assert json.loads(db.execute("SELECT value FROM collection_metadata WHERE key='summary'").fetchone()[0]) == summary
     for row in rows:
         providers = [s for s in sources if s["place_id"] == row["id"]]
         assert providers and row["district"] and row["city"] in summary["cities"]
+        if row['address']:
+            assert row['address_source_url'] in {s['source_url'] for s in providers}
+        if row['name']:
+            assert row['name_source_url'] in {s['source_url'] for s in providers}
         reviews = list(db.execute("SELECT author_url,rating FROM google_reviews WHERE place_id=?", (row["id"],)))
         google_sources = [s for s in providers if s["provider"] == "google"]
         if not google_sources:

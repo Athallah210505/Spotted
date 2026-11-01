@@ -45,7 +45,7 @@ def selected_marker(raw, known_cid=None):
             continue
         lat = (x - (2**32 if x >= 2**31 else 0)) / 10**7
         lon = (y - (2**32 if y >= 2**31 else 0)) / 10**7
-        if -6.45 <= lat <= -6.10 and 106.68 <= lon <= 106.95:
+        if -6.45 <= lat <= -6.05 and 106.65 <= lon <= 107.0:
             markers[cid] = {'latitude': lat, 'longitude': lon, 'cid': cid, 'coordinateEvidenceUrl': url}
     return next(iter(markers.values())) if len(markers) == 1 else None
 
@@ -130,9 +130,10 @@ def combine(place, captures):
     valid = [m for m in matches if m["status"] == "matched"]
     if not valid:
         return {"id": place["id"], "status": matches[-1]["status"] if matches else "not_fetched"}, None
+    valid.sort(key=lambda m: m['google']['checkedAt'], reverse=True)
     baseline = valid[0]
     g = baseline["google"]
-    reviews = {}
+    reviews = {urlsplit(r['authorUrl']).path: {**r, 'checkedAt': g['checkedAt'], 'sourceUrl': g['url']} for r in g['reviews']}
     accepted = [g]
     for other in valid:
         row = other["google"]
@@ -156,13 +157,10 @@ def combine(place, captures):
         g["cid"] = g.get("cid") or row.get("cid")
         g["closedReason"] = g.get("closedReason") or row.get("closedReason")
         for review in row["reviews"]:
-            reviews[urlsplit(review["authorUrl"]).path] = review
+            reviews.setdefault(urlsplit(review["authorUrl"]).path, {**review, 'checkedAt': row['checkedAt'], 'sourceUrl': row['url']})
         for field in ("photoUrl", "rating", "reviewCount", "hours"):
             if not g.get(field) and row.get(field):
                 g[field] = row[field]
-    # A single verified capture is usable even when its address lacks a street prefix.
-    for review in g["reviews"]:
-        reviews.setdefault(urlsplit(review["authorUrl"]).path, review)
     selected = list(reviews.values())[:5]
     full = bool(g["rating"] and g["reviewCount"] and g["photoUrl"] and len(selected) == 5)
     status = "closed" if g.get("closedReason") else "matched_with_five_reviews" if full else "matched_partial"
@@ -236,7 +234,7 @@ async def collect(places, folder, executable, limit):
     stopped = asyncio.Event()
     queue = asyncio.Queue()
     for row in places:
-        if row["id"] not in BASELINE_IDS:
+        if row["id"] not in BASELINE_IDS and not (folder / (row['id'].replace('/', '-') + '-id.json')).exists():
             queue.put_nowait(row)
     processed = 0
     async with async_playwright() as p:
@@ -291,7 +289,7 @@ async def collect(places, folder, executable, limit):
                     print(json.dumps({"processed": processed, "remaining": queue.qsize(), "blocked": stopped.is_set()}), flush=True)
             await page.close()
         try:
-            await asyncio.gather(*(worker() for _ in range(5)))
+            await asyncio.gather(*(worker() for _ in range(2)))
         finally:
             await browser.close()
     print(json.dumps({"processed": processed, "remaining": queue.qsize(), "blocked": stopped.is_set()}), flush=True)

@@ -1,53 +1,49 @@
 # Hasil pelengkapan database Jaksel/Jakbar
 
-Snapshot sumber dikumpulkan 28 Oktober 2026; artefak diperiksa ulang 1 November 2026. Database berisi 2,223 record sumber di 18 kecamatan.
+Diperbarui 1 November 2026. **25.907 record gabungan** tersedia: 2.223 record utama dan 23.951 kandidat Overture, dikurangi 267 pengaitan satu-ke-satu yang terkonfirmasi. Jumlah ini belum merupakan jumlah bisnis unik atau sensus lengkap.
 
-| Data                                                 | Sebelum | Sesudah |
-| ---------------------------------------------------- | ------: | ------: |
-| Cabang cocok Google                                  |      88 |     477 |
-| Rating tersedia                                      |      88 |     471 |
-| Alamat kosong                                        |   1.477 |   1,239 |
-| Record dengan lima ulasan, rating dan referensi foto |      88 |      89 |
-| Cuplikan ulasan                                      |     440 |     459 |
-| Referensi foto                                       |      88 |      94 |
+| Data utama                                     | Sebelumnya | Sekarang |
+| ---------------------------------------------- | ---------: | -------: |
+| Cocok Google                                   |        477 |      547 |
+| Rating Google                                  |        471 |      541 |
+| Jam buka Google                                |        389 |      438 |
+| Alamat kosong                                  |      1.239 |    1.061 |
+| Tanpa nama                                     |         48 |       46 |
+| Lima penulis ulasan, rating dan referensi foto |         89 |       89 |
+| Cuplikan ulasan                                |        459 |      459 |
+| Referensi foto                                 |         94 |       94 |
 
-Ada data jam buka Google pada 389 record. Sebanyak 68 listing bertanda tutup disimpan dengan status tersendiri; alasan tutup sementara/permanen ada dalam payload sumber. Referensi foto tidak otomatis menjadi foto yang telah diperiksa visual.
+113 alamat diisi dari Overture setelah pemeriksaan nama, lokasi, confidence, dan konflik. Dua nama berasal dari tag bahasa OSM yang benar-benar tersedia. Kandidat Overture memiliki 23.291 alamat, dengan 172 konflik locality ditandai. Confidence sumber tidak ditampilkan sebagai rating Google.
 
-## Hasil pemeriksaan
+## Akses Google
 
-Collector memperoleh capture untuk 969 record. Tiga request menerima HTTP 429 dari `www.google.com/sorry/index`; seluruh worker kemudian berhenti. Parameter query URL challenge tidak dipublikasikan.
+Probe biasa sempat berhasil HTTP 200, tercatat pada [bukti pemulihan](access-recovery-2026-11-01.json). Collector melanjutkan cache dengan dua worker, lalu berhenti ketika Google kembali memberi HTTP 429. Audit offline dilanjutkan dari capture yang sudah tersedia dan bukti alamat terbuka. Tidak ada penggantian identitas, CAPTCHA bypass, atau biaya API.
 
-| Status                         | Record |
-| ------------------------------ | -----: |
-| needs_identity_evidence        |     48 |
-| matched_with_five_reviews      |      1 |
-| unresolved_search              |    257 |
-| matched_partial                |    320 |
-| missing_coordinates            |    150 |
-| fetch_error                    |     39 |
-| name_mismatch                  |     71 |
-| closed                         |     68 |
-| non_food_category_needs_review |     12 |
-| outside_match_radius           |     27 |
-| previously_verified            |     88 |
-| blocked                        |      3 |
-| not_attempted_provider_blocked |   1139 |
+| Status audit utama               | Record |
+| -------------------------------- | -----: |
+| `needs_identity_evidence`        |     46 |
+| `matched_with_five_reviews`      |      1 |
+| `unresolved_search`              |    288 |
+| `matched_partial`                |    379 |
+| `missing_coordinates`            |    150 |
+| `fetch_error`                    |     39 |
+| `name_mismatch`                  |     78 |
+| `closed`                         |     79 |
+| `non_food_category_needs_review` |     13 |
+| `outside_match_radius`           |     37 |
+| `previously_verified`            |     88 |
+| `address_conflict`               |      1 |
+| `blocked`                        |      2 |
+| `not_attempted_provider_blocked` |  1,022 |
 
-`matched_with_five_reviews` menyatakan kontrak rating/foto referensi/lima penulis, bukan kelengkapan seluruh menu atau izin publikasi foto. `matched_partial` menyimpan fakta cabang yang sudah cocok walau beberapa field belum tersedia. Status `not_attempted_provider_blocked` mencatat record yang belum diminta, bukan hasil pencarian gagal.
+Status `matched_partial` menyatakan bukti cabang yang cocok dengan field belum lengkap. `not_attempted_provider_blocked` adalah record yang belum diminta karena blokir, bukan pencarian gagal. Sebanyak 79 listing bertanda tutup disimpan sebagai riwayat. Record tanpa nama tetap membutuhkan bukti identitas.
 
-48 titik belum mempunyai nama yang dapat dibuktikan. Sebagian mempunyai kandidat Google di sekitarnya dalam audit, tetapi nama kandidat tidak otomatis dipasang ke titik tersebut. Selain 1.139 record bernama yang tertahan blokir, 27 titik tanpa nama belum sempat dicari.
+## Penggunaan dan verifikasi
 
-## Duplikat dan provenance
+[SQLite](food-database.sqlite) memiliki view `all_food_places`, diekspor ke [CSV seluruh record](all-places.csv). Tabel `places` mempertahankan record utama; `discovery_places` memuat kandidat dengan release, confidence, sumber upstream, dan flag konflik. Rating Google pada layer kandidat selalu NULL. Per-field source URL dan waktu setiap review dipertahankan.
 
-Ada 23 pasangan potensi duplikat: 3 pasangan memakai CID Google yang sama dan 20 pasangan masih perlu pemeriksaan. Record sumber tetap dipertahankan agar riwayat dan relasi tidak hilang.
+23 pasangan potensi duplikat utama disimpan, termasuk tiga pasangan dengan Google CID sama; 10 pencocokan Overture ambigu ditahan. Hanya 267 pengaitan terkonfirmasi yang dihilangkan dari bagian kandidat view gabungan. Masih mungkin ada duplikat lainnya.
 
-[Database SQLite](food-database.sqlite), [CSV](places.csv), [JSON](places.json), dan [audit per record](google-enrichment.json) telah diperbarui. Tabel `enrichment_attempts` menyimpan status, waktu, jumlah capture, serta bukti untuk setiap record. Data Google menyimpan URL sumber dan waktu capture; field yang tidak ditemukan tetap kosong.
+PASS: 37 test otomatis, SQLite integrity/foreign key, serta perbandingan seluruh record CSV/JSON/SQLite dan provenance. Katalog Explore/Map tetap 104 record; kandidat riset belum otomatis masuk UI. Tidak ada perubahan Supabase cloud atau billing.
 
-## Verifikasi
-
-- PASS: SQLite `integrity_check` dan `foreign_key_check`.
-- PASS: seluruh record CSV, JSON, SQLite dan sumber dibandingkan oleh `validate.py`.
-- PASS: test untuk cabang jauh, nomor alamat berbeda, dua listing ambigu, CID berbeda, lima penulis, metadata marker terpilih, dan penghentian pada blokir tersimpan.
-- PASS: katalog aplikasi tidak diubah; Explore/Map masih menggunakan 104 record terverifikasi.
-
-Belum seluruh database lengkap. Pelengkapan jaringan berhenti karena pembatasan Google. Tidak ada aktivasi billing, rotasi proxy, penyelesaian CAPTCHA, pengisian nama/alamat perkiraan, ataupun penggantian ulasan kosong dengan ulasan buatan.
+**Belum lengkap:** Google masih membatasi akses; 1.061 alamat utama dan 46 nama masih kosong, serta menu, foto yang siap dipublikasikan, dan lima review setiap tempat belum tersedia. Cakupan pedagang yang tidak ada di sumber publik juga belum diketahui. [README](README.md) memuat metode, lisensi, dan cara membangun ulang.

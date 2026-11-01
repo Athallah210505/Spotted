@@ -86,6 +86,11 @@ def address(tags):
     return ", ".join(filter(None, [street, tags.get("addr:suburb"), tags.get("addr:city"), tags.get("addr:postcode")])) or None
 
 
+def source_name(tags):
+    keys = ['name', 'name:id', 'name:en'] + sorted(k for k in tags if re.fullmatch(r'name:[a-z]{2,3}', k))
+    return next((tags[k].strip() for k in keys if isinstance(tags.get(k), str) and tags[k].strip()), None)
+
+
 def normalize_name(name):
     value = unicodedata.normalize("NFKD", name or "").casefold()
     return re.sub(r"[^a-z0-9]", "", value)
@@ -145,12 +150,16 @@ def build(raw, districts_raw, google, research, checked_at):
         if not city:
             excluded.append({"id": identifier, "reason": "point_outside_or_ambiguous_city", "latitude": lat, "longitude": lon})
             continue
-        name = (tags.get("name") or tags.get("name:id") or tags.get("name:en") or "").strip() or None
+        name = source_name(tags)
+        street_address = address(tags)
+        osm_url = f"https://www.openstreetmap.org/{identifier}"
         places[identifier] = {
             "id": identifier, "name": name, "city": city, "district": district,
             "category": category(tags), "latitude": lat, "longitude": lon,
             "coordinate_method": "osm_node" if element["type"] == "node" else "osm_bbox_center",
-            "address": address(tags), "cuisine": tags.get("cuisine"),
+            "address": street_address, "cuisine": tags.get("cuisine"),
+            "address_source_url": osm_url if street_address else None,
+            "name_source_url": osm_url if name else None,
             "opening_hours": tags.get("opening_hours"), "google_rating": None,
             "google_hours_json": "[]", "google_cid": None,
             "google_review_count": None, "google_maps_url": None, "photo_url": None,
@@ -161,7 +170,7 @@ def build(raw, districts_raw, google, research, checked_at):
         sources.append({"place_id": identifier, "provider": "openstreetmap", "source_id": identifier,
                         "source_url": places[identifier]["primary_source_url"], "observed_at": checked_at,
                         "source_updated_at": element.get("timestamp"), "license": "ODbL-1.0",
-                        "payload_json": dump({k: v for k, v in tags.items() if k in {"name", "name:id", "name:en", "brand", "brand:wikidata", "amenity", "shop", "cuisine", "opening_hours", "addr:full", "addr:street", "addr:housenumber", "addr:suburb", "addr:city", "addr:postcode", "takeaway", "delivery", "wheelchair", "diet:halal"}})})
+                        "payload_json": dump({k: v for k, v in tags.items() if re.fullmatch(r'name:[a-z]{2,3}', k) or k in {"name", "brand", "brand:wikidata", "amenity", "shop", "cuisine", "opening_hours", "addr:full", "addr:street", "addr:housenumber", "addr:suburb", "addr:city", "addr:postcode", "takeaway", "delivery", "wheelchair", "diet:halal"}})})
     google_outside = []
     for row in google:
         city, district = locate(row["latitude"], row["longitude"])
@@ -184,6 +193,7 @@ def build(raw, districts_raw, google, research, checked_at):
         complete = bool(row["rating"] and row["reviewCount"] and row["photoUrl"] and len(row["reviews"]) == 5)
         cid = re.search(r"0x[0-9a-f]+:0x([0-9a-f]+)", row["mapsUrl"])
         place.update(name=row["name"], address=row["address"] or place.get("address"),
+                     name_source_url=row['mapsUrl'], address_source_url=row['mapsUrl'] if row['address'] else place.get('address_source_url'),
                      google_rating=row["rating"], google_review_count=row["reviewCount"],
                      google_hours_json=dump(row["hours"]), google_cid=row.get("googleCid") or (cid.group(1) if cid else None),
                      google_maps_url=row["mapsUrl"], photo_url=row["photoUrl"],
@@ -195,8 +205,28 @@ def build(raw, districts_raw, google, research, checked_at):
                         "payload_json": dump(row)})
         for review in row["reviews"]:
             reviews.append({"place_id": identifier, "author": review["author"], "author_url": review["authorUrl"],
-                            "rating": review["rating"], "excerpt": review["excerpt"], "source_url": row["mapsUrl"],
-                            "observed_at": row.get("reviewsCheckedAt", row["checkedAt"])})
+                            "rating": review["rating"], "excerpt": review["excerpt"], "source_url": review.get('sourceUrl', row["mapsUrl"]),
+                            "observed_at": review.get('checkedAt', row.get("reviewsCheckedAt", row["checkedAt"]))})
+    overture_matches = FOLDER / 'overture-enrichment.json'
+    overture_count, overture_addresses = 0, 0
+    if overture_matches.exists():
+        incoming = json.loads(overture_matches.read_text())
+        for evidence in incoming['matches']:
+            identifier = evidence['placeId']
+            row = evidence['record']
+            if identifier not in places or (row['confidence'] or 0) < 0.8 or distance((places[identifier]['latitude'], places[identifier]['longitude']), (row['latitude'], row['longitude'])) > 50 or row['city'] != places[identifier]['city']:
+                raise ValueError('Overture proof must identify an existing nearby branch')
+            place = places[identifier]
+            if not place['address'] and evidence['address']:
+                place.update(address=evidence['address'], address_source_url=evidence['sourceUrl'])
+                overture_addresses += 1
+            if place['verification_status'] == 'osm_only':
+                place['verification_status'] = 'open_data_matched'
+            sources.append({'place_id': identifier, 'provider': 'overture', 'source_id': row['id'],
+                            'source_url': row['source_url'], 'observed_at': row['checked_at'],
+                            'source_updated_at': max((s['update_time'] for s in row['sources'] if s.get('update_time') and s.get('property') in {'','/properties/addresses'}), default=None),
+                            'license': ';'.join(sorted({s['license'] for s in row['sources'] if s.get('license')})), 'payload_json': dump(row)})
+            overture_count += 1
     groups = defaultdict(list)
     for row in places.values():
         if row["name"]:
@@ -237,6 +267,7 @@ def build(raw, districts_raw, google, research, checked_at):
         "google_matched_records": sum(r["google_maps_url"] is not None for r in result),
         "google_rated_records": sum(r["google_rating"] is not None for r in result),
         "google_hours_records": sum(r["google_hours_json"] != "[]" for r in result),
+        "overture_matched_records": overture_count, "overture_addresses_added": overture_addresses,
         "google_reviews": len(reviews), "research_candidates": len(candidates),
         "unnamed_records": sum(r["name"] is None for r in result), "missing_addresses": sum(r["address"] is None for r in result),
         "possible_duplicate_pairs": len(duplicate_pairs), "excluded_osm": excluded, "google_outside_scope": google_outside,
@@ -244,7 +275,7 @@ def build(raw, districts_raw, google, research, checked_at):
     }
 
 
-def export(folder, places, sources, reviews, candidates, duplicate_pairs, metadata, audit=None):
+def export(folder, places, sources, reviews, candidates, duplicate_pairs, metadata, audit=None, discoveries=None):
     folder.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=folder) as temp:
         stage = Path(temp)
@@ -254,12 +285,24 @@ def export(folder, places, sources, reviews, candidates, duplicate_pairs, metada
                 if rows:
                     fields = list(rows[0])
                     db.executemany(f"INSERT INTO {table} ({','.join(fields)}) VALUES ({','.join('?' for _ in fields)})", [tuple(row[k] for k in fields) for row in rows])
-            db.execute("INSERT INTO collection_metadata VALUES (?, ?)", ("summary", dump(metadata)))
             if audit:
                 db.executemany("INSERT INTO enrichment_attempts VALUES (?,?,?,?,?,?)", [
                     (r['id'], r['status'], r.get('lastAttemptAt') or r.get('checkedAt'), r.get('captureCount', 0), int(bool(r.get('limitedPublicView'))), dump(r))
                     for r in audit
                 ])
+            if discoveries:
+                db.executemany('INSERT INTO discovery_places VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', [
+                    (r['id'], r['name'], r['city'], r['district'], r['category'], r['latitude'], r['longitude'], r['address'],
+                     r['confidence'], r['operating_status'], r['source_url'], int(r['address_locality_conflict']), dump(r['sources']))
+                    for r in discoveries
+                ])
+            metadata['all_food_records'] = db.execute('SELECT COUNT(*) FROM all_food_places').fetchone()[0]
+            db.execute("INSERT INTO collection_metadata VALUES (?, ?)", ("summary", dump(metadata)))
+            cursor = db.execute('SELECT * FROM all_food_places')
+            with (stage / 'all-places.csv').open('w', encoding='utf-8-sig', newline='') as stream:
+                writer = csv.writer(stream, lineterminator='\n')
+                writer.writerow([column[0] for column in cursor.description])
+                writer.writerows(cursor)
             assert db.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
             assert not db.execute("PRAGMA foreign_key_check").fetchall()
             assert db.execute("SELECT COUNT(*) FROM places").fetchone()[0] == len(places)
@@ -272,6 +315,12 @@ def export(folder, places, sources, reviews, candidates, duplicate_pairs, metada
                 writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator="\n")
                 writer.writeheader()
                 writer.writerows(rows)
+        if discoveries:
+            fields = ['id','name','city','district','category','latitude','longitude','address','confidence','operating_status','source_url','address_locality_conflict']
+            with (stage / 'discovery-places.csv').open('w', encoding='utf-8-sig', newline='') as stream:
+                writer = csv.DictWriter(stream, fieldnames=fields, extrasaction='ignore', lineterminator='\n')
+                writer.writeheader()
+                writer.writerows(discoveries)
         for path in stage.iterdir():
             path.replace(folder / path.name)
 
@@ -312,5 +361,10 @@ if __name__ == "__main__":
     if audit:
         output[-1]['google_enrichment_checked_at'] = enrichment_metadata['checkedAt']
         output[-1]['enrichment_audit_statuses'] = dict(Counter(r['status'] for r in audit))
-    export(args.output, *output, audit=audit)
+    discoveries_file = FOLDER / 'overture-places.json'
+    discoveries = json.loads(discoveries_file.read_text())['places'] if discoveries_file.exists() else []
+    output[-1]['discovery_records'] = len(discoveries)
+    output[-1]['discovery_address_records'] = sum(bool(r['address']) for r in discoveries)
+    output[-1]['discovery_locality_conflicts'] = sum(r['address_locality_conflict'] for r in discoveries)
+    export(args.output, *output, audit=audit, discoveries=discoveries)
     print(dump({k: v for k, v in output[-1].items() if k not in {"excluded_osm", "districts", "categories", "google_outside_scope"}}))

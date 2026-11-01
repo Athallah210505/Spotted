@@ -32,7 +32,7 @@ def inspect(raw):
         lat, lon = [(int(v) - (2**32 if int(v) >= 2**31 else 0)) / 10**7 for v in coords.groups()]
     else:
         lat, lon = None, None
-    if lat is not None and not (-6.45 <= lat <= -6.10 and 106.68 <= lon <= 106.95):
+    if lat is not None and not (-6.45 <= lat <= -6.05 and 106.65 <= lon <= 107.0):
         return {"status": "outside_jakarta", "name": name, "latitude": lat, "longitude": lon}
     cid = re.search(r"0x[0-9a-f]+:0x([0-9a-f]+)", raw["url"])
     cid_value = cid.group(1) if cid else None
